@@ -193,9 +193,11 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     private MaskDialog mMaskDialog;
     private boolean isEndCall;//判断是否是结束通话
     private boolean isCallSuccess;//判断是否连接成功过
+    private boolean isConnection;//是否连接中
     private int mRemoteVideoUid;
     private EvaluationDialog mEvaluationDialog;
     private VideoPreProcessing videoPreProcessing;
+
 
     @Retention(RetentionPolicy.SOURCE)
     public @interface CallingType {
@@ -452,6 +454,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     }
 
     public void doLeaveChannel() {
+        isConnection = false;
         isVideoCalling = false;
         if (worker() != null)
             worker().leaveChannel(config().mChannel);
@@ -480,6 +483,9 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             doRemoveRemoteUi(mRemoteVideoUid);
             mVideoCallRlUserinfo.setVisibility(View.GONE);
             mCallingFlVideoBig.setOnClickListener(null);
+            mVideoCallingTvLocation.setVisibility(View.GONE);
+            mVideoCallingTvName.setVisibility(View.GONE);
+            mVideoCallingIvHeader.setImageResource(R.drawable.video_calling_logo);
             setSystemUIVisible(true);
             stopTimeDown();
             mVideoCallTvHint.setText("匹配中...");
@@ -1076,9 +1082,9 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             mMaskDialog = new MaskDialog(context());
             mMaskDialog.setMaskChooseListener(chooseMask -> {
                 if (chooseMask) {
-                    getBasePresenter().videoCommond("USER_SELF_ADD_MASK",0);//用户带上面具
+                    getBasePresenter().videoCommond("USER_SELF_ADD_MASK", 0);//用户带上面具
                 } else {
-                    getBasePresenter().videoCommond("USER_SELF_MASK",0);//用户自己揭面
+                    getBasePresenter().videoCommond("USER_SELF_MASK", 0);//用户自己揭面
                 }
             });
         }
@@ -1313,9 +1319,12 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             endCall();
             return;
         }
+        isConnection = true;
         setCallingUserData(videoChatEntity);
         getBasePresenter().addDisposable(RxCountDown.delay(3).subscribe(//匹配成功后等待3秒执行连接
                 integer -> {
+                    if (!isConnection)
+                        return;
                     //设置聊天界面数据
                     mVideoCallingWwvBG.stopRippleAnimation();
                     setUserData(videoChatEntity);
@@ -1329,6 +1338,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                     mVideoCallTvSmallCalling.setText("连接中...");
                     if (worker() != null)
                         worker().joinChannel(channelName, config().mUid);
+                    isConnection = false;
                 }
         ));
     }
