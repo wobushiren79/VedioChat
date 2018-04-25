@@ -17,7 +17,6 @@ import com.huanmedia.videochat.video.CallingPresenter;
 
 import io.agora.propeller.model.ConstantApp;
 import io.agora.rtc.RtcEngine;
-import jp.co.cyberagent.android.gpuimage.GPUImage;
 
 public class TestActivity extends BaseVideoActivity<CallingPresenter> {
     FrameLayout testLayout;
@@ -54,17 +53,14 @@ public class TestActivity extends BaseVideoActivity<CallingPresenter> {
 
     @Override
     protected void initUIandEvent() {
-
         int vProfile = ConstantApp.VIDEO_PROFILES[getVideoProfileIndex()];
         worker().configEngine(vProfile, null, null);
-//            worker().getRtcEngine().disableAudio();//关闭声音
         worker().getRtcEngine().muteLocalVideoStream(true);//不发送本地视频数据
         surfaceV = RtcEngine.CreateRendererView(FApplication.getApplication());
         surfaceV.setZOrderOnTop(false);
         surfaceV.setZOrderMediaOverlay(false);
         testLayout.addView(surfaceV);
         worker().preview(true, surfaceV, 0);
-//        gpuImage.setGLSurfaceView(surfaceV);
     }
 
     @Override
