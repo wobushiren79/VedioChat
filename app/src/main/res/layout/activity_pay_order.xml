@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/block_gray"
+    tools:context="com.huanmedia.videochat.wxapi.WXPayEntryActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_appbar_background_light"
+            app:navigationIcon="@drawable/nav_btn_back_black"
+            app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
+            app:title="支付订单"
+            app:titleTextColor="@color/base_black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/divider_ll" />
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/pay_older_ll_my"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@drawable/base_item_select"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/dp_22"
+        android:paddingStart="@dimen/dp_22"
+        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+
+        <TextView
+            android:id="@+id/pay_older_tv_my"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="订单详情"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_16" />
+
+        <TextView
+            android:id="@+id/pay_older_tv_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_toStartOf="@+id/pay_older_tv_actual_payment"
+            android:drawablePadding="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_4"
+            android:paddingStart="@dimen/dp_4"
+            android:textColor="@color/base_yellow"
+            android:textSize="@dimen/tz_16"
+            tools:text="556 钻石" />
+
+        <TextView
+            android:id="@+id/pay_older_tv_actual_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/dp_16"
+            android:drawablePadding="@dimen/dp_8"
+            android:paddingEnd="@dimen/dp_4"
+            android:paddingStart="@dimen/dp_4"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_16"
+            tools:text="实付款:￥9元" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/pay_older_tv_lable_discounts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_22"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="选择付款方式"
+        android:textColor="@color/base_gray"
+        android:textSize="@dimen/tz_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pay_older_ll_my" />
+
+    <LinearLayout
+        android:id="@+id/pay_older_ll_way"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@color/white"
+        android:divider="@drawable/divider_ll"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        app:layout_constraintTop_toBottomOf="@+id/pay_older_tv_lable_discounts">
+
+        <RelativeLayout
+            android:id="@+id/pay_older_rl_wx"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_80"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/dp_22"
+            android:paddingStart="@dimen/dp_22">
+
+            <ImageView
+                android:id="@+id/pay_older_iv_wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_wechat" />
+
+            <TextView
+                android:id="@+id/pay_older_tv_wechat_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_22"
+                android:layout_toEndOf="@+id/pay_older_iv_wechat"
+                android:text="微信支付"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/tz_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/pay_older_tv_wechat_hint"
+                android:layout_below="@+id/pay_older_tv_wechat_hint"
+                android:text="推荐安装微信5.0以上版本用户使用"
+                android:textColor="@color/base_gray" />
+
+            <RadioButton
+                android:id="@+id/pay_older_rb_wxpay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:buttonTint="@color/color_f65aa0"
+                android:checked="true"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/pay_older_rl_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_80"
+            android:layout_marginStart="@dimen/dp_22"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/dp_22">
+
+            <ImageView
+                android:id="@+id/pay_older_iv_allpay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_allpay" />
+
+            <TextView
+                android:id="@+id/pay_older_tv_allpay_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_22"
+                android:layout_toEndOf="@+id/pay_older_iv_allpay"
+                android:text="支付宝支付"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/tz_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/pay_older_tv_allpay_hint"
+                android:layout_below="@+id/pay_older_tv_allpay_hint"
+                android:text="推荐有支付宝账号的用户使用"
+                android:textColor="@color/base_gray" />
+
+            <RadioButton
+                android:id="@+id/pay_older_rb_alipay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:buttonTint="@color/color_f65aa0"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/pay_order_btn_ok"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="@dimen/dp_44"
+        android:layout_marginEnd="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_22"
+        android:layout_marginTop="@dimen/dp_44"
+        android:background="@drawable/base_btn_solid"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tz_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pay_older_ll_way"
+        tools:text="确认支付 ￥9" />
+</android.support.constraint.ConstraintLayout>

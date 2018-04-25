@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:divider="@drawable/divider_ll"
+    android:orientation="vertical"
+    android:showDividers="middle">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_96dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/dialog_condition_rb_all"
+            android:layout_width="@dimen/dimen_42dp"
+            android:layout_height="@dimen/dimen_42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:layout_marginStart="@dimen/dimen_44dp"
+            android:background="@drawable/rb_style_1"
+            android:button="@null"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="@dimen/dimen_44dp"
+            android:paddingStart="@dimen/dimen_44dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="所有人"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/dimen_32dp" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_marginStart="@dimen/dimen_44dp">
+
+        <RadioButton
+            android:id="@+id/dialog_condition_rb_filter"
+            android:layout_width="@dimen/dimen_42dp"
+            android:layout_height="@dimen/dimen_42dp"
+            android:layout_marginTop="@dimen/dimen_36dp"
+            android:background="@drawable/rb_style_1"
+            android:button="@null"
+            android:paddingLeft="@dimen/dimen_44dp"
+            android:paddingStart="@dimen/dimen_44dp" />
+
+        <TextView
+            android:id="@+id/dialog_condition_rb_filter_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/dialog_condition_rb_filter"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_toEndOf="@+id/dialog_condition_rb_filter"
+            android:text="按条件筛选"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/dimen_28dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/dialog_condition_rb_filter_text"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_toEndOf="@+id/dialog_condition_rb_filter_text"
+            android:text="(20钻石每次)"
+            android:textSize="@dimen/dimen_28dp" />
+
+        <TextView
+            android:id="@+id/dialog_condition_tv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_28"
+            android:layout_below="@+id/dialog_condition_rb_filter"
+            android:layout_marginTop="@dimen/dp_36"
+            android:gravity="center_vertical"
+            android:text="性别"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_16" />
+
+        <RadioGroup
+            android:id="@+id/dialog_condition_rg_sex"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_28"
+            android:layout_alignTop="@+id/dialog_condition_tv_sex"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_toEndOf="@+id/dialog_condition_tv_sex"
+            android:layout_toRightOf="@+id/dialog_condition_tv_sex"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/dialog_condition_rg_rb_wman"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_conditionfilter_cb_lift_sex_selecter"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="女"
+                android:textColor="@color/dialog_conditionfilter_cb_white_gray_selecter"
+                android:textSize="@dimen/sp_14" />
+
+            <RadioButton
+                android:id="@+id/dialog_condition_rg_rb_none"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_conditionfilter_cb_center_sex_selecter"
+                android:button="@null"
+                android:gravity="center"
+                android:text="不限"
+                android:textColor="@color/dialog_conditionfilter_cb_white_gray_selecter"
+                android:textSize="@dimen/sp_14" />
+
+            <RadioButton
+                android:id="@+id/dialog_condition_rg_rb_man"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_conditionfilter_cb_right_sex_selecter"
+                android:button="@null"
+                android:gravity="center"
+                android:text="男"
+                android:textColor="@color/dialog_conditionfilter_cb_white_gray_selecter"
+                android:textSize="@dimen/sp_14" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/dialog_condition_tv_age"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_28"
+            android:layout_below="@+id/dialog_condition_tv_sex"
+            android:layout_marginTop="@dimen/dp_32"
+            android:gravity="center_vertical"
+            android:text="年龄"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_16" />
+
+        <com.huanmedia.videochat.common.widget.bubbleseekbar.BubbleSeekBar
+            android:id="@+id/dialog_condition_seebar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/dialog_condition_tv_age"
+            android:layout_marginBottom="@dimen/dp_36"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_toEndOf="@+id/dialog_condition_tv_age"
+            android:layout_toRightOf="@+id/dialog_condition_tv_age"
+            app:bsb_auto_adjust_section_mark="true"
+            app:bsb_bubble_color="@color/color_f64d99"
+            app:bsb_hide_bubble="true"
+            app:bsb_second_track_color="@color/block_gray"
+            app:bsb_second_track_size="@dimen/dimen_10dp"
+            app:bsb_section_count="6"
+            app:bsb_section_text_color="@color/base_gray"
+            app:bsb_section_text_position="below_section_mark"
+            app:bsb_section_width="@dimen/dimen_20dp"
+            app:bsb_show_section_mark="false"
+            app:bsb_show_section_text="false"
+            app:bsb_show_thumb_text="false"
+            app:bsb_thumb_color="@color/color_f64d99"
+            app:bsb_thumb_text_size="@dimen/dimen_32dp"
+            app:bsb_thumb_type="Round"
+            app:bsb_thumb_width="@dimen/dimen_20dp"
+            app:bsb_touch_to_seek="false"
+            app:bsb_track_color="@color/block_gray"
+            app:bsb_track_size="@dimen/dimen_10dp" />
+        <!--app:isb_indicator_type="rounded_corners"-->
+        <!--<com.warkiz.widget.IndicatorSeekBar-->
+        <!--android:layout_marginBottom="@dimen/dp_16"-->
+        <!--android:layout_marginTop="@dimen/dp_10"-->
+        <!--android:layout_toRightOf="@+id/dialog_condition_tv_age"-->
+        <!--android:layout_toEndOf="@+id/dialog_condition_tv_age"-->
+        <!--android:layout_alignTop="@+id/dialog_condition_tv_age"-->
+        <!--android:id="@+id/dialog_condition_seebar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:isb_max="100"-->
+        <!--app:isb_progress="0"-->
+        <!--app:isb_seek_bar_type="discrete_ticks_texts"-->
+        <!--app:isb_show_indicator="true"-->
+        <!--app:isb_text_array="@array/dialog_conditionfilter_ages"-->
+        <!--app:isb_text_color="@color/base_gray"-->
+        <!--app:isb_thumb_width="20dp"-->
+        <!--app:isb_thumb_color="#66C869"-->
+        <!--app:isb_tick_num="7"-->
+        <!--app:isb_tick_color="@color/block_gray"-->
+        <!--app:isb_tick_on_thumb_left_hide="true"-->
+        <!--app:isb_track_background_bar_color="@color/block_gray"-->
+        <!--app:isb_track_background_bar_size="4dp"-->
+        <!--app:isb_track_progress_bar_color="@color/block_gray"-->
+        <!--app:isb_track_progress_bar_size="4dp"/>-->
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/dialog_condition_btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_52"
+        android:layout_marginBottom="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_22"
+        android:layout_marginTop="@dimen/dimen_46dp"
+        android:background="@drawable/base_btn_solid"
+        android:text="匹配"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tz_20" />
+
+
+</LinearLayout>

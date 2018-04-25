@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    tools:layout_height="216dp"
+    tools:layout_width="178dp">
+
+    <ImageView
+        android:id="@+id/item_discover_grids_iv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_216"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/bg"/>
+
+    <!--图片上面的阴影-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:background="@drawable/bg_discover_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_discover_grids_tv_name"/>
+
+    <LinearLayout
+        android:id="@+id/item_discover_grids_ll_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_item_discover_round_solid"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/item_discover_grids_iv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/dp_2"
+            android:src="@drawable/online_status"/>
+
+        <TextView
+            android:id="@+id/item_discover_grids_tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tz_12"
+            tools:text="5分钟前"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/item_discover_grids_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:maxWidth="@dimen/dp_80"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tz_16"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/item_discover_grids_tv_charge"
+        app:layout_constraintStart_toStartOf="@+id/item_discover_grids_tv_charge"
+        tools:text="小花猫"/>
+
+    <TextView
+        android:id="@+id/item_discover_grids_tv_charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_4"
+        android:drawableStart="@drawable/icon_hone_camera"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tz_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="300钻/分钟"/>
+
+    <TextView
+        android:id="@+id/item_discover_grids_tv_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_4"
+        android:drawableStart="@drawable/icon_coordinate"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tz_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="1036km"/>
+
+</android.support.constraint.ConstraintLayout>

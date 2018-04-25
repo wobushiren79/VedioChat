@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.my.ReadMainCertificateActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_appbar_background_light"
+            app:navigationIcon="@drawable/nav_btn_back_black"
+            app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
+            app:title="红人模式"
+            app:titleTextColor="@color/base_black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/divider_ll" />
+    </android.support.design.widget.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/rmc_iv_bg"
+        android:layout_width="@dimen/dp_258"
+        android:layout_height="@dimen/dp_188"
+        android:layout_marginTop="@dimen/dp_50"
+        android:src="@drawable/bg_renzhen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar_layout" />
+
+    <TextView
+        android:id="@+id/rmc_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="成为红人主播"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/tz_22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rmc_iv_bg" />
+
+    <TextView
+        android:id="@+id/rmc_tv_subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="让你的时间为你和他人创造更多的价值"
+        android:textColor="@color/base_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rmc_tv_title" />
+
+    <Button
+        android:id="@+id/rmc_btn_start"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="@dimen/dp_40"
+        android:background="@drawable/base_btn_solid"
+        android:text="开始认证"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tz_20"
+        app:layout_constraintBottom_toTopOf="@+id/rmc_ll_protocol"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rmc_tv_subTitle" />
+
+    <LinearLayout
+        android:id="@+id/rmc_ll_protocol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_32"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rmc_btn_start">
+
+        <TextView
+            android:id="@+id/rmc_tv_protocol_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="认证代表你已同意"
+            android:textSize="@dimen/tz_14" />
+
+        <TextView
+            android:id="@+id/rmc_tv_protocol_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="《萌面主播绿色直播承诺书》"
+            android:textColor="@color/color_f64d99"
+            android:textSize="@dimen/tz_14" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

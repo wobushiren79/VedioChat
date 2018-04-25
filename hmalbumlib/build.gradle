@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '27.0.3'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation deps.support.v4
+    implementation deps.support.recyclerview
+    implementation deps.support.app_compat
+    implementation 'com.isseiaoki:simplecropview:1.1.4'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation deps.barlibrary
+//    provided 'com.github.bumptech.glide:glide:3.7.0'
+    provided deps.glide.core
+    annotationProcessor deps.glide.glidecompiler
+    provided deps.glide.integration
+    provided deps.picasso
+    testCompile deps.junit
+    implementation project(':ilibray')
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_70"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/base_item_select"
+    android:paddingEnd="@dimen/dp_22">
+    <!--<ImageView-->
+    <!--android:paddingStart="@dimen/dp_8"-->
+    <!--android:paddingTop="@dimen/dp_8"-->
+    <!--android:paddingEnd="@dimen/dp_8"-->
+    <!--android:layout_marginTop="@dimen/dp_16"-->
+    <!--android:layout_marginStart="@dimen/dp_16"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--android:id="@+id/item_notif_msg_iv_icon"-->
+    <!--tools:src="@drawable/icon_system_msg"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"/>-->
+    <FrameLayout
+        android:id="@+id/item_notif_msg_fl_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/item_notif_msg_iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/dp_8"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_4"
+            tools:src="@drawable/icon_system_msg" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/item_notif_msg_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_4"
+        android:drawableEnd="@drawable/icon_system_jump"
+        android:gravity="center_vertical"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/dimen_26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_notif_msg_fl_icon"
+        app:layout_constraintTop_toTopOf="@+id/item_notif_msg_fl_icon"
+        tools:text="跨年活动，美丽大pk活动预告" />
+
+    <TextView
+        android:id="@+id/item_notif_msg_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:text="2017-01-01 14:00"
+        android:textColor="@color/base_gray"
+        android:textSize="@dimen/dimen_20dp"
+        app:layout_constraintStart_toStartOf="@+id/item_notif_msg_tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/item_notif_msg_tv_title" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/divider_ll"
+        app:layout_constraintBottom_toBottomOf="parent" />
+    />
+</android.support.constraint.ConstraintLayout>

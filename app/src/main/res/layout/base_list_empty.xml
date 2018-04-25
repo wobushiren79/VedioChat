@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.huanmedia.ilibray.widgets.ErrorView
+    android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:ev_titleVisible="false"
+    app:ev_subtitle="没有更多"
+    app:ev_image="@drawable/bg_kongshuju"
+    app:ev_retryVisible="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>

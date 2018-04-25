@@ -1,0 +1,37 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windows_background"
+    android:orientation="vertical"
+    tools:context="com.huanmedia.videochat.discover.BusinessCardFragment">
+    <!--头部-->
+    <!--<include layout="@layout/item_business_card_baseinfo"/>-->
+    <!--用户评价标签-->
+    <!--<include layout="@layout/item_business_card_user_evaluate"/>-->
+    <!--用户评价-->
+    <!--<include layout="@layout/item_business_comment"/>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/business_card_rv"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:src="@drawable/btn_information_video"-->
+        <!--android:layout_gravity="bottom|center_horizontal"-->
+        <!--app:backgroundTint="#56abe4"-->
+        <!--app:fabSize="normal"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"/>-->
+    <android.support.v7.widget.AppCompatImageView
+        app:layout_behavior="com.huanmedia.videochat.discover.weight.BusinessBottomBarBehavior"
+        android:id="@+id/business_card_iv_calling"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:src="@drawable/btn_information_video"/>
+</android.support.design.widget.CoordinatorLayout>

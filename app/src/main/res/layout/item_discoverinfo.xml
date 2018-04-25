@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/item_discoverinfo_fl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_gravity="center"
+        android:id="@+id/item_discoverinfo_iv"
+        android:scaleType="centerCrop"
+        android:minWidth="@dimen/dp_98"
+        android:minHeight="@dimen/dp_86"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="@dimen/dp_4"
+        android:src="@drawable/icon_headportrait"/>
+</FrameLayout>

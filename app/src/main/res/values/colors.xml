@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/primaryColor</color>
+    <color name="colorPrimaryDark">@color/primaryDarkColor</color>
+    <color name="colorAccent">@color/secondaryLightColor</color>
+    <color name="windows_background">#F0F4F5</color>
+
+    <color name="text_title">#ECEFF1</color>
+    <color name="text_subtitle">#CFD8DC</color>
+
+
+    <color name="primaryColor">@color/base_yellow</color>
+    <color name="primaryLightColor">#4e505e</color>
+    <color name="primaryDarkColor">#00000e</color>
+    <color name="secondaryColor">#262834</color>
+    <color name="secondaryLightColor">#4e505e</color>
+    <color name="secondaryDarkColor">#00000e</color>
+    <color name="primaryTextColor">@color/base_black</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    //App颜色基础
+    <color name="base_appbar_background_light">#FCFCFC</color>
+    <color name="divide_yellow">#fd7005</color>
+    <color name="divide_gray">#E4E4E6</color>
+    <color name="block_gray">#EEF1F3</color>
+    <color name="block_gray_dark">#D3DDE4</color>
+    <color name="base_red">#fc4141</color>
+    <color name="base_yellow">#fd7005</color>
+    <color name="base_pink">#ff517b</color>
+    <color name="base_violet_light_alpha">#bb8a1bde</color>
+    <color name="base_yellow_alpha">#88fd7005</color>
+    <color name="base_yellow_dark">#fd7005</color>
+    <color name="base_black">#2c2c32</color>
+    <color name="base_gray">#787e88</color>
+    <color name="base_blue">#38B6FF</color>
+    <color name="base_hint">#D1D6E3</color>
+    <color name="base_green">#0FFF18</color>
+
+    //基础颜色
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="blue_396A8E">#396A8E</color>
+    <color name="blue_4685C6">#4685C6</color>
+    <color name="blue_2877C6">#2877C6</color>
+    <color name="gray_8D999E">#8D999E</color>
+    <color name="gray_34383B">#34383B</color>
+    <color name="gray_666666">#666666</color>
+    <color name="gray_DAE2E5">#DAE2E5</color>
+    <color name="gray_B7C8CF">#B7C8CF</color>
+    <color name="gray_8D8D8D">#8D8D8D</color>
+    <color name="gray_c8c8c8">#c8c8c8</color>
+
+    <color name="red_FE2E2E">#FE2E2E</color>
+    <color name="green_33E670">#33E670</color>
+    <color name="green_3DDEB4">#3ddeb4</color>
+    <color name="violet_5139FF">#5139FF</color>
+    <color name="yellow_FEB238">#FEB238</color>
+    <color name="violet_D68E5E">#5139FF</color>
+
+    <color name="color_f64d99">#f64d99</color>
+    <color name="color_f65aa0">#f65aa0</color>
+    <color name="color_1082ff">#1082ff</color>
+    <color name="color_f65aa0_30">#30f65aa0</color>
+    <color name="color_eff1f7">#eff1f7</color>
+    <color name="color_007cff">#007cff</color>
+    <color name="color_fcfcfc">#fcfcfc</color>
+    <color name="color_ef4c9e">#ef4c9e</color>
+    <color name="color_9D44DD">#9D44DD</color>
+    <color name="color_e8ebf1">#e8ebf1</color>
+    <color name="color_9D9FA5">#9D9FA5</color>
+    <color name="color_F1F1F1">#F1F1F1</color>
+    <color name="color_FF7978">#FF7978</color>
+    <color name="color_F1F1F1_90">#90F1F1F1</color>
+    <color name="color_fe6f06">#fe6f06</color>
+    <color name="color_fe6f06_90">#90fe6f06</color>
+
+
+    <color name="header_border_gray">#b4b4b4</color>
+
+    <!--//开关控件-->
+    <color name="ksw_md_ripple_checked">#3366CA6A</color>
+    <color name="ksw_md_ripple_normal">#1E000000</color>
+    <color name="ksw_md_solid_checked">#66CA6A</color>
+    <color name="ksw_md_solid_checked_disable">#999999</color>
+    <color name="ksw_md_solid_disable">#FFFFFF</color>
+    <color name="ksw_md_solid_normal">#999999</color>
+    <color name="ksw_md_solid_shadow">#33000000</color>
+    <color name="orange">#fc4141</color>
+
+    <color name="progress_red">#d62126</color>
+    <color name="progress_green">#66c969</color>
+    <color name="progress_text_back">#30000000</color>
+
+    <color name="black_transparent_30">#30000000</color>
+    <color name="black_transparent_50">#50000000</color>
+    <color name="black_transparent_60">#60000000</color>
+    <color name="black_transparent_80">#80000000</color>
+</resources>

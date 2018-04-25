@@ -1,0 +1,18 @@
+<com.liaoinstan.springview.widget.SpringView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/discover_fm_sv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.main2.fragment.DiscoverFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/discover_fm_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/item_discover_grids"/>
+
+</com.liaoinstan.springview.widget.SpringView>

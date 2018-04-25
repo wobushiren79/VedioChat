@@ -1,0 +1,222 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+    </style>
+    <!--activity默认主题 没有Actionbar-->
+    <style name="AppBaseTheme" parent="AppTheme">
+        <!--修改PopupMenu的分界线  注意添加这个会导致menuItem的点击动画发生变化-->
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:buttonStyle">?android:attr/borderlessButtonStyle</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/windows_background</item>
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:windowAnimationStyle">@style/SlideAnimation</item>
+        <item name="toolbarStyle">@style/AppBaseTheme.Toolbar</item>
+        <item name="editTextStyle">@style/AppBaseTheme.EditText</item>
+        <item name="checkboxStyle">@style/AppBaseTheme.CheckBox_Normal</item>
+        <item name="radioButtonStyle">@style/AppBaseTheme.CheckBox_Normal</item>
+        <item name="actionMenuTextColor">#ffffff</item>
+    </style>
+
+    <style name="AppBaseTheme.AppLayoutBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppBaseTheme.Default.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppBaseTheme.Default.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppBaseTheme.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/base_selector_edittext</item>
+        <item name="android:textCursorDrawable">@drawable/base_cursor_yellow</item>
+        <item name="android:textColorHint">@color/base_hint</item>
+        <item name="android:textSize">@dimen/tz_18</item>
+    </style>
+
+    <style name="AppBaseTheme.CheckBox_Normal" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/base_checkbox_selecter</item>
+        <item name="android:textSize">@dimen/tz_18</item>
+        <item name="android:textColor">@color/base_gray</item>
+    </style>
+    <!--<style name="AppBaseTheme.RadioButton.WXPay" parent="Widget.AppCompat.CompoundButton.CheckBox">-->
+    <!--<item name="android:button">@drawable/accound_bound_pay_radio_selecter</item>-->
+    <!--<item name="android:textSize">@dimen/tz_18</item>-->
+    <!--<item name="android:textColor">@color/base_gray</item>-->
+    <!--</style>-->
+    <!--<style name="AppBaseTheme.RadioButton.ALiPay" parent="Widget.AppCompat.CompoundButton.CheckBox">-->
+    <!--<item name="android:button">@drawable/accound_bound_alipay_radio_selecter</item>-->
+    <!--<item name="android:textSize">@dimen/tz_18</item>-->
+    <!--<item name="android:textColor">@color/base_gray</item>-->
+    <!--</style>-->
+    <style name="AppBaseTheme.CheckBox.VideoCallAttention" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/video_call_attention_checkbox_selecter</item>
+        <item name="android:textSize">@dimen/tz_18</item>
+        <item name="android:textColor">@color/base_gray</item>
+    </style>
+
+    <style name="AppBaseTheme.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item><!-- 设置该属性解决空白部分-->
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="android:background">@drawable/side_nav_bar</item>
+    </style>
+
+    <style name="AppBaseTheme.Toolbar.ActionMenu" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorButtonNormal">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="actionMenuTextColor">@color/white</item> <!--敲定颜色-->
+        <item name="android:textSize">18sp</item> <!--搞掂字体大小-->
+    </style>
+
+    <style name="AppBaseTheme.Toolbar.ActionMenu.Light" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorButtonNormal">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="actionMenuTextColor">@color/base_black</item> <!--敲定颜色-->
+        <item name="android:textSize">18sp</item> <!--搞掂字体大小-->
+    </style>
+
+    <style name="AppBaseTheme.PopupTheme" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:dropDownListViewStyle">@style/AppDropDownListViewStyle</item>
+        <item name="dropDownListViewStyle">@style/AppDropDownListViewStyle</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle
+        </item> <!--新增一个item，用于控制menu-->
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--把该属性改为false即可使menu位置位于toolbar之下-->
+        <item name="android:dropDownVerticalOffset">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingEnd" tools:ignore="NewApi">5dp</item>
+        <item name="android:dropDownListViewStyle">@style/AppDropDownListViewStyle</item>
+    </style>
+
+    <style name="AppDropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:showDividers">middle</item>
+        <item name="android:divider">@drawable/divider_ll</item>
+        <item name="android:dividerHeight">0.5dp</item>
+    </style>
+
+    <style name="customDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <style name="customDialog_upward" parent="customDialog">
+        <item name="android:windowAnimationStyle">@style/Windows_Anim_Upward</item>
+    </style>
+
+    <style name="customDialog.Gift" parent="customDialog">
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+        <item name="android:backgroundDimAmount">0</item>
+        <item name="android:windowAnimationStyle">@style/Windows_Anim_Upward</item>
+    </style>
+
+    <style name="customDialog_hint" parent="customDialog">
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+        <item name="android:backgroundDimAmount">0</item>
+    </style>
+    <!--向上弹出窗口动画-->
+    <style name="Windows_Anim_Upward" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_up</item>
+        <item name="android:windowExitAnimation">@anim/dialog_down</item>
+    </style>
+
+    <style name="AppBaseTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppBaseTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="SwitchButtonStyleMD" parent="SwitchButtonMD">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="kswThumbRangeRatio">2.2</item>
+        <item name="kswThumbMarginTop">-18dp</item>
+        <item name="kswThumbMarginBottom">-18dp</item>
+        <item name="kswThumbMarginLeft">-14dp</item>
+        <item name="kswThumbMarginRight">-14dp</item>
+    </style>
+
+    <style name="SlideRightAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:taskOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:taskToFrontEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="SlideAnimation" parent="SlideRightAnimation">
+        <item name="android:activityOpenExitAnimation">@anim/scale_in_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/scale_out_left</item>
+        <item name="android:taskOpenExitAnimation">@anim/scale_in_left</item>
+        <item name="android:taskCloseEnterAnimation">@anim/scale_out_left</item>
+        <item name="android:taskToFrontExitAnimation">@anim/scale_in_left</item>
+        <item name="android:taskToBackEnterAnimation">@anim/scale_out_left</item>
+    </style>
+
+    <!--<style name="customDialog.Dialog_FS" parent="customDialog">-->
+    <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--<item name="android:windowContentOverlay">@null</item>-->
+    <!--<item name="android:windowAnimationStyle">@style/menupopwindow_anim_style</item>-->
+    <!--<item name="android:windowFullscreen">true</item>-->
+    <!--<item name="android:backgroundDimEnabled">true</item>-->
+    <!--<item name="android:backgroundDimAmount">0.6</item>-->
+    <!--</style>-->
+    <!--&lt;!&ndash;Pop菜单显示和隐藏动画&ndash;&gt;-->
+    <!--<style name="menupopwindow_anim_style">-->
+    <!--<item name="android:windowEnterAnimation">@anim/popup_flyout_show</item>-->
+    <!--&lt;!&ndash; 指定显示的动画xml &ndash;&gt;-->
+
+    <!--<item name="android:windowExitAnimation">@anim/popup_flyout_hide</item>-->
+    <!--&lt;!&ndash; 指定消失的动画xml &ndash;&gt;-->
+    <!--</style>-->
+
+    <!--聊天气泡-->
+
+    <!--时间-->
+    <style name="Chat_time_Style">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/dp_8</item>
+        <item name="android:textColor">@color/base_gray</item>
+        <item name="android:textSize">@dimen/dp_12</item>
+        <!--<item name="android:background">@drawable/background_message_chatitem_time</item>-->
+    </style>
+
+    <style name="Chat_content_RightStyle">
+        <item name="android:minWidth">@dimen/dp_32</item>
+        <item name="android:minHeight">@dimen/dp_32</item>
+        <item name="android:textSize">@dimen/textsize_16sp</item>
+        <item name="android:textColor">@color/base_black</item>
+    </style>
+
+    <style name="AppBaseTheme.ProgressBar.Small" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/base_progress_bar_small</item>
+        <item name="android:minWidth">27dip</item>
+        <item name="android:maxWidth">27dip</item>
+        <item name="android:minHeight">27dip</item>
+        <item name="android:maxHeight">27dip</item>
+    </style>
+
+
+</resources>

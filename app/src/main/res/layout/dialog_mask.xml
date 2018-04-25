@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><!--//底部选项-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_272"
+    android:layout_gravity="bottom"
+    android:background="#88535353"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/dialog_mask_vp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_216" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="#AA000000">
+
+        <RadioGroup
+            android:id="@+id/dialog_mask_rg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_54"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="@dimen/dimen_62dp"
+                android:layout_height="@dimen/dimen_62dp"
+                android:layout_marginEnd="@dimen/dimen_120dp"
+                android:background="@drawable/mask_rb_icon_hot"
+                android:button="@null"
+                tools:checked="true" />
+
+            <RadioButton
+                android:layout_width="@dimen/dimen_62dp"
+                android:layout_height="@dimen/dimen_62dp"
+                android:background="@drawable/mask_rb_icon_2in1"
+                android:button="@null" />
+        </RadioGroup>
+    </FrameLayout>
+</LinearLayout>

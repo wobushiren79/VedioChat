@@ -1,0 +1,129 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    tools:context="com.huanmedia.videochat.main2.fragment.MatchFragment">
+
+    <FrameLayout
+        android:id="@+id/main_video_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/main_iv_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+    <!--<LinearLayout-->
+    <!--android:orientation="vertical"-->
+    <!--android:id="@+id/main_ll_blur"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+
+    <!--视频显示框-->
+    <!--<com.huanmedia.videochat.common.widget.VideoChatWindowView-->
+    <!--</com.huanmedia.videochat.common.widget.VideoChatWindowView>-->
+
+    <!--//头部按钮-->
+    <LinearLayout
+        android:id="@+id/main_rootview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/toolbar_content"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+            <ImageView
+                android:id="@+id/main_tv_conditionFilter"
+                android:layout_width="@dimen/dp_38"
+                android:layout_height="@dimen/dp_38"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/dimen_22dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_screening" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="偶遇"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_36dp" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_32dp"
+                    android:layout_height="@dimen/dimen_4dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:background="@color/color_f65aa0" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/main_iv_back"
+                android:layout_width="@dimen/dp_38"
+                android:layout_height="@dimen/dp_38"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/dimen_22dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_return" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/main_windowView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:layout_weight="1">
+            <!--底部按钮-->
+            <FrameLayout
+                android:id="@+id/main_match_buttom_fl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/dp_6">
+
+                <ImageView
+                    android:id="@+id/main_iv_mask"
+                    android:layout_width="@dimen/dimen_76dp"
+                    android:layout_height="@dimen/dimen_76dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginEnd="@dimen/dp_110"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_mask" />
+
+                <ImageView
+                    android:id="@+id/main_iv_beauty"
+                    android:layout_width="@dimen/dimen_76dp"
+                    android:layout_height="@dimen/dimen_76dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginStart="@dimen/dp_110"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_skincare" />
+
+                <ImageView
+                    android:id="@+id/main_iv_random_matching"
+                    android:layout_width="@dimen/dimen_166dp"
+                    android:layout_height="@dimen/dimen_166dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_screen" />
+            </FrameLayout>
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

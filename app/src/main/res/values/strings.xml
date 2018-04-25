@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">萌面</string>
+    <string name="title_home">公告</string>
+    <string name="title_dashboard">平台</string>
+    <string name="title_notifications">我的</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="copied_to_clipboard">拷贝到剪贴板</string>
+    <string name="copy_link">拷贝链接</string>
+    <string name="find">查找</string>
+    <string name="open_with">打开</string>
+    <string name="refresh">刷新</string>
+    <string name="share_via">分享</string>
+    <string name="rationale_ask_again">如果没有请求的权限，这个应用程序可能无法正常工作。打开app设置界面修改app权限。</string>
+    <string name="title_settings_dialog">权限要求</string>
+    <string name="register_success">Register push success.</string>
+    <string name="register_fail">Register push fail.</string>
+    <string name="recv_passthrough_message"> 透传消息类容：\"%1$s\"</string>
+    <string name="click_notification_message"> 用户点击通知消息：\"%1$s\"</string>
+    <string name="arrive_notification_message"> 收到通知消息： \"%1$s\"</string>
+    <string name="set_alias_success"> Set alias \"%1$s\" success.</string>
+    <string name="set_alias_fail"> Set alias fail for %1$s.</string>
+    <string name="unset_alias_success"> Unset alias \"%1$s\" success.</string>
+    <string name="unset_alias_fail"> Unset alias fail for %1$s.</string>
+    <string name="set_account_success"> Set account \"%1$s\" success.</string>
+    <string name="set_account_fail"> Set account fail for %1$s.</string>
+    <string name="unset_account_success"> Unset account \"%1$s\" success.</string>
+    <string name="unset_account_fail"> Unset account fail for %1$s.</string>
+    <string name="subscribe_topic_success"> Subscribe topic \"%1$s\" success.</string>
+    <string name="subscribe_topic_fail"> Subscribe topic fail for %1$s.</string>
+    <string name="unsubscribe_topic_success"> Unsubscribe topic \"%1$s\" success.</string>
+    <string name="unsubscribe_topic_fail"> Unsubscribe topic fail for %1$s.</string>
+    <string name="set_accept_time_success"> Set accept time %1$s - %2$s success.</string>
+    <string name="set_accept_time_fail"> Set accept time fail for %1$s.</string>
+
+    <string name="rationale_camera_write_read">萌面需要访问以下权限：\n1.文件读写权限\n2.相机设备访问权限\n3.获取手机状态信息</string>
+    <string name="ok">确定</string>
+    <string name="dialog_title_age">年龄选择</string>
+    <string name="login_smsCodeTimedown">%d 秒后重发</string>
+    <string name="login_replySmsCode">重新发送</string>
+    <string name="login_submit_infomation">提交数据</string>
+    <string name="copyright">Copyright © 2017–2018 StarValley.\n All Rights Reserved</string>
+    <string name="item_message_sendFail">发送失败</string>
+    <string name="submit">提交</string>
+    <string name="calling_people">遇到</string>
+    <string name="attention_people">关注</string>
+
+    <string name="tab_fans">粉丝</string>
+
+    <string name="my_wallet_mcoin">M币</string>
+    <string name="my_wallet_coin">钻石</string>
+
+    <string name="exchange_tv_consume">花费%dM币</string>
+    <string name="title_activity_test">TestActivity</string>
+
+    <string name="dialog_evaluation_title_1">聊天已结束</string>
+    <string name="dialog_evaluation_title_2">请评价TA一下吧~</string>
+    <string name="dialog_evaluation_submit_no">没兴趣</string>
+    <string name="dialog_evaluation_submit_yes">提交</string>
+
+    <string name="activity_call_check_wechat">查看对方微信、QQ</string>
+
+    <string name="dialog_checkcontact_titel">提示</string>
+    <string name="dialog_checkcontact_hint_1">您还没有获取对方的私密联系方式，花费一定钻石数就可以获取哟~</string>
+    <string name="dialog_checkcontact_hint_2">点击可以复制到粘贴板</string>
+    <string name="dialog_checkcontact_qq_title">QQ：</string>
+    <string name="dialog_checkcontact_wechat_title">微信：</string>
+    <string name="dialog_checkcontact_copy">复制</string>
+    <string name="dialog_checkcontact_button_1">确 定</string>
+    <string name="dialog_checkcontact_button_2">立即解锁</string>
+
+    <string name="activity_help_title_1">新手教程</string>
+    <string name="activity_help_title_2">解决消息来电无提示</string>
+
+
+</resources>

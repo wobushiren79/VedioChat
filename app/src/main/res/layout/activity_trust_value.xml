@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.my.TrustValueActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_appbar_background_light"
+            app:navigationIcon="@drawable/nav_btn_back_black"
+            app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
+            app:title="信任值"
+            app:titleTextColor="@color/base_black">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/tv_explain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/dimen_44dp"
+                    android:text="说明"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/dimen_30dp" />
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/divider_ll" />
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/trust_value_sv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/trust_value_cl_show_value"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_222"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.huanmedia.videochat.common.widget.WaveLoadingView
+                    android:id="@+id/trust_value_tp"
+                    android:layout_width="148dp"
+                    android:layout_height="148dp"
+                    android:layout_marginTop="@dimen/dp_22"
+                    app:layout_constraintBottom_toTopOf="@+id/trust_value_tv_tips"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:wlv_borderWidth="3dp"
+                    app:wlv_color_type="gradient"
+                    app:wlv_gradient_endColor="#9a45e0"
+                    app:wlv_gradient_startColor="#f64d99"
+                    app:wlv_progressValue="100"
+                    app:wlv_round_rectangle="true"
+                    app:wlv_shapeType="circle"
+                    app:wlv_titleBottomColor="@color/white"
+                    app:wlv_titleBottomSize="@dimen/tz_14"
+                    app:wlv_titleCenterColor="@color/white"
+                    app:wlv_titleCenterSize="46sp"
+                    app:wlv_triangle_direction="north"
+                    app:wlv_waveAmplitude="40"
+                    app:wlv_waveColor="#33ffffff"
+                    app:wlv_wave_background_Color="#f64d99" />
+
+                <TextView
+                    android:id="@+id/trust_value_tv_tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_22"
+                    android:text="信任值满分100分"
+                    android:textColor="@color/base_gray"
+                    android:textSize="@dimen/tz_14"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout
+                android:id="@+id/trust_value_tgp_goods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:minHeight="@dimen/dp_120"
+                android:paddingBottom="@dimen/dp_22"
+                android:paddingEnd="@dimen/dp_22"
+                android:paddingStart="@dimen/dp_22"
+                android:paddingTop="@dimen/dp_22"
+                app:container_background_color="@color/white"
+                app:container_border_color="@color/transparent"
+                app:container_border_radius="0dp"
+                app:container_border_width="0dp"
+                app:container_enable_drag="false"
+                app:horizontal_interval="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trust_value_cl_show_value"
+                app:tag_clickable="false"
+                app:tag_corner_radius="15dp"
+                app:tag_horizontal_padding="10dp"
+                app:tag_text_size="@dimen/tz_14"
+                app:tag_theme="random"
+                app:tag_vertical_padding="8dp"
+                app:vertical_interval="4dp"
+                tools:layout_height="wrap_content" />
+
+            <com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout
+                android:id="@+id/trust_value_tgp_bad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:minHeight="@dimen/dp_120"
+                android:paddingBottom="@dimen/dp_22"
+                android:paddingEnd="@dimen/dp_22"
+                android:paddingStart="@dimen/dp_22"
+                android:paddingTop="@dimen/dp_22"
+                app:container_background_color="@color/white"
+                app:container_border_color="@color/transparent"
+                app:container_border_radius="0dp"
+                app:container_border_width="0dp"
+                app:container_enable_drag="false"
+                app:horizontal_interval="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trust_value_tgp_goods"
+                app:tag_background_color="@color/block_gray_dark"
+                app:tag_border_color="@color/transparent"
+                app:tag_clickable="false"
+                app:tag_corner_radius="15dp"
+                app:tag_horizontal_padding="10dp"
+                app:tag_text_color="@color/base_gray"
+                app:tag_text_size="@dimen/tz_14"
+                app:tag_theme="none"
+                app:tag_vertical_padding="8dp"
+                app:vertical_interval="4dp"
+                tools:layout_height="wrap_content" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

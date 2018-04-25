@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_216"
+    android:paddingEnd="7.5dp"
+    android:paddingStart="7.5dp"
+    android:paddingTop="7.5dp">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_rv_select_filter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="4"
+        tools:listitem="@layout/item_main_select_filter"
+        />
+</FrameLayout>

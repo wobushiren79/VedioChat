@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/block_gray"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context="com.huanmedia.videochat.main.fragment.ChatPeopleFragment">
+   <com.huanmedia.ilibray.widgets.ErrorView
+       android:visibility="gone"
+       android:layout_gravity="center"
+       android:id="@+id/errorView"
+       app:ev_retryVisible="false"
+       app:ev_titleVisible="false"
+       app:ev_image="@drawable/bg_kongshuju"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chat_pople_rv_talked"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_272"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp_14"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_laout_rg_table"
+        app:spanCount="2"
+        tools:listitem="@layout/item_drawer_talked"/>
+</FrameLayout>

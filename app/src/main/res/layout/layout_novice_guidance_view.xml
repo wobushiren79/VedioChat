@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_black">
+
+    <ImageView
+        android:id="@+id/iv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <FrameLayout
+        android:id="@+id/fl_cancel"
+        android:layout_width="@dimen/dimen_70dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:background="@drawable/bg_round">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_30dp"
+            android:layout_height="@dimen/dimen_30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_close_white" />
+    </FrameLayout>
+
+
+</FrameLayout>

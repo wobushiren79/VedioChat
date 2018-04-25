@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_448dp"
+        android:background="@color/black_transparent_50"
+        android:clipChildren="false">
+        <!--礼物页面-->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/dialog_gift_vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/dialog_gift_ll_dot"
+            android:clipChildren="false" />
+        <!--指示器-->
+        <LinearLayout
+            android:id="@+id/dialog_gift_ll_dot"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_24"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dialog_gift_fl_buttom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_108dp"
+        android:background="@color/black_transparent_80"
+        android:paddingLeft="@dimen/dimen_44dp"
+        android:paddingRight="@dimen/dimen_44dp">
+
+        <ImageView
+            android:id="@+id/dialog_gift_tv_icon"
+            android:layout_width="@dimen/dimen_32dp"
+            android:layout_height="@dimen/dimen_24dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/tab_icon_jewel" />
+
+        <TextView
+            android:id="@+id/dialog_gift_tv_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_toRightOf="@+id/dialog_gift_tv_icon"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_36dp"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/dialog_gift_tv_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_48dp"
+            android:layout_toEndOf="@+id/dialog_gift_tv_coin"
+            android:layout_toRightOf="@+id/dialog_gift_tv_coin"
+            android:text="充值"
+            android:textColor="@color/color_ef4c9e"
+            android:textSize="@dimen/dimen_32dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dialog_gift_btn_count"
+            android:layout_width="@dimen/dimen_156dp"
+            android:layout_height="@dimen/dimen_56dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="-1dp"
+            android:layout_toLeftOf="@+id/dialog_gift_btn_ok"
+            android:layout_toStartOf="@+id/dialog_gift_btn_ok"
+            android:background="@drawable/dialog_gift_btn_stroke_yellow_line_selecter"
+            android:drawableEnd="@drawable/nav_gift_dialog_count_select"
+            android:drawableTint="@color/color_f64d99"
+            android:text="1"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/dialog_gift_btn_ok"
+            android:layout_width="@dimen/dimen_156dp"
+            android:layout_height="@dimen/dimen_56dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/dialog_gift_btn_solid_yellow_line_selecter"
+            android:text="赠送"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_32dp" />
+
+    </RelativeLayout>
+</LinearLayout>

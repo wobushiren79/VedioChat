@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.my.LevelActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_appbar_background_light"
+            app:navigationIcon="@drawable/nav_btn_back_black"
+            app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
+            app:title="我的等级"
+            app:titleTextColor="@color/base_black"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/divider_ll"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/level_cl_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_235"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/level_iv_header"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_22"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_headportrait"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_border_color="@color/header_border_gray"
+            app:riv_border_width="@dimen/dp_1"
+            app:riv_corner_radius="@dimen/dp_4"
+            app:riv_oval="true"/>
+
+        <ImageView
+            android:id="@+id/level_iv_lv"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_6"
+            android:src="@drawable/user_level"
+            app:layout_constraintEnd_toEndOf="@+id/level_iv_header"
+            app:layout_constraintStart_toStartOf="@+id/level_iv_header"
+            app:layout_constraintTop_toBottomOf="@+id/level_iv_header"/>
+
+        <LinearLayout
+            android:id="@+id/level_ll_low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_22"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/level_gpv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/level_gpv">
+
+            <TextView
+                android:id="@+id/level_tv_low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LV.3"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/tz_14"/>
+
+            <TextView
+                android:id="@+id/level_tv_low_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="（1200）"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/tz_12"/>
+
+        </LinearLayout>
+
+        <com.huanmedia.videochat.main2.weight.GoodProgressView
+            android:id="@+id/level_gpv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/level_ll_high"
+            app:layout_constraintStart_toEndOf="@+id/level_ll_low"
+            app:layout_constraintTop_toBottomOf="@+id/level_iv_lv"
+            app:progress="100"
+            app:backgroundColor="#B4B4B4"
+            app:endColor="#cc3ce6"
+            app:startColor="#ff339d"
+            app:showProgressText="false"/>
+
+        <LinearLayout
+            android:id="@+id/level_ll_high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_22"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/level_gpv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/level_gpv">
+
+            <TextView
+                android:id="@+id/level_tv_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LV.4"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/tz_14"/>
+
+            <TextView
+                android:id="@+id/level_tv_high_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="（2499）"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/tz_12"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/level_tv_currentLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="当前经验值"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_18"
+            app:layout_constraintBottom_toTopOf="@+id/level_tv_levelDesc"
+            app:layout_constraintEnd_toEndOf="@id/level_gpv"
+            app:layout_constraintStart_toStartOf="@+id/level_gpv"
+            app:layout_constraintTop_toBottomOf="@+id/level_gpv"/>
+
+        <TextView
+            android:id="@+id/level_tv_levelDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_6"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/tz_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/level_gpv"
+            app:layout_constraintStart_toStartOf="@+id/level_gpv"
+            app:layout_constraintTop_toBottomOf="@+id/level_tv_currentLevel"
+            tools:text="特权：自定义筛选匹配免费次数2次"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/level_cl_upgrade"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_16"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/level_cl_header">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/windows_background"
+            app:layout_constraintBottom_toBottomOf="@+id/level_upgrade_rv"
+            app:layout_constraintEnd_toEndOf="@+id/level_upgrade_rv"
+            app:layout_constraintStart_toStartOf="@+id/level_upgrade_rv"
+            app:layout_constraintTop_toBottomOf="@+id/level_upgrade_tv_title"/>
+
+        <TextView
+            android:id="@+id/level_upgrade_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:gravity="center"
+            android:text="经验获取"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_16"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:overScrollMode="never"
+            android:id="@+id/level_upgrade_rv"
+            android:layout_width="0dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/dp_22"
+            android:layout_marginStart="@dimen/dp_22"
+            android:paddingBottom="0.25dp"
+            android:paddingEnd="0.25dp"
+            android:paddingStart="0.25dp"
+            android:paddingTop="0.25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/level_upgrade_tv_title"
+            tools:listitem="@layout/item_level_upgrade"/>
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

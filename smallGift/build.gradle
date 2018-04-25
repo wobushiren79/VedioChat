@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '27.0.3'
+}
+
+////统一support库的版本
+//configurations.all {
+//    resolutionStrategy.eachDependency {
+//        DependencyResolveDetails details ->
+//            def requested = details.requested
+//            if (requested.group == 'com.android.support') {
+//                if (!requested.name.startsWith("multidex")) {
+//                    details.useVersion rootProject.supportLibraryVersion
+//                }
+//            }
+//    }
+//}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation deps.support.app_compat
+    testCompile deps.junit
+    implementation deps.support.recyclerview
+//    compile 'io.reactivex:rxjava:1.2.1'
+//    compile 'io.reactivex:rxandroid:1.2.1'
+    implementation project(':ilibray')
+}

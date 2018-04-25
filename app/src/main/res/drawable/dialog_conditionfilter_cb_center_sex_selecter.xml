@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/dialog_conditionfilter_cb_center_sex_nor" android:state_enabled="false"/>
+    <item android:drawable="@drawable/dialog_conditionfilter_cb_center_sex_checked" android:state_checked="true"/>
+    <item android:drawable="@drawable/dialog_conditionfilter_cb_center_sex_nor"/>
+</selector>

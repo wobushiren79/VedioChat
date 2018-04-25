@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.pay.AccountBoundActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_appbar_background_light"
+            app:navigationIcon="@drawable/nav_btn_back_black"
+            app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
+            app:title="绑定账户"
+            app:titleTextColor="@color/base_black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/divider_ll" />
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/my_account_bound_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_22"
+        android:layout_marginTop="@dimen/dp_20"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_166dp">
+
+            <RadioButton
+                android:id="@+id/my_account_bound_rb_aliPay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/account_bound_pay_radio_selecter"
+                android:button="@null" />
+
+            <ImageView
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_bound_user_allpay" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_166dp"
+            android:layout_marginTop="@dimen/dp_20">
+
+            <RadioButton
+                android:id="@+id/my_account_bound_rb_wxPay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/account_bound_pay_radio_selecter"
+                android:button="@null"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+            <ImageView
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_bound_user_wechat_disable" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/my_account_btn_ok"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_52"
+        android:layout_marginBottom="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_22"
+        android:layout_marginTop="@dimen/dp_160"
+        android:background="@drawable/my_account_btn_solid"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tz_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_account_bound_ll"
+        tools:text="绑定" />
+</android.support.constraint.ConstraintLayout>

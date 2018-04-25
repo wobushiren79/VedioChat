@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/readmain_auth_cl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.my.RedMianAuthActivity"
+    >
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_appbar_background_light"
+            app:navigationIcon="@drawable/nav_btn_back_black"
+            app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
+            app:title="红人认证"
+            app:titleTextColor="@color/base_black"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/divider_ll"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/readmain_auth_sv_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/readmain_auth_cl_content"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:id="@+id/readmain_auth_rl_hand_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_106"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/base_item_select"
+                android:paddingEnd="@dimen/dp_22"
+                android:paddingStart="@dimen/dp_22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/readmain_auth_rl_card"
+                >
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/readmain_auth_riv_hand_card"
+                    android:layout_width="@dimen/dp_72"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_identificationphoto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_border_color="@color/block_gray"
+                    app:riv_border_width="@dimen/dp_1"
+                    app:riv_corner_radius="@dimen/dp_4"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_alignBottom="@+id/readmain_auth_riv_hand_card"
+                    android:layout_alignEnd="@+id/readmain_auth_riv_hand_card"
+                    android:layout_marginBottom="-12dp"
+                    android:layout_marginEnd="-12dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_camera"/>
+
+                <TextView
+                    android:id="@+id/readmain_auth_tv_hand_card_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/readmain_auth_riv_hand_card"
+                    android:layout_marginStart="@dimen/dp_26"
+                    android:layout_toEndOf="@+id/readmain_auth_riv_hand_card"
+                    android:text="手持身份证"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/tz_18"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/readmain_auth_tv_hand_card_title"
+                    android:layout_below="@+id/readmain_auth_tv_hand_card_title"
+                    android:text="本人必须手持身份证，保证身份证上信息清晰可见"
+                    android:textColor="@color/base_gray"
+                    android:textSize="@dimen/tz_16"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/readmain_auth_rl_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_106"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/base_item_select"
+                android:paddingEnd="@dimen/dp_22"
+                android:paddingStart="@dimen/dp_22"
+                app:layout_constraintBottom_toTopOf="@+id/readmain_auth_ll"
+                app:layout_constraintTop_toBottomOf="@+id/readmain_auth_rl_hand_card">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/readmain_auth_riv_card"
+                    android:layout_width="@dimen/dp_72"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_identification"
+                    app:riv_border_color="@color/block_gray"
+                    app:riv_border_width="@dimen/dp_1"
+                    app:riv_corner_radius="@dimen/dp_4"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_alignBottom="@+id/readmain_auth_riv_card"
+                    android:layout_alignEnd="@+id/readmain_auth_riv_card"
+                    android:layout_marginBottom="-12dp"
+                    android:layout_marginEnd="-12dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_camera"/>
+
+                <TextView
+                    android:id="@+id/readmain_auth_tv_card_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/readmain_auth_riv_card"
+                    android:layout_marginStart="@dimen/dp_26"
+                    android:layout_toEndOf="@+id/readmain_auth_riv_card"
+                    android:text="独立身份证照"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/tz_18"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/readmain_auth_tv_card_title"
+                    android:layout_below="@+id/readmain_auth_tv_card_title"
+                    android:text="上传本人身份证正面照片,保证身份证上信息清晰可见"
+                    android:textColor="@color/base_gray"
+                    android:textSize="@dimen/tz_16"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/readmain_auth_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/base_item_select"
+                android:divider="@drawable/divider_ll"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:showDividers="middle"
+                app:layout_constraintTop_toBottomOf="@+id/readmain_auth_rl_card"
+                app:layout_constraintBottom_toTopOf="@+id/redmain_auth_btn_ok">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/base_item_select"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_22"
+                        android:ems="4"
+                        android:text="真实姓名"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_18"/>
+
+                    <EditText
+                        android:id="@+id/readmain_auth_et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:background="@null"
+                        android:hint="请输入真实姓名"
+                        android:textSize="@dimen/tz_16"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/base_item_select"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_22"
+                        android:ems="4"
+                        android:text="身份证号"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_18"/>
+
+                    <EditText
+                        android:id="@+id/readmain_auth_et_card_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:background="@null"
+                        android:hint="请输入有效证件"
+                        android:textSize="@dimen/tz_16"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/base_item_select">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_22"
+                        android:ems="4"
+                        android:text="手机号"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_18"/>
+
+                    <EditText
+                        android:id="@+id/readmain_auth_et_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:background="@null"
+                        android:hint="请输入你的手机号"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:textSize="@dimen/tz_16"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/redmain_auth_btn_ok"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_52"
+                android:layout_marginBottom="@dimen/dp_22"
+                android:layout_marginEnd="@dimen/dp_22"
+                android:layout_marginStart="@dimen/dp_22"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/base_btn_solid"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="@dimen/tz_20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/readmain_auth_ll"/>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

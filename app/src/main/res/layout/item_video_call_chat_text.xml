@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/item_video_call_item_tv_chat"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:text="你已将你们的聊天时间增长3分钟"
+    android:textColor="@color/white"
+    android:paddingTop="@dimen/dp_4"
+    android:paddingBottom="@dimen/dp_4"
+    android:paddingStart="@dimen/dp_22"
+    android:paddingEnd="@dimen/dp_22"
+    android:textSize="@dimen/tz_16"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>

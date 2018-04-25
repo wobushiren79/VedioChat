@@ -1,0 +1,185 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="com.huanmedia.videochat.launch.fragment.CompleteInformationFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            layout="@layout/base_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize" />
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/complete_info_fl_header"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp">
+
+        <ImageView
+            android:id="@+id/complete_info_iv_header"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:src="@drawable/icon_headportrait" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="-10dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginRight="-10dp"
+            android:src="@drawable/icon_camera" />
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/complete_info_et_nickName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/complete_info_fl_header"
+        android:layout_marginEnd="22dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="30dp"
+        android:background="@null"
+        android:hint="请输入昵称"
+        android:maxLines="1"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1dp"
+        android:layout_below="@+id/complete_info_et_nickName"
+        android:layout_marginBottom="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:background="@color/color_e8ebf1"
+        app:layout_constraintTop_toBottomOf="@+id/login_et_phone" />
+
+    <LinearLayout
+        android:id="@+id/complete_info_ll_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/complete_info_et_nickName"
+        android:divider="@drawable/divider_ll"
+        android:orientation="vertical"
+        android:paddingEnd="22dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:showDividers="middle">
+
+        <RelativeLayout
+            android:id="@+id/complete_info_rl_sex"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:text="性别"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/tz_16" />
+
+            <TextView
+                android:id="@+id/complete_info_tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:drawableEnd="@drawable/icon_arrows"
+                android:drawablePadding="4dp"
+                android:drawableRight="@drawable/icon_arrows"
+                android:gravity="center_vertical"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/tz_16"
+                tools:text="男" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/complete_info_rl_age"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:text="年龄"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/tz_16" />
+
+            <TextView
+                android:id="@+id/complete_info_tv_age"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:drawableEnd="@drawable/icon_arrows"
+                android:drawablePadding="4dp"
+                android:drawableRight="@drawable/icon_arrows"
+                android:gravity="center_vertical"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/tz_16"
+                tools:text="1991-09-29" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/complete_info_ll_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/complete_info_ll_info"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注:"
+            android:textColor="@color/color_f64d99"
+            android:textSize="@dimen/tz_16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请务必填写真实有效的信息"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/tz_16" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/complete_info_btn_complete"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@+id/complete_info_ll_hint"
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/base_btn_solid"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tz_20" />
+</RelativeLayout>

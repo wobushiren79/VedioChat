@@ -1,0 +1,245 @@
+import java.security.InvalidKeyException
+
+apply plugin: 'com.android.application'
+
+//设置发布的渠道
+def getAppChannelId() {
+//    渠道号：
+//    000.官方
+//    001、应用宝
+//    002、华为应用市场
+//    003、小米应用商店
+//    004、百度分发
+//    005、360助手
+//    006、安智市场
+//    007、豌豆荚
+//    008、阿里分发
+//    009、安智市场
+//    010、机锋市场
+//    011、PP手机助手
+//    012、vivo应用商店
+//    013、乐视应用商店
+//    014、魅族应用商店
+//    015、三星应用商店
+//    016、oppo应用商店
+//    017、美图应用商店
+    //018.wifi的推广渠道号
+    return "0"
+}
+
+android {
+//    useLibrary 'org.apache.http.legacy'
+    compileSdkVersion build_versions.target_sdk
+    defaultConfig {
+        multiDexEnabled true
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        applicationId 'com.huanmedia.videochat'
+        versionCode 1
+        versionName '1.0'
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        testApplicationId 'com.huanmedia.videochat.test'
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "UZJSQQqbzX8hwQRbmp9z34",
+                GETUI_APP_KEY   : "heW3SYxQQ565SZBQg6qUZ2",
+                GETUI_APP_SECRET: "GxGTKNh3J28qcFHIEbmrH7",
+                APP_CHANNEL_ID  : getAppChannelId(),
+        ]
+//        flavorSelection "dev", 'development'
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [eventBusIndex: 'com.huanmedia.videochat.common.EventBusIndex']
+            }
+        }
+
+        externalNativeBuild {
+            ndkBuild {
+                arguments "NDK_APPLICATION_MK:=src/main/cpp/Application.mk"
+            }
+        }
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+        }
+    }
+
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/cpp/Android.mk'
+        }
+    }
+    signingConfigs {
+        try {
+            release {
+                v1SigningEnabled true
+                v2SigningEnabled true
+                keyAlias 'videochat'
+                keyPassword KEY_PASSWORD
+                storeFile file('E:/key/rockhippo7000.keystore')
+                storePassword KEYSTORE_PASSWORD
+            }
+        }
+        catch (e) {
+            throw new InvalidKeyException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.", e)
+        }
+        debug {
+            try {
+                v1SigningEnabled true
+                v2SigningEnabled true
+                keyAlias 'videochat'
+                keyPassword KEY_PASSWORD
+                storeFile file('E:/key/rockhippo7000.keystore')
+                storePassword KEYSTORE_PASSWORD
+            }
+            catch (e) {
+                throw new InvalidKeyException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.", e)
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+//    buildTypeMatching 'debug', 'release'
+    flavorDimensions "dev"
+    productFlavors {
+        dev {
+            build_versions.networkType = 1
+            buildConfigField "int", "netWorkType", "${build_versions.networkType}"
+            buildConfigField "int", "appChannel", getAppChannelId()
+            resValue "string", "_AppName", "萌面-DEV"
+            dimension "dev"
+            resConfigs "xxhdpi"
+        }
+        devTest {
+            build_versions.networkType = 2
+            buildConfigField "int", "netWorkType", "${build_versions.networkType}"
+            buildConfigField "int", "appChannel", getAppChannelId()
+            resValue "string", "_AppName", "萌面-RC"
+            dimension "dev"
+            resConfigs "xxhdpi"
+        }
+        prod {
+            build_versions.networkType = 3
+            buildConfigField "int", "netWorkType", "${build_versions.networkType}"
+            buildConfigField "int", "appChannel", getAppChannelId()
+            resValue "string", "_AppName", "萌面"
+            dimension "dev"
+        }
+    }
+
+    buildTypes {
+        release {
+//            shrinkResources true
+            minifyEnabled false
+            // 开启ZipAlign优化
+//            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        //开发版本
+        debug {
+            signingConfig signingConfigs.debug
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            ext.alwaysUpdateBuildId = false
+//            zipAlignEnabled true
+            minifyEnabled false
+//            shrinkResources false
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs/', 'libs/agora', 'libs/beauty', 'libs/core', 'libs/yuv', 'libs/shortvideo']
+        }
+    }
+
+    buildToolsVersion '27.0.3'
+}
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        if (variant.buildType.name.equals('debug')) {
+            outputFileName = "VideoChat_${variant.name}_t${variant.versionName}_${variant.versionCode}_Channel" + getAppChannelId() + ".apk";
+        }
+        if (variant.buildType.name.equals('release')) {
+            outputFileName = "VideoChat_${variant.name}_v${variant.versionName}_${variant.versionCode}-${getApkCreateDate()}_Channel" + getAppChannelId() + ".apk"
+        }
+    }
+}
+//获取时间戳
+def getApkCreateDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyy.MM.dd.HH.mm')
+    return formattedDate
+}
+
+dependencies {
+    implementation deps.constraint_layout
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    debugImplementation deps.debug_db
+    implementation deps.butterKnife.core
+    annotationProcessor deps.butterKnife.compiler
+    implementation deps.rxJava.rxpermissions
+    implementation deps.support.recyclerview
+    implementation deps.support.app_compat
+    implementation deps.support.multidex
+    implementation deps.support.design
+    implementation deps.support.cardview
+    implementation deps.support.v4
+    implementation deps.support.drawable_vector
+    implementation deps.barlibrary
+    implementation deps.tablelayout
+    implementation deps.rvAdapter
+    implementation deps.getuiSDK
+    implementation deps.huaweiPush
+    //    implementation deps.finestwebview
+    implementation deps.easypermissions
+    implementation deps.badeg
+    implementation deps.eventBus.core
+    implementation deps.roundImage
+    implementation deps.wexinPay
+    implementation deps.WebSocket
+    implementation deps.switchbutton
+    implementation deps.downloader
+    implementation deps.litepal
+    implementation deps.downloader
+    //    implementation deps.taggroup
+    implementation(deps.lottie) {
+        exclude group: 'com.android.support'
+    }
+    implementation(deps.svga)
+    //    implementation deps.lottie
+    implementation deps.indicatorseekbar
+    implementation deps.bubbleSeekbar
+    annotationProcessor deps.eventBus.processor
+    //    implementation deps.takt //帧率计算
+    testImplementation deps.mockito.core
+    //    testCompile deps.mockito.all
+    testImplementation deps.junit
+    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
+    androidTestImplementation deps.dexmaker
+    implementation project(':ilibray')
+    implementation project(':MaterialDialogCore')
+    implementation deps.support.annotations
+    implementation project(':hmalbumlib')
+    implementation project(':wheel')
+    implementation project(':updatepluginlib')
+    //    implementation project(':libvideoprp')
+    //    api project(':aiyaEffects')
+    //    implementation (name:"AiyaEffectsSDK-ent-v3.3.0",ext:"aar")
+    implementation project(':smallGift')
+    implementation project(':springView')
+    implementation project(':faceunity')
+
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation 'ch.halcyon:squareprogressbar:1.6.4'
+    implementation 'co.lujun:androidtagview:1.1.4'
+
+    implementation 'com.umeng.sdk:common:latest.integration'
+    implementation 'com.umeng.sdk:analytics:latest.integration'
+}

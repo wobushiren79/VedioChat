@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/wheel_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_96dp"
+        android:gravity="start|center_vertical"
+        android:minHeight="48dp"
+        android:paddingEnd="@dimen/dimen_44dp"
+        android:paddingStart="@dimen/dimen_44dp"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/dimen_36dp"
+        tools:text="设置发现聊天价格" />
+
+    <View
+        android:id="@+id/wheel_v_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/wheel_title"
+        android:background="@drawable/divider_ll" />
+
+    <LinearLayout
+        android:id="@+id/wheel_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wheel_v_line"
+        android:layout_marginBottom="@dimen/dimen_32dp"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal">
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/whell_dialog_1"
+            android:layout_width="@dimen/dimen_200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dimen_4dp" />
+
+        <TextView
+            android:id="@+id/whell_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_4dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/tz_18"
+            tools:text="钻石/分钟" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/wheel_btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_96dp"
+        android:layout_alignParentEnd="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dimen_44dp"
+        android:paddingRight="@dimen/dimen_44dp"
+        android:text="确定"
+        android:textColor="@color/color_f65aa0"
+        android:textSize="@dimen/dimen_32dp" />
+</RelativeLayout>

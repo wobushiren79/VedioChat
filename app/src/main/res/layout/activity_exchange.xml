@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.pay.MyAccountActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/exchange_appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_account_nav_bar"
+        android:theme="@style/AppBaseTheme.AppLayoutBar"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/transparent"
+            app:navigationIcon="@drawable/nav_btn_back"
+            app:theme="@style/AppBaseTheme.Toolbar.ActionMenu"
+            app:title="钻石兑换"
+            app:titleTextColor="@color/white" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/exchange_tv_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:text="可用M币(个)"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_52dp"
+                app:layout_constraintStart_toStartOf="@id/exchange_tv_hint"
+                app:layout_constraintTop_toTopOf="@+id/exchange_tv_hint">
+
+                <TextView
+                    android:id="@+id/exchange_tv_canUse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.00"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_144dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M币"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_28dp" />
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/exchange_ll_cash_withdrawal_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_ll"
+        android:orientation="vertical"
+        android:showDividers="middle|beginning|end"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_appbar_layout">
+
+        <LinearLayout
+            android:id="@+id/exchange_tv_cash_withdrawal_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_36dp"
+                android:text="兑换钻石数"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_32dp" />
+
+            <com.huanmedia.videochat.common.widget.ClearEditText
+                android:id="@+id/exchange_et_money"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginEnd="@dimen/dimen_44dp"
+                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:background="@null"
+                android:digits="1234567890"
+                android:drawablePadding="@dimen/dimen_20dp"
+                android:drawableStart="@drawable/tab_icon_jewel"
+                android:hint="数量≥100 (100的倍数)"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/dimen_32dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_16dp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_104dp"
+            android:background="@color/white"
+            android:paddingEnd="@dimen/dimen_44dp"
+            android:paddingStart="@dimen/dimen_44dp">
+
+            <TextView
+                android:id="@+id/exchange_tv_count_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exchange_tv_consume"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/exchange_tv_consume_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全部兑换"
+                android:textColor="@color/color_007cff"
+                android:textSize="@dimen/dimen_32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/exchange_btn_ok"
+        android:layout_width="@dimen/dimen_540dp"
+        android:layout_height="@dimen/dimen_80dp"
+        android:layout_marginTop="@dimen/dimen_100dp"
+        android:background="@drawable/my_account_btn_solid"
+        android:text="立即兑换"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_ll_cash_withdrawal_amount" />
+</android.support.constraint.ConstraintLayout>

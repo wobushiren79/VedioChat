@@ -1,0 +1,16 @@
+<com.liaoinstan.springview.widget.SpringView xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:id="@+id/attention_fm_sv"
+
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context="com.huanmedia.videochat.main2.fragment.AttentionFragment"
+    >
+    <android.support.v7.widget.RecyclerView
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:id="@+id/attention_fm_rv"
+        tools:listitem="@layout/item_main_friend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</com.liaoinstan.springview.widget.SpringView>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.main2.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.huanmedia.videochat.main2.weight.NoScrollViewPager
+            android:id="@+id/main_vp_page"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/main_commonTablayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/main_commonTablayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_104dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/dp_2"
+            android:paddingTop="@dimen/dp_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tl_divider_width="@dimen/dp_0"
+            app:tl_iconVisible="true"
+            app:tl_indicator_height="@dimen/dp_0"
+            app:tl_indicator_width="@dimen/dp_0"
+            app:tl_textSelectColor="@color/base_black"
+            app:tl_textUnselectColor="@color/base_hint"
+            app:tl_textsize="@dimen/tz_12" />
+    </LinearLayout>
+
+
+    <com.huanmedia.videochat.common.widget.NoviceGuidanceView
+        android:id="@+id/view_noviceguidance"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"></com.huanmedia.videochat.common.widget.NoviceGuidanceView>
+
+
+</FrameLayout>

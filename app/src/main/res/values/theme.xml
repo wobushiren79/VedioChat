@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="WebViewTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/secondaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+        <item name="windowActionModeOverlay">false</item>
+    </style>
+
+    <style name="AppBaseTheme.Launch" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AppBaseTheme.Main" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <style name="AppBaseTheme.Translucent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AppBaseTheme.Default" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+</resources>

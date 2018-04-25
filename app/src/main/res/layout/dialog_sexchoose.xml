@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:divider="@drawable/divider_ll"
+    android:orientation="vertical"
+    android:showDividers="middle">
+
+    <TextView
+        android:id="@+id/dialog_sex_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="选择你的性别"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/tz_18" />
+
+    <RadioGroup
+        android:id="@+id/dialog_sex_radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_96dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/dialog_radioMan"
+            android:layout_width="@dimen/dimen_42dp"
+            android:layout_height="@dimen/dimen_42dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rb_style_1"
+            android:button="@null"
+            android:tag="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_32dp"
+            android:text="男"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/tz_18" />
+
+        <RadioButton
+            android:id="@+id/dialog_radioWMan"
+            android:layout_width="@dimen/dimen_42dp"
+            android:layout_height="@dimen/dimen_42dp"
+            android:layout_marginLeft="@dimen/dimen_32dp"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:background="@drawable/rb_style_1"
+            android:button="@null"
+            android:tag="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="女"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/tz_18" />
+
+    </RadioGroup>
+</LinearLayout>

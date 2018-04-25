@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.huanmedia.videochat.main2.fragment.FriendFragment">
+
+
+    <FrameLayout
+        android:id="@+id/home_toolbar_fl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_108dp"
+        android:background="@drawable/bg_home_nav">
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/main_friend_slidingTabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/dimen_32dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
+            app:tl_divider_width="@dimen/dimen_0dp"
+            app:tl_iconVisible="false"
+            app:tl_indicator_anim_enable="true"
+            app:tl_indicator_color="@color/orange"
+            app:tl_indicator_corner_radius="@dimen/dimen_4dp"
+            app:tl_indicator_height="@dimen/dimen_4dp"
+            app:tl_indicator_width="@dimen/dimen_64dp"
+
+            app:tl_tab_padding="@dimen/dimen_30dp"
+            app:tl_textSelectColor="@color/white"
+            app:tl_textUnselectColor="@color/block_gray"
+            app:tl_textsize="@dimen/tz_18" />
+    </FrameLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_friend_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

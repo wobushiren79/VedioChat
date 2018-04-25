@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/hm_black"
+    >
+
+    <com.huanmedia.hmalbumlib.ui.widget.HM_HackyViewPager
+        android:id="@+id/photo_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@null"
+        app:title=" "
+        app:navigationIcon="@drawable/hm_image_btn_select_nav_back"
+        app:popupTheme="@style/HM_AppTheme.PopupOverlay"
+        />
+
+    <RelativeLayout
+        android:id="@+id/photo_view_rl_bottom_content"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        >
+
+        <TextView
+            android:id="@+id/photo_view_tv_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:textColor="@color/hm_white"
+            tools:text="20/99"
+            />
+    </RelativeLayout>
+</FrameLayout>

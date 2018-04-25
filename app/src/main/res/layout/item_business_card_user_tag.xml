@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/business_card_cl_evaluate"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dimen_36dp"
+    android:layout_marginTop="@dimen/dimen_36dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/business_card_tv_label_evaluate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="用户评价"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/tz_16"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout
+        android:id="@+id/business_card_tgp_evaluate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dp_10"
+        app:container_background_color="@color/transparent"
+        app:container_border_color="@color/transparent"
+        app:container_border_radius="0dp"
+        app:container_border_width="0dp"
+        app:container_enable_drag="false"
+        app:horizontal_interval="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/business_card_tv_label_evaluate"
+        app:tag_clickable="false"
+        app:tag_corner_radius="10dp"
+        app:tag_horizontal_padding="10dp"
+        app:tag_text_size="@dimen/tz_14"
+        app:tag_theme="random"
+        app:tag_vertical_padding="2dp"
+        app:vertical_interval="4dp"
+        tools:layout_height="@dimen/dp_22" />
+
+    <TextView
+        android:id="@+id/tv_nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:text="暂无用户评价"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/business_card_tgp_evaluate" />
+
+</android.support.constraint.ConstraintLayout>

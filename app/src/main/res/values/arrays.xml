@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dialog_conditionfilter_ages">
+        <item >不限</item>
+        <item >16</item>
+        <item >20</item>
+        <item >25</item>
+        <item >30</item>
+        <item >35</item>
+        <item >∞</item>
+    </string-array>
+    <string-array name="account_particualars_action_list">
+        <item>可提现明细</item>
+        <item>钻石明细</item>
+
+    </string-array>
+    <string-array name="debug_network">
+        <item>本地测试</item>
+        <item>开发环境</item>
+        <item>正式环境</item>
+    </string-array>
+    <string-array name="report_type">
+        <item>言语暴力</item>
+        <item>广告欺诈</item>
+        <item>虚假性别</item>
+        <item>淫秽色情</item>
+        <item>形象不雅</item>
+        <item>整治反动</item>
+        <item>其他类容</item>
+    </string-array>
+
+    <!--等级对应经验值-->
+    <string-array name="level_value">
+        <item>0–499</item>
+        <item>500–1199</item>
+        <item>1200–2499</item>
+        <item>2500–3999</item>
+        <item>4000–5999</item>
+        <item>6000–8999</item>
+        <item>9000–13999</item>
+        <item>14000–19999</item>
+        <item>20000–26999</item>
+        <item>27000–2147483647</item>
+    </string-array>
+</resources>

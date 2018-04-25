@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/business_card_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dp_16">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/business_card_rv_photos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="4"
+            tools:listitem="@layout/item_discoverinfo" />
+
+        <TextView
+            android:id="@+id/business_card_tv_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawablePadding="@dimen/dp_2"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/dp_120"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_16"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_card_rv_photos"
+            tools:drawableStart="@drawable/icon_hot"
+            tools:text="分红女郎" />
+
+        <TextView
+            android:id="@+id/business_card_tv_charge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:background="@drawable/business_card_label_round_solid_ff925d"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tz_12"
+            app:layout_constraintBottom_toBottomOf="@+id/business_card_tv_nickName"
+            app:layout_constraintStart_toEndOf="@+id/business_card_tv_nickName"
+            app:layout_constraintTop_toTopOf="@+id/business_card_tv_nickName"
+            tools:text="100钻/分钟" />
+
+        <LinearLayout
+            android:id="@+id/business_card_ll_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/business_card_tv_nickName"
+            app:layout_constraintTop_toBottomOf="@+id/business_card_tv_nickName">
+
+            <TextView
+                android:id="@+id/business_card_tv_occupation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/tz_12"
+                tools:text="金融" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_4"
+                android:background="@drawable/divider_ll" />
+
+            <TextView
+                android:id="@+id/business_card_tv_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/tz_12"
+                tools:drawableEnd="@drawable/bg_icon_woman_1"
+                tools:text="22 岁" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_4"
+                android:background="@drawable/divider_ll" />
+
+            <TextView
+                android:id="@+id/business_card_tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/tz_12"
+                tools:text="125.5km" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:layout_marginStart="@dimen/dp_4"
+                android:background="@drawable/divider_ll" />
+
+            <TextView
+                android:id="@+id/business_card_tv_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/tz_12"
+                tools:text="Lv.10" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/business_card_cb_attention"
+            android:layout_width="@dimen/dp_64"
+            android:layout_height="@dimen/dp_22"
+            android:layout_marginEnd="@dimen/dp_22"
+            android:background="@drawable/business_card_btn_attention_selecter"
+            android:button="@null"
+            android:gravity="center"
+            android:text="关注"
+            android:textColor="@color/business_card_attention_btn_color_selecter"
+            android:textSize="@dimen/dimen_28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/business_card_ll_information"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/business_card_tv_nickName" />
+        <!--<Button-->
+        <!--android:layout_marginStart="@dimen/dp_22"-->
+        <!--android:layout_marginEnd="@dimen/dp_22"-->
+        <!--android:paddingStart="@dimen/dp_22"-->
+        <!--android:paddingEnd="@dimen/dp_22"-->
+        <!--android:id="@+id/business_card_btn_calling"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:background="@drawable/base_btn_solid"-->
+        <!--android:text="约 TA"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/dp_18"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/business_card_rv_photos"-->
+        <!--app:layout_constraintVertical_bias="0.527"-->
+        <!--/>-->
+        <!--<android.support.constraint.Guideline-->
+        <!--android:id="@+id/guideline2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:layout_constraintGuide_begin="@dimen/dp_258"/>-->
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/business_card_tv_cl_trustValue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_64"
+        android:layout_marginTop="@dimen/dp_16"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/business_card_cl">
+
+        <TextView
+            android:id="@+id/business_card_tv_label_trustValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="信任值"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_16"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/business_card_tv_desc_trustValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_44dp"
+            android:layout_marginTop="@dimen/dp_4"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/dimen_26dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/business_card_tv_label_trustValue"
+            tools:text="信任值较高" />
+
+        <com.huanmedia.videochat.main2.weight.GoodProgressView
+            android:id="@+id/business_card_gpv_desc_trustValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/dimen_44dp"
+            android:layout_marginStart="@dimen/dp_100"
+            app:backgroundColor="#B4B4B4"
+            app:endColor="#cc3ce6"
+            app:layout_constraintBottom_toBottomOf="@+id/business_card_tv_desc_trustValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/business_card_tv_desc_trustValue"
+            app:progress="100"
+            app:showProgressText="true"
+            app:startColor="#ff339d"
+            app:textColor="@color/base_gray" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

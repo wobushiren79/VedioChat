@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="actionbar_contentmagin">15dp</dimen>
+    <dimen name="textsize_20sp">20sp</dimen>
+
+    //基础大小
+
+</resources>

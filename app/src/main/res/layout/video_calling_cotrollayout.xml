@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/video_call_fl_cotorll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    tools:showIn="@layout/activity_calling">
+    <!--用户头像性别昵称等信息-->
+    <RelativeLayout
+        android:id="@+id/video_call_rl_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_172"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_12"
+        android:visibility="gone">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/video_call_iv_header"
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_52"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            tools:src="@drawable/bg" />
+
+        <TextView
+            android:id="@+id/video_call_tv_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/video_call_iv_header"
+            android:layout_toRightOf="@+id/video_call_iv_header"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tz_18"
+            android:textStyle="bold"
+            tools:drawableEnd="@drawable/bg_icon_woman_1"
+            tools:text="分红小仙女" />
+
+        <TextView
+            android:id="@+id/video_call_tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/video_call_tv_nickName"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_toEndOf="@+id/video_call_iv_header"
+            android:layout_toRightOf="@+id/video_call_iv_header"
+            android:drawablePadding="@dimen/dp_4"
+            android:drawableStart="@drawable/icon_coordinate"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tz_14"
+            tools:text="26km" />
+
+        <TextView
+            android:id="@+id/tv_check_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_44dp"
+            android:layout_below="@id/video_call_iv_header"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:background="@drawable/text_bg_tran_round"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimen_16dp"
+            android:paddingRight="@dimen/dimen_16dp"
+            android:text="@string/activity_call_check_wechat"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_26dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <!--波纹动画-->
+    <!--<com.airbnb.lottie.LottieAnimationView-->
+    <!--android:visibility="gone"-->
+    <!--android:layout_gravity="bottom|center_horizontal"-->
+    <!--android:layout_marginBottom="@dimen/dp_35"-->
+    <!--android:id="@+id/video_call_lav_endCallanim"-->
+    <!--android:layout_width="120dp"-->
+    <!--android:layout_height="120dp"-->
+    <!--android:scaleType="centerInside"-->
+    <!--app:lottie_autoPlay="false"-->
+    <!--app:lottie_fileName="loading/ripple.json"-->
+    <!--app:lottie_loop="true"/>-->
+    <!--底部按钮-->
+    <RelativeLayout
+        android:id="@+id/video_call_rl_callBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/dp_60"
+        android:gravity="center_horizontal|center_vertical">
+
+        <ImageView
+            android:id="@+id/video_call_iv_answer"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:layout_centerInParent="true"
+            android:src="@drawable/videocall_answer_btn"
+            android:visibility="gone" />
+        <!--<Button-->
+        <!--android:visibility="gone"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:id="@+id/video_call_iv_endCallbtn"-->
+        <!--android:layout_width="@dimen/dp_70"-->
+        <!--android:layout_height="@dimen/dp_70"-->
+        <!--android:background="@drawable/videocall_endcall_btn"-->
+        <!--/>-->
+    </RelativeLayout>
+
+
+    <!--//加时文字动画-->
+    <TextView
+        android:id="@+id/video_call_tv_hint_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/dp_88"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:id="@+id/video_call_ll_gift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="290dp"
+        android:layout_marginTop="100dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical" />
+    <!--提示文字（送礼物加时长等）-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/video_call_rv_chatText"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_150"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/dp_140"
+        android:overScrollMode="never"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:reverseLayout="true"
+        tools:listitem="@layout/item_video_call_chat_text"
+        tools:visibility="gone" />
+
+    <!--红人模式——————控制按钮-->
+    <com.huanmedia.videochat.video.widget.CallButtomBtns
+        android:id="@+id/video_call_cbb_controlBtns"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/dp_60" />
+
+    <!--倒计时-->
+    <LinearLayout
+        android:id="@+id/video_call_ll_timeDown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/video_call_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tz_14"
+            tools:text="3:50s" />
+
+        <ProgressBar
+            android:id="@+id/video_call_progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:progressDrawable="@drawable/video_call_progress_bar"
+            tools:progress="50" />
+    </LinearLayout>
+
+
+</FrameLayout>

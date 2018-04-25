@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.pay.MyWalletActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_appbar_background_light"
+            app:navigationIcon="@drawable/nav_btn_back_black"
+            app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
+            app:title="我的钱包"
+            app:titleTextColor="@color/base_black"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/divider_ll"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:background="@color/white"
+        android:id="@+id/my_wallet_cl_tab"
+        app:layout_constraintTop_toBottomOf="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.flyco.tablayout.SlidingTabLayout
+
+            android:id="@+id/my_wallet_stl"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_48"
+            android:layout_gravity="center_horizontal|bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tl_divider_width="@dimen/dp_0"
+            app:tl_iconVisible="false"
+            app:tl_indicator_anim_enable="true"
+            app:tl_indicator_color="@color/orange"
+            app:tl_indicator_corner_radius="@dimen/dp_2"
+            app:tl_indicator_height="@dimen/dp_2"
+            app:tl_indicator_width="@dimen/dp_32"
+            app:tl_tab_width="@dimen/dp_60"
+            app:tl_textSelectColor="@color/base_black"
+            app:tl_textUnselectColor="@color/base_gray"
+            app:tl_textsize="@dimen/tz_18"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/my_wallet_v_line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="@dimen/dp_22"
+        android:layout_marginStart="@dimen/dp_22"
+        android:background="@drawable/divider_ll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_wallet_cl_tab"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/my_wallet_vp_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_wallet_v_line1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+</android.support.constraint.ConstraintLayout>

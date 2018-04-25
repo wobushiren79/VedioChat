@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dimen_660dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+
+    <LinearLayout
+        android:layout_width="@dimen/dimen_660dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_100dp"
+        android:background="@drawable/dialog_bg_white_round"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="@dimen/dimen_40dp"
+            android:layout_height="@dimen/dimen_40dp"
+            android:layout_gravity="right"
+            android:id="@+id/iv_report"
+            android:layout_marginRight="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:src="@drawable/btn_warningsign" />
+
+        <TextView
+            android:id="@+id/dialog_title_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_55dp"
+            android:text="@string/dialog_evaluation_title_1"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/dimen_34dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dialog_title_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/dialog_evaluation_title_2"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/dimen_34dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1dp"
+            android:layout_marginBottom="@dimen/dimen_36dp"
+            android:layout_marginLeft="@dimen/dimen_52dp"
+            android:layout_marginRight="@dimen/dimen_52dp"
+            android:layout_marginTop="@dimen/dimen_36dp"
+            android:background="@color/color_e8ebf1" />
+
+        <co.lujun.androidtagview.TagContainerLayout
+            android:id="@+id/layout_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dimen_44dp"
+            android:paddingEnd="@dimen/dimen_52dp"
+            android:paddingStart="@dimen/dimen_52dp"
+            app:container_background_color="@color/white"
+            app:container_border_color="@color/transparent"
+            app:container_border_radius="0dp"
+            app:container_border_width="0dp"
+            app:container_enable_drag="false"
+            app:horizontal_interval="@dimen/dimen_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trust_value_cl_show_value"
+            app:tag_background_color="@color/white"
+            app:tag_border_color="@color/color_9D9FA5"
+            app:tag_clickable="true"
+            app:tag_text_color="@color/base_gray"
+            app:tag_theme="none"
+            app:vertical_interval="@dimen/dimen_16dp"></co.lujun.androidtagview.TagContainerLayout>
+
+
+        <TextView
+            android:id="@+id/dialog_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_marginBottom="@dimen/dimen_44dp"
+            android:layout_marginLeft="@dimen/dimen_52dp"
+            android:layout_marginRight="@dimen/dimen_52dp"
+            android:background="@drawable/text_bg_gray_round"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:text=""
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/dimen_30dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_88dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_btn_cancel_style_1"
+                android:gravity="center"
+                android:text="@string/dialog_evaluation_submit_no"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/dimen_32dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_btn_submit_style_1"
+                android:gravity="center"
+                android:text="@string/dialog_evaluation_submit_yes"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_32dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dimen_200dp"
+        android:layout_height="@dimen/dimen_200dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icon_dialog_title" />
+</RelativeLayout>

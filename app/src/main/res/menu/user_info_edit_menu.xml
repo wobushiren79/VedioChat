@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      tools:context=".pay.MyAccountActivity">
+    <item
+        android:id="@+id/user_info_edit_menu_next"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:title="下一步"/>
+    <!--<group android:id="@+id/accound_particulars_type_filter">-->
+        <!--<item-->
+            <!--android:id="@+id/accound_particulars_cashMoney"-->
+            <!--android:orderInCategory="100"-->
+            <!--app:showAsAction="never"-->
+            <!--android:icon="@drawable/nav_btn_date"-->
+            <!--android:title="可提明细"/>-->
+        <!--<item-->
+            <!--android:id="@+id/accound_particulars_jewel"-->
+            <!--android:orderInCategory="100"-->
+            <!--app:showAsAction="never"-->
+            <!--android:icon="@drawable/nav_btn_date"-->
+            <!--android:title="钻石明细"/>-->
+    <!--</group>-->
+</menu>

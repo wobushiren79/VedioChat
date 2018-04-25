@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.pay.MyWalletActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/my_wallet_cl_money"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/my_wallet_ll_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@+id/my_wallet_ll_option"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/my_wallet_tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/tz_38"
+                tools:text="100"/>
+
+            <TextView
+                android:id="@+id/my_wallet_tv_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/tz_22"
+                tools:text="M币"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/my_wallet_ll_option"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_wallet_ll_money">
+
+            <TextView
+                android:id="@+id/my_wallet_tv_exchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:minWidth="@dimen/dp_52"
+                android:textColor="@color/base_blue"
+                android:textSize="@dimen/tz_16"
+                tools:text="兑换"/>
+
+            <TextView
+                android:id="@+id/my_wallet_tv_withdraw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:minWidth="@dimen/dp_52"
+                android:textColor="@color/base_blue"
+                android:textSize="@dimen/tz_16"
+                tools:text="提现"/>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/my_wallet_cl_particulars"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/white"
+        android:paddingTop="@dimen/dp_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_wallet_cl_money">
+
+        <TextView
+            android:layout_marginStart="@dimen/dp_22"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/my_wallet_tv_particulars_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="明细"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/tz_16"
+            android:textStyle="bold"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/dp_14"
+            android:id="@+id/my_wallet_rv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/my_wallet_tv_particulars_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/simple_list_item1"/>
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

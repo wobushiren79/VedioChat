@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@drawable/base_item_select"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/dialog_item_gift_count_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <TextView
+              android:id="@+id/dialog_item_tv_count"
+              android:layout_width="0dp"
+              android:layout_weight="0.6"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/tz_14"
+              android:textColor="@color/base_black"
+              tools:text="1314"
+              android:maxLines="1"
+              android:ellipsize="end"
+              android:gravity="center_horizontal|center_vertical"
+              android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+              android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+              android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+    <TextView
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:minWidth="@dimen/dp_60"
+        android:id="@+id/dialog_item_tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tz_14"
+        android:textColor="@color/base_gray"
+        tools:text="一生一世永相随"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+</LinearLayout>
