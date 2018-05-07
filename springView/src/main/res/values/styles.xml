@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //进度条
+    <style name="loading_style">
+        <item name="android:indeterminateDuration">1000</item>
+    </style>
+</resources>
