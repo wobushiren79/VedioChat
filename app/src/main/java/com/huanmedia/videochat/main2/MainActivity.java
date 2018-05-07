@@ -8,15 +8,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.huanmedia.ilibray.utils.RxCountDown;
+import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPActivity;
+import com.huanmedia.videochat.common.Constants;
+import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.event.CoinChangeEvent;
 import com.huanmedia.videochat.common.event.EventBusAction;
+import com.huanmedia.videochat.common.local.LocationService;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.service.notifserver.HuaWeiPushHelper;
 import com.huanmedia.videochat.common.service.notifserver.PushServiceManager;
@@ -30,6 +37,9 @@ import com.huanmedia.videochat.main2.fragment.HomeFragment;
 import com.huanmedia.videochat.main2.fragment.MainInteractionListener;
 import com.huanmedia.videochat.main2.fragment.MyFragment;
 import com.huanmedia.videochat.main2.weight.NoScrollViewPager;
+import com.huanmedia.videochat.mvp.presenter.user.IUploadUserDataPresenter;
+import com.huanmedia.videochat.mvp.presenter.user.UploadUserDataPresenterImpl;
+import com.huanmedia.videochat.mvp.view.user.IUploadUserDataView;
 import com.huanmedia.videochat.repository.entity.VideoChatEntity;
 import com.umeng.analytics.MobclickAgent;
 
@@ -51,14 +61,14 @@ import io.reactivex.disposables.Disposable;
  * mainPage ----                                -- 我的
  * --- 匹配
  */
-public class MainActivity extends BaseMVPActivity<MainPresenter> implements MainView, MainInteractionListener, HomeFragment.HomeInterActionListener {
+public class MainActivity extends BaseMVPActivity<MainPresenter> implements MainView, MainInteractionListener, HomeFragment.HomeInterActionListener, IUploadUserDataView {
 
     @BindView(R.id.main_vp_page)
     NoScrollViewPager mMainVpPage;
     @BindView(R.id.main_commonTablayout)
     CommonTabLayout mMainCommonTablayout;
     @BindView(R.id.view_noviceguidance)
-    NoviceGuidanceView guidanceView;
+    NoviceGuidanceView mGuidanceView;
 
     private ArrayList<CustomTabEntity> mTabs;
     private Fragment[] mFragments;
@@ -67,6 +77,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     private UpdateBuilder mUpdata;
     private HuaWeiPushHelper mHuaweiPushHelper;
     private MainPageFragmentAdapter mAdapter;
+    private LocationService locationService;
+    private IUploadUserDataPresenter uploadUserDataPresenter;
 
     public static Intent getCallingIntent(Context context, boolean autoLogin) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -78,10 +90,20 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        guidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
+        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        locationService = ((FApplication) getApplication()).locationService;
+        // 获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+        locationService.registerListener(mLocationListener);
+        // 注册监听
+        locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+        locationService.start();
+    }
 
     @Override
     protected void onDestroy() {
@@ -90,7 +112,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         if (mHuaweiPushHelper != null) {
             mHuaweiPushHelper.destory();
         }
-
+        locationService.unregisterListener(mLocationListener); // 注销掉监听
+        locationService.stop(); // 停止定位服务
     }
 
     @Override
@@ -154,7 +177,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         } else {
             getBasePresenter().chatEnd(Integer.parseInt(entity.getCallid()), entity.get_endFlag());
         }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -191,13 +213,13 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                 mMainCommonTablayout.setCurrentTab(position);
                 switch (position) {
                     case 0:
-                        guidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
+                        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
                         break;
                     case 1:
-                        guidanceView.setShowData(NoviceGuidanceView.GuidanceType.FRIEND);
+                        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FRIEND);
                         break;
                     case 2:
-                        guidanceView.setShowData(NoviceGuidanceView.GuidanceType.MY);
+                        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.MY);
                         break;
                 }
 
@@ -263,6 +285,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         }
         //友盟统计红人日活
         UMengUtils.RedManActive(this);
+        uploadUserDataPresenter = new UploadUserDataPresenterImpl(this);
     }
 
     @Override
@@ -294,9 +317,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
     @Override
     public void onPageSelected(int position) {
-
         if (position == 0) {
-            guidanceView.setShowData(NoviceGuidanceView.GuidanceType.MATCH);
+            mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.MATCH);
         }
     }
 
@@ -304,5 +326,54 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     @Override
     public Context context() {
         return this;
+    }
+
+
+    /**
+     * 定位监听
+     */
+    private BDAbstractLocationListener mLocationListener = new BDAbstractLocationListener() {
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            Constants.UserLocation = bdLocation;
+            if (uploadUserDataPresenter != null)
+                uploadUserDataPresenter.uploadUserData();
+        }
+    };
+
+    @Override
+    public String getLat() {
+        if (Constants.UserLocation != null)
+            return String.valueOf(Constants.UserLocation.getLatitude());
+        else
+            return null;
+    }
+
+    @Override
+    public String getLng() {
+        if (Constants.UserLocation != null)
+            return String.valueOf(Constants.UserLocation.getLongitude());
+        else
+            return null;
+    }
+
+    @Override
+    public void uploadUserDataSuccess() {
+
+    }
+
+    @Override
+    public void uploadUserDataFail(String msg) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void showToast(String toast) {
+        ToastUtils.showToastShort(getContext(), toast);
     }
 }

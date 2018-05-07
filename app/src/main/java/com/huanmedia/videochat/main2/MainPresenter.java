@@ -56,6 +56,8 @@ import mvp.data.dispose.interactor.ThreadExecutorHandler;
 import mvp.data.net.converter.RetryWithDelay;
 import mvp.presenter.Presenter;
 
+import static com.huanmedia.videochat.main2.fragment.MatchFragment.hasMatchFragment;
+
 /**
  * @TODO Created by yb(yb498869020@hotmail.com) on 2017-11-26.
  */
@@ -112,6 +114,7 @@ public class MainPresenter extends Presenter<MainView> {
                 prmas.put("version", BuildConfig.VERSION_CODE + "");
                 prmas.put("longitude", "0");
                 prmas.put("latiude", "0");
+                prmas.put("channelid", BuildConfig.appChannel + "");
                 Location location = new LocationHandler().getLocation();
                 if (location != null) {
                     prmas.put("longitude", location.getLongitude() + "");
@@ -247,18 +250,22 @@ public class MainPresenter extends Presenter<MainView> {
                 if (message.getType().equals("beginACCOMPANYchatnotice")) {
                     VideoChatEntity mVideoChatEntity = mGson.fromJson(mGson.toJson(message.getBody()), VideoChatEntity.class);
                     if (CallingActivity.getmCallingState() == CallingActivity.CallingType.LEISURE) {//红人
+
                         NotificationHandler.sendNotification(mVideoChatEntity);
                         ConditionEntity condition = new ConditionEntity();
                         condition.setVideoType(ConditionEntity.VideoType.REDMAN);
-
                         condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.PERSON);
                         condition.getReadMainConfig().setVideoChatConfig(mVideoChatEntity);
+                        if (hasMatchFragment) {
+                            condition.setNeedCloseFU(0);
+                        }
                         if (message.getBody().containsKey("startUid") && !(message.getBody().get("startUid")).equals("0") && (message.getBody().get("startUid").toString()).equals(message.getBody().get("fromuid").toString())) {
                             condition.getReadMainConfig().setRedManId(Integer.valueOf(message.getBody().get("startUid").toString()));
-                            ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "向你发起视频聊天，是否接受?;(聊天花费" + mVideoChatEntity.getChatcoin() + "{钻石}/分钟)");
+                            ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "\n向你发起视频聊天，是否接受?;(聊天花费" + mVideoChatEntity.getChatcoin() + "{钻石}/分钟)");
                         } else {
-                            ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "向你发起视频聊天，是否接受?;(接受可获" + mVideoChatEntity.getChatcoin() + "{钻石}/分钟)");
+                            ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "\n向你发起视频聊天，是否接受?;(接受可获" + mVideoChatEntity.getChatcoin() + "{钻石}/分钟)");
                         }
+
                     } else {
                         chatEnd(Integer.parseInt(mVideoChatEntity.getCallid()), 1);
                     }
@@ -271,7 +278,10 @@ public class MainPresenter extends Presenter<MainView> {
                         condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.PERSON);
                         condition.getMatchConfig().setVideoChatConfig(mVideoChatEntity);
                         condition.getMatchConfig().setMatchType(MatchConfig.MatchType.CALL);
-                        ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "向你发起视频聊天，是否接受?");
+                        if (hasMatchFragment) {
+                            condition.setNeedCloseFU(0);
+                        }
+                        ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "\n向你发起视频聊天，是否接受?");
                     } else {
                         chatEnd(Integer.parseInt(mVideoChatEntity.getCallid()), 1);
                     }

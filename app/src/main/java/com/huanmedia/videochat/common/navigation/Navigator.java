@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2015 Fernando Cejas Open Source Project
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,11 +24,13 @@ import com.huanmedia.videochat.discover.BusinessCardAcitivty;
 import com.huanmedia.videochat.main.NotificationMessageActivity;
 import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
+import com.huanmedia.videochat.media.MediaPlayActivity;
 import com.huanmedia.videochat.my.AboutActivity;
 import com.huanmedia.videochat.my.BoundIDCardActivity;
 import com.huanmedia.videochat.my.FeedBackActivity;
 import com.huanmedia.videochat.my.HelpActivity;
 import com.huanmedia.videochat.my.LevelActivity;
+import com.huanmedia.videochat.my.MonitorActivity;
 import com.huanmedia.videochat.my.PhotosActivity;
 import com.huanmedia.videochat.my.ReadMainCertificateActivity;
 import com.huanmedia.videochat.my.RedMianAuthActivity;
@@ -44,6 +46,7 @@ import com.huanmedia.videochat.pay.MyWalletActivity;
 import com.huanmedia.videochat.repository.entity.PayCoinTypeMode;
 import com.huanmedia.videochat.repository.entity.PhpotsEntity;
 import com.huanmedia.videochat.video.CallingActivity;
+import com.huanmedia.videochat.video.MonitorVideoActivity;
 import com.huanmedia.videochat.wxapi.WXPayEntryActivity;
 
 import java.util.ArrayList;
@@ -53,170 +56,223 @@ import java.util.ArrayList;
  */
 public class Navigator {
 
-  public Navigator() {
-    //empty
-  }
-
-
-  public void navToMain(Context context,boolean autoLogin) {
-    Intent intent= MainActivity.getCallingIntent(context,autoLogin);
-    context.startActivity(intent);
-  }
-
-    public void navtoCalling(Activity context, ConditionEntity conditionEntity,String hint) {
-    context.startActivity(CallingActivity.getCallingIntent(context,conditionEntity,hint));
+    public Navigator() {
+        //empty
     }
 
-  public void navtoCoinPay(Activity context,String cion) {
-    context.startActivity(CoinPayActivity.getCallingIntent(context,cion));
-  }
 
-  public void navtoOlderPay(Activity activity, PayCoinTypeMode payCoinTypeMode, String olderNum) {
-    if (payCoinTypeMode ==null)return;
-    activity.startActivity(WXPayEntryActivity.getCallingIntent(activity, payCoinTypeMode,olderNum));
-  }
+    public void navToMain(Context context, boolean autoLogin) {
+        Intent intent = MainActivity.getCallingIntent(context, autoLogin);
+        context.startActivity(intent);
+    }
 
-  public void navtoMyAccound(Activity activity) {
-    activity.startActivity(MyAccountActivity.getCallingIntent(activity));
-  }
-  public void navtoSetting(Activity activity) {
-    activity.startActivity(SettingActivity.getCallingIntent(activity));
-  }
+    public void navtoCalling(Activity context, ConditionEntity conditionEntity, String hint) {
+        context.startActivity(CallingActivity.getCallingIntent(context, conditionEntity, hint));
+    }
 
-  /**
-   * 发现详情（个人资料）
-   * @param activity
-   * @param uid
-   */
-  public void navDiscoverInfo(Activity activity, int uid,String distance) {
-    if (uid==0)return;
-    activity.startActivity(BusinessCardAcitivty.getCallingIntent(activity,uid,distance));
-  }
+    public void navtoCoinPay(Activity context, String cion) {
+        context.startActivity(CoinPayActivity.getCallingIntent(context, cion));
+    }
 
-  /**
-   * 账户绑定
-   * @param activity
-   * @param isBound
-   * @param bountType
-   */
-  public void navtoAccoundBound(Activity activity,boolean isBound,int bountType) {
-  activity.startActivity(AccountBoundActivity.getCallingIntent(activity,isBound,bountType));
+    public void navtoOlderPay(Activity activity, PayCoinTypeMode payCoinTypeMode, String olderNum) {
+        if (payCoinTypeMode == null) return;
+        activity.startActivity(WXPayEntryActivity.getCallingIntent(activity, payCoinTypeMode, olderNum));
+    }
 
-  }
+    public void navtoMyAccound(Activity activity) {
+        activity.startActivity(MyAccountActivity.getCallingIntent(activity));
+    }
 
-  /**
-   * 红人认证资料界面
-   * @param activity
-   */
-  public void navtoRedMianAuth(Activity activity) {
-  activity.startActivity(RedMianAuthActivity.getCallingIntent(activity));
-  }
+    public void navtoSetting(Activity activity) {
+        activity.startActivity(SettingActivity.getCallingIntent(activity));
+    }
 
-  /**
-   * 红人认证
-   * @param activity
-   */
-  public void navtoReadMainCertificate(Activity activity) {
-    activity.startActivity(ReadMainCertificateActivity.getCallingIntent(activity));
-  }
-  /**
-   * 跳转到账户明细
-   * @param activity
-   */
-  public void navtoAccoundParticulars(Activity activity) {
-  activity.startActivity(AccountParticularsActivity.getCallingIntent(activity));
-  }
+    /**
+     * 发现详情（个人资料）
+     *
+     * @param activity
+     * @param uid
+     */
+    public void navDiscoverInfo(Activity activity, int uid, String distance) {
+        if (uid == 0) return;
+        activity.startActivity(BusinessCardAcitivty.getCallingIntent(activity, uid, distance));
+    }
 
-  /**
-   * 跳转到Web页面
-   * @param activity
-   * @param url
-   * @param title
-   */
-  public void navtoWebActiviyt(Activity activity,String url ,String title) {
-  activity.startActivity(LocalHtmlWebActivity.getCallingIntent(activity,url,title));
-  }
-  /**
-   * 用户编辑
-   * @param activity
-   * @param authMsg
-   */
-  public void navtoUserInfoEdit(Activity activity, boolean isAuth, String authMsg) {
-  activity.startActivity(UserInfoEditActivity.getCallingIntent(activity,isAuth,authMsg));
-  }
+    /**
+     * 账户绑定
+     *
+     * @param activity
+     * @param isBound
+     * @param bountType
+     */
+    public void navtoAccoundBound(Activity activity, boolean isBound, int bountType) {
+        activity.startActivity(AccountBoundActivity.getCallingIntent(activity, isBound, bountType));
 
-  /**
-   * 照片墙
-   * @param activity
-   * @param data
-   */
-  public void navtoPhotos(Activity activity, ArrayList<PhpotsEntity> data) {
-  activity.startActivity(PhotosActivity.getCallingIntent(activity,data));
-  }
-  /**
-   * 意见反馈
-   * @param activity
-   */
-  public void navtoFeedBack(Activity activity) {
-  activity.startActivity(FeedBackActivity.getCallingIntent(activity));
-  }
-  /**
-   * 系统消息
-   * @param activity
-   */
-  public void navtoSystemMessage(Activity activity) {
-  activity.startActivity(NotificationMessageActivity.getCallingIntent(activity));
-  }
-  /**
-   * 关于我们
-   * @param activity
-   */
-  public void navtoAboutUs(Activity activity) {
-  activity.startActivity(AboutActivity.getCallingIntent(activity));
-  }
-  /**
-   * 绑定用户信息
-   * @param activity
-   */
-  public void navtoBoundIDCard(Activity activity,int boundType,String user_id) {
-  activity.startActivity(BoundIDCardActivity.getCallingIntent(activity,boundType,user_id));
-  }
-  /**
-   * 信任值
-   * @param activity
-   */
-  public void navtoTrustValue(Activity activity) {
-  activity.startActivity(TrustValueActivity.getCallingIntent(activity));
-  }
+    }
 
-  /**
-   * 我的钱包
-   * @param activity
-   */
-  public void navtoMyWallet(Activity activity) {
-  activity.startActivity(MyWalletActivity.getCallingIntent(activity));
-  }
-  /**
-   * M币兑换钻石
-   * @param activity
-   */
-  public void navtoExchange(Activity activity) {
-  activity.startActivity(ExchangeActivity.getCallingIntent(activity));
-  }
-  /**
-   * 我的等级
-   * @param activity
-   */
-  public void navtoLevel(Activity activity) {
-  activity.startActivity(LevelActivity.getCallingIntent(activity));
-  }
+    /**
+     * 红人认证资料界面
+     *
+     * @param activity
+     */
+    public void navtoRedMianAuth(Activity activity) {
+        activity.startActivity(RedMianAuthActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 红人认证
+     *
+     * @param activity
+     */
+    public void navtoReadMainCertificate(Activity activity) {
+        activity.startActivity(ReadMainCertificateActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 跳转到账户明细
+     *
+     * @param activity
+     */
+    public void navtoAccoundParticulars(Activity activity) {
+        activity.startActivity(AccountParticularsActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 跳转到Web页面
+     *
+     * @param activity
+     * @param url
+     * @param title
+     */
+    public void navtoWebActiviyt(Activity activity, String url, String title) {
+        activity.startActivity(LocalHtmlWebActivity.getCallingIntent(activity, url, title));
+    }
+
+    /**
+     * 用户编辑
+     *
+     * @param activity
+     * @param authMsg
+     */
+    public void navtoUserInfoEdit(Activity activity, boolean isAuth, String authMsg) {
+        activity.startActivity(UserInfoEditActivity.getCallingIntent(activity, isAuth, authMsg));
+    }
+
+    /**
+     * 照片墙
+     *
+     * @param activity
+     * @param data
+     */
+    public void navtoPhotos(Activity activity, ArrayList<PhpotsEntity> data) {
+        activity.startActivity(PhotosActivity.getCallingIntent(activity, data));
+    }
+
+    /**
+     * 意见反馈
+     *
+     * @param activity
+     */
+    public void navtoFeedBack(Activity activity) {
+        activity.startActivity(FeedBackActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 系统消息
+     *
+     * @param activity
+     */
+    public void navtoSystemMessage(Activity activity) {
+        activity.startActivity(NotificationMessageActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 关于我们
+     *
+     * @param activity
+     */
+    public void navtoAboutUs(Activity activity) {
+        activity.startActivity(AboutActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 绑定用户信息
+     *
+     * @param activity
+     */
+    public void navtoBoundIDCard(Activity activity, int boundType, String user_id) {
+        activity.startActivity(BoundIDCardActivity.getCallingIntent(activity, boundType, user_id));
+    }
+
+    /**
+     * 信任值
+     *
+     * @param activity
+     */
+    public void navtoTrustValue(Activity activity) {
+        activity.startActivity(TrustValueActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 我的钱包
+     *
+     * @param activity
+     */
+    public void navtoMyWallet(Activity activity) {
+        activity.startActivity(MyWalletActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * M币兑换钻石
+     *
+     * @param activity
+     */
+    public void navtoExchange(Activity activity) {
+        activity.startActivity(ExchangeActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 我的等级
+     *
+     * @param activity
+     */
+    public void navtoLevel(Activity activity) {
+        activity.startActivity(LevelActivity.getCallingIntent(activity));
+    }
 
 
-  /**
-   * 我的等级
-   * @param activity
-   */
-  public void navtoHelp(Activity activity) {
-    activity.startActivity(HelpActivity.getCallingIntent(activity));
-  }
+    /**
+     * 我的等级
+     *
+     * @param activity
+     */
+    public void navtoHelp(Activity activity) {
+        activity.startActivity(HelpActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 监控主界面
+     *
+     * @param activity
+     */
+    public void navtoMonitor(Activity activity) {
+        activity.startActivity(MonitorActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * 监控主界面
+     *
+     * @param activity
+     */
+    public void navtoMonitorVideo(Activity activity, String channelName, int uid1, int uid2) {
+        activity.startActivity(MonitorVideoActivity.getCallingIntent(activity, channelName, uid1, uid2));
+    }
+
+    /**
+     * 视频播放
+     * @param context
+     */
+    public void navtoMediaPlay(Activity context) {
+        context.startActivity(MediaPlayActivity.getCallingIntent(context));
+    }
 }

@@ -75,6 +75,8 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
     private boolean isStopPlaying;//暂停界面数据
     private Disposable mInvisibleScript;
 
+    public static boolean hasMatchFragment;//是否加载matchFragment
+
     public MatchFragment() {
     }
 
@@ -102,21 +104,21 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
             isResetPreVeiw = false;
             worker().preview(true, surfaceV, 0);
         }
-        if (videoPreProcessing != null) {
-            videoPreProcessing.enablePreProcessing(true);
-        }
+        enableProcess();
     }
 
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        hasMatchFragment = true;
         EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        hasMatchFragment = false;
         EventBus.getDefault().unregister(this);
     }
 
@@ -166,23 +168,6 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
                     mMainMathButtomFl.animate().alpha(1).setDuration(300).start();
                 }
             });
-//            mMaskDialog.setData(data);
-//            mMaskDialog.setMaskChooseListener((mode, position) -> {
-//                if (mode.type == 0) {
-//                    ObjectAnimator objanim = ObjectAnimator.ofInt(mMainIvBlur, "ImageAlpha", 255, 0)
-//                            .setDuration(300);
-//                    objanim.addListener(new AnimatorListenerAdapter() {
-//                        @Override
-//                        public void onAnimationEnd(Animator animation) {
-//                            mMainIvBlur.setImageBitmap(null);
-//                        }
-//                    });
-//                    objanim.start();
-//                } else {
-//                    mMainIvBlur.setImageAlpha(255);
-//                    GlideUtils.getInstance().loadContextBitmap(context(), mode.background, mMainIvBlur, 0, 0, false);
-//                }
-//            });
         }
     }
 
@@ -197,27 +182,10 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
             mVideoViewContainer.removeView(surfaceV);
             surfaceV = null;
         }
-//        if (getBasePresenter()==null)return;
-//        if (mInvisibleScript!=null)
-//        {
-//            getBasePresenter().remove(mInvisibleScript);
-//        }
-//        mInvisibleScript=RxCountDown.delay2(500).subscribe(
-//                integer -> {
-//                    Logger.i("销毁：RtcEngine");
-//                    RtcEngine.destroy();
-//                }
-//        );
-//        getBasePresenter().addDisposable(mInvisibleScript);
     }
 
     @Override
     protected void onVisible() {
-//        if (getBasePresenter()==null)return;
-//        if (mInvisibleScript!=null)
-//        {
-//            getBasePresenter().remove(mInvisibleScript);
-//        }
         checkPhonePermission();
         super.onVisible();
     }
@@ -228,11 +196,12 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
         //初始化视频UI和事件
         if (surfaceV == null) {
 //            int vProfile = ConstantApp.VIDEO_PROFILES[getVideoProfileIndex()];
-            int vProfile = Constants.VIDEO_PROFILE_360P_11;
+//            int vProfile = Constants.VIDEO_PROFILE_360P_11;
+            int vProfile = Constants.VIDEO_PROFILE_360P_8;
             worker().configEngine(vProfile, null, null);
 //            worker().getRtcEngine().disableAudio();//关闭声音
             worker().getRtcEngine().muteLocalVideoStream(true);//不发送本地视频数据
-            surfaceV =  RtcEngine.CreateRendererView(FApplication.getApplication());
+            surfaceV = RtcEngine.CreateRendererView(FApplication.getApplication());
             surfaceV.setZOrderOnTop(false);
             surfaceV.setZOrderMediaOverlay(false);
             mVideoViewContainer.addView(surfaceV);
@@ -260,7 +229,7 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
      */
     protected void initAiYa() {
         if (context() == null) return;
-        FUManager.getInstance(context()).loadItems();
+        FUManager.getInstance(context()).loadInitData();
     }
 
 
@@ -330,6 +299,7 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
                 mConditionEntity.setVideoType(ConditionEntity.VideoType.MATCH);
                 mConditionEntity.getMatchConfig().setType(ConditionEntity.ConditionTtype.ALL);
                 mConditionEntity.getMatchConfig().setMask(MaskDialog.getCurrentMask());
+                mConditionEntity.setNeedCloseFU(0);
                 getNavigator().navtoCalling(getActivity(), mConditionEntity, null);
                 break;
             case R.id.main_iv_mask://展开面具

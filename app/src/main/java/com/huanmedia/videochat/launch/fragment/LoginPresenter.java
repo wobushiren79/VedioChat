@@ -71,6 +71,7 @@ public class LoginPresenter extends Presenter<LoginView> {
                 prams.put("version", BuildConfig.VERSION_CODE + ";" + BuildConfig.VERSION_NAME);
                 prams.put("os", 1 + "");
                 prams.put("deviceid", Installation.id(getContext()));
+                prams.put("channelid", BuildConfig.appChannel + "");
                 Location location = mLocationHandler.getLocation();
                 if (location != null) {
                     prams.put("longitude", location.getLongitude() + "");
@@ -172,7 +173,7 @@ public class LoginPresenter extends Presenter<LoginView> {
      *
      * @param loginTvErrorhintLayout
      */
-    public void watiingGone( LinearLayout loginTvErrorhintLayout) {
+    public void watiingGone(LinearLayout loginTvErrorhintLayout) {
         if (hintWaitThreadSubscribe != null && !hintWaitThreadSubscribe.isDisposed()) {
             hintWaitThreadSubscribe.dispose();
             hintWaitThreadSubscribe = null;

@@ -17,8 +17,10 @@ import java.lang.annotation.RetentionPolicy;
 public class ConditionEntity implements Parcelable {
     @VideoType
     private int videoType;// 1 匹配 2 红人
+    private int needCloseFU = 1;//0不需要关闭，1需要关闭
     private ReadMainConfig mReadMainConfig=new ReadMainConfig();
     private MatchConfig mMatchConfig=new MatchConfig();
+
 
     @IntDef({ConditionTtype.FILTER,ConditionTtype.ALL})
     @Retention(RetentionPolicy.SOURCE)
@@ -72,7 +74,13 @@ public class ConditionEntity implements Parcelable {
     public void setReadMainConfig(ReadMainConfig readMainConfig) {
         mReadMainConfig = readMainConfig;
     }
+    public int getNeedCloseFU() {
+        return needCloseFU;
+    }
 
+    public void setNeedCloseFU(int needCloseFU) {
+        this.needCloseFU = needCloseFU;
+    }
     public ConditionEntity() {
     }
     @Override
@@ -83,12 +91,14 @@ public class ConditionEntity implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.videoType);
+        dest.writeInt(this.needCloseFU);
         dest.writeParcelable(this.mReadMainConfig, flags);
         dest.writeParcelable(this.mMatchConfig, flags);
     }
 
     protected ConditionEntity(Parcel in) {
         this.videoType = in.readInt();
+        this.needCloseFU = in.readInt();
         this.mReadMainConfig = in.readParcelable(ReadMainConfig.class.getClassLoader());
         this.mMatchConfig = in.readParcelable(MatchConfig.class.getClassLoader());
     }

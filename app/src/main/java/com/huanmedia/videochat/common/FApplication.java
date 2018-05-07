@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.huanmedia.ilibray.utils.SystemUtil;
 import com.huanmedia.videochat.BuildConfig;
+import com.huanmedia.videochat.common.local.LocationService;
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.service.socket.WSConfig;
@@ -23,6 +24,7 @@ import com.huanmedia.videochat.common.service.update.OkhttpCheckWorker;
 import com.huanmedia.videochat.common.utils.CrashHandler;
 import com.huanmedia.videochat.common.utils.LocationHandler;
 import com.huanmedia.videochat.repository.net.HostManager;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
@@ -49,6 +51,7 @@ public class FApplication extends Application {
     private static Application mApplication;
     public static final String TAG = "FApplication";
     private static boolean sInitAiYa;
+    public LocationService locationService;
 
     public static boolean isInitAiYa() {
         return sInitAiYa;
@@ -78,13 +81,40 @@ public class FApplication extends Application {
                 crashConfig();
             }
         }
+        initUMeng();
+        initMap();
+        initBugly();
+
+//        Takt.stock(this).seat(Seat.TOP_RIGHT).color(Color.WHITE).play();
+    }
+
+    /**
+     * 初始化BUGLY
+     */
+    private void initBugly() {
+        CrashReport.initCrashReport(getApplicationContext());
+    }
+
+    /**
+     * 初始化友盟
+     */
+    private void initUMeng() {
         if (!SystemUtil.getDeviceBrand().contains("Meizu")) {
             //友盟初始化
             UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, null);
             //友盟场景类型设置
             MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType.E_UM_NORMAL);
         }
-//        Takt.stock(this).seat(Seat.TOP_RIGHT).color(Color.WHITE).play();
+    }
+
+    /**
+     * 初始化地图
+     */
+    private void initMap() {
+        /***
+         * 初始化定位sdk，建议在Application中创建
+         */        //百度地图初始化
+        locationService = new LocationService(getApplicationContext());
     }
 
     //    private void setUpLeakCanary(){

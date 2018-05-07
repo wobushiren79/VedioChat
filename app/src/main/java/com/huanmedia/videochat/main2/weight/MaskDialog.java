@@ -42,6 +42,8 @@ import cn.aigestudio.downloader.interfaces.IDListener;
 import io.reactivex.disposables.CompositeDisposable;
 import mvp.data.store.glide.GlideUtils;
 
+import static com.faceunity.FUManager.getmBeautyConfig;
+
 /**
  * Create by Administrator
  * time: 2018/1/26.
@@ -67,8 +69,8 @@ public class MaskDialog extends Dialog {
 
 
     public static int getCurrentMask() {
-        if (FUManager.getmBeautyConfig() == null) return 0;
-        return Check.isEmpty(FUManager.getmBeautyConfig().getMask()) ? 0 : 1;
+        if (getmBeautyConfig() == null) return 0;
+        return Check.isEmpty(getmBeautyConfig().getMask()) ? 0 : 1;
     }
 
 
@@ -106,7 +108,7 @@ public class MaskDialog extends Dialog {
 
     private void initData() {
         List<List<SkinMode>> localData = MaskHandler.getMaskDatas();
-
+        addCancelListData(localData);
         if (localData != null && localData.size() > 0) {//加载本地数据
             mAdapter.setData(localData);
             mAdapter.notifyDataSetChanged();
@@ -115,9 +117,10 @@ public class MaskDialog extends Dialog {
             mCompositeDisposable.add(new MainRepostiory().facelist()//从网络加载数据
                     .map(lists -> {
                         int changeCount = MaskHandler.saveFaceCaches(lists);
-                        if (changeCount > 0)
+                        if (changeCount > 0) {
+                            addCancelListData(lists);
                             return lists;
-                        else {
+                        } else {
                             return new ArrayList<List<SkinMode>>();
                         }
                     })
@@ -128,6 +131,15 @@ public class MaskDialog extends Dialog {
                         }
                         MaskHandler.setInitData(true);
                     }, Throwable::printStackTrace));
+        }
+    }
+
+    /**
+     * 增加第一个取消按钮
+     */
+    private void addCancelListData(List<List<SkinMode>> listData) {
+        for (List<SkinMode> item : listData) {
+            item.add(0, new SkinMode());
         }
     }
 
@@ -167,8 +179,19 @@ public class MaskDialog extends Dialog {
         });
     }
 
-    public void clearMask() {
-        FUManager.clearMask();
+    public int clearMask(int maskLayout) {
+        if (maskLayout == 0) {
+            FUManager.clearMask();
+            return 0;
+        } else {
+            FUManager.clearMaskByLayout(maskLayout);
+            if (getmBeautyConfig().getMask() != null && getmBeautyConfig().getMask().size() > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
     }
 
     public void setChooseEnable(boolean chooseEnable) {
@@ -178,10 +201,6 @@ public class MaskDialog extends Dialog {
         }
     }
 
-//    public void setData(List<SkinMode> data) {
-//        if (data==null) data= new ArrayList<>();
-//        mData = data;
-//    }
 
     public interface MaskChooseListener {
         /**
@@ -238,6 +257,7 @@ public class MaskDialog extends Dialog {
             return view;
         }
 
+
         /**
          * 创建Adapter 并设置监听
          *
@@ -249,6 +269,13 @@ public class MaskDialog extends Dialog {
             BaseQuickAdapter<SkinMode, BaseViewHolder> adapter = new BaseQuickAdapter<SkinMode, BaseViewHolder>(R.layout.item_main_select_filter, mSkinMode.get(position)) {
                 @Override
                 protected void convert(BaseViewHolder helper, SkinMode item) {
+                    if (helper.getAdapterPosition() == 0) {
+                        helper.setGone(R.id.item_main_fl_noraml, false);
+                        helper.setGone(R.id.item_main_iv_cancel, true);
+                    } else {
+                        helper.setGone(R.id.item_main_fl_noraml, true);
+                        helper.setGone(R.id.item_main_iv_cancel, false);
+                    }
                     RoundedImageView riv = helper.getView(R.id.item_main_iv_filter_type);
                     helper.itemView.setTag(position);
 
@@ -267,6 +294,7 @@ public class MaskDialog extends Dialog {
                             riv.setBorderColor(ContextCompat.getColor(mContext, R.color.transparent));
                         }
                     } else {
+                        helper.setChecked(R.id.item_main_iv_cancel, false);
                         riv.setBorderColor(ContextCompat.getColor(mContext, R.color.transparent));
                     }
                     GlideUtils.getInstance().loadBitmapNoAnim(container.getContext(), item.getImg_thumb(), riv);
@@ -275,6 +303,21 @@ public class MaskDialog extends Dialog {
             adapter.setOnItemClickListener((adapter1, view1, position1) -> {
                 Integer pagePosition = (Integer) view1.getTag();
                 boolean clearSelect = false;
+                if (position1 == 0) {
+                    if (mFilterSelect.size() > 0) {
+                        int pageindex = mFilterSelect.keyAt(0);
+                        int upPosition = mFilterSelect.get(pageindex).keyAt(0);
+                        if (pagePosition != null && pageindex == pagePosition) {
+                            mFilterSelect.clear();
+                            adapter1.notifyItemChanged(upPosition);
+                        } else {
+                            mFilterSelect.clear();
+                            notifyDataSetChanged(pageindex);
+                        }
+                    }
+                    FUManager.setMaskByNameList(new ArrayList<>(), pagePosition, position);
+                    return;
+                }
                 SkinMode maskMode = mSkinMode.get(pagePosition).get(position1);
 //                if (!MaskHandler.checkFileFull(maskMode)) {//判断是否下载道具
                 if (!FileUtils.hasListFileExists(MaskHandler.getCacheDir(), maskMode.getPackName())) {

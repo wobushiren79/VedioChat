@@ -33,6 +33,7 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
     private CheckBox mCbAttention;
     //    private ImageView mIvMaskWo;
     private ImageView mIvMaskTa;
+    private ImageView mIvAddTime;
     private View mIvGift;
     private MatchListener mMatchListener;
     private RedmanListener mRedmanListener;
@@ -126,6 +127,7 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
             mIvMask = findViewById(R.id.video_call_iv_mask);
             mCbAttention = findViewById(R.id.video_call_cb_attention);
             mIvBeauty = findViewById(R.id.video_call_iv_beauty);
+            mIvAddTime = findViewById(R.id.video_call_iv_addtime);
         }
         mCloseBtn.setVisibility(VISIBLE);
         mIvMask.setVisibility(VISIBLE);
@@ -146,6 +148,8 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                 mCbAttention.setVisibility(GONE);
                 //礼物
                 mIvGift.setOnClickListener(this);
+                //添加时长提示
+                mIvAddTime.setOnClickListener(this);
                 break;
             case VideoType.REDMAN:
                 mIvMaskTa.setVisibility(GONE);//红人不需要揭面
@@ -213,6 +217,10 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                     case R.id.video_call_fl_close:
                         mMatchListener.close();
                         break;
+                    case R.id.video_call_iv_addtime:
+                        mIvAddTime.setVisibility(GONE);
+                        mMatchListener.onGift(v);
+                        break;
                 }
 
                 break;
@@ -260,6 +268,10 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
         }
     }
 
+    public void setAddTimeShow(int visibility) {
+        mIvAddTime.setVisibility(visibility);
+    }
+
     public interface MatchListener {
         void onMaskTa(View view);
 
@@ -283,4 +295,6 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
 
         void close();
     }
+
+
 }

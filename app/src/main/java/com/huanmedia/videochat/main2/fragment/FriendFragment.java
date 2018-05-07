@@ -26,7 +26,7 @@ public class FriendFragment extends BaseFragment {
     SlidingTabLayout mMainFriendSlidingTabLayout;
     @BindView(R.id.home_toolbar_fl)
     FrameLayout mHomeToolbarFl;
-//    @BindView(R.id.toolbar)
+    //    @BindView(R.id.toolbar)
 //    Toolbar mToolbar;
     @BindView(R.id.main_friend_vp)
     ViewPager mMainFriendVp;
@@ -45,7 +45,6 @@ public class FriendFragment extends BaseFragment {
     }
 
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_friend;
@@ -56,20 +55,25 @@ public class FriendFragment extends BaseFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
     @Override
     protected boolean isImmersionBarEnabled() {
         return true;
     }
+
     @Override
     protected void statusBarConfig() {
         super.statusBarConfig();
         mHomeToolbarFl.getLayoutParams().height += DisplayUtil.getStatusBarHeight(getContext());
     }
+
     @Override
     protected void initView(View view) {
         mMainFriendVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
             @Override
             public void onPageSelected(int position) {
                 if (mCurrentMainTabSelect != position) {
@@ -78,8 +82,10 @@ public class FriendFragment extends BaseFragment {
                     mOnTabSelectListener.onTabReselect(position);
                 }
             }
+
             @Override
-            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrollStateChanged(int state) {
+            }
         });
 
         mMainFriendSlidingTabLayout.setOnTabSelectListener(mOnTabSelectListener);
@@ -108,12 +114,12 @@ public class FriendFragment extends BaseFragment {
     @Override
     protected void initData() {
         String[] titles;
-        if (UserManager.getInstance().getCurrentUser().getUserinfo().getIsstarauth()==1){
-            titles=new String[]{getString(R.string.attention_people),getString(R.string.tab_fans), getString(R.string.calling_people)};
-            mFragments = new Fragment[]{AttentionFragment.newInstance(),FansFragment.newInstance(),ComeAcrossFriendFragment.newInstance()};
-        }else {
-            titles=new String[]{getString(R.string.attention_people), getString(R.string.calling_people)};
-            mFragments = new Fragment[]{AttentionFragment.newInstance(),ComeAcrossFriendFragment.newInstance()};
+        if (UserManager.getInstance().getCurrentUser().getUserinfo().getIsstarauth() == 1) {
+            titles = new String[]{getString(R.string.calling_people), getString(R.string.tab_fans), getString(R.string.attention_people)};
+            mFragments = new Fragment[]{ComeAcrossFriendFragment.newInstance(), FansFragment.newInstance(), AttentionFragment.newInstance()};
+        } else {
+            titles = new String[]{getString(R.string.calling_people), getString(R.string.attention_people)};
+            mFragments = new Fragment[]{ ComeAcrossFriendFragment.newInstance(),AttentionFragment.newInstance()};
         }
 
         HomeFragmentAdapter adapter = new HomeFragmentAdapter(getFragmentManager(), mFragments);

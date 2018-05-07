@@ -1,343 +1,348 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.huanmedia.videochat.my.SettingActivity"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huanmedia.videochat.my.SettingActivity">
+
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dp_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/appBar_layout"
-        app:elevation="@dimen/dp_0"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toTopOf="parent">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/nav_btn_back_black"
-            app:title="设置"
             android:background="@color/base_appbar_background_light"
-            app:titleTextColor="@color/base_black"
+            app:navigationIcon="@drawable/nav_btn_back_black"
             app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
-            />
+            app:title="设置"
+            app:titleTextColor="@color/base_black" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@drawable/divider_ll"/>
+            android:background="@drawable/divider_ll" />
     </android.support.design.widget.AppBarLayout>
-<ScrollView
-    android:layout_below="@+id/appBar_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <android.support.constraint.ConstraintLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-      >
-        <!--账号信息-->
-        <LinearLayout
-            android:id="@+id/setting_userAccount_ll"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_52"
-            android:layout_marginTop="@dimen/dp_22"
-            android:background="@drawable/base_item_select"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/dp_22"
-            android:paddingStart="@dimen/dp_22"
-            >
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBar_layout">
 
-            <TextView
-                android:layout_width="wrap_content"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--账号信息-->
+            <LinearLayout
+                android:id="@+id/setting_userAccount_ll"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_52"
+                android:layout_marginTop="@dimen/dp_22"
+                android:background="@drawable/base_item_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/dp_22"
+                android:paddingStart="@dimen/dp_22">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="账号信息"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/tz_16" />
+
+                <TextView
+                    android:id="@+id/setting_tv_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textColor="@color/base_gray"
+                    android:textSize="@dimen/tz_16"
+                    tools:text="123456123456" />
+            </LinearLayout>
+            <!--屏蔽通知、声音提示-->
+            <LinearLayout
+                android:id="@+id/setting_notification_ll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="账号信息"
-                android:textColor="@color/base_black"
-                android:textSize="@dimen/tz_16"/>
+                android:layout_marginTop="@dimen/dp_20"
+                android:divider="@drawable/divider_ll"
+                android:orientation="vertical"
+                android:showDividers="middle"
+                app:layout_constraintTop_toBottomOf="@+id/setting_userAccount_ll">
 
-            <TextView
-                android:id="@+id/setting_tv_account"
-                android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/setting_notification_rl_desable"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/dp_22">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="屏蔽通知"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_16" />
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/setting_notification_sb"
+                        style="@style/SwitchButtonStyleMD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/setting_sound_rl_desable"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/dp_22">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="声音提示"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_16" />
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/setting_sound_sb"
+                        style="@style/SwitchButtonStyleMD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:kswThumbColor="@color/base_black" />
+                </RelativeLayout>
+            </LinearLayout>
+            <!--意见反馈、用户协议-->
+            <LinearLayout
+                android:id="@+id/setting_other_ll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:textColor="@color/base_gray"
-                android:textSize="@dimen/tz_16"
-                tools:text="123456123456"/>
-        </LinearLayout>
-        <!--屏蔽通知、声音提示-->
-        <LinearLayout
-            android:id="@+id/setting_notification_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
-            android:divider="@drawable/divider_ll"
-            android:orientation="vertical"
-            android:showDividers="middle"
-            app:layout_constraintTop_toBottomOf="@+id/setting_userAccount_ll"
-            >
+                android:layout_marginTop="@dimen/dp_20"
+                android:divider="@drawable/divider_ll"
+                android:orientation="vertical"
+                android:showDividers="middle"
+                app:layout_constraintTop_toBottomOf="@+id/setting_notification_ll">
 
-            <RelativeLayout
-                android:id="@+id/setting_notification_rl_desable"
+                <RelativeLayout
+                    android:id="@+id/setting_other_feedback_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/dp_22">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="意见反馈"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_16" />
+
+                    <TextView
+                        android:id="@+id/setting_other_feedback_enter_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:drawableEnd="@drawable/icon_arrows"
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/tz_16" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/setting_other_user_agreement_rl_desable"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/dp_22">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="用户协议"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_16" />
+
+                    <TextView
+                        android:id="@+id/setting_user_agreement_enter_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:drawableEnd="@drawable/icon_arrows"
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/tz_16" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--检查更新、关于-->
+
+            <LinearLayout
+                android:id="@+id/setting_other2_ll"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:background="@drawable/base_item_select"
-                android:paddingEnd="0dp"
-                android:paddingStart="@dimen/dp_22">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="屏蔽通知"
-                    android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"/>
-
-                <com.kyleduo.switchbutton.SwitchButton
-                    android:id="@+id/setting_notification_sb"
-                    style="@style/SwitchButtonStyleMD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/setting_sound_rl_desable"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:background="@drawable/base_item_select"
-                android:paddingEnd="0dp"
-                android:paddingStart="@dimen/dp_22">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="声音提示"
-                    android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"/>
-
-                <com.kyleduo.switchbutton.SwitchButton
-                    android:id="@+id/setting_sound_sb"
-                    style="@style/SwitchButtonStyleMD"
-                    app:kswThumbColor="@color/base_black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    />
-            </RelativeLayout>
-        </LinearLayout>
-        <!--意见反馈、用户协议-->
-        <LinearLayout
-            android:id="@+id/setting_other_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
-            android:divider="@drawable/divider_ll"
-            android:orientation="vertical"
-            android:showDividers="middle"
-            app:layout_constraintTop_toBottomOf="@+id/setting_notification_ll"
-            >
-
-            <RelativeLayout
-                android:id="@+id/setting_other_feedback_rl"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:background="@drawable/base_item_select"
-                android:paddingEnd="0dp"
-                android:paddingStart="@dimen/dp_22">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="意见反馈"
-                    android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"/>
-
-                <TextView
-                    android:drawableEnd="@drawable/icon_arrows"
-                    android:layout_marginEnd="@dimen/dp_24"
-                    android:id="@+id/setting_other_feedback_enter_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/setting_other_user_agreement_rl_desable"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:background="@drawable/base_item_select"
-                android:paddingEnd="0dp"
-                android:paddingStart="@dimen/dp_22">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="用户协议"
-                    android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"/>
-
-                <TextView
-                    android:drawableEnd="@drawable/icon_arrows"
-                    android:layout_marginEnd="@dimen/dp_24"
-                    android:id="@+id/setting_user_agreement_enter_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16"
-                    />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <!--检查更新、关于-->
-
-        <LinearLayout
-            android:id="@+id/setting_other2_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
-            android:divider="@drawable/divider_ll"
-            android:orientation="vertical"
-            android:showDividers="middle"
-            app:layout_constraintTop_toBottomOf="@+id/setting_other_ll"
-            >
-
-            <RelativeLayout
-                android:id="@+id/setting_checkNew_rl"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:background="@drawable/base_item_select"
-                android:paddingEnd="0dp"
-                android:paddingStart="@dimen/dp_22">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="检查更新"
-                    android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"/>
-
-                <TextView
-                    android:padding="@dimen/dp_8"
-                    android:drawableEnd="@drawable/icon_arrows"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:id="@+id/setting_other2_checkNew_enter_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/setting_other2_aboutUs_rl"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:background="@drawable/base_item_select"
-                android:paddingEnd="0dp"
-                android:paddingStart="@dimen/dp_22">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="关于萌面"
-                    android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"/>
-
-                <TextView
-                    android:drawableEnd="@drawable/icon_arrows"
-                    android:layout_marginEnd="@dimen/dp_24"
-                    android:id="@+id/setting_other2_about_enter_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16"
-                    />
-            </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginBottom="@dimen/dp_22"
-            android:id="@+id/setting_outLogin_ll"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_52"
-            android:layout_marginTop="@dimen/dp_22"
-            android:background="@drawable/base_item_select"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/dp_22"
-            android:paddingStart="@dimen/dp_22"
-            app:layout_constraintTop_toBottomOf="@+id/setting_other2_ll">
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="退出登录"
-                android:textColor="@color/base_red"
-                android:textSize="@dimen/tz_16"/>
-        </LinearLayout>
-        <LinearLayout
-            android:visibility="gone"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="@dimen/dp_22"
-            android:id="@+id/setting_debug_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_22"
-            android:background="@drawable/base_item_select"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingEnd="@dimen/dp_22"
-            android:paddingStart="@dimen/dp_22"
-            app:layout_constraintTop_toBottomOf="@+id/setting_outLogin_ll">
-            <EditText
-                android:inputType="numberSigned"
-                android:id="@+id/setting_debug_et_network"
-                android:layout_marginTop="@dimen/dp_16"
-                android:hint="输入网络类型:1:debug 2:test 3:release"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/setting_debug_tv_network_current"
-                tools:text="当前网络："
-                android:textSize="@dimen/tz_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/setting_debug_btn_network_ok"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginBottom="@dimen/dp_16"
-                android:background="@drawable/base_btn_solid"
-                android:layout_gravity="end"
-                android:text="确定"
-                android:textSize="@dimen/tz_14"
-                android:layout_width="80dp"
-                android:layout_height="38dp"/>
-        </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+                android:layout_marginTop="@dimen/dp_20"
+                android:divider="@drawable/divider_ll"
+                android:orientation="vertical"
+                android:showDividers="middle"
+                app:layout_constraintTop_toBottomOf="@+id/setting_other_ll">
 
-</ScrollView>
+                <RelativeLayout
+                    android:id="@+id/setting_checkNew_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/dp_22">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="检查更新"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_16" />
+
+                    <TextView
+                        android:id="@+id/setting_other2_checkNew_enter_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:drawableEnd="@drawable/icon_arrows"
+                        android:padding="@dimen/dp_8"
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/tz_16" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/setting_other2_aboutUs_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_52"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="@dimen/dp_22">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="关于萌面"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/tz_16" />
+
+                    <TextView
+                        android:id="@+id/setting_other2_about_enter_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:drawableEnd="@drawable/icon_arrows"
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/tz_16" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_outLogin_ll"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_52"
+                android:layout_marginBottom="@dimen/dp_22"
+                android:layout_marginTop="@dimen/dp_22"
+                android:background="@drawable/base_item_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/dp_22"
+                android:paddingStart="@dimen/dp_22"
+                app:layout_constraintTop_toBottomOf="@+id/setting_other2_ll">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="退出登录"
+                    android:textColor="@color/base_red"
+                    android:textSize="@dimen/tz_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_debug_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_22"
+                android:layout_marginTop="@dimen/dp_22"
+                android:background="@drawable/base_item_select"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/dp_22"
+                android:paddingStart="@dimen/dp_22"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/setting_outLogin_ll">
+
+                <EditText
+                    android:id="@+id/setting_debug_et_network"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:hint="输入网络类型:1:debug 2:test 3:release"
+                    android:inputType="numberSigned" />
+
+                <TextView
+                    android:id="@+id/setting_debug_tv_network_current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/tz_12"
+                    tools:text="当前网络：" />
+
+                <Button
+                    android:id="@+id/setting_debug_btn_network_ok"
+                    android:layout_width="80dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="end"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:background="@drawable/base_btn_solid"
+                    android:text="确定"
+                    android:textSize="@dimen/tz_14" />
+
+                <Button
+                    android:id="@+id/setting_debug_btn_monitor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="监控" />
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 </RelativeLayout>

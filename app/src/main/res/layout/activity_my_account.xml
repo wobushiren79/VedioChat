@@ -185,7 +185,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="试运营期间，每月仅能提现800元，敬请谅解~"
+        android:text="试运营期间，每月仅能提现800元，敬请谅解~\n如有更高额度需求，请联系官方微信：mengmiankeji"
         android:textColor="@color/base_gray"
         android:textSize="@dimen/dimen_24dp"
         app:layout_constraintTop_toBottomOf="@+id/my_account_btn_ok" />

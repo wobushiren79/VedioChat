@@ -88,6 +88,7 @@ public class BusinessCardEntity implements Serializable {
         private int isfavorite;//是否关注 1关注 0 未关注
         private int maxtrustvalue;//评价数量
         private int trustvalue;//好评数量
+        private int onlinestatus;//0不在线 1在线 2忙碌
 
         public String getOccupation() {
             return occupation;
@@ -273,6 +274,14 @@ public class BusinessCardEntity implements Serializable {
             this.phpots = phpots;
         }
 
+        public int getOnlinestatus() {
+            return onlinestatus;
+        }
+
+        public void setOnlinestatus(int onlinestatus) {
+            this.onlinestatus = onlinestatus;
+        }
+
         @Override
         public int getItemType() {
             return BusinessMultiItem.BusinessType.HEADER;
@@ -304,6 +313,7 @@ public class BusinessCardEntity implements Serializable {
             sb.append(", isfavorite=").append(isfavorite);
             sb.append(", maxtrustvalue=").append(maxtrustvalue);
             sb.append(", trustvalue=").append(trustvalue);
+            sb.append(", onlinestatus=").append(onlinestatus);
             sb.append('}');
             return sb.toString();
         }

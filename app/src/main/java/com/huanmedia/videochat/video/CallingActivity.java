@@ -8,17 +8,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,7 +39,6 @@ import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.ilibray.utils.Spanny;
 import com.huanmedia.ilibray.utils.TextViewDrawableUtils;
 import com.huanmedia.ilibray.utils.TimeUtils;
-import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseVideoActivity;
@@ -62,6 +66,7 @@ import com.huanmedia.videochat.video.widget.CallButtomBtns;
 import com.huanmedia.videochat.video.widget.GiftFragmentDialog;
 import com.huanmedia.videochat.video.widget.OvertimeMode;
 import com.huanmedia.videochat.video.widget.RippleBackground;
+import com.huanmedia.videochat.video.widget.TimerTextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.opensource.svgaplayer.SVGACallback;
 import com.opensource.svgaplayer.SVGADrawable;
@@ -166,8 +171,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
     @BindView(R.id.view_time_progress)
     SquareProgressView mTimeProgressView;
-    @BindView(R.id.view_time_text)
-    TextView mTimeText;
+    @BindView(R.id.view_time)
+    TimerTextView mTimeText;
     @BindView(R.id.calling_fl_video_small_layout)
     FrameLayout mCallingFlVideoSmallLayout;
     //    private int mDefaultAutioVolume;
@@ -194,6 +199,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     private boolean isEndCall;//判断是否是结束通话
     private boolean isCallSuccess;//判断是否连接成功过
     private boolean isConnection;//是否连接中
+    private boolean isShowTimer;//是否展示倒计时
     private int mRemoteVideoUid;
     private EvaluationDialog mEvaluationDialog;
     private VideoPreProcessing videoPreProcessing;
@@ -204,6 +210,21 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         //空闲            //通话中
         int LEISURE = 1, BUSY = 2;
     }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_calling;
+    }
+
+    @Override
+    public void onBackPressed() {//返回按钮不能点击
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 
     public static Intent getCallingIntent(Context context, ConditionEntity conditionEntity, String hint) {
         Intent intent = new Intent(context, CallingActivity.class);
@@ -225,9 +246,6 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onCreate(savedInstanceState);
-        if (!FUManager.hasInstance()) {
-            FUManager.getInstance(context()).loadItems();
-        }
         mParser = new SVGAParser(this);
         ConditionEntity conditionEntigy = getIntent().getParcelableExtra("condition");
 
@@ -282,7 +300,6 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                     getBasePresenter().setSendEndCallMsg(true);
                     getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATECALL);//超时计时器
                     getBasePresenter().chatDefault(conditionEntigy.getMatchConfig().getMask());
-                    getBasePresenter().chatDefault(conditionEntigy.getMatchConfig().getMask());
                     startCallAnim();
                 } else {
                     //默认匹配的时候要显示自己的视频端
@@ -302,10 +319,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         }
         mVideoCallCbbControlBtns.inflate(VideoType.NONE);
         setControlbtn(VideoType.NONE);
-        if (videoPreProcessing == null) {
-            videoPreProcessing = new VideoPreProcessing();
-        }
-        videoPreProcessing.enablePreProcessing(true);
+        enableProcess();
     }
 
     @Override
@@ -364,27 +378,14 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         }
     }
 
-    @Override
-    public void onBackPressed() {//返回按钮不能点击
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_calling;
-    }
 
     @Override
     protected void initView() {
         ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).topMargin += DisplayUtil.getStatusBarHeight(context());
         ((FrameLayout.LayoutParams) mVideoCallRlUserinfo.getLayoutParams()).topMargin += DisplayUtil.getStatusBarHeight(context());
         //小屏与大屏幕的比例 5.8:1 4.56:1
-        ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).width = (int) (DisplayUtil.getDisplayWidth(context()) / 4.6f);
-        ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).height = (int) (DisplayUtil.getDisplayHeight(context()) / 5.8f);
+        ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).width = (int) (DisplayUtil.getDisplayWidth(context()) / 3.89f);
+        ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).height = (int) (DisplayUtil.getDisplayHeight(context()) / 4f);
         mAdapter = new ChatTextAdapter(R.layout.item_video_call_chat_text, null);
         mVideoCallRvChatText.setAdapter(mAdapter);
 
@@ -406,16 +407,18 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         final String encryptionMode = "aes-128-xts";
 
 //        int vProfile = ConstantApp.VIDEO_PROFILES[getVideoProfileIndex()];
-        int vProfile = io.agora.rtc.Constants.VIDEO_PROFILE_360P_11;
-//        worker().getRtcEngine().enableAudio();//开启声音
+//        int vProfile = io.agora.rtc.Constants.VIDEO_PROFILE_360P_10;
+        int vProfile = io.agora.rtc.Constants.VIDEO_PROFILE_360P_8;
         if (worker() != null) {
+            worker().getRtcEngine().enableAudio();//开启声音
             worker().configEngine(vProfile, encryptionKey, encryptionMode);
-            worker().getRtcEngine().setEnableSpeakerphone(true);
+            //设置视频音量
+//            worker().getRtcEngine().setEnableSpeakerphone(true);
+//            worker().getRtcEngine().setSpeakerphoneVolume(50);//0-255
             worker().getRtcEngine().muteLocalVideoStream(false);
         }//发送本地视频数据
 
-//        mDefaultAutioVolume = getVolumeControlStream();
-//        setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
+
     }
 
     /**
@@ -434,23 +437,33 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             if (worker() != null)
                 worker().preview(true, surfaceV, (int) UserManager.getInstance().getId());
         }
-        if (videoPreProcessing == null) {
-            videoPreProcessing = new VideoPreProcessing();
-        }
-        videoPreProcessing.enablePreProcessing(true);
+        enableProcess();
     }
 
     @Override
     public void deInitUIandEvent() {
+        if (getBasePresenter().getCondition().getMatchConfig() != null && getBasePresenter().getCondition().getNeedCloseFU() == 0) {
+        } else {
+            FUManager.getInstance(context()).destroyItems();
+        }
+
         //如果是匹配模式 停止搜索
         if (getBasePresenter().getCondition().getVideoType() == VideoType.MATCH) {
             getBasePresenter().forceOutSearch();
+
         }
         //释放视频资源
         optionalDestroy();
         doLeaveChannel();
         if (event() != null)
             event().removeEventHandler(this);
+    }
+
+    @Override
+    protected void enableProcess() {
+        if (videoPreProcessing == null)
+            videoPreProcessing = new VideoPreProcessing();
+        videoPreProcessing.enablePreProcessing(true);
     }
 
     public void doLeaveChannel() {
@@ -499,7 +512,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 //        worker().getRtcEngine().disableAudio();//关闭声音
         if (worker() != null) {
             worker().getRtcEngine().muteLocalVideoStream(true);//不发送本地视频数据
-            worker().getRtcEngine().setEnableSpeakerphone(false);
+//            worker().getRtcEngine().setEnableSpeakerphone(false);
         }
 //        setVolumeControlStream(mDefaultAutioVolume);
     }
@@ -587,9 +600,11 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             if (getBasePresenter().getVideoChatEntity() != null) {//启动计时器
                 ConditionEntity condition = getBasePresenter().getCondition();
                 if (condition.getVideoType() == VideoType.REDMAN) {//红人模式扣费
-                    setTimeUp();
+                    if (!isShowTimer)
+                        setTimeUp();
                 } else {
-                    setTimeDown((getBasePresenter().getVideoChatEntity().getEndtime() - getBasePresenter().getVideoChatEntity().getBegintime()));
+                    if (!isShowTimer)
+                        setTimeDown((getBasePresenter().getVideoChatEntity().getEndtime() - getBasePresenter().getVideoChatEntity().getBegintime()));
                 }
                 //如果是红人模式。就打开查询微信号功能
                 if (condition.getVideoType() == VideoType.REDMAN
@@ -602,10 +617,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             setControlbtn(getBasePresenter().getCondition().getVideoType());
             isCallSuccess = true;
         });
-        if (videoPreProcessing == null) {
-            videoPreProcessing = new VideoPreProcessing();
-        }
-        videoPreProcessing.enablePreProcessing(true);
+        enableProcess();
     }
 
     /**
@@ -744,6 +756,9 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             case -2:
                 getBasePresenter().setEndFlag(2);
                 finish();
+                break;
+            case -3:
+                showHint(HintDialog.HintType.WARN, message);
                 break;
             default:
                 if (!Check.isEmpty(message) && !isVideoCalling) {
@@ -935,8 +950,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                                 .positiveColorRes(R.color.base_yellow)
                                 .onPositive((dialog, which) -> getBasePresenter().chatCoinConsumption(
                                         Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid())
-                                        , 6,
-                                        0
+                                        , 6
+                                        , 1
                                 ))
                                 .show();
                     }
@@ -1220,12 +1235,34 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         }
     }
 
+    /**
+     * 是否开始动画
+     */
+    private boolean isTimeAnimStart = false;
+
+    /**
+     * 倒计时动画
+     *
+     * @return
+     */
+    private AnimationSet timeAnima() {
+        isTimeAnimStart = true;
+        AnimationSet animationSet = new AnimationSet(true);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
+        alphaAnimation.setDuration(500);
+        alphaAnimation.setRepeatCount(Animation.INFINITE);
+        alphaAnimation.setRepeatMode(Animation.REVERSE);
+        animationSet.addAnimation(alphaAnimation);
+        return animationSet;
+    }
 
     /**
      * 倒计时用户聊天用户时长
      */
     private void stopTimeDown() {
+        isShowTimer = false;
         mVideoCallLlTimeDown.setVisibility(View.GONE);
+        mVideoCallCbbControlBtns.setAddTimeShow(View.GONE);
         mTimeText.setVisibility(View.GONE);
         mTimeProgressView.setVisibility(View.GONE);
         if (mTimeDownSub != null && !mTimeDownSub.isDisposed()) {
@@ -1238,7 +1275,9 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
      * 记时用户聊天时长
      */
     private void setTimeUp() {
+        isShowTimer = true;
         //设置进度条样式
+        mTimeProgressView.clearAnimation();
         mTimeProgressView.setProgress(100);
         mTimeProgressView.setColor(getResources().getColor(R.color.progress_green));
         mTimeText.setVisibility(View.VISIBLE);
@@ -1246,10 +1285,10 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         if (mTimeDownSub != null && !mTimeDownSub.isDisposed()) {
             mTimeDownSub.dispose();
         }
-        mTimeText.setText("00:00");
+        mTimeText.setTimeUpText("00:00");
         mTimeDownSub = RxCountDown.interval(1).subscribe(totalTime -> {
             String time = TimeUtils.millisToMinStr((int) (totalTime * 1000));
-            mTimeText.setText(time);
+            mTimeText.setTimeUpText(time);
         });
     }
 
@@ -1257,12 +1296,14 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
      * 倒计时用户聊天用户时长
      */
     private void setTimeDown(int timeLength) {
+        isShowTimer = true;
 //        mVideoCallLlTimeDown.setVisibility(View.VISIBLE);
         mVideoCallProgressBar.setMax(timeLength);
         mVideoCallProgressBar.setProgress(timeLength);
         mTimeProgressView.setProgress(100);
+        mTimeProgressView.setVisibility(View.VISIBLE);
         mTimeText.setVisibility(View.VISIBLE);
-        mTimeText.setText(timeLength + "s");
+        mTimeText.setTimeDownText(timeLength);
         //设置进度条颜色
         mTimeProgressView.setColor(getResources().getColor(R.color.progress_green));
         if (mTimeDownSub != null && !mTimeDownSub.isDisposed()) {
@@ -1270,22 +1311,28 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         }
         mTimeDownSub = RxCountDown.countdown(timeLength).subscribe(
                 integer -> {
-                    mVideoCallTvTime.setText(String.format("%ss", integer));
+//                    mVideoCallTvTime.setText(String.format("%ss", integer));
                     mVideoCallProgressBar.setProgress(integer);
                     mTimeProgressView.setProgress(((float) integer / (float) timeLength) * 100);
-                    mTimeText.setText(integer + "s");
-                    if (integer <= 20 && mVideoCallTvTime.getTag() == null) {//倒计时小于二十秒提示用户
-                        mVideoCallTvTime.setTextColor(ContextCompat.getColor(context(), R.color.base_red));
-                        mVideoCallProgressBar.setProgressDrawable(ContextCompat.getDrawable(context(), R.drawable.video_call_progress_bar_red));
-                        mVideoCallTvTime.setTag("red");
+                    mTimeText.setTimeDownText(integer);
+                    if (integer <= 20) {//倒计时小于二十秒提示用户
+//                        mVideoCallTvTime.setTextColor(ContextCompat.getColor(context(), R.color.base_red));
+//                        mVideoCallProgressBar.setProgressDrawable(ContextCompat.getDrawable(context(), R.drawable.video_call_progress_bar_red));
+                        if (!isTimeAnimStart)
+                            mTimeProgressView.startAnimation(timeAnima());
+//                        mVideoCallTvTime.setTag("red");
                         //设置进度条颜色
                         mTimeProgressView.setColor(getResources().getColor(R.color.progress_red));
-                    } else if (integer > 20 && mVideoCallTvTime.getTag() != null) {
-                        mVideoCallTvTime.setTag(null);
-                        mVideoCallTvTime.setTextColor(ContextCompat.getColor(context(), R.color.white));
-                        mVideoCallProgressBar.setProgressDrawable(ContextCompat.getDrawable(context(), R.drawable.video_call_progress_bar));
+                        mVideoCallCbbControlBtns.setAddTimeShow(View.VISIBLE);
+                    } else if (integer > 20) {
+//                        mVideoCallTvTime.setTag(null);
+//                        mVideoCallTvTime.setTextColor(ContextCompat.getColor(context(), R.color.white));
+//                        mVideoCallProgressBar.setProgressDrawable(ContextCompat.getDrawable(context(), R.drawable.video_call_progress_bar));
+                        mTimeProgressView.clearAnimation();
+                        isTimeAnimStart = false;
                         //设置进度条颜色
                         mTimeProgressView.setColor(getResources().getColor(R.color.progress_green));
+                        mVideoCallCbbControlBtns.setAddTimeShow(View.GONE);
                     }
                     if (integer == 0) {
                         endCall();
@@ -1367,14 +1414,15 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
 
     @Override
-    public void chatMaskDisclose(boolean isSelf) {//揭面
+    public int chatMaskDisclose(boolean isSelf, int maskLayout) {//揭面
         mVideoCallCbbControlBtns.initButionStatus(getBasePresenter().getVideoChatEntity());
         if (!isSelf) {//对方的蒙面状态取消的时候需要显示头像
             mVideoCallIvHeader.setVisibility(View.VISIBLE);//蒙面状态不显示头像
             GlideUtils.getInstance().loadContextBitmap(context(), Check.checkReplace(getBasePresenter().getVideoChatEntity().getTouidinfo().getUserphoto_thumb()),
                     mVideoCallIvHeader, false);
+            return 0;
         } else {
-            getMaskDialog(false).clearMask();
+            return getMaskDialog(false).clearMask(maskLayout);
         }
     }
 

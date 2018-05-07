@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.faceunity.FUManager;
 import com.orhanobut.logger.Logger;
 
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public abstract class BaseVideoActivity<P extends Presenter> extends BaseActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setPresenter();
+        FUManager.getInstance(this).loadInitData();
         super.onCreate(savedInstanceState);
     }
 
@@ -101,6 +103,8 @@ public abstract class BaseVideoActivity<P extends Presenter> extends BaseActivit
     protected abstract void initUIandEvent();
 
     protected abstract void deInitUIandEvent();
+
+    protected abstract void enableProcess();
 
     protected boolean checkSelfPermissions() {
         return checkSelfPermission(Manifest.permission.READ_PHONE_STATE, ConstantApp.PERMISSION_REQ_ID_READ_PHONE_STATE) &&

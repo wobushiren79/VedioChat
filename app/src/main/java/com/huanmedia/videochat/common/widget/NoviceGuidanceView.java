@@ -31,28 +31,49 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
     @GuidanceType
     int guidanceType;
 
+    /**
+     * 发现 引导
+     */
     int[] findTypeData = {
             R.drawable.icon_novice_guidance_find_1,
             R.drawable.icon_novice_guidance_find_2
     };
 
+    /**
+     * 萌友 引导
+     */
     int[] friendTypeData = {
             R.drawable.icon_novice_guidance_friend_1
     };
 
+    /**
+     * 我 引导
+     */
     int[] myTypeData = {
             R.drawable.icon_novice_guidance_my_1
     };
 
+    /**
+     * 匹配模式 引导
+     */
     int[] matchTypeData = {
             R.drawable.icon_novice_guidance_match_1,
             R.drawable.icon_novice_guidance_match_2,
             R.drawable.icon_novice_guidance_match_3
     };
 
+    /**
+     * 红人类型 引导
+     */
+    int[] readTypeData = {
+            R.drawable.icon_novice_guidance_redman_1,
+            R.drawable.icon_novice_guidance_redman_2,
+            R.drawable.icon_novice_guidance_redman_3
+    };
+
     @Retention(RetentionPolicy.SOURCE)
     public @interface GuidanceType {
-        int FIND = 1, FRIEND = 2, MY = 3, MATCH = 4;
+        int FIND = 1, FRIEND = 2, MY = 3, MATCH = 4, READMAN = 5;
     }
 
     public NoviceGuidanceView(Context context) {
@@ -122,6 +143,10 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
                 keyData = "NoviceGuidanceMatch";
                 this.mResList = matchTypeData;
                 break;
+            case GuidanceType.READMAN:
+                keyData = "NoviceGuidanceReadMan";
+                this.mResList = readTypeData;
+                break;
         }
         boolean isFirst = new DataKeeper(getContext(), DataKeeper.DEFULTFILE).get(keyData, true);
         if (isFirst) {
@@ -158,6 +183,9 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
                 break;
             case GuidanceType.MATCH:
                 keyData = "NoviceGuidanceMatch";
+                break;
+            case GuidanceType.READMAN:
+                keyData = "NoviceGuidanceReadMan";
                 break;
         }
         new DataKeeper(getContext(), DataKeeper.DEFULTFILE).put(keyData, false);

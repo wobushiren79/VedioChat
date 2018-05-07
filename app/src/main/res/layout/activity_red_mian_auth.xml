@@ -219,6 +219,7 @@
                         android:textSize="@dimen/tz_18"/>
 
                     <EditText
+                        android:maxLength="18"
                         android:id="@+id/readmain_auth_et_card_number"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

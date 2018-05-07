@@ -54,18 +54,18 @@ import pub.devrel.easypermissions.EasyPermissions;
 /**
  * 登录后完善用户资料
  *
- * @author Eric<br/>
+ * @author Eric<br />
  * @version <br/>
  * @description <br/>
  * @email yb498869020@hotmail.com<br/>
  * Create by ericYang on 2017/11/16.
  * @since <br/>
  */
-public class CompleteInformationFragment extends BaseMVPFragment<CompleteInformationPresenter> implements CompleteInformationView , EasyPermissions.PermissionCallbacks{
+public class CompleteInformationFragment extends BaseMVPFragment<CompleteInformationPresenter> implements CompleteInformationView, EasyPermissions.PermissionCallbacks {
     public final static String TAG = "/CompleteInformationFragment";
     private static String KEY_USER = "user";
     private static final int REQUEST_CAMERA_WRITE_READ_PERM = 1;//权限标识符
-    private static final int REQUEST_CODE_ALBUM =2;//相册请求码
+    private static final int REQUEST_CODE_ALBUM = 2;//相册请求码
     @BindView(R.id.complete_info_iv_header)
     ImageView mCompleteInfoIvHeader;
     @BindView(R.id.complete_info_fl_header)
@@ -83,7 +83,7 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
     @BindView(R.id.complete_info_tv_age)
     TextView mCompleteInfoTvAge;
     private UserEntity mUserEntity;
-    private UserEntity.UserinfoEntity mUserinfo=new UserEntity.UserinfoEntity();
+    private UserEntity.UserinfoEntity mUserinfo = new UserEntity.UserinfoEntity();
     private MaterialDialog progressDialog;
     private boolean isCompleInfo;
 
@@ -119,13 +119,16 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
         simpleToolBar.getLiftBtn().setVisibility(View.GONE);
         mCompleteInfoEtNickName.addTextChangedListener(nickNameWatcher);
     }
+
     private TextWatcher nickNameWatcher = new TextWatcher() {
         private int editStart;
         private int editEnd;
         private int maxLen = 20; // the max byte
+
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
+
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
         }
@@ -150,7 +153,7 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
 
     @Override
     public void showError(String message) {
-        if (progressDialog!=null && progressDialog.isShowing()){
+        if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -163,50 +166,50 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
 
     @Override
     public void upDateSuccess(DataResponse response) {
-        if (progressDialog!=null && progressDialog.isShowing()){
+        if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-        isCompleInfo=true;
+        isCompleInfo = true;
         UserManager.getInstance().getCurrentUser().setExtdataflag(1);
         UserManager.getInstance().saveUser(UserManager.getInstance().getCurrentUser());
-        getNavigator().navToMain(getContext(),true);
+        getNavigator().navToMain(getContext(), true);
         ActivitManager.getAppManager().finishAlikeActivity(StartActivity.class);
     }
 
     @Override
     public void onDetach() {
-        if (!isCompleInfo){
+        if (!isCompleInfo) {
             UserManager.getInstance().outLogin(null);
         }
         super.onDetach();
     }
 
-    @OnClick({R.id.complete_info_fl_header,R.id.complete_info_rl_sex,R.id.complete_info_rl_age,R.id.complete_info_btn_complete})
-    public void onclickView(View view){
-        switch (view.getId()){
+    @OnClick({R.id.complete_info_fl_header, R.id.complete_info_rl_sex, R.id.complete_info_rl_age, R.id.complete_info_btn_complete})
+    public void onclickView(View view) {
+        switch (view.getId()) {
             case R.id.complete_info_fl_header:
                 openAlbum();
                 break;
-                case R.id.complete_info_rl_sex:
-                    SexChooseDialog dialog = new SexChooseDialog(getContext());
-                    dialog.setCheckedSexListener((sex, tag) -> {
-                        mCompleteInfoTvSex.setText(sex);
-                        mCompleteInfoTvSex.setTag(tag);
-                        mUserinfo.setSex(tag);
-                    });
-                    dialog.setDefault(mCompleteInfoTvSex.getTag()==null?0:Integer.parseInt(mCompleteInfoTvSex.getTag().toString()));
-                    dialog.show();
+            case R.id.complete_info_rl_sex:
+                SexChooseDialog dialog = new SexChooseDialog(getContext());
+                dialog.setCheckedSexListener((sex, tag) -> {
+                    mCompleteInfoTvSex.setText(sex);
+                    mCompleteInfoTvSex.setTag(tag);
+                    mUserinfo.setSex(tag);
+                });
+                dialog.setDefault(mCompleteInfoTvSex.getTag() == null ? 0 : Integer.parseInt(mCompleteInfoTvSex.getTag().toString()));
+                dialog.show();
                 break;
-                case R.id.complete_info_rl_age:
-                    DialogPick pick = new DialogPick(this.getContext());
-                   pick.setDatelistener(obj -> {
-                       mCompleteInfoTvAge.setText(obj);
-                       mUserinfo.setBirthday(obj);
-                   });
-                    pick.showPickerDate(mCompleteInfoTvAge.getText().toString(), "%s-%s-%s");
+            case R.id.complete_info_rl_age:
+                DialogPick pick = new DialogPick(this.getContext());
+                pick.setDatelistener(obj -> {
+                    mCompleteInfoTvAge.setText(obj);
+                    mUserinfo.setBirthday(obj);
+                });
+                pick.showPickerDate(mCompleteInfoTvAge.getText().toString(), "%s-%s-%s");
                 break;
-                case R.id.complete_info_btn_complete:
-                    getBasePresenter().checkUploadUserInfo(mUserinfo);
+            case R.id.complete_info_btn_complete:
+                getBasePresenter().checkUploadUserInfo(mUserinfo);
                 break;
         }
     }
@@ -222,8 +225,8 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
                 .negativeText("我再想想")
                 .positiveText("我想好了")
                 .onPositive((dialog1, which) -> {
-                    if (progressDialog==null)
-                        progressDialog=new MaterialDialog.Builder(getContext())
+                    if (progressDialog == null)
+                        progressDialog = new MaterialDialog.Builder(getContext())
                                 .title("")
                                 .content(R.string.login_submit_infomation)
                                 .progress(true, 0)
@@ -239,25 +242,26 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
 
     @AfterPermissionGranted(REQUEST_CAMERA_WRITE_READ_PERM)
     private void openAlbum() {
-        if (DoubleClickUtils.isFastDoubleClick())return;
-        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
-        if (EasyPermissions.hasPermissions(getContext(),perms)) {
-                new HM_StartAlbum
-                        .Bulide(getContext(),new HM_GlideEngine())
-                        .setMaxChoose(1)
-                        .setCrop(true)
-                        .setMaxOutPutH(400)
-                        .setMaxOutPutW(400)
-                        .setRequestCode(REQUEST_CODE_ALBUM)
-                        .setTargetPath(FilePathManager.getUpImage(getContext()))
-                        .setCropMode(HM_ExtarCropImageView.CropMode.SQUARE)
-                        .bulide();
+        if (DoubleClickUtils.isFastDoubleClick()) return;
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(getContext(), perms)) {
+            new HM_StartAlbum
+                    .Bulide(getContext(), new HM_GlideEngine())
+                    .setMaxChoose(1)
+                    .setCrop(true)
+                    .setMaxOutPutH(400)
+                    .setMaxOutPutW(400)
+                    .setRequestCode(REQUEST_CODE_ALBUM)
+                    .setTargetPath(FilePathManager.getUpImage(getContext()))
+                    .setCropMode(HM_ExtarCropImageView.CropMode.SQUARE)
+                    .bulide();
         } else {
             // Ask for one permission
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_camera_write_read),
-                    REQUEST_CAMERA_WRITE_READ_PERM,perms);
+                    REQUEST_CAMERA_WRITE_READ_PERM, perms);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -269,7 +273,7 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             if (EasyPermissions.hasPermissions(getContext(), (String[]) perms.toArray())) {
-                 openAlbum();
+                openAlbum();
             }
         }
     }
@@ -280,24 +284,24 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
             new AppSettingsDialog.Builder(getActivity()).build().show();
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             openAlbum();
         }
-        if (resultCode== Activity.RESULT_OK){
-            if (requestCode==REQUEST_CODE_ALBUM && data!=null){//头像设置
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_CODE_ALBUM && data != null) {//头像设置
                 ArrayList<HM_ImgData> chooseImages = data.getParcelableArrayListExtra("chooseImages");
-                if (chooseImages!=null && chooseImages.size()>0){
+                if (chooseImages != null && chooseImages.size() > 0) {
                     mUserinfo.setUserphoto(new File(chooseImages.get(0).getImage()).getAbsolutePath());
-                    GlideUtils.getInstance()
-                            .loadContextRoundBitmap(
+                    GlideUtils.getInstance().loadContextRoundBitmap(
                                     getContext(),
                                     mUserinfo.getUserphoto(),
                                     mCompleteInfoIvHeader,
                                     new RoundedCornersTransformation(getContext(),
-                                            DisplayUtil.dip2px(getContext(),3),1));
+                                            DisplayUtil.dip2px(getContext(), 3), 1));
                 }
             }
         }

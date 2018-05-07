@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.ilibray.widgets.ErrorView;
 import com.huanmedia.videochat.R;
@@ -201,7 +202,13 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                     return;
                 }
                 boolean isReadMain = mData.getBase().getStarbutton() == 1 && mData.getBase().getIsstarauth() == 1;
-                if ((!isReadMain && UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= 20) ||//如果是视频直聊需要20钻石 固定
+                if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < 20) {
+                    CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
+                } else if (mData.getBase().getOnlinestatus() == 2) {
+                    ToastUtils.showToastShort(getContext(), "对方忙！");
+                } else if (mData.getBase().getOnlinestatus() == 0) {
+                    ToastUtils.showToastShort(getContext(), "对方不在线！");
+                } else if ((!isReadMain && UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= 20) ||//如果是视频直聊需要20钻石 固定
                         UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= mData.getBase().getStarcoin()) {
                     int cost = mData.getBase().getStarcoin() / (mData.getBase().getStartime() == 0 ? 1 : mData.getBase().getStartime());
                     new MaterialDialog.Builder(getActivity())

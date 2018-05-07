@@ -225,9 +225,9 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         isAuth=getIntent().getBooleanExtra("isAuth",false);
         mAuthMsg=getIntent().getStringExtra("authMsg");
         getBasePresenter().getUserInfo();
-        if (isAuth && mAuthMsg!=null){
-            showError(0,mAuthMsg);
-        }
+//        if (isAuth && mAuthMsg!=null){
+//            showError(0,mAuthMsg);
+//        }
     }
 
     private void setAddrStr(ItemMenuEntity province,
@@ -375,7 +375,6 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     }
 
     private void showAddrDialog() {
-
         DialogPick dialog = new DialogPick(this);
         dialog.setOnAreaPickSelectListener((areaentity, choosePositions, chooseids) -> {
             try {

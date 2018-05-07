@@ -39,9 +39,10 @@ public class GiftFragment extends Fragment {
     private SparseArray<Integer> mGiftFilter;
     private int mPage;
 
-    private @GiftFragmentDialog.GiftDialogStyle int giftDialogStyle;
+    private @GiftFragmentDialog.GiftDialogStyle
+    int giftDialogStyle;
 
-    public static GiftFragment newInstance(ArrayList<GiftEntity> data, int page,@GiftFragmentDialog.GiftDialogStyle int giftDialogStyle) {
+    public static GiftFragment newInstance(ArrayList<GiftEntity> data, int page, @GiftFragmentDialog.GiftDialogStyle int giftDialogStyle) {
         GiftFragment fragment = new GiftFragment(giftDialogStyle);
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARG_DATA, data);
@@ -53,7 +54,7 @@ public class GiftFragment extends Fragment {
 
     public GiftFragment(@GiftFragmentDialog.GiftDialogStyle int giftDialogStyle) {
         // Required empty public constructor
-        this.giftDialogStyle=giftDialogStyle;
+        this.giftDialogStyle = giftDialogStyle;
     }
 
     public void setGiftClickListener(GiftClickListener giftClickListener) {
@@ -87,35 +88,35 @@ public class GiftFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        Logger.i("onDestroy："+mPage);
+        Logger.i("onDestroy：" + mPage);
         super.onDestroy();
     }
 
     @Override
     public void onDetach() {
-        Logger.i("onDetach："+mPage);
+        Logger.i("onDetach：" + mPage);
         super.onDetach();
     }
 
     @Override
     public void onAttach(Context context) {
-        Logger.i("onAttach："+mPage);
+        Logger.i("onAttach：" + mPage);
         super.onAttach(context);
     }
 
     @Override
     public void onDestroyView() {
-        Logger.i("onDestroyView："+mPage);
+        Logger.i("onDestroyView：" + mPage);
         super.onDestroyView();
     }
 
     protected void initView(View view) {
         mDialogFragmentGiftRv = view.findViewById(R.id.dialog_fragment_gift_rv);
         int layoutId;
-        if(giftDialogStyle==GiftFragmentDialog.GiftDialogStyle.AddTime){
-            layoutId=R.layout.dialog_item_gift_addtime;
-        }else{
-            layoutId=R.layout.dialog_item_gift;
+        if (giftDialogStyle == GiftFragmentDialog.GiftDialogStyle.AddTime) {
+            layoutId = R.layout.dialog_item_gift_addtime;
+        } else {
+            layoutId = R.layout.dialog_item_gift;
         }
         mDialogFragmentGiftRv.setAdapter(new BaseQuickAdapter<GiftEntity, BaseViewHolder>(layoutId, data) {
             @Override
@@ -123,22 +124,24 @@ public class GiftFragment extends Fragment {
                 helper.setText(R.id.dialog_item_gift_tv_name, Check.checkReplace(item.getName()));
                 Integer position = mGiftFilter.get(mPage);
                 if (mGiftFilter != null && mGiftFilter.get(mPage) != null && position == helper.getAdapterPosition()) {
-                    if(giftDialogStyle== GiftFragmentDialog.GiftDialogStyle.AddTime){
+                    if (giftDialogStyle == GiftFragmentDialog.GiftDialogStyle.AddTime) {
                         helper.setBackgroundRes(R.id.dialog_gift_cl, R.drawable.dialog_gift_selectbg_select);
-                    }else{
+                    } else {
                         helper.setBackgroundRes(R.id.dialog_gift_cl, R.drawable.dialog_overtime_selectbg_stroke);
                     }
                 } else {
                     helper.setBackgroundRes(R.id.dialog_gift_cl, 0);
                 }
-                String path = "file:///android_asset/" + item.get_localMode().getFistImageAbsolute();
+                String path = "";
+                if (item.get_localMode() != null && item.get_localMode().getFistImageAbsolute() != null)
+                    path = "file:///android_asset/" + item.get_localMode().getFistImageAbsolute();
                 GlideUtils.getInstance().loadBitmapNoAnim(GiftFragment.this, path, helper.getView(R.id.dialog_item_gift_iv_cover));
 
                 //新增时长
-                if(giftDialogStyle== GiftFragmentDialog.GiftDialogStyle.AddTime){
-                    helper.setText(R.id.dialog_item_gift_tv_addTime,"时长+"+item.getAddtime()+"s");
+                if (giftDialogStyle == GiftFragmentDialog.GiftDialogStyle.AddTime) {
+                    helper.setText(R.id.dialog_item_gift_tv_addTime, "时长+" + item.getAddtime() + "s");
                     helper.setText(R.id.dialog_item_gift_tv_price, String.valueOf(item.getCoin()));
-                }else{
+                } else {
                     helper.setText(R.id.dialog_item_gift_tv_price, String.valueOf(item.getCoin()) + "钻石");
                 }
             }
@@ -147,7 +150,7 @@ public class GiftFragment extends Fragment {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (mGiftFilter != null) {
-                    if (mGiftFilter.size()!=0){
+                    if (mGiftFilter.size() != 0) {
                         int oldPage = mGiftFilter.keyAt(0);
                         int oldPosition = mGiftFilter.get(oldPage);
                         mGiftFilter.clear();

@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.video;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -35,6 +36,7 @@ import io.reactivex.disposables.Disposable;
 import mvp.data.net.ApiException;
 import mvp.presenter.Presenter;
 
+
 /**
  * Create by Administrator
  * time: 2017/12/4.
@@ -54,7 +56,7 @@ public class CallingPresenter extends Presenter<CallingView> {
     private List<ArrayList<GiftEntity>> Gifts;//礼物列表
     private boolean isNeedCallChatPeopleAttentionUpData;//是否需要关注列表更新
     private Disposable mCallTimer;
-    private boolean mSendEndCallMsg;
+    public boolean mSendEndCallMsg;
     private int mEndFlag;
 
     public CallingPresenter() {
@@ -93,7 +95,6 @@ public class CallingPresenter extends Presenter<CallingView> {
      * 开始匹配
      */
     void beginSearch() {
-
         Map<String, String> prams = new HashMap<>();
         if (mCondition.getMatchConfig().getType() == ConditionEntity.ConditionTtype.FILTER) {
             prams.put("sex", mCondition.getMatchConfig().getSex() + "");
@@ -155,7 +156,7 @@ public class CallingPresenter extends Presenter<CallingView> {
                         case 6:
                             UserManager.getInstance().getCurrentUser().getUserinfo().setCoin(UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() - 50);
                             videoCommond("USER_OTHER_MASK", typevalue);
-                            getView().chatMaskDisclose(false);
+                            getView().chatMaskDisclose(false, typevalue);
                             break;
                         case 2://付费延长时间--http 请求后会Socket通知双方
                             UserManager.getInstance().getCurrentUser().getUserinfo().setCoin(UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() - (int) (typevalue / UserManager.getInstance().getExchangeRate()));
@@ -214,6 +215,11 @@ public class CallingPresenter extends Presenter<CallingView> {
                                 getView().showError(-1, throwable.getMessage());
                             } else {
                                 getView().showError(((ApiException) throwable).getErrorCode(), throwable.getMessage());
+                                addDisposable(RxCountDown.delay(2).subscribe(//匹配成功后等待3秒执行连接
+                                        integer -> {
+                                            ((Activity) getContext()).finish();
+                                        }
+                                ));
                             }
                         } else {
                             getView().showError(0, getGeneralErrorStr(throwable));
@@ -327,168 +333,7 @@ public class CallingPresenter extends Presenter<CallingView> {
     //--------------------------------------------------------Socket通讯处理-----------------------------------------
 
     private void initWsocket() {
-        mWsListener = new WSonMessageListener() {
-
-            @Override
-            public void onMessage(WMessage message) {
-                Map<String, String> contents;
-                String callid;
-                String chatStr;
-                switch (message.getType()) {
-                    case "sendGiftnotice"://收到礼物
-                        if (isNullView()) break;
-                        contents = mGson.fromJson(message.getBody().toString(), new TypeToken<TreeMap<String, String>>() {
-                        }.getType());
-                        String gid = contents.get("giftid");
-                        String from = contents.get("from");
-                        String fromName = contents.get("fromname");
-                        String to = contents.get("to");
-                        String toName = contents.get("toname");
-                        String giftnumbers = contents.get("giftnumbers");
-                        String giftcoin = contents.get("giftcoin");
-                        String name = contents.get("giftname");
-
-                        if (Integer.valueOf(from) == UserManager.getInstance().getId()) {
-                            chatStr = "你赠送了" + giftnumbers + "个 " + name + " 给" + mVideoChatEntity.getTouidinfo().getNickname();
-                        } else {
-                            chatStr = mVideoChatEntity.getTouidinfo().getNickname() + "给你赠送了" + giftnumbers + "个 " + name + " ";
-                        }
-                        if (isCurrentChat(contents)) {
-                            TextChatMode chatEntity = new TextChatMode(chatStr, TextChatMode.ChatType.TAGTEXT);
-                            chatEntity.setDeffColorText(name);
-                            getView().setChatText(chatEntity);
-                            GiftEntity giftEntity = new GiftEntity();
-                            giftEntity.setId(Integer.valueOf(gid));
-                            giftEntity.setName(name);
-                            giftEntity.setReceiveUserId(to);
-                            giftEntity.setReceiveUserName(toName);
-                            giftEntity.setSendUserId(from);
-                            giftEntity.setSendUserName(fromName);
-                            giftEntity.set_localMode(GiftModeMapping.getGiftMapping().get(Integer.parseInt(gid)));
-                            giftEntity.setPayCount(Integer.parseInt(giftnumbers));
-                            getView().showGift(giftEntity);
-                        }
-                        break;
-                    case "endChatnotice"://挂断视频
-                        if (!isNullView()) {
-                            contents = mGson.fromJson(message.getBody().toString(), new TypeToken<TreeMap<String, String>>() {
-                            }.getType());
-                            if (isCurrentChat(contents)) {
-                                String type = contents.get("endtype");
-                                if (type.equals("2")) {//超时
-                                    return;
-                                }
-                                if (mSendEndCallMsg && type.equals("1") && !isNullView()) {
-                                    chatStr = "对方已挂断";
-                                    // 如果是匹配状态需要重新进入匹配 如果是通话状态需要直接挂断
-                                    getView().showError(0, chatStr);
-                                    if (getCondition().getVideoType() == ConditionEntity.VideoType.MATCH && getCondition().getMatchConfig().getMatchType() == MatchConfig.MatchType.DEF) {
-                                        getView().doLeaveChannel();
-                                    } else {
-                                        getView().endCall();
-                                    }
-
-                                } else {
-                                    // 如果是匹配状态需要重新进入匹配 如果是通话状态需要直接挂断
-                                    if (getCondition().getVideoType() == ConditionEntity.VideoType.MATCH && getCondition().getMatchConfig().getMatchType() == MatchConfig.MatchType.DEF) {
-                                        getView().doLeaveChannel();
-                                    } else {
-                                        getView().endCall();
-                                    }
-                                }
-                            } else {
-                                // 如果是匹配状态需要重新进入匹配 如果是通话状态需要直接挂断
-                                if (getCondition().getVideoType() == ConditionEntity.VideoType.MATCH && getCondition().getMatchConfig().getMatchType() == MatchConfig.MatchType.DEF) {
-                                    getView().doLeaveChannel();
-                                } else {
-                                    getView().endCall();
-                                }
-                            }
-                        }
-                        break;
-                    case "SearchSuccess"://匹配成功
-                        if (!isNullView()) {
-                            mVideoChatEntity = mGson.fromJson(mGson.toJson(message.getBody()), VideoChatEntity.class);
-                            mVideoChatEntity.set_location_VideoType(mCondition.getVideoType());
-                            getView().chatOpenSuccess(mVideoChatEntity);
-                        }
-                        break;
-                    case "SearchTimeOut"://匹配失败
-                        if (!isNullView())
-                            getView().showError(0, "SearchTimeOut::" + Check.checkReplace(message.getMsg(), "未知异常"));
-                        break;
-                    case "voideCommand"://视频操作命令
-                        if (!isNullView()) {
-                            contents = mGson.fromJson(message.getBody().toString(), new TypeToken<TreeMap<String, String>>() {
-                            }.getType());
-                            TextChatMode chatEntity;
-                            switch (contents.get("Commend")) {
-                                case "USER_SELF_MASK"://对方用户自己主动揭面
-                                    if (isCurrentChat(contents)) {
-                                        getVideoChatEntity().setTomask(0);
-//                                        chatStr = Check.checkReplace(getVideoChatEntity().getTouidinfo().getNickname()) + " 已揭自己的面";
-//                                        chatEntity = new TextChatMode(chatStr, TextChatMode.ChatType.TEXT);
-//                                        getView().setChatText(chatEntity);
-                                        getView().setChatText(null);
-                                        getView().chatMaskDisclose(false);
-                                        videoCommondReport(contents.get("to"), contents.get("from"), "USER_SELF_MASK_OK", 0);
-                                    }
-                                    break;
-                                case "USER_SELF_MASK_OK"://确认自己已揭面成功
-                                    if (isCurrentChat(contents)) {
-//                                        chatStr = "您已向" + getVideoChatEntity().getTouidinfo().getNickname() + "揭面";
-//                                        chatEntity = new TextChatMode(chatStr, TextChatMode.ChatType.TEXT);
-//                                        getView().setChatText(chatEntity);
-                                        getView().setChatText(null);
-                                        getVideoChatEntity().setFrommask(0);
-                                        getView().chatMaskDisclose(true);
-                                    }
-                                    break;
-                                case "USER_OTHER_MASK"://揭面 对方
-                                    if (isCurrentChat(contents)) {
-                                        chatStr = Check.checkReplace(getVideoChatEntity().getTouidinfo().getNickname()) + " 已揭您的面";
-                                        chatEntity = new TextChatMode(chatStr, TextChatMode.ChatType.TEXT);
-                                        getView().setChatText(chatEntity);
-                                        getVideoChatEntity().setFrommask(0);
-                                        getView().chatMaskEnable(false);//对方揭面关闭面具功能
-                                        getView().chatMaskDisclose(true);
-                                        videoCommondReport(contents.get("to"), contents.get("from"), "USER_OTHER_MASK_OK", 0);
-                                    }
-                                    break;
-                                case "USER_OTHER_MASK_OK"://确认对方已揭面
-                                    chatStr = "您已揭" + mVideoChatEntity.getTouidinfo().getNickname() + "面";
-                                    chatEntity = new TextChatMode(chatStr, TextChatMode.ChatType.TEXT);
-                                    getView().setChatText(chatEntity);
-                                    if (isCurrentChat(contents)) {
-                                        getVideoChatEntity().setTomask(0);
-                                        getView().chatMaskDisclose(false);
-                                    }
-                                    break;
-                                case "USER_SELF_ADD_MASK"://对方带上面具
-                                    if (isCurrentChat(contents)) {
-                                        getVideoChatEntity().setTomask(1);
-                                        getView().addMaskOther();
-                                    }
-                                    break;
-
-                            }
-                        }
-                        break;
-                    case "addtimesCoin"://免费延长时间--http type =7 请求后会Socket通知双方
-                    case "addFreetimes":
-                        addTimeOk(message);
-                        break;
-//                    case"beginACCOMPANYchatnotice":
-//                        break;
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable ex) {
-                getView().showError(0, getGeneralErrorStr(ex));
-            }
-        };
+        mWsListener = new CallingMessage(this);
         WebSocketManager.getInstance().addMessageListener(mWsListener);
     }
 
@@ -497,26 +342,24 @@ public class CallingPresenter extends Presenter<CallingView> {
      *
      * @param message
      */
-    private void addTimeOk(WMessage message) {
+    public void addTimeOk(WMessage message) {
         if (message.getBody() != null) {
             Map<String, String> contents = mGson.fromJson(message.getBody().toString(), new TypeToken<TreeMap<String, String>>() {
             }.getType());
             if (!isCurrentChat(contents)) return;
             String from = contents.get("from");//from 不会随着设备改变，from标识发起方
             String freetimes = contents.get("freetimes");
+            String coin = "0";
+            if (contents.get("coin") != null)
+                coin = contents.get("coin");
+
             int addtime = Integer.parseInt(freetimes);
-            String animStr;
-//            if (addtime > 10) {
-//                animStr = addtime / 60 + " 分钟";
-//            } else {
-//                animStr = addtime + " 秒";
-//            }
-            animStr = addtime + " 秒";
+            String animStr = addtime + " 秒";
             String chatText;
             if (Integer.parseInt(from) == UserManager.getInstance().getId()) {//判断是否是自己添加的时长
                 chatText = "你已将你们的聊天时间加长了" + animStr;
             } else {
-                chatText = Check.checkReplace(getVideoChatEntity().getTouidinfo().getNickname()) + "已将你们的聊天时间加长了" + animStr;
+                chatText = Check.checkReplace(getVideoChatEntity().getTouidinfo().getNickname()) + "已将你们的聊天时间加长了" + animStr + "(+" + coin + "钻石)";
             }
             if (!isNullView()) {
                 TextChatMode chatMode = new TextChatMode(chatText, TextChatMode.ChatType.TAGTEXT);
@@ -542,6 +385,7 @@ public class CallingPresenter extends Presenter<CallingView> {
         map.put("to", wMessage.getTo());
         map.put("callid", getVideoChatEntity().getCallid());
         map.put("Commend", commend);
+        map.put("maskLayout", layerNumber);
         wMessage.setBody(map);
         WebSocketManager.getInstance().sendMessage(wMessage);
     }
@@ -554,7 +398,7 @@ public class CallingPresenter extends Presenter<CallingView> {
      * @param commond
      * @param layerNumber 揭面层数，0全部，1，第一层  2第二层。。。。。
      */
-    private void videoCommondReport(String from, String to, String commond, int layerNumber) {
+    public void videoCommondReport(String from, String to, String commond, int layerNumber, int hasMask) {
         WMessage wMessage = new WMessage();
         wMessage.setFrom(from);
         wMessage.setTo(to);
@@ -564,6 +408,7 @@ public class CallingPresenter extends Presenter<CallingView> {
         map.put("to", wMessage.getTo());
         map.put("callid", getVideoChatEntity().getCallid());
         map.put("Commend", commond);
+        map.put("hasMask", hasMask);
         wMessage.setBody(map);
         WebSocketManager.getInstance().sendMessage(wMessage);
     }
@@ -574,7 +419,7 @@ public class CallingPresenter extends Presenter<CallingView> {
      * @param videoCommendData
      * @return
      */
-    private boolean isCurrentChat(Map<String, String> videoCommendData) {
+    public boolean isCurrentChat(Map<String, String> videoCommendData) {
         try {
             if (String.valueOf(Integer.parseInt(videoCommendData.get("callid"))).equals(mVideoChatEntity.getCallid())) {
                 return true;

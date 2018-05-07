@@ -24,25 +24,25 @@
     <!--/>-->
     <FrameLayout
         android:id="@+id/calling_fl_video_small_layout"
-        android:layout_width="@dimen/dp_90"
-        android:layout_height="@dimen/dp_124"
+        android:layout_width="@dimen/dimen_165dp"
+        android:layout_height="@dimen/dimen_280dp"
         android:layout_gravity="end"
         android:layout_marginEnd="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_12"
         tools:background="@color/base_black">
 
         <ch.halcyon.squareprogressbar.SquareProgressView
-            android:rotationY="180"
             android:id="@+id/view_time_progress"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ch.halcyon.squareprogressbar.SquareProgressView>
+            android:layout_height="match_parent"
+            android:rotationY="180"></ch.halcyon.squareprogressbar.SquareProgressView>
 
         <FrameLayout
-            android:layout_margin="@dimen/dimen_5dp"
             android:id="@+id/calling_fl_video_small"
             android:layout_width="match_parent"
-            android:tag="0"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_7dp"
+            android:tag="0">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -68,18 +68,13 @@
 
         </FrameLayout>
 
-        <TextView
-            android:visibility="gone"
-            android:layout_margin="@dimen/dimen_5dp"
-            android:background="@color/progress_text_back"
-            android:textSize="@dimen/dimen_25dp"
-            android:text="0s"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:id="@+id/view_time_text"
-            android:layout_gravity="bottom"
+        <com.huanmedia.videochat.video.widget.TimerTextView
+            android:id="@+id/view_time"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_50dp" />
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/dimen_7dp"
+            android:visibility="gone" />
     </FrameLayout>
 
 

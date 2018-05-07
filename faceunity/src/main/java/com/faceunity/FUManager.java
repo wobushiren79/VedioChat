@@ -31,7 +31,7 @@ public class FUManager {
 //    };
 
     //滤镜名称数组
-    final static String[] FILTERS = {"nature", "delta", "electric", "slowlived", "tokyo", "warm"};
+    final static String[] FILTERS = {"origin", "delta", "electric", "slowlived", "tokyo", "warm"};
 
     private static volatile Context context;
 
@@ -69,40 +69,64 @@ public class FUManager {
         HandlerThread handlerThread = new HandlerThread("FUManager");
         handlerThread.start();
         handler = new Handler(handlerThread.getLooper());
-
         handler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    final byte[] authData = authpack.A();
                     if (context == null) return;
-                    InputStream is = context.getAssets().open("v3.bundle");
-                    faceunity.fuCreateEGLContext();
-                    byte[] v3data = new byte[is.available()];
-                    is.read(v3data);
-                    is.close();
-                    //TODO 调用fuSetup执行初始化
-                    /*
-                     类文件 ：faceunity.java
-
-                     函数原型：
-                     int fuSetup(byte[] v3data, byte[] ardata, byte[] authData);
-
-                     参数：
-                     v3Data : 人脸识别数据库
-                     arData : 不需要，传null即可
-                     authData : 鉴权证书authpack
-                    */
-                    int setup = faceunity.fuSetup(v3data, null, authData);
-                    Log.v("this", "fuSetup:" + setup);
-                    Log.v("this", "fuSetup fuIsTracking:" + faceunity.fuIsTracking());
-                    faceunity.fuSetMaxFaces(4);
-                } catch (IOException e) {
+                    initV3();
+                    initAnimModel();
+                    initArData();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
     }
+
+    /**
+     * 初始化V3
+     *
+     * @throws Exception
+     */
+    private void initV3() throws Exception {
+        final byte[] authData = authpack.A();
+        InputStream is = context.getAssets().open("v3.bundle");
+        faceunity.fuCreateEGLContext();
+        byte[] v3data = new byte[is.available()];
+        is.read(v3data);
+        is.close();
+        faceunity.fuSetup(v3data, null, authData);
+        faceunity.fuSetMaxFaces(4);
+    }
+
+
+    /**
+     * 优化表情跟踪功能
+     *
+     * @throws Exception
+     */
+    private void initAnimModel() throws Exception {
+        InputStream animModel = context.getAssets().open("anim_model.bundle");
+        byte[] animModeldata = new byte[animModel.available()];
+        animModel.read(animModeldata);
+        animModel.close();
+        faceunity.fuLoadAnimModel(animModeldata);
+    }
+
+    /**
+     * 换脸功能
+     *
+     * @throws Exception
+     */
+    private void initArData() throws Exception {
+        InputStream arModel = context.getAssets().open("ardata_ex.bundle");
+        byte[] arModelData = new byte[arModel.available()];
+        arModel.read(arModelData);
+        arModel.close();
+        faceunity.fuLoadExtendedARData(arModelData);
+    }
+
 
     public static int[] getmPagePosition() {
         return mPagePosition;
@@ -112,33 +136,44 @@ public class FUManager {
         return mBeautyConfig;
     }
 
-    public void loadItems() {
-        frameId = 0;
 
+    /**
+     * 加载初始化参数
+     */
+    public void loadInitData() {
+        loadInitBeautification();
+        loadInitMask();
+    }
+
+
+    /**
+     * 加载面具道具及参数
+     */
+    private void loadInitMask() {
+        List<String> newMasList = new ArrayList<>();
+        newMasList.addAll(getmBeautyConfig().mask);
+        setMaskByNameList(newMasList, 0, 0);
+    }
+
+    /**
+     * 加载美颜道具及参数
+     */
+    public void loadInitBeautification() {
+        frameId = 0;
         handler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    //加载默认道具yuguan.bundle
-//                    loadItem("item0204.bundle");
                     if (context == null) return;
                     InputStream is = context.getAssets().open("face_beautification.bundle");
                     byte[] itemData = new byte[is.available()];
                     is.read(itemData);
                     is.close();
-                    //TODO 调用fuCreateItemFromPackage，加载美颜道具
-                    /*
-                     类文件 ：faceunity.java
-
-                     函数原型：
-                     int fuCreateItemFromPackage(byte[] itemData);
-
-                     参数：
-                     itemData : 道具文件加载到内存中的byte[]
-                     */
                     faceBeautyItem = faceunity.fuCreateItemFromPackage(itemData);
                     Log.v("this", "fuCreateItemFromPackage fuIsTracking:" + faceunity.fuIsTracking());
                     //设置美颜参数
+
+                    faceunity.fuItemSetParam(faceBeautyItem, "filter_name", FILTERS[getmBeautyConfig().getFilter_position()]);
                     faceunity.fuItemSetParam(faceBeautyItem, "blur_level", getmBeautyConfig().getBlur_level());
                     faceunity.fuItemSetParam(faceBeautyItem, "color_level", getmBeautyConfig().getColor_level());
                     faceunity.fuItemSetParam(faceBeautyItem, "red_level", getmBeautyConfig().getRed_level());
@@ -218,8 +253,10 @@ public class FUManager {
             is.read(itemData);
             is.close();
             int effectId = faceunity.fuCreateItemFromPackage(itemData);
+            Log.v("this", "effectId:" + effectId);
             effectItem.put(name, effectId);
-            faceunity.fuItemSetParam(effectId, "isAndroid", 1);
+            int setParams = faceunity.fuItemSetParam(effectId, "isAndroid", 1);
+            Log.v("this", "setParams:" + setParams);
             setEffectRotation();
             return effectId;
         } catch (IOException e) {
@@ -232,10 +269,10 @@ public class FUManager {
      * 根据图片（yuv数组）朝向设置道具朝向
      */
     private static void setEffectRotation() {
-        for (Map.Entry<String, Integer> entry : effectItem.entrySet()) {
-            faceunity.fuItemSetParam(entry.getValue(), "default_rotation_mode", (rotation == 270) ? 1 : 3);
-            faceunity.fuItemSetParam(entry.getValue(), "rotationAngle", (rotation == 270) ? 90 : 270);
-        }
+//        for (Map.Entry<String, Integer> entry : effectItem.entrySet()) {
+//            faceunity.fuItemSetParam(entry.getValue(), "default_rotation_mode", (rotation == 270) ? 1 : 3);
+//            faceunity.fuItemSetParam(entry.getValue(), "rotationAngle", (rotation == 270) ? 90 : 270);
+//        }
     }
 
     private static void destroyEffectItem(int effectItem) {
@@ -244,6 +281,19 @@ public class FUManager {
         }
     }
 
+    /**
+     * 清楚某一层面具
+     */
+    public static void clearMaskByLayout(int maskLayout) {
+        if (effectItem.size() > 0 && getmBeautyConfig().getMask().size() > 0) {
+            String key = getmBeautyConfig().getMask().get(0);
+            int value = effectItem.get(key);
+
+            destroyEffectItem(value);
+            effectItem.remove(key);
+            getmBeautyConfig().remove(key);
+        }
+    }
 
     /**
      * 清空面具
@@ -268,20 +318,22 @@ public class FUManager {
         if (nameList.size() == 0) {
             mPagePosition = null;
         } else {
-            mPagePosition = new int[]{pagePosition, position};
+            if (pagePosition != 0 && position != 0)
+                mPagePosition = new int[]{pagePosition, position};
         }
         clearMask();
         creatingItem = true;
-        for (final String name : nameList) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (final String name : nameList) {
                     //TODO 调用FUManager封装的loadItem，加载道具数组ITEM_NAMES中对应位置道具，实现UI交互道具切换
                     setMaskByName(name);
                     creatingItem = false;
                 }
-            }).start();
-        }
+
+            }
+        }).start();
     }
 
     /**
@@ -401,6 +453,11 @@ public class FUManager {
 
         public BeautyConfig addMask(String maskItem) {
             mask.add(maskItem);
+            return this;
+        }
+
+        public BeautyConfig remove(String maskItem) {
+            mask.remove(maskItem);
             return this;
         }
 

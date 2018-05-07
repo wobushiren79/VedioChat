@@ -5,8 +5,11 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
+import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
+import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
+import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.entity.BillDetialEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
@@ -40,6 +43,7 @@ import mvp.data.net.converter.StringConverterFactory;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -302,6 +306,16 @@ public interface RemoteApiService {
     @FormUrlEncoded
     Observable<DataResponse> viewotherwxqqcoin(@Field("ouid") int ouid);
 
+    //更新用户信息
+    @POST("/index/userextv2/updatelatlng")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> uploaduserdata(@FieldMap Map<String, Object> params);
+
+    //用户聊天列表
+    @POST("/index/userextv2/talkroomlist")
+    @FormUrlEncoded
+    Observable<DataResponse<TalkRoomListResults>> talkroomlist(@FieldMap Map<String, Object> params);
+
     @Multipart
     @POST
     Observable<DataResponse> uploadFileWithPartMap(
@@ -332,7 +346,8 @@ public interface RemoteApiService {
                     ((BaseActivity) ActivitManager.getAppManager().currentActivity()).showFouceExitDialog();
                 }
             });
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(HostManager.getServiceUrl())
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(HostManager.getServiceUrl())
                     .client(OkhttpManager.getInstance().getClient(OkhttpManager.HTTP))
                     .addConverterFactory(StringConverterFactory.create())
                     .addConverterFactory(converFactory)

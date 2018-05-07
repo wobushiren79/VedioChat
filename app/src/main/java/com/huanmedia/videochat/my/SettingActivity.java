@@ -80,8 +80,8 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
     protected void initView() {
 //        bindService(new Intent(this, UpdateService.class), connectionService, Service.BIND_AUTO_CREATE);
         initToolbar();
-        if (UserManager.getInstance().getCurrentUser()!=null){
-            mSettingTvAccount.setText(String.format("ID:%s",UserManager.getInstance().getCurrentUser().getMobile()));
+        if (UserManager.getInstance().getCurrentUser() != null) {
+            mSettingTvAccount.setText(String.format("ID:%s", UserManager.getInstance().getCurrentUser().getMobile()));
         }
         mSettingNotificationSb.setChecked(mDataKeeper.get(SETTING_KEY_NO_NOTIFICATION, false));
         mSettingSoundSb.setChecked(mDataKeeper.get(SETTING_KEY_SOUND, true));
@@ -102,31 +102,35 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
+
     @Override
     protected ImmersionBar defaultBarConfig() {
         return super.defaultBarConfig().statusBarDarkFont(true);
     }
+
     @Override
     protected View getTitlebarView() {
         return mToolbar;
     }
+
     public void outLogin() {
-      new MaterialDialog.Builder(this)
-              .title("确认退出？")
-              .positiveText("确认")
-              .negativeText("取消")
-              .positiveColorRes(R.color.base_yellow)
-              .negativeColorRes(R.color.base_gray)
-              .onPositive((dialog, which) -> {
-                  Map<String, String> prmas = new HashMap<>();
-                  prmas.put("mobile", UserManager.getInstance().getCurrentUser().getMobile());
-                  new MainRepostiory().outLogin(prmas).subscribe(response -> {
-                  }, Throwable::printStackTrace, () -> Logger.e("异常退出"));
-                  UserManager.getInstance().outLogin(null);
-                  UserManager.getInstance().exit();
-              })
-              .show();
+        new MaterialDialog.Builder(this)
+                .title("确认退出？")
+                .positiveText("确认")
+                .negativeText("取消")
+                .positiveColorRes(R.color.base_yellow)
+                .negativeColorRes(R.color.base_gray)
+                .onPositive((dialog, which) -> {
+                    Map<String, String> prmas = new HashMap<>();
+                    prmas.put("mobile", UserManager.getInstance().getCurrentUser().getMobile());
+                    new MainRepostiory().outLogin(prmas).subscribe(response -> {
+                    }, Throwable::printStackTrace, () -> Logger.e("异常退出"));
+                    UserManager.getInstance().outLogin(null);
+                    UserManager.getInstance().exit();
+                })
+                .show();
     }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
@@ -139,7 +143,7 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
         }
     }
 
-    @OnClick({R.id.setting_other_feedback_rl, R.id.setting_outLogin_ll,R.id.setting_debug_btn_network_ok, R.id.setting_other_user_agreement_rl_desable, R.id.setting_checkNew_rl, R.id.setting_other2_aboutUs_rl})
+    @OnClick({R.id.setting_other_feedback_rl, R.id.setting_outLogin_ll, R.id.setting_debug_btn_network_ok, R.id.setting_other_user_agreement_rl_desable, R.id.setting_checkNew_rl, R.id.setting_other2_aboutUs_rl, R.id.setting_debug_btn_monitor})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting_outLogin_ll:
@@ -152,7 +156,7 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
                 getNavigator().navtoWebActiviyt(this, HostManager.getServiceUrl() + "index/h5page/about", "用户协议");
                 break;
             case R.id.setting_checkNew_rl:
-                if (mUpdata==null){
+                if (mUpdata == null) {
                     mUpdata = UpdateBuilder.create();
                     mUpdata.setCheckCallback(new CheckCallback() {
                         @Override
@@ -168,24 +172,24 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
                         @Override
                         public void noUpdate() {
                             hideLoading();
-                            showHint(HintDialog.HintType.WARN,"已是最新版本");
+                            showHint(HintDialog.HintType.WARN, "已是最新版本");
                         }
 
                         @Override
                         public void onCheckError(Throwable t) {
-                            showHint(HintDialog.HintType.WARN,"检测更新失败");
+                            showHint(HintDialog.HintType.WARN, "检测更新失败");
                             hideLoading();
                         }
 
                         @Override
                         public void onUserCancel() {
-                            showHint(HintDialog.HintType.WARN,"取消更新");
+                            showHint(HintDialog.HintType.WARN, "取消更新");
                             hideLoading();
                         }
 
                         @Override
                         public void onCheckIgnore(Update update) {
-                            showHint(HintDialog.HintType.WARN,"已忽略该版本");
+                            showHint(HintDialog.HintType.WARN, "已忽略该版本");
                             hideLoading();
                         }
                     });
@@ -203,6 +207,9 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
                         showHint(HintDialog.HintType.WARN, "网络参数错误");
                     }
                 }
+                break;
+            case R.id.setting_debug_btn_monitor:
+                getNavigator().navtoMonitor(this);
                 break;
         }
     }

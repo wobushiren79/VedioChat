@@ -24,7 +24,7 @@ import mvp.data.store.DataKeeper;
 public class ResourceManager {
     private static ResourceManager instance;
     private DefaultThreadProvider mDefaultThreadProvider;
-    private RemoteApiService mApiService;
+    private RemoteApiService mApiService;//远程API请求
     private Navigator navigator;
     private CacheProviders mCacheProviders;
     private String mCurrentUser;

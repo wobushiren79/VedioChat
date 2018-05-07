@@ -183,7 +183,7 @@ public class DialogPick {
         int countyears = currentYear - 1970;
         year.setVisibleItems(VisibleItems);
         year.setCyclic(true);
-        year.setCurrentItem(countyears-curentCurentYears);
+        year.setCurrentItem(2002-10);
         month.setVisibleItems(VisibleItems);
         month.setCurrentItem(Integer.parseInt(dates[1])-1);
         month.setCyclic(true);

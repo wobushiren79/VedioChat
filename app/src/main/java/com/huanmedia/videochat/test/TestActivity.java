@@ -9,38 +9,36 @@ import android.widget.FrameLayout;
 
 import com.faceunity.FUManager;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BaseVideoActivity;
 import com.huanmedia.videochat.common.FApplication;
+import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.video.CallingPresenter;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import io.agora.propeller.model.ConstantApp;
 import io.agora.rtc.RtcEngine;
 
-public class TestActivity extends BaseVideoActivity<CallingPresenter> {
-    FrameLayout testLayout;
-    Button textBt;
-    SurfaceView surfaceV;
+public class TestActivity extends BaseActivity {
+
+    @BindView(R.id.bt_test_1)
+    Button mMediaPlay;
+    @BindView(R.id.bt_test_2)
+    Button mMediaRecord;
+    @BindView(R.id.bt_test_3)
+    Button mMediaUpload;
+
 
     public TestActivity() {
 
     }
 
-    int s = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        testLayout = findViewById(R.id.testlayout);
-        textBt = findViewById(R.id.testBt);
-        textBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FUManager.setCurrentFilterByPosition(s);
-                s++;
-                if (s > 5)
-                    s = 0;
-            }
-        });
+
     }
 
     @Override
@@ -48,22 +46,16 @@ public class TestActivity extends BaseVideoActivity<CallingPresenter> {
         return R.layout.activity_test;
     }
 
-
-    @Override
-    protected void initUIandEvent() {
-        int vProfile = ConstantApp.VIDEO_PROFILES[getVideoProfileIndex()];
-        worker().configEngine(vProfile, null, null);
-        worker().getRtcEngine().muteLocalVideoStream(true);//不发送本地视频数据
-        surfaceV = RtcEngine.CreateRendererView(FApplication.getApplication());
-        surfaceV.setZOrderOnTop(false);
-        surfaceV.setZOrderMediaOverlay(false);
-        testLayout.addView(surfaceV);
-        worker().preview(true, surfaceV, 0);
+    @OnClick({R.id.bt_test_1, R.id.bt_test_2, R.id.bt_test_3})
+    public void onClickView(View view) {
+        switch (view.getId()) {
+            case R.id.bt_test_1:
+                getNavigator().navtoMediaPlay(this);
+                break;
+            case R.id.bt_test_2:
+                break;
+            case R.id.bt_test_3:
+                break;
+        }
     }
-
-    @Override
-    protected void deInitUIandEvent() {
-
-    }
-
 }

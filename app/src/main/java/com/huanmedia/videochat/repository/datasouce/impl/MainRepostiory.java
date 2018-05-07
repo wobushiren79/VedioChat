@@ -4,6 +4,7 @@ import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
+import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.datasouce.DataSource;
 import com.huanmedia.videochat.repository.datasouce.MainSource;
 import com.huanmedia.videochat.repository.datasouce.remote.RemoteDefaultSource;
@@ -39,6 +40,7 @@ import mvp.data.dispose.interactor.ThreadExecutorHandler;
 import mvp.data.net.DataResponse;
 import okhttp3.RequestBody;
 
+
 /**
  * Created by ericYang on 2017/8/24.
  * Email:eric.yang@huanmedia.com
@@ -62,8 +64,7 @@ public class MainRepostiory implements DataSource, MainSource {
 
     @Override
     public Observable<UserEntity> login(Map<String, String> prams) {
-        return mRemoteDataSource.login(prams)
-                .compose(ThreadExecutorHandler.toMain(mThreadProvider));
+        return mRemoteDataSource.login(prams).compose(ThreadExecutorHandler.toMain(mThreadProvider));
     }
 
     @Override

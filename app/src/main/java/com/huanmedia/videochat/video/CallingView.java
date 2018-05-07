@@ -24,7 +24,7 @@ interface CallingView extends LoadDataView {
      * 揭面
      * @param isSelf 是否是自己
      */
-    void chatMaskDisclose(boolean isSelf);
+    int chatMaskDisclose(boolean isSelf,int maskLayout);
 
     /**
      * 显示余额不足对话框
@@ -76,10 +76,4 @@ interface CallingView extends LoadDataView {
     void doLeaveChannel();
 
 
-//    /**
-//     * 手动开启会话成功
-//     * 用于非匹配模式手动建立会话
-//     * @param videoChatEntity
-//     */
-//    void chatOpenSuccess(VideoChatEntity videoChatEntity);
 }

@@ -3,6 +3,7 @@ package com.huanmedia.videochat.repository.datasouce.remote;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
+import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.datasouce.MainSource;
 import com.huanmedia.videochat.repository.entity.BillDetialEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
@@ -381,5 +382,7 @@ public class RemoteDefaultSource implements MainSource {
             }
         });
     }
+
+
 
 }

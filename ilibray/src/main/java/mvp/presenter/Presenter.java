@@ -18,6 +18,7 @@ import mvp.view.BaseView;
 public abstract class Presenter<V extends BaseView> {
     public Presenter() {
     }
+
     public V getView() {
         if (mWBaseView != null && mWBaseView.get() != null) {
             return mWBaseView.get();
@@ -25,9 +26,11 @@ public abstract class Presenter<V extends BaseView> {
             return null;
         }
     }
-    public boolean isNullView(){
+
+    public boolean isNullView() {
         return mWBaseView == null || mWBaseView.get() == null;
     }
+
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private WeakReference<V> mWBaseView;
 
@@ -51,12 +54,12 @@ public abstract class Presenter<V extends BaseView> {
      * Method that control the lifecycle of the view. It should be called in the view's
      * (Activity or Fragment) onDestroy() method.
      */
-    public  void destroy(){
+    public void destroy() {
         dispose();
     }
 
     public void setView(@NonNull V view) {
-        if (mWBaseView!=null)
+        if (mWBaseView != null)
             mWBaseView.clear();
         mWBaseView = new WeakReference<V>(view);
     }
@@ -72,6 +75,7 @@ public abstract class Presenter<V extends BaseView> {
     public void addDisposable(Disposable disposable) {
         mCompositeDisposable.add(disposable);
     }
+
     public void remove(Disposable disposable) {
         mCompositeDisposable.remove(disposable);
     }
@@ -81,13 +85,13 @@ public abstract class Presenter<V extends BaseView> {
             mCompositeDisposable.dispose();
         }
     }
-    protected String getGeneralErrorStr(Throwable throwable){
-        if (throwable instanceof ApiException){
-          return throwable.getMessage();
-        }else if (getContext()!=null && !Network.isConnected(getContext())){
-                return "无网络连接";
-        } else
-            if (throwable instanceof InterruptedIOException || throwable instanceof UnknownHostException){
+
+    public String getGeneralErrorStr(Throwable throwable) {
+        if (throwable instanceof ApiException) {
+            return throwable.getMessage();
+        } else if (getContext() != null && !Network.isConnected(getContext())) {
+            return "无网络连接";
+        } else if (throwable instanceof InterruptedIOException || throwable instanceof UnknownHostException) {
             return "网络异常";
         }
         return "未知错误";

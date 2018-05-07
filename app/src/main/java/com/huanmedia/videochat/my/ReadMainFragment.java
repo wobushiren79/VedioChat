@@ -17,6 +17,7 @@ import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.widget.NoviceGuidanceView;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.repository.entity.UserEntity;
@@ -52,6 +53,9 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
     TextView mFrmTvWXAccountEnter;
     @BindView(R.id.frm_cl_WXAccount)
     ConstraintLayout mFrmClWXAccount;
+    @BindView(R.id.view_noviceguidance)
+    NoviceGuidanceView mGuidanceView;
+
     private HintDialog mLoadingDialog;
     private HintDialog mHintDialog;
     private DialogPick dialogPack;
@@ -82,6 +86,7 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
     protected void initView(View view) {
         mIsVisible = true;//控制数据加载 如果是false 将不会调用initData方法
         mToolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.READMAN);
     }
 
     @Override

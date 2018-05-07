@@ -3,6 +3,7 @@ package com.huanmedia.videochat.repository.datasouce;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
+import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.entity.BillDetialEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
@@ -381,6 +382,7 @@ public interface MainSource extends DataSource {
      * @return
      */
     Observable<SystemTagsResults> systag();
+
     /**
      * 用户标签统计
      *
@@ -422,29 +424,27 @@ public interface MainSource extends DataSource {
     Observable<TrustValueEntity> userfulltags();
 
     /**
-     *
      * 红人认证资料完整度判断
      *
      * @return
      */
     Observable<DataResponse> starcintegrity();
+
     /**
-     *
      * 红人微信QQ账户价格设置
      *
      * @return
      */
     Observable<DataResponse> userwxqqcoin(Map<String, String> prams);
+
     /**
-     *
      * 红人设置信息获取
      *
      * @return
      */
-    Observable<Map<String,String>> getuserwxqqcoin();
+    Observable<Map<String, String>> getuserwxqqcoin();
 
     /**
-     *
      * 红人设置信息获取
      *
      * @return
@@ -453,7 +453,6 @@ public interface MainSource extends DataSource {
 
 
     /**
-     *
      * 查询其他红人QQ信息
      *
      * @return
@@ -461,18 +460,18 @@ public interface MainSource extends DataSource {
     Observable<ContactUnLockInfoResults> getotheruserwxqq(@Field("ouid") int ouid);
 
     /**
-     *
      * 红人QQ信息 扣费
      *
      * @return
      */
     Observable<DataResponse> viewotherwxqqcoin(@Field("ouid") int ouid);
+
     /**
-     *
      * 获取道具列表
      *
      * @return
      */
     Observable<List<List<SkinMode>>> facelist();
+
 
 }

@@ -105,7 +105,7 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
             @Override
             protected void convert(BaseViewHolder helper, DiscoverEntity item) {
                 helper.setText(R.id.item_discover_grids_tv_name, item.getNickname())
-                        .setText(R.id.item_discover_grids_tv_charge, String.format("%d钻/分钟", item.getStarcoin() / item.getStartime()))
+                        .setText(R.id.item_discover_grids_tv_charge, String.format("%d钻/分钟", item.getStarcoin()))
                         .setText(R.id.item_discover_grids_tv_distance, Check.checkReplace(item.getDistance(), "未知"));
 
                 if(item.getOnlinestatus()==0){

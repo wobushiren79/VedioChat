@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".test.TestActivity">
 
-    <FrameLayout
-        android:id="@+id/testlayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
-
     <Button
-        android:id="@+id/testBt"
+        android:id="@+id/bt_test_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Test" />
-</RelativeLayout>
+        android:text="视频播放"
+        android:textSize="@dimen/dimen_60dp" />
+
+    <Button
+        android:id="@+id/bt_test_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="视频录制"
+        android:textSize="@dimen/dimen_60dp" />
+
+    <Button
+        android:id="@+id/bt_test_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="视频上传"
+        android:textSize="@dimen/dimen_60dp" />
+</LinearLayout>

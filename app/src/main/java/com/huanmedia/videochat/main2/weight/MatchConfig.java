@@ -20,10 +20,11 @@ public class MatchConfig implements Parcelable {
     private int mUid;
     private VideoChatEntity mVideoChatEntity;
 
+
     @Retention(RetentionPolicy.SOURCE)
-    public @interface MatchType{
+    public @interface MatchType {
         /**
-         *  拨打
+         * 拨打
          */
         int CALL = 1;
 
@@ -32,6 +33,7 @@ public class MatchConfig implements Parcelable {
          */
         int DEF = 0;
     }
+
     public MatchConfig(int type, int sex, int age, int mask) {
         this.type = type;
         this.sex = sex;
@@ -63,6 +65,8 @@ public class MatchConfig implements Parcelable {
     public void setAge(int age) {
         this.age = age;
     }
+
+
 
     /**
      * v1.0 版本时候使用的

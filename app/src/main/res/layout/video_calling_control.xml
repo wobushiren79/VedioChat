@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--匹配模式————————底部按钮-->
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--匹配模式————————底部按钮-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,8 +18,7 @@
         android:layout_marginEnd="@dimen/dp_8"
         android:layout_marginRight="@dimen/dp_8"
         android:layout_marginStart="@dimen/dp_22"
-        android:src="@drawable/btn_skincare"
-        />
+        android:src="@drawable/btn_skincare" />
 
     <CheckBox
         android:id="@+id/video_call_cb_attention"
@@ -30,10 +27,9 @@
         android:layout_height="@dimen/dp_36"
         android:layout_above="@+id/video_call_fl_close"
         android:layout_alignEnd="@+id/video_call_fl_close"
-        android:layout_marginBottom="@dimen/dp_60"
-        android:layout_marginEnd="-8dp"
         android:layout_alignParentBottom="true"
-        />
+        android:layout_marginBottom="@dimen/dp_60"
+        android:layout_marginEnd="-8dp" />
 
     <FrameLayout
         android:id="@+id/video_call_fl_close"
@@ -43,16 +39,15 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/dp_22"
         android:layout_marginRight="@dimen/dp_22"
-        android:background="@drawable/bg_round"
-        >
+        android:background="@drawable/bg_round">
+
         <ImageView
             android:id="@+id/video_call_iv_close"
             android:layout_width="@dimen/dp_28"
             android:layout_height="@dimen/dp_28"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:src="@drawable/video_calling_match_control_close_level"
-            />
+            android:src="@drawable/video_calling_match_control_close_level" />
     </FrameLayout>
     <!--<View-->
     <!--android:id="@+id/video_call_v_placeholder"-->
@@ -75,8 +70,7 @@
         android:layout_marginRight="@dimen/dp_8"
         android:layout_toEndOf="@+id/video_call_iv_beauty"
         android:layout_toRightOf="@+id/video_call_iv_beauty"
-        android:src="@drawable/video_calling_match_control_mask_selecter"
-        />
+        android:src="@drawable/video_calling_match_control_mask_selecter" />
     <!--android:src="@drawable/video_calling_match_control_wo_selecter"-->
 
     <ImageView
@@ -88,8 +82,7 @@
         android:layout_marginRight="@dimen/dp_8"
         android:layout_toEndOf="@+id/video_call_iv_mask"
         android:layout_toRightOf="@+id/video_call_iv_mask"
-        android:src="@drawable/btn_gift"
-        />
+        android:src="@drawable/btn_gift" />
 
     <ImageView
         android:id="@+id/video_call_iv_ta"
@@ -98,6 +91,16 @@
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/video_call_iv_gift"
         android:layout_toRightOf="@+id/video_call_iv_gift"
-        android:src="@drawable/video_calling_match_control_jiemian_selecter"
-        />
+        android:src="@drawable/video_calling_match_control_jiemian_selecter" />
+
+    <ImageView
+        android:id="@+id/video_call_iv_addtime"
+        android:layout_width="@dimen/dimen_200dp"
+        android:layout_height="@dimen/dimen_150dp"
+        android:layout_above="@+id/video_call_iv_gift"
+        android:layout_alignLeft="@id/video_call_iv_mask"
+        android:layout_alignRight="@id/video_call_iv_ta"
+        android:layout_marginLeft="@dimen/dimen_36dp"
+        android:src="@drawable/icon_add_time_pop"
+        android:visibility="gone" />
 </merge>
