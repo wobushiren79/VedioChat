@@ -10,7 +10,7 @@ import com.huanmedia.videochat.mvp.view.user.IReportView;
 public class ReportPresenterImpl extends BaseMVPPresenter<IReportView, ReportModelImpl> implements IReportPresenter {
 
     public ReportPresenterImpl(IReportView mMvpView) {
-        super(mMvpView, ReportModelImpl.class);
+        super(mMvpView,ReportModelImpl.class);
     }
 
     @Override

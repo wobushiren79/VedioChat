@@ -9,6 +9,7 @@ import com.huanmedia.videochat.mvp.view.chat.ITalkRoomListView;
 
 public class TalkRoomListPresenterImpl extends BaseMVPPresenter<ITalkRoomListView, TalkRoomListModelImpl> implements ITalkRoomListPresenter {
 
+
     public TalkRoomListPresenterImpl(ITalkRoomListView mMvpView) {
         super(mMvpView, TalkRoomListModelImpl.class);
     }

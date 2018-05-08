@@ -4,7 +4,7 @@ public class BaseMVPPresenter<T extends BaseMVPView, V extends BaseMVPModel> {
     public T mMvpView;
     public V mMvpModel;
 
-    public BaseMVPPresenter(T mMvpView,Class<V> cls) {
+    public BaseMVPPresenter(T mMvpView, Class<V> cls) {
         try {
             this.mMvpView = mMvpView;
             this.mMvpModel = cls.newInstance();

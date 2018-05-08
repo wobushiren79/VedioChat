@@ -22,9 +22,9 @@ public class EvaluationPresenterImpl extends BaseMVPPresenter<IEvaluationView, E
     private SystemTagsResults mData;
 
     public EvaluationPresenterImpl(IEvaluationView mMvpView) {
-        super(mMvpView, EvaluationModelImpl.class);
-
+        super(mMvpView,EvaluationModelImpl.class);
     }
+
 
     @Override
     public void getSystemTag() {

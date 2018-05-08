@@ -8,6 +8,7 @@ import com.huanmedia.videochat.mvp.view.user.IUploadUserDataView;
 
 public class UploadUserDataPresenterImpl extends BaseMVPPresenter<IUploadUserDataView, UploadUserDataModelImpl> implements IUploadUserDataPresenter {
 
+
     public UploadUserDataPresenterImpl(IUploadUserDataView mMvpView) {
         super(mMvpView, UploadUserDataModelImpl.class);
     }

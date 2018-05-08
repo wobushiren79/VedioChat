@@ -1,0 +1,37 @@
+package com.huanmedia.videochat.mvp.model.file;
+
+import android.content.Context;
+
+import com.huanmedia.videochat.mvp.base.DataCallBack;
+import com.huanmedia.videochat.mvp.base.DataFileCallBack;
+import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
+import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
+
+public interface IFileUpLoadModel {
+    /**
+     * 文件上传
+     *
+     * @param context
+     * @param params
+     * @param callBack
+     */
+    void fileUpLoad(Context context, FileUpLoadResults params, DataFileCallBack callBack);
+
+    /**
+     * 文件上传 by 阿里云
+     *
+     * @param context
+     * @param params
+     * @param callBack
+     */
+    void fileUpLoadByAliyun(Context context, FileUpLoadResults params, DataFileCallBack callBack);
+
+
+    /**
+     * 获取阿里云上传数据
+     * @param context
+     * @param params
+     * @param callBack
+     */
+    void getAliyunUploadInfo(Context context, FileUpLoadRequest params, DataCallBack callBack);
+}

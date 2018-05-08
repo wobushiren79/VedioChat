@@ -10,8 +10,9 @@ import com.huanmedia.videochat.mvp.view.user.IContactUnLockView;
 
 public class ContactUnLockInfoPresenterImpl extends BaseMVPPresenter<IContactUnLockView, ContactUnLockInfoModelImpl> implements IContactUnLockInfoPresenter {
 
+
     public ContactUnLockInfoPresenterImpl(IContactUnLockView mMvpView) {
-        super(mMvpView, ContactUnLockInfoModelImpl.class);
+        super(mMvpView,ContactUnLockInfoModelImpl.class);
     }
 
     @Override
