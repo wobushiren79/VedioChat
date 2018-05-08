@@ -39,11 +39,11 @@ EYArchitecture
 
 Author
 ------
-Eric Yang - @ybADMIN on GitHub, yb498869020@hotmail.com on Email
+AppleCoffee - 734719526@qq.com on Email
 
 License
 -------
-Copyright 2017 Eric Yang
+Copyright 2018 AppleCoffee
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
