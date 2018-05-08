@@ -97,6 +97,7 @@ public class MaskDialog extends Dialog {
     @Override
     public void show() {
         super.show();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -105,6 +106,7 @@ public class MaskDialog extends Dialog {
         if (mCompositeDisposable != null)
             mCompositeDisposable.dispose();
     }
+
 
     private void initData() {
         List<List<SkinMode>> localData = MaskHandler.getMaskDatas();
@@ -146,6 +148,8 @@ public class MaskDialog extends Dialog {
 
     private void initView() {
         mMaskVp = findViewById(R.id.dialog_mask_vp);
+        mMaskRGP = findViewById(R.id.dialog_mask_rg);
+
         mMaskVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -166,7 +170,7 @@ public class MaskDialog extends Dialog {
         mAdapter = new MaskPagerAdapter(new ArrayList<>());
         mAdapter.setMaskChooseListener(mMaskChooseListener);
         mMaskVp.setAdapter(mAdapter);
-        mMaskRGP = findViewById(R.id.dialog_mask_rg);
+
         mMaskRGP.getChildAt(0).performClick();
         mMaskRGP.setOnCheckedChangeListener((group, checkedId) -> {
             for (int i = 0; i < group.getChildCount(); i++) {
@@ -182,16 +186,21 @@ public class MaskDialog extends Dialog {
     public int clearMask(int maskLayout) {
         if (maskLayout == 0) {
             FUManager.clearMask();
+            clearFilter();
             return 0;
         } else {
             FUManager.clearMaskByLayout(maskLayout);
             if (getmBeautyConfig().getMask() != null && getmBeautyConfig().getMask().size() > 0) {
                 return 1;
             } else {
+                clearFilter();
                 return 0;
             }
         }
+    }
 
+    public void clearFilter() {
+        FUManager.clearmPagePosition();
     }
 
     public void setChooseEnable(boolean chooseEnable) {
@@ -231,8 +240,7 @@ public class MaskDialog extends Dialog {
             this.mFilterSelect = new SparseArray<>();
             if (skinMode.size() > 0 && FUManager.getmPagePosition() != null) {//获取默认选择数据
                 SparseArray<SkinMode> mode = new SparseArray<>();
-                mode.put(FUManager.getmPagePosition()[1],
-                        mSkinMode.get(FUManager.getmPagePosition()[0]).get(FUManager.getmPagePosition()[1]));
+                mode.put(FUManager.getmPagePosition()[1], mSkinMode.get(FUManager.getmPagePosition()[0]).get(FUManager.getmPagePosition()[1]));
                 mFilterSelect.put(FUManager.getmPagePosition()[0], mode);
             }
         }
@@ -289,7 +297,10 @@ public class MaskDialog extends Dialog {
                             chooseFilter = pagData.get(helper.getAdapterPosition());
                         }
                         if (chooseFilter != null && chooseFilter.getId() == item.getId()) {
-                            riv.setBorderColor(ContextCompat.getColor(mContext, R.color.base_violet_light_alpha));
+                            if (FUManager.getmPagePosition() == null)
+                                riv.setBorderColor(ContextCompat.getColor(mContext, R.color.transparent));
+                            else
+                                riv.setBorderColor(ContextCompat.getColor(mContext, R.color.base_violet_light_alpha));
                         } else {
                             riv.setBorderColor(ContextCompat.getColor(mContext, R.color.transparent));
                         }

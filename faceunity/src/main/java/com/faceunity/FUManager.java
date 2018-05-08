@@ -132,6 +132,10 @@ public class FUManager {
         return mPagePosition;
     }
 
+    public static void clearmPagePosition() {
+        mPagePosition = null;
+    }
+
     public static synchronized BeautyConfig getmBeautyConfig() {
         return mBeautyConfig;
     }
