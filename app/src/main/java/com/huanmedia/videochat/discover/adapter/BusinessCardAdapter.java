@@ -28,6 +28,7 @@ import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
 import com.huanmedia.videochat.repository.entity.PhpotsEntity;
 import com.huanmedia.videochat.repository.entity.UserEvaluateEntity;
+import com.huanmedia.videochat.repository.entity.VideoEntity;
 
 import java.util.List;
 
@@ -45,6 +46,8 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
 
     private String mDistance;
     private BaseQuickAdapter<PhpotsEntity, BaseViewHolder> mHeaderAdapter;
+    private BaseQuickAdapter<VideoEntity, BaseViewHolder> mHeaderVideoAdapter;
+
     private int mItemSize;
     private BusinessAdapterListener mBusinessAdapterListener;
 
@@ -145,7 +148,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
         return "";
     }
 
-    private void configAdapter(RecyclerView photoRv) {
+    private void configAdapter(RecyclerView photoRv, RecyclerView videoRv) {
         if (mHeaderAdapter == null) {
             //照片墙
             RecyclerViewItemDecoration mCurrentItemDecoration = new RecyclerViewItemDecoration.Builder(mContext)
@@ -188,6 +191,26 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                 }
             });
             photoRv.setAdapter(mHeaderAdapter);
+            //-----------------------------------------------------------------------------
+            mHeaderVideoAdapter = new BaseQuickAdapter<VideoEntity, BaseViewHolder>(R.layout.item_discoverinfo_video) {
+                @Override
+                protected void convert(BaseViewHolder helper, VideoEntity item) {
+                    ImageView iv = helper.getView(R.id.iv_icon);
+                    GlideApp.with(mContext)
+                            .asBitmap()
+                            .load(item.getVideo_url())
+//                            .override(mItemSize, mItemSize)
+                            .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot).error(com.huanmedia.ilibray.R.drawable.bg_logot)
+                            .into(iv);
+                }
+            };
+            videoRv.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
+                @Override
+                public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                }
+            });
+            videoRv.setAdapter(mHeaderVideoAdapter);
         }
     }
 
@@ -231,9 +254,14 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                 businessCard.getIsstarauth() == 1 ? ContextCompat.getDrawable(mContext, R.drawable.icon_hot)
                         : null, null, null, null);
 
-        configAdapter(headerHolder.getView(R.id.business_card_rv_photos));
+        configAdapter(headerHolder.getView(R.id.business_card_rv_photos), headerHolder.getView(R.id.business_card_rv_video));
         mHeaderAdapter.setNewData(businessCard.getPhpots());
 
+        if (businessCard.getVideos() == null || businessCard.getVideos().size() == 0) {
+            headerHolder.setGone(R.id.business_card_ll_video, false);
+        } else {
+            headerHolder.setGone(R.id.business_card_ll_video, true);
+        }
 
     }
 

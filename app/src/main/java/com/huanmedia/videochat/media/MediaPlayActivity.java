@@ -2,24 +2,31 @@ package com.huanmedia.videochat.media;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
-import android.widget.VideoView;
-
+import android.support.v4.view.ViewPager;
+import android.view.View;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.media.view.MediaPlayView;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
-public class MediaPlayActivity extends BaseActivity implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
+public class MediaPlayActivity extends BaseActivity {
 
-    @BindView(R.id.media_video_view)
-    VideoView mVideoView;
+    @BindView(R.id.media_vp)
+    ViewPager mMediaoVP;
 
-    public static Intent getCallingIntent(Context context) {
+    private MediaPlayAdapter mPlayAdapter;
+    private List<String> mListVedioUrl;
+    private List<View> mListVedioView;
+
+    public static Intent getCallingIntent(Context context, ArrayList<String> vedios) {
         Intent intent = new Intent(context, MediaPlayActivity.class);
+        intent.putStringArrayListExtra("vedios", vedios);
         return intent;
     }
 
@@ -36,26 +43,22 @@ public class MediaPlayActivity extends BaseActivity implements MediaPlayer.OnPre
     @Override
     protected void initView() {
         super.initView();
-        mVideoView.setOnPreparedListener(this);
-        mVideoView.setOnCompletionListener(this);
     }
 
     @Override
     protected void initData() {
         super.initData();
-        Uri uri = Uri.parse("http://flashmedia.eastday.com/newdate/news/2016-11/shznews1125-19.mp4");
-        mVideoView.setVideoURI(uri);
-        mVideoView.start();
+        mListVedioView = new ArrayList<>();
+        mListVedioUrl = getIntent().getStringArrayListExtra("vedios");
+        if (mListVedioUrl == null || mListVedioUrl.size() <= 0)
+            return;
+        for (int i = 0; i < mListVedioUrl.size(); i++) {
+            MediaPlayView itemView = new MediaPlayView(this, mListVedioUrl.get(i));
+            mListVedioView.add(itemView);
+        }
+        mPlayAdapter = new MediaPlayAdapter(this, mListVedioView);
     }
 
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-
-    }
-
-    @Override
-    public void onPrepared(MediaPlayer mp) {
-        mp.setLooping(true);
-        mp.start();// 播放
-    }
 }
+
+

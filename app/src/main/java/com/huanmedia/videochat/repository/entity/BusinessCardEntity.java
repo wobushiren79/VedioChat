@@ -42,7 +42,7 @@ public class BusinessCardEntity implements Serializable {
     }
 
 
-    public static class BaseInfo   extends BusinessMultiItem  implements Serializable{
+    public static class BaseInfo extends BusinessMultiItem implements Serializable {
         /**
          * uid : 2
          * type : 2300
@@ -84,11 +84,21 @@ public class BusinessCardEntity implements Serializable {
         private String city_name;
         private String occupation;
         private List<PhpotsEntity> phpots;
+        private List<VideoEntity> videos;
         private int level;//用户等级
         private int isfavorite;//是否关注 1关注 0 未关注
         private int maxtrustvalue;//评价数量
         private int trustvalue;//好评数量
         private int onlinestatus;//0不在线 1在线 2忙碌
+
+
+        public List<VideoEntity> getVideos() {
+            return videos;
+        }
+
+        public void setVideos(List<VideoEntity> videos) {
+            this.videos = videos;
+        }
 
         public String getOccupation() {
             return occupation;
@@ -266,12 +276,12 @@ public class BusinessCardEntity implements Serializable {
             this.city_name = city_name;
         }
 
-        public List<PhpotsEntity> getPhpots() {
-            return phpots;
-        }
-
         public void setPhpots(List<PhpotsEntity> phpots) {
             this.phpots = phpots;
+        }
+
+        public List<PhpotsEntity> getPhpots() {
+            return phpots;
         }
 
         public int getOnlinestatus() {

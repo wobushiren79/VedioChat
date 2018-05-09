@@ -270,9 +270,10 @@ public class Navigator {
 
     /**
      * 视频播放
+     *
      * @param context
      */
-    public void navtoMediaPlay(Activity context) {
-        context.startActivity(MediaPlayActivity.getCallingIntent(context));
+    public void navtoMediaPlay(Activity context, ArrayList<String> vedios) {
+        context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios));
     }
 }
