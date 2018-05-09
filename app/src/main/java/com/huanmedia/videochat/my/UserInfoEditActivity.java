@@ -36,6 +36,7 @@ import com.huanmedia.videochat.repository.entity.ItemMenuEntity;
 import com.huanmedia.videochat.repository.entity.OccupationsEntity;
 import com.huanmedia.videochat.repository.entity.PhpotsEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
+import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -97,6 +98,9 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     RelativeLayout mUserInfoEditBaseRlOccupation;
     @BindView(R.id.user_info_edit_base_ll)
     LinearLayout mUserInfoEditBaseLl;
+    @BindView(R.id.user_info_edit_ll_video)
+    LinearLayout mUserIfoEditLLVideo;
+
     private HintDialog mLoadingDialog;
     private HintDialog mHintDialog;
     private BaseQuickAdapter<PhpotsEntity, BaseViewHolder> mAdapter;
@@ -105,6 +109,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     private boolean isPhotoChange;//照片墙发生改变
     private boolean isAuth;
     private String mAuthMsg;
+    private List<VideoEntity> videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,32 +127,33 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventPhoto(Intent action){
-        if (action==null || action.getAction()==null)return;
-            switch (action.getAction()){
-                case EventBusAction.ACTION_USER_PHOTOS_CHANGE:
-                    List<PhpotsEntity> photos = action.getParcelableArrayListExtra("data");
-                    if (photos!=null){
-                        showPhotos(photos);
-                    }
-                    break;
-            }
+    public void onEventPhoto(Intent action) {
+        if (action == null || action.getAction() == null) return;
+        switch (action.getAction()) {
+            case EventBusAction.ACTION_USER_PHOTOS_CHANGE:
+                List<PhpotsEntity> photos = action.getParcelableArrayListExtra("data");
+                if (photos != null) {
+                    showPhotos(photos);
+                }
+                break;
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (isPhotoChange){
-            isPhotoChange=false;
+        if (isPhotoChange) {
+            isPhotoChange = false;
             getBasePresenter().getUserInfo();
         }
     }
 
-    public static Intent getCallingIntent(Context context,boolean isAuth,String authMsg) {
+    public static Intent getCallingIntent(Context context, boolean isAuth, String authMsg) {
         Intent intent = new Intent(context, UserInfoEditActivity.class);
-        intent.putExtra("isAuth",isAuth);
-        intent.putExtra("authMsg",authMsg);
+        intent.putExtra("isAuth", isAuth);
+        intent.putExtra("authMsg", authMsg);
         return intent;
     }
 
@@ -159,7 +165,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (isAuth)
-        getMenuInflater().inflate(R.menu.user_info_edit_menu, menu);
+            getMenuInflater().inflate(R.menu.user_info_edit_menu, menu);
         return true;
     }
 
@@ -167,7 +173,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.user_info_edit_menu_next://时间筛选
-             getBasePresenter().checkCompleteness();
+                getBasePresenter().checkCompleteness();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -190,9 +196,9 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         mAdapter = new BaseQuickAdapter<PhpotsEntity, BaseViewHolder>(R.layout.item_user_eidt_photo) {
             @Override
             public int getItemCount() {
-                if (mData.size()>0 && mData.size()<=3){
+                if (mData.size() > 0 && mData.size() <= 3) {
                     return mData.size();
-                }else if (mData.size()>3){
+                } else if (mData.size() > 3) {
                     return 3;//多显示3张
                 }
                 return mData.size();
@@ -217,13 +223,13 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         else
             mUserInfoEditTvBalseOccupation.setText("未设置");
         //所在地
-        setAddrStr(userInfo.getProvince(),userInfo.getCity());
+        setAddrStr(userInfo.getProvince(), userInfo.getCity());
     }
 
     @Override
     protected void initData() {
-        isAuth=getIntent().getBooleanExtra("isAuth",false);
-        mAuthMsg=getIntent().getStringExtra("authMsg");
+        isAuth = getIntent().getBooleanExtra("isAuth", false);
+        mAuthMsg = getIntent().getStringExtra("authMsg");
         getBasePresenter().getUserInfo();
 //        if (isAuth && mAuthMsg!=null){
 //            showError(0,mAuthMsg);
@@ -250,10 +256,12 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
+
     @Override
     protected ImmersionBar defaultBarConfig() {
         return super.defaultBarConfig().statusBarDarkFont(true);
     }
+
     @Override
     public void showLoading(String msg) {
         if (mLoadingDialog == null) {
@@ -312,16 +320,21 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
 
     @Override
     public void showPhotos(List<PhpotsEntity> phpots) {
-        if (phpots == null || phpots.size()==0) {
+        if (phpots == null || phpots.size() == 0) {
             mUserInfoEditTvPhotosEnter.setText("你还没有上传照片");
             return;
-        }else {
+        } else {
             mUserInfoEditTvPhotosEnter.setText("");
         }
         GridLayoutManager layoutManager = (GridLayoutManager) mUserInfoEditRvPhotos.getLayoutManager();
-        int spanCount = phpots.size() == 0 ? 1 : phpots.size()>3?3:phpots.size();
+        int spanCount = phpots.size() == 0 ? 1 : phpots.size() > 3 ? 3 : phpots.size();
         layoutManager.setSpanCount(spanCount);
         mAdapter.setNewData(phpots);
+    }
+
+    @Override
+    public void showVideos(List<VideoEntity> videos) {
+        this.videos = videos;
     }
 
     @Override
@@ -334,7 +347,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         showOccpDialog();
     }
 
-    @OnClick({R.id.user_info_edit_rl_head, R.id.user_info_edit_rl_photos, R.id.user_info_edit_base_rl_addr, R.id.user_info_edit_base_rl_occupation})
+    @OnClick({R.id.user_info_edit_rl_head, R.id.user_info_edit_rl_photos, R.id.user_info_edit_base_rl_addr, R.id.user_info_edit_base_rl_occupation, R.id.user_info_edit_ll_video})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.user_info_edit_base_rl_addr:
@@ -344,12 +357,15 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
                 showOccpDialog();
                 break;
             case R.id.user_info_edit_rl_photos:
-                if (getBasePresenter().isCanNavToPhotos()){
+                if (getBasePresenter().isCanNavToPhotos()) {
                     getNavigator().navtoPhotos(this, (ArrayList<PhpotsEntity>) mAdapter.getData());
                 }
                 break;
             case R.id.user_info_edit_rl_head:
                 openAlbum();
+                break;
+            case R.id.user_info_edit_ll_video:
+                getNavigator().navtoMediaUpLoad(this, (ArrayList<VideoEntity>) videos);
                 break;
         }
     }
@@ -358,11 +374,11 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         DialogPick dialog = new DialogPick(this);
         dialog.setOnOccupationSelectListener((date, position) -> {
             try {
-                if (UserManager.getInstance().getCurrentUser().getUserinfo().getOccupation().getId()==
-                        date.getId()){
+                if (UserManager.getInstance().getCurrentUser().getUserinfo().getOccupation().getId() ==
+                        date.getId()) {
                     return;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -370,8 +386,8 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
             mUserInfoEditTvBalseOccupation.setText(date.getName());
             getBasePresenter().upBaseInfo(0, 0, date.getId());
         });
-        if (getBasePresenter().getUserConfigData()!=null)
-        dialog.showMajorPickerDialog(getBasePresenter().getUserConfigData().getOccupation(), getBasePresenter().getDefaultOccp());
+        if (getBasePresenter().getUserConfigData() != null)
+            dialog.showMajorPickerDialog(getBasePresenter().getUserConfigData().getOccupation(), getBasePresenter().getDefaultOccp());
     }
 
     private void showAddrDialog() {
@@ -379,17 +395,17 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         dialog.setOnAreaPickSelectListener((areaentity, choosePositions, chooseids) -> {
             try {
                 if (UserManager.getInstance().getCurrentUser().getUserinfo().getProvince().getId()
-                      ==chooseids[0]){
+                        == chooseids[0]) {
                     if (UserManager.getInstance().getCurrentUser().getUserinfo().getCity().getId()
-                            ==chooseids[1])
-                    return;
+                            == chooseids[1])
+                        return;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             getBasePresenter().setDefaultAddr(choosePositions);
-            setAddrStr(areaentity,areaentity.getSub().get(choosePositions[1]));
+            setAddrStr(areaentity, areaentity.getSub().get(choosePositions[1]));
             getBasePresenter().upBaseInfo(chooseids[0], chooseids[1], 0);
         });
         dialog.showAreaPickerDialog(getBasePresenter().getCitys(), getBasePresenter().getDefaultAddr());
@@ -397,7 +413,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
 
     @AfterPermissionGranted(REQUEST_CAMERA_WRITE_READ_PERM)
     private void openAlbum() {
-        if (DoubleClickUtils.isFastDoubleClick())return;
+        if (DoubleClickUtils.isFastDoubleClick()) return;
         String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(context(), perms)) {
             new HM_StartAlbum

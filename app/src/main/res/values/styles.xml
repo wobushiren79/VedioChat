@@ -218,5 +218,8 @@
         <item name="android:maxHeight">27dip</item>
     </style>
 
-
+    <style name="BrowseTransitionTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

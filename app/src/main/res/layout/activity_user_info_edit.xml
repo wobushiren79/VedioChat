@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.huanmedia.videochat.my.UserInfoEditActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -25,21 +24,22 @@
             app:navigationIcon="@drawable/nav_btn_back_black"
             app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
             app:title="资料编辑"
-            app:titleTextColor="@color/base_black"
-            />
+            app:titleTextColor="@color/base_black" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@drawable/divider_ll"/>
+            android:background="@drawable/divider_ll" />
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/user_info_edit_rl_head"
                 android:layout_width="match_parent"
@@ -59,8 +59,7 @@
                     android:layout_centerVertical="true"
                     android:text="头像"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
-                    />
+                    android:textSize="@dimen/tz_16" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/user_info_edit_iv_header"
@@ -73,28 +72,28 @@
                     android:src="@drawable/icon_headportrait"
                     app:riv_border_color="@color/block_gray"
                     app:riv_border_width="@dimen/dp_1"
-                    app:riv_corner_radius="@dimen/dp_4"/>
+                    app:riv_corner_radius="@dimen/dp_4" />
+
                 <TextView
                     android:id="@+id/user_info_edit_tv_enter"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/dp_22"
-                    android:drawableEnd="@drawable/icon_enter_nor"/>
+                    android:drawableEnd="@drawable/icon_enter_nor"
+                    android:gravity="center_vertical"
+                    android:maxLines="1" />
             </RelativeLayout>
             <!--//照片墙-->
             <RelativeLayout
                 android:id="@+id/user_info_edit_rl_photos"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_92"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_height="@dimen/dimen_184dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
                 android:background="@drawable/base_item_select"
                 android:minHeight="@dimen/dp_92"
-                android:paddingEnd="0dp"
-                android:paddingStart="@dimen/dp_22"
+                android:paddingLeft="@dimen/dimen_44dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_info_edit_rl_head">
@@ -106,40 +105,57 @@
                     android:layout_centerVertical="true"
                     android:text="照片墙"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
-                    />
+                    android:textSize="@dimen/dimen_32dp" />
 
                 <com.huanmedia.videochat.common.widget.NoFocusRecycleView
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     android:id="@+id/user_info_edit_rv_photos"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_68"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/dp_12"
                     android:layout_toStartOf="@+id/user_info_edit_tv_photos_enter"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:overScrollMode="never"
                     android:scrollbars="none"
                     app:layoutManager="android.support.v7.widget.GridLayoutManager"
                     app:spanCount="3"
-                    tools:listitem="@layout/item_user_eidt_photo"
-                    />
+                    tools:listitem="@layout/item_user_eidt_photo" />
 
                 <TextView
-                    android:textColor="@color/base_gray"
                     android:id="@+id/user_info_edit_tv_photos_enter"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/dp_22"
-                    android:drawableEnd="@drawable/icon_enter_nor"/>
+                    android:drawableEnd="@drawable/icon_enter_nor"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:textColor="@color/base_gray" />
             </RelativeLayout>
 
 
-            <!--用户基础信息-->
+            <LinearLayout
+                android:id="@+id/user_info_edit_ll_video"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_184dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/user_info_edit_rl_photos">
+
+                <TextView
+                    android:id="@+id/user_info_edit_tv_video_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dimen_44dp"
+                    android:text="视频"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/dimen_32dp" />
+            </LinearLayout><!--用户基础信息-->
 
 
             <LinearLayout
@@ -148,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/user_info_edit_rl_photos">
+                app:layout_constraintTop_toBottomOf="@+id/user_info_edit_ll_video">
 
                 <!--昵称-->
 
@@ -167,26 +183,26 @@
                         android:layout_centerVertical="true"
                         android:text="昵称"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16"
-                        />
+                        android:textSize="@dimen/tz_16" />
+
                     <TextView
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:layout_marginStart="0dp"
                         android:id="@+id/user_info_edit_tv_balse_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
-                        tools:text="萌萌的一百天"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginStart="0dp"
                         android:textColor="@color/base_gray"
                         android:textSize="@dimen/tz_16"
-                        />
+                        tools:text="萌萌的一百天" />
+
                     <View
-                        android:background="@drawable/divider_ll"
-                        android:layout_alignParentBottom="true"
                         android:id="@+id/user_info_edit_base_name_line"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"/>
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
                 <!--性别-->
                 <RelativeLayout
@@ -204,26 +220,26 @@
                         android:layout_centerVertical="true"
                         android:text="性别"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16"
-                        />
+                        android:textSize="@dimen/tz_16" />
+
                     <TextView
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:layout_marginStart="0dp"
                         android:id="@+id/user_info_edit_tv_balse_sex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
-                        tools:text="女"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginStart="0dp"
                         android:textColor="@color/base_gray"
                         android:textSize="@dimen/tz_16"
-                        />
+                        tools:text="女" />
+
                     <View
-                        android:background="@drawable/divider_ll"
-                        android:layout_alignParentBottom="true"
                         android:id="@+id/user_info_edit_base_sex_line"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"/>
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
                 <!--年龄-->
                 <RelativeLayout
@@ -241,26 +257,26 @@
                         android:layout_centerVertical="true"
                         android:text="年龄"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16"
-                        />
+                        android:textSize="@dimen/tz_16" />
+
                     <TextView
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:layout_marginStart="0dp"
                         android:id="@+id/user_info_edit_tv_balse_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
-                        tools:text="18"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginStart="0dp"
                         android:textColor="@color/base_gray"
                         android:textSize="@dimen/tz_16"
-                        />
+                        tools:text="18" />
+
                     <View
-                        android:background="@drawable/divider_ll"
-                        android:layout_alignParentBottom="true"
                         android:id="@+id/user_info_edit_base_age_line"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"/>
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
                 <!--所在地-->
                 <RelativeLayout
@@ -278,35 +294,35 @@
                         android:layout_centerVertical="true"
                         android:text="所在地"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16"
-                        />
+                        android:textSize="@dimen/tz_16" />
+
                     <TextView
-                        android:gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:layout_marginStart="0dp"
                         android:id="@+id/user_info_edit_tv_balse_addr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
-                        tools:text="北京"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginStart="0dp"
+                        android:drawableEnd="@drawable/icon_enter_nor"
+                        android:gravity="center_vertical"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/tz_16"
-                        android:drawableEnd="@drawable/icon_enter_nor"
-                        />
+                        tools:text="北京" />
+
                     <View
-                        android:background="@drawable/divider_ll"
-                        android:layout_alignParentBottom="true"
                         android:id="@+id/user_info_edit_base_addr_line"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"/>
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
                 <!--职业-->
                 <RelativeLayout
-                    android:layout_marginBottom="@dimen/dp_20"
                     android:id="@+id/user_info_edit_base_rl_occupation"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_60"
+                    android:layout_marginBottom="@dimen/dp_20"
                     android:background="@drawable/base_item_select"
                     android:paddingEnd="0dp"
                     android:paddingStart="@dimen/dp_22">
@@ -318,28 +334,28 @@
                         android:layout_centerVertical="true"
                         android:text="职业"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16"
-                        />
+                        android:textSize="@dimen/tz_16" />
+
                     <TextView
-                        android:gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:layout_marginStart="0dp"
                         android:id="@+id/user_info_edit_tv_balse_occupation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
-                        tools:text="策划"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginStart="0dp"
+                        android:drawableEnd="@drawable/icon_enter_nor"
+                        android:gravity="center_vertical"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/tz_16"
-                        android:drawableEnd="@drawable/icon_enter_nor"
-                        />
+                        tools:text="策划" />
+
                     <View
-                        android:background="@drawable/divider_ll"
-                        android:layout_alignParentBottom="true"
                         android:id="@+id/user_info_edit_base_occupation_line"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"/>
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>

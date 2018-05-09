@@ -25,6 +25,7 @@ import com.huanmedia.videochat.main.NotificationMessageActivity;
 import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.media.MediaPlayActivity;
+import com.huanmedia.videochat.media.MediaUpLoadActivity;
 import com.huanmedia.videochat.my.AboutActivity;
 import com.huanmedia.videochat.my.BoundIDCardActivity;
 import com.huanmedia.videochat.my.FeedBackActivity;
@@ -45,6 +46,7 @@ import com.huanmedia.videochat.pay.MyAccountActivity;
 import com.huanmedia.videochat.pay.MyWalletActivity;
 import com.huanmedia.videochat.repository.entity.PayCoinTypeMode;
 import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.huanmedia.videochat.video.CallingActivity;
 import com.huanmedia.videochat.video.MonitorVideoActivity;
 import com.huanmedia.videochat.wxapi.WXPayEntryActivity;
@@ -273,7 +275,16 @@ public class Navigator {
      *
      * @param context
      */
-    public void navtoMediaPlay(Activity context, ArrayList<String> vedios) {
-        context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios));
+    public void navtoMediaPlay(Activity context, ArrayList<String> vedios, int position) {
+        context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios,  position));
+    }
+
+    /**
+     * 视频上传界面
+     *
+     * @param context
+     */
+    public void navtoMediaUpLoad(Activity context, ArrayList<VideoEntity> videos) {
+        context.startActivity(MediaUpLoadActivity.getCallingIntent(context, videos));
     }
 }

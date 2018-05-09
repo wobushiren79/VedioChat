@@ -13,7 +13,7 @@ public class FileUpLoadPresenterImpl extends BaseMVPPresenter<IFileUpLoadView, F
 
 
     public FileUpLoadPresenterImpl(IFileUpLoadView mMvpView) {
-        super(mMvpView,FileUpLoadModelImpl.class);
+        super(mMvpView, FileUpLoadModelImpl.class);
     }
 
     @Override
@@ -39,6 +39,26 @@ public class FileUpLoadPresenterImpl extends BaseMVPPresenter<IFileUpLoadView, F
     public void startUpLoadByAliyun(FileUpLoadResults results) {
         if (mMvpView.getContext() == null)
             return;
+        if (results.getAccessKeyID() == null) {
+            mMvpView.showToast("没有文件上传AK");
+            return;
+        }
+        if (results.getAccessKeySecret() == null) {
+            mMvpView.showToast("没有文件上传SK");
+            return;
+        }
+        if (results.getBucket() == null) {
+            mMvpView.showToast("没有文件上传Bucket");
+            return;
+        }
+        if (results.getFilename() == null) {
+            mMvpView.showToast("没有文件上传FileName");
+            return;
+        }
+        if (results.getToken() == null) {
+            mMvpView.showToast("没有文件上传Token");
+            return;
+        }
         mMvpModel.fileUpLoadByAliyun(mMvpView.getContext(), results, new DataFileCallBack<PutObjectResult>() {
 
             @Override

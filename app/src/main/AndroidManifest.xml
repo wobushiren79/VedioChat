@@ -91,22 +91,23 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.Launch">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity
-            android:name=".test.TestActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppBaseTheme.Default">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".test.TestActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppBaseTheme.Default">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <!-- 相册 -->
         <activity
@@ -335,11 +336,16 @@
             android:name=".video.MonitorVideoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".media.MediaPlayActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/BrowseTransitionTheme" />
+
+        <activity
+            android:name=".media.MediaUpLoadActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
 
         <service
             android:name="com.baidu.location.f"

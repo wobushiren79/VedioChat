@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_250dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_layout_normal"
+        android:layout_width="@dimen/dimen_230dp"
+        android:layout_height="@dimen/dimen_230dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/base_black"
+            app:riv_corner_radius="@dimen/dimen_12dp"></com.makeramen.roundedimageview.RoundedImageView>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/normal_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:riv_corner_radius="@dimen/dimen_12dp" />
+
+        <ImageView
+            android:layout_width="@dimen/dimen_60dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_video_play" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_layout_upload"
+        android:layout_width="@dimen/dimen_230dp"
+        android:layout_height="@dimen/dimen_230dp"
+        android:background="@drawable/back_dotted_line_gray">
+
+        <ImageView
+            android:id="@+id/media_upload_iv_add"
+            android:layout_width="@dimen/dimen_120dp"
+            android:layout_height="@dimen/dimen_120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_30dp"
+            android:src="@drawable/icon_item_add" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/media_upload_iv_add"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:text="@string/media_upload_adpater_item_add"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/dimen_24dp" />
+
+    </RelativeLayout>
+</LinearLayout>

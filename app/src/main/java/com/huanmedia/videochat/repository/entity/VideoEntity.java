@@ -6,8 +6,17 @@ import android.os.Parcelable;
 public class VideoEntity implements Parcelable {
 
     private int id;
-    private String video_url;
-    private String video_pic;
+    private String voideurl;
+    private String imgurl;
+    private int uploadStatus;
+
+    public int getUploadStatus() {
+        return uploadStatus;
+    }
+
+    public void setUploadStatus(int uploadStatus) {
+        this.uploadStatus = uploadStatus;
+    }
 
     public int getId() {
         return id;
@@ -17,20 +26,20 @@ public class VideoEntity implements Parcelable {
         this.id = id;
     }
 
-    public String getVideo_url() {
-        return video_url;
+    public String getVoideurl() {
+        return voideurl;
     }
 
-    public void setVideo_url(String video_url) {
-        this.video_url = video_url;
+    public void setVoideurl(String voideurl) {
+        this.voideurl = voideurl;
     }
 
-    public String getVideo_pic() {
-        return video_pic;
+    public String getImgurl() {
+        return imgurl;
     }
 
-    public void setVideo_pic(String video_pic) {
-        this.video_pic = video_pic;
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
     public static final Creator<VideoEntity> CREATOR = new Creator<VideoEntity>() {
@@ -49,8 +58,8 @@ public class VideoEntity implements Parcelable {
     public String toString() {
         final StringBuffer sb = new StringBuffer("VideoEntity{");
         sb.append("id=").append(id);
-        sb.append(", video_url='").append(video_url).append('\'');
-        sb.append(", video_pic='").append(video_pic).append('\'');
+        sb.append(", voideurl='").append(voideurl).append('\'');
+        sb.append(", imgurl='").append(imgurl).append('\'');
         sb.append('}');
         return sb.toString();
     }
@@ -62,14 +71,17 @@ public class VideoEntity implements Parcelable {
 
     protected VideoEntity(Parcel in) {
         this.id = in.readInt();
-        this.video_url = in.readString();
-        this.video_pic = in.readString();
+        this.voideurl = in.readString();
+        this.imgurl = in.readString();
+    }
+
+    public VideoEntity() {
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
-        dest.writeString(this.video_url);
-        dest.writeString(this.video_pic);
+        dest.writeString(this.voideurl);
+        dest.writeString(this.imgurl);
     }
 }

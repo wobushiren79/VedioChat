@@ -49,13 +49,14 @@ public class UserInfoEditPresenter extends Presenter<UserInfoEditView> {
         getCitys(false);
         getOccData(false);
     }
-    public void checkCompleteness(){
+
+    public void checkCompleteness() {
         getView().showLoading(null);
         addDisposable(mMainRepostiry.starcintegrity().subscribe(
                 response -> {
                     getView().hideLoading();
                     getView().showNext();
-                },throwable -> {
+                }, throwable -> {
                     if (!isNullView()) {
                         getView().hideLoading();
                         getView().showError(0, getGeneralErrorStr(throwable));
@@ -63,12 +64,14 @@ public class UserInfoEditPresenter extends Presenter<UserInfoEditView> {
                 }
         ));
     }
+
     public void getUserInfo() {
 
         addDisposable(mMainRepostiry.getUserInfo((int) UserManager.getInstance().getId()).subscribe(
                 businessCard -> {
-                    mCanNavToPhotos =true;
+                    mCanNavToPhotos = true;
                     getView().showPhotos(businessCard.getPhpots());
+                    getView().showVideos(businessCard.getVoides());
                 },
                 throwable -> {
                     if (!isNullView()) {

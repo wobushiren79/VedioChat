@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/media_rl_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center">
 
     <VideoView
-        android:id="@+id/media_vp"
+        android:id="@+id/media_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
@@ -15,7 +16,7 @@
         android:id="@+id/medio_icon"
         android:layout_width="@dimen/dimen_120dp"
         android:layout_height="@dimen/dimen_120dp"
-        android:layout_alignBottom="@+id/media_vp"
+        android:layout_alignBottom="@+id/media_view"
         android:layout_marginBottom="@dimen/dimen_44dp"
         android:layout_marginLeft="@dimen/dimen_44dp"
         android:src="@drawable/icon_video_play" />

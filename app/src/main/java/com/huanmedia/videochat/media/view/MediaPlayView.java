@@ -6,7 +6,9 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 import com.huanmedia.videochat.R;
@@ -19,13 +21,14 @@ public class MediaPlayView extends BaseLinearLayout implements
         View.OnClickListener {
 
     private String mVedioUrl;
+    private RelativeLayout mRLLayout;
     private VideoView mVedioView;
     private ImageView mVedioIcon;
-    private MediaPlayer mMediaPlayer;
 
     public MediaPlayView(Context context, String vedioUrl) {
         super(context);
         this.mVedioUrl = vedioUrl;
+        init();
     }
 
 
@@ -36,19 +39,29 @@ public class MediaPlayView extends BaseLinearLayout implements
 
     @Override
     protected void initView(View baseView) {
-        mVedioView = getView(R.id.media_vp);
+        mVedioView = getView(R.id.media_view);
         mVedioIcon = getView(R.id.medio_icon);
-
+        mRLLayout = getView(R.id.media_rl_layout);
         mVedioView.setOnPreparedListener(this);
         mVedioView.setOnCompletionListener(this);
         mVedioView.setOnErrorListener(this);
+
+        this.setBackgroundColor(getContext().getResources().getColor(R.color.base_black));
+
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mRLLayout.setLayoutParams(layoutParams);
     }
 
     @Override
     protected void initData() {
+
+    }
+
+    private void init() {
+        if (mVedioUrl == null)
+            return;
         Uri uri = Uri.parse(mVedioUrl);
         mVedioView.setVideoURI(uri);
-        mVedioView.start();
     }
 
     @Override
@@ -58,7 +71,7 @@ public class MediaPlayView extends BaseLinearLayout implements
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        mMediaPlayer = mp;
+        mp.setLooping(true);
         mVedioView.setOnClickListener(this);
     }
 
@@ -75,14 +88,23 @@ public class MediaPlayView extends BaseLinearLayout implements
     }
 
     public void changeVedioStatus() {
-        if (mMediaPlayer == null)
+        if (mVedioView == null)
             return;
         if (mVedioView.isPlaying()) {
-            mMediaPlayer.stop();
-            mVedioIcon.setImageResource(R.drawable.icon_video_play);
+            stopVideo();
         } else {
-            mMediaPlayer.start();
+            mVedioView.start();
             mVedioIcon.setImageResource(R.drawable.icon_video_stop);
+        }
+    }
+
+    /**
+     * 暂停视频
+     */
+    public void stopVideo() {
+        if (mVedioView != null && mVedioIcon != null) {
+            mVedioView.pause();
+            mVedioIcon.setImageResource(R.drawable.icon_video_play);
         }
     }
 }

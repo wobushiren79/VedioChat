@@ -5,7 +5,9 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
+import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.entity.BillDetialEntity;
@@ -312,6 +314,12 @@ public interface RemoteApiService {
     @POST("/index/userextv2/talkroomlist")
     @FormUrlEncoded
     Observable<DataResponse<TalkRoomListResults>> talkroomlist(@FieldMap Map<String, Object> params);
+
+    //阿里云文件上传信息
+    @POST("/index/userextv2/ossinfo")
+    @FormUrlEncoded
+    Observable<DataResponse<FileUpLoadResults>> ossinfo(@FieldMap Map<String, Object> params);
+
 
     @Multipart
     @POST

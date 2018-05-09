@@ -3,8 +3,10 @@ package com.huanmedia.videochat.repository.base;
 import android.content.Context;
 
 import com.huanmedia.videochat.common.manager.ResourceManager;
+import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
+import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
@@ -40,5 +42,11 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void talkRoomList(Context context, TalkRoomListRequest params, HttpResponseHandler<TalkRoomListResults> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.talkroomlist(paramsMap), handler);
+    }
+
+    @Override
+    public void ossInfo(Context context, FileUpLoadRequest params, HttpResponseHandler<FileUpLoadResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.ossinfo(paramsMap), handler);
     }
 }

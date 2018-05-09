@@ -51,10 +51,20 @@ public class UserInformationEntity {
     private String city_name;
     private String occupation;
     private List<PhpotsEntity> phpots;
+    private List<VideoEntity> voides;
     private int level;//用户等级
     private int isfavorite;//是否关注 1关注 0 未关注
     private int maxtrustvalue;//评价数量
     private int trustvalue;//好评数量
+
+
+    public List<VideoEntity> getVoides() {
+        return voides;
+    }
+
+    public void setVoides(List<VideoEntity> voides) {
+        this.voides = voides;
+    }
 
     public String getOccupation() {
         return occupation;
@@ -263,6 +273,7 @@ public class UserInformationEntity {
         sb.append(", city_name='").append(city_name).append('\'');
         sb.append(", occupation='").append(occupation).append('\'');
         sb.append(", phpots=").append(phpots);
+        sb.append(", voides=").append(voides);
         sb.append(", level=").append(level);
         sb.append(", isfavorite=").append(isfavorite);
         sb.append(", maxtrustvalue=").append(maxtrustvalue);

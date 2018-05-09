@@ -26,7 +26,7 @@ def getAppChannelId() {
     //018.wifi的推广渠道号 (车站)
     //019.wifi的推广渠道号 (车上)
     //020.公众号
-    return "14"
+    return "0"
 }
 
 android {
@@ -249,5 +249,5 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
     implementation 'com.github.wobushiren79:DevTools:version_0.287'
-    compile 'com.aliyun.dpa:oss-android-sdk:+'
+    implementation 'com.aliyun.dpa:oss-android-sdk:+'
 }

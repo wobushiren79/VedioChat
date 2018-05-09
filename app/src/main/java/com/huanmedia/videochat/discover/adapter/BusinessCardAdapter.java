@@ -198,7 +198,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                     ImageView iv = helper.getView(R.id.iv_icon);
                     GlideApp.with(mContext)
                             .asBitmap()
-                            .load(item.getVideo_url())
+                            .load(item.getVoideurl())
 //                            .override(mItemSize, mItemSize)
                             .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot).error(com.huanmedia.ilibray.R.drawable.bg_logot)
                             .into(iv);
@@ -257,7 +257,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
         configAdapter(headerHolder.getView(R.id.business_card_rv_photos), headerHolder.getView(R.id.business_card_rv_video));
         mHeaderAdapter.setNewData(businessCard.getPhpots());
 
-        if (businessCard.getVideos() == null || businessCard.getVideos().size() == 0) {
+        if (businessCard.getVoides() == null || businessCard.getVoides().size() == 0) {
             headerHolder.setGone(R.id.business_card_ll_video, false);
         } else {
             headerHolder.setGone(R.id.business_card_ll_video, true);

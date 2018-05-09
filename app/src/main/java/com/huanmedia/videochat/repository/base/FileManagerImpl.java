@@ -31,9 +31,9 @@ public class FileManagerImpl extends BaseManagerImpl implements FileManager {
     public OSSAsyncTask upLoadFileToAliyun(Context context, FileUpLoadResults upLoadResults, HttpFileResponseHandler handler) {
         AliyunHandler aliyunHandler = new AliyunHandler();
         //初始化阿里云
-        OSS oss = aliyunHandler.initData(FApplication.getApplication(), "ak", "sk", "token");
+        OSS oss = aliyunHandler.initData(FApplication.getApplication(), upLoadResults.getAccessKeyID(), upLoadResults.getAccessKeySecret(), upLoadResults.getToken());
         //上传文件
-        OSSAsyncTask uploadTask = aliyunHandler.uploadFile(oss, "bucketName", "objectKey", "path", handler);
+        OSSAsyncTask uploadTask = aliyunHandler.uploadFile(oss, upLoadResults.getBucket(), upLoadResults.getFilename(), upLoadResults.getFilePath(), handler);
         return uploadTask;
     }
 }

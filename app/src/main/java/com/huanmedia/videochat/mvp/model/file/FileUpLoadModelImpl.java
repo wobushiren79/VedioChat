@@ -9,6 +9,7 @@ import com.huanmedia.videochat.mvp.base.DataFileCallBack;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.repository.base.HttpFileResponseHandler;
+import com.huanmedia.videochat.repository.base.HttpResponseHandler;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
 
 public class FileUpLoadModelImpl extends BaseMVPModel implements IFileUpLoadModel {
@@ -40,6 +41,16 @@ public class FileUpLoadModelImpl extends BaseMVPModel implements IFileUpLoadMode
 
     @Override
     public void getAliyunUploadInfo(Context context, FileUpLoadRequest params, DataCallBack callBack) {
+        MHttpManagerFactory.getMainManager().ossInfo(context, params, new HttpResponseHandler<FileUpLoadResults>() {
+            @Override
+            public void onSuccess(FileUpLoadResults result) {
+                callBack.getDataSuccess(result);
+            }
 
+            @Override
+            public void onError(String message) {
+                callBack.getDataFail(message);
+            }
+        });
     }
 }
