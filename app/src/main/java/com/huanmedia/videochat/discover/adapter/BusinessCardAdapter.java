@@ -1,6 +1,8 @@
 package com.huanmedia.videochat.discover.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +23,8 @@ import com.huanmedia.ilibray.utils.TextViewDrawableUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.ilibray.utils.recycledecoration.RecyclerViewItemDecoration;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout;
 import com.huanmedia.videochat.main2.weight.GoodProgressView;
@@ -30,6 +34,7 @@ import com.huanmedia.videochat.repository.entity.PhpotsEntity;
 import com.huanmedia.videochat.repository.entity.UserEvaluateEntity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mvp.data.store.glide.GlideApp;
@@ -45,9 +50,9 @@ import mvp.data.store.glide.GlideUtils;
 public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMultiItem, BaseViewHolder> {
 
     private String mDistance;
-    private BaseQuickAdapter<PhpotsEntity, BaseViewHolder> mHeaderAdapter;
+    private BaseQuickAdapter<PhpotsEntity, BaseViewHolder> mHeaderPhotosAdapter;
     private BaseQuickAdapter<VideoEntity, BaseViewHolder> mHeaderVideoAdapter;
-
+    private Context context;
     private int mItemSize;
     private BusinessAdapterListener mBusinessAdapterListener;
 
@@ -55,8 +60,9 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
         mBusinessAdapterListener = businessAdapterListener;
     }
 
-    public BusinessCardAdapter(List<BusinessMultiItem> data, String distance) {
+    public BusinessCardAdapter(Context context, List<BusinessMultiItem> data, String distance) {
         super(data);
+        this.context = context;
         mDistance = distance;
         addItemType(BusinessMultiItem.BusinessType.HEADER, R.layout.item_business_card_baseinfo);
         addItemType(BusinessMultiItem.BusinessType.TAG, R.layout.item_business_card_user_tag);
@@ -149,7 +155,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
     }
 
     private void configAdapter(RecyclerView photoRv, RecyclerView videoRv) {
-        if (mHeaderAdapter == null) {
+        if (mHeaderPhotosAdapter == null && mHeaderVideoAdapter == null) {
             //照片墙
             RecyclerViewItemDecoration mCurrentItemDecoration = new RecyclerViewItemDecoration.Builder(mContext)
                     .color(ContextCompat.getColor(mContext, R.color.white))
@@ -162,8 +168,8 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
             mItemSize = (DisplayUtil.getDisplayWidth(mContext) - (DisplayUtil.dip2px(mContext, 4) * (count - 1))) / count;
 //            photoRv.getLayoutParams().height = mItemSize * 2 + DisplayUtil.dip2px(mContext, 4) * (count - 1);
 
-            photoRv.addItemDecoration(mCurrentItemDecoration);
-            mHeaderAdapter = new BaseQuickAdapter<PhpotsEntity, BaseViewHolder>(R.layout.item_discoverinfo) {
+//            photoRv.addItemDecoration(mCurrentItemDecoration);
+            mHeaderPhotosAdapter = new BaseQuickAdapter<PhpotsEntity, BaseViewHolder>(R.layout.item_discoverinfo) {
                 protected View getItemView(@LayoutRes int layoutResId, ViewGroup parent) {
                     View rootview = mLayoutInflater.inflate(layoutResId, parent, false);
                     rootview.getLayoutParams().height = mItemSize;
@@ -177,7 +183,8 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                             .asBitmap()
                             .load(item.getPhoto_thumb())
                             .override(mItemSize, mItemSize)
-                            .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot).error(com.huanmedia.ilibray.R.drawable.bg_logot)
+                            .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot)
+                            .error(com.huanmedia.ilibray.R.drawable.bg_logot)
                             .into(iv);
                 }
             };
@@ -190,15 +197,21 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                             .bulide();
                 }
             });
-            photoRv.setAdapter(mHeaderAdapter);
+            photoRv.setAdapter(mHeaderPhotosAdapter);
             //-----------------------------------------------------------------------------
             mHeaderVideoAdapter = new BaseQuickAdapter<VideoEntity, BaseViewHolder>(R.layout.item_discoverinfo_video) {
+                protected View getItemView(@LayoutRes int layoutResId, ViewGroup parent) {
+                    View rootview = mLayoutInflater.inflate(layoutResId, parent, false);
+                    rootview.getLayoutParams().height = mItemSize;
+                    return rootview;
+                }
+
                 @Override
                 protected void convert(BaseViewHolder helper, VideoEntity item) {
                     ImageView iv = helper.getView(R.id.iv_icon);
                     GlideApp.with(mContext)
                             .asBitmap()
-                            .load(item.getVoideurl())
+                            .load(item.getImgurl())
 //                            .override(mItemSize, mItemSize)
                             .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot).error(com.huanmedia.ilibray.R.drawable.bg_logot)
                             .into(iv);
@@ -207,7 +220,12 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
             videoRv.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                    ArrayList<String> listUrl = new ArrayList<>();
+                    for (VideoEntity itemData : mHeaderVideoAdapter.getData()) {
+                        listUrl.add(itemData.getVoideurl());
+                    }
+                    mHeaderVideoAdapter.getData();
+                    ((BaseActivity) context).getNavigator().navtoMediaPlay((Activity) context, listUrl, position);
                 }
             });
             videoRv.setAdapter(mHeaderVideoAdapter);
@@ -255,8 +273,8 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                         : null, null, null, null);
 
         configAdapter(headerHolder.getView(R.id.business_card_rv_photos), headerHolder.getView(R.id.business_card_rv_video));
-        mHeaderAdapter.setNewData(businessCard.getPhpots());
-
+        mHeaderPhotosAdapter.setNewData(businessCard.getPhpots());
+        mHeaderVideoAdapter.setNewData(businessCard.getVoides());
         if (businessCard.getVoides() == null || businessCard.getVoides().size() == 0) {
             headerHolder.setGone(R.id.business_card_ll_video, false);
         } else {

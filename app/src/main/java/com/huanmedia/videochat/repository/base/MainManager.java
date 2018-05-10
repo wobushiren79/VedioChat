@@ -6,8 +6,10 @@ import android.content.Context;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
+import com.huanmedia.videochat.mvp.entity.request.UserVideoUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
+import com.huanmedia.videochat.mvp.entity.results.UserVideoUpLoadResults;
 
 public interface MainManager {
 
@@ -39,4 +41,7 @@ public interface MainManager {
      * @param handler
      */
     void ossInfo(Context context, FileUpLoadRequest params, HttpResponseHandler<FileUpLoadResults> handler);
+
+
+
 }

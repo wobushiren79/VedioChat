@@ -6,8 +6,10 @@ import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
+import com.huanmedia.videochat.mvp.entity.request.UserVideoUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
+import com.huanmedia.videochat.mvp.entity.results.UserVideoUpLoadResults;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
 import java.util.Map;
@@ -49,4 +51,6 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.ossinfo(paramsMap), handler);
     }
+
+
 }

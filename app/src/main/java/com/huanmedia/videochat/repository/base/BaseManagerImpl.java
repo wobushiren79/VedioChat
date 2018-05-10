@@ -17,7 +17,7 @@ import mvp.data.net.DataResponse;
 
 public class BaseManagerImpl {
 
-    private final DefaultThreadProvider mThreadProvider;
+    protected final DefaultThreadProvider mThreadProvider;
 
     public BaseManagerImpl() {
         this.mThreadProvider = ResourceManager.getInstance().getDefaultThreadProvider();
@@ -69,4 +69,7 @@ public class BaseManagerImpl {
         }
         return map;
     }
+
+
+
 }

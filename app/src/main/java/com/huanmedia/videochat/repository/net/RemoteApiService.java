@@ -10,6 +10,7 @@ import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
+import com.huanmedia.videochat.mvp.entity.results.UserVideoUpLoadResults;
 import com.huanmedia.videochat.repository.entity.BillDetialEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
@@ -23,6 +24,7 @@ import com.huanmedia.videochat.repository.entity.MyLevelEntity;
 import com.huanmedia.videochat.repository.entity.OccupationsEntity;
 import com.huanmedia.videochat.repository.entity.PayCoinTypeMode;
 import com.huanmedia.videochat.repository.entity.PayOlderEntity;
+import com.huanmedia.videochat.repository.entity.PhpotsEntity;
 import com.huanmedia.videochat.repository.entity.TrustValueEntity;
 import com.huanmedia.videochat.repository.entity.UserAccountBoundEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
@@ -319,6 +321,11 @@ public interface RemoteApiService {
     @POST("/index/userextv2/ossinfo")
     @FormUrlEncoded
     Observable<DataResponse<FileUpLoadResults>> ossinfo(@FieldMap Map<String, Object> params);
+
+    //上传用户视频
+    @POST("/index/userextv2/ossvoidupload")
+    @FormUrlEncoded
+    Observable<DataResponse<UserVideoUpLoadResults>> ossvoidupload(@FieldMap Map<String, Object> params);
 
 
     @Multipart

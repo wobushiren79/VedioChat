@@ -114,7 +114,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        mAdapter = new BusinessCardAdapter(null, distance);
+        mAdapter = new BusinessCardAdapter(getContext(), null, distance);
         mAdapter.bindToRecyclerView(mBusinessCardRv);
         mAdapter.disableLoadMoreIfNotFullPage();
         mErrorView = (ErrorView) getLayoutInflater().inflate(R.layout.base_list_empty, mBusinessCardRv, false);

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 
+import com.huanmedia.videochat.media.MediaUpLoadActivity;
+
 import java.util.Stack;
 
 /**
@@ -30,8 +32,8 @@ public class ActivitManager {
      */
     public static ActivitManager getAppManager() {
         if (instance == null) {
-            synchronized (ActivitManager.class){
-                if (instance==null){
+            synchronized (ActivitManager.class) {
+                if (instance == null) {
                     instance = new ActivitManager();
                 }
             }
@@ -49,6 +51,22 @@ public class ActivitManager {
         }
         activityStack.add(activity);
     }
+
+    /**
+     * 获取指定activity
+     *
+     * @param cls
+     * @return
+     */
+    public Activity getActivity(Class<? extends Activity> cls) {
+        for (Activity itemActivity : activityStack) {
+            if (itemActivity.getClass().getName().equals(cls.getName())) {
+                return itemActivity;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * 获取当前Activity（堆栈中最后一个压入的）
@@ -139,7 +157,7 @@ public class ActivitManager {
      */
     public void finishAllActivity() {
         Stack<Activity> temp = (Stack<Activity>) activityStack.clone();
-        for (int size = temp.size()-1; size >=0 ; size--) {
+        for (int size = temp.size() - 1; size >= 0; size--) {
             if (null != temp.get(size)) {
                 temp.get(size).finish();
             }
@@ -149,10 +167,10 @@ public class ActivitManager {
 
     public void finishNotSpecifiedActivity(Class<?> cls) {
         Stack<Activity> temp = (Stack<Activity>) activityStack.clone();
-        for (int size = temp.size()-1; size >=0 ; size--) {
+        for (int size = temp.size() - 1; size >= 0; size--) {
             if (null != temp.get(size) && !temp.get(size).getClass().equals(cls)) {
                 Activity activity = temp.get(size);
-                com.orhanobut.logger.Logger.i("关闭:"+activity.getClass().getName());
+                com.orhanobut.logger.Logger.i("关闭:" + activity.getClass().getName());
                 activity.finish();
             }
         }
@@ -161,7 +179,7 @@ public class ActivitManager {
 
     public void finishNotSpecifiedActivity(Class<?>[] cls) {
         Stack<Activity> temp = (Stack<Activity>) activityStack.clone();
-        for (int size = temp.size()-1; size >=0 ; size--) {
+        for (int size = temp.size() - 1; size >= 0; size--) {
             if (null != temp.get(size)) continue;
             boolean canFinish = true;
 

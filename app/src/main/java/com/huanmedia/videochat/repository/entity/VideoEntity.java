@@ -9,6 +9,16 @@ public class VideoEntity implements Parcelable {
     private String voideurl;
     private String imgurl;
     private int uploadStatus;
+    private int loadPB = 0;//上传进度
+    private int isSelect=0;//是否选中
+
+    public int getLoadPB() {
+        return loadPB;
+    }
+
+    public void setLoadPB(int loadPB) {
+        this.loadPB = loadPB;
+    }
 
     public int getUploadStatus() {
         return uploadStatus;

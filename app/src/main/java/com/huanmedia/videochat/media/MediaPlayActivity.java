@@ -68,7 +68,7 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
         if (mListVedioUrl == null || mListVedioUrl.size() <= 0)
             return;
         for (int i = 0; i < mListVedioUrl.size(); i++) {
-            if (mListVedioUrl == null)
+            if (mListVedioUrl.get(i) == null)
                 continue;
             MediaPlayView itemView = new MediaPlayView(this, mListVedioUrl.get(i));
             mListVedioView.add(itemView);
@@ -76,8 +76,9 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
         mPlayAdapter = new MediaPlayAdapter(this, mListVedioView);
         mMediaoVP.setAdapter(mPlayAdapter);
         mMediaoVP.addOnPageChangeListener(this);
-        mMediaoVP.setCurrentItem(getIntent().getIntExtra("position", 0));
         mMediaoVP.setOffscreenPageLimit(mListVedioUrl.size());
+
+        mTVPage.setText((getIntent().getIntExtra("position", 0) + 1) + "/" + mListVedioUrl.size());
     }
 
     @Override

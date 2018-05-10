@@ -99,17 +99,21 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     @BindView(R.id.user_info_edit_base_ll)
     LinearLayout mUserInfoEditBaseLl;
     @BindView(R.id.user_info_edit_ll_video)
-    LinearLayout mUserIfoEditLLVideo;
+    RelativeLayout mUserIfoEditLLVideo;
+    @BindView(R.id.user_info_edit_rv_video)
+    RecyclerView mUserInfoEditRvVideos;
+    @BindView(R.id.user_info_edit_tv_video_enter)
+    TextView mUserInfoEditTvVideoEnter;
 
     private HintDialog mLoadingDialog;
     private HintDialog mHintDialog;
-    private BaseQuickAdapter<PhpotsEntity, BaseViewHolder> mAdapter;
+    private BaseQuickAdapter<PhpotsEntity, BaseViewHolder> mPhotosAdapter;
+    private BaseQuickAdapter<VideoEntity, BaseViewHolder> mVideosAdapter;
     private HashMap<String, Object> modifyUserData;
     private final String KEY_MODIFY_HEADER = "userHeader";
     private boolean isPhotoChange;//照片墙发生改变
     private boolean isAuth;
     private String mAuthMsg;
-    private List<VideoEntity> videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,10 +148,11 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     @Override
     protected void onResume() {
         super.onResume();
-        if (isPhotoChange) {
-            isPhotoChange = false;
-            getBasePresenter().getUserInfo();
-        }
+//        if (isPhotoChange) {
+//            isPhotoChange = false;
+//            getBasePresenter().getUserInfo();
+//        }
+        getBasePresenter().getUserInfo();
     }
 
     public static Intent getCallingIntent(Context context, boolean isAuth, String authMsg) {
@@ -187,13 +192,14 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
                 .getCurrentUser()
                 .getUserinfo();
         GlideUtils.getInstance()
-                .loadBitmapNoAnim(
-                        this, userInfo
-                                .getUserphoto_thumb(),
-                        mUserInfoEditIvHeader);
-        mUserInfoEditRvPhotos.addItemDecoration(new RecyclerViewSpaceItemDecoration.Builder(context())
-                .marginHorizontal(DisplayUtil.dip2px(context(), 4)).marginHorizontal(DisplayUtil.dip2px(context(), 4)).create());
-        mAdapter = new BaseQuickAdapter<PhpotsEntity, BaseViewHolder>(R.layout.item_user_eidt_photo) {
+                .loadBitmapNoAnim(this, userInfo.getUserphoto_thumb(), mUserInfoEditIvHeader);
+//        mUserInfoEditRvPhotos
+//                .addItemDecoration(new RecyclerViewSpaceItemDecoration
+//                        .Builder(context())
+//                        .marginHorizontal(DisplayUtil.dip2px(context(), 4))
+//                        .marginHorizontal(DisplayUtil.dip2px(context(), 4))
+//                        .create());
+        mPhotosAdapter = new BaseQuickAdapter<PhpotsEntity, BaseViewHolder>(R.layout.item_user_eidt_photo) {
             @Override
             public int getItemCount() {
                 if (mData.size() > 0 && mData.size() <= 3) {
@@ -213,7 +219,29 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
                                 helper.getView(R.id.item_user_info_edit_iv_photo));
             }
         };
-        mUserInfoEditRvPhotos.setAdapter(mAdapter);
+        mUserInfoEditRvPhotos.setAdapter(mPhotosAdapter);
+        mVideosAdapter = new BaseQuickAdapter<VideoEntity, BaseViewHolder>(R.layout.item_user_eidt_photo) {
+            @Override
+            public int getItemCount() {
+                if (mData.size() > 0 && mData.size() <= 3) {
+                    return mData.size();
+                } else if (mData.size() > 3) {
+                    return 3;//多显示3张
+                }
+                return mData.size();
+            }
+
+            @Override
+            protected void convert(BaseViewHolder helper, VideoEntity item) {
+                GlideUtils.getInstance()
+                        .loadBitmapNoAnim(
+                                context(),
+                                item.getImgurl(),
+                                helper.getView(R.id.item_user_info_edit_iv_photo));
+            }
+        };
+        mUserInfoEditRvVideos.setAdapter(mVideosAdapter);
+
         mUserInfoEditTvBalseName.setText(Check.checkReplace(userInfo.getNickname(), "未设置"));
         mUserInfoEditTvBalseAge.setText(Check.checkReplace(userInfo.getBirthday(), "未设置"));
         mUserInfoEditTvBalseSex.setText(Check.checkReplace(userInfo.getSex() == 1 ? "男" : "女"));
@@ -230,11 +258,12 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     protected void initData() {
         isAuth = getIntent().getBooleanExtra("isAuth", false);
         mAuthMsg = getIntent().getStringExtra("authMsg");
-        getBasePresenter().getUserInfo();
+//        getBasePresenter().getUserInfo();
 //        if (isAuth && mAuthMsg!=null){
 //            showError(0,mAuthMsg);
 //        }
     }
+
 
     private void setAddrStr(ItemMenuEntity province,
                             ItemMenuEntity.SubEntity city) {
@@ -329,12 +358,21 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         GridLayoutManager layoutManager = (GridLayoutManager) mUserInfoEditRvPhotos.getLayoutManager();
         int spanCount = phpots.size() == 0 ? 1 : phpots.size() > 3 ? 3 : phpots.size();
         layoutManager.setSpanCount(spanCount);
-        mAdapter.setNewData(phpots);
+        mPhotosAdapter.setNewData(phpots);
     }
 
     @Override
     public void showVideos(List<VideoEntity> videos) {
-        this.videos = videos;
+        if (videos == null || videos.size() == 0) {
+            mUserInfoEditTvVideoEnter.setText("你还没有上传视频");
+            return;
+        } else {
+            mUserInfoEditTvVideoEnter.setText("");
+        }
+        GridLayoutManager layoutManager = (GridLayoutManager) mUserInfoEditRvVideos.getLayoutManager();
+        int spanCount = videos.size() == 0 ? 1 : videos.size() > 3 ? 3 : videos.size();
+        layoutManager.setSpanCount(spanCount);
+        mVideosAdapter.setNewData(videos);
     }
 
     @Override
@@ -358,14 +396,14 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
                 break;
             case R.id.user_info_edit_rl_photos:
                 if (getBasePresenter().isCanNavToPhotos()) {
-                    getNavigator().navtoPhotos(this, (ArrayList<PhpotsEntity>) mAdapter.getData());
+                    getNavigator().navtoPhotos(this, (ArrayList<PhpotsEntity>) mPhotosAdapter.getData());
                 }
                 break;
             case R.id.user_info_edit_rl_head:
                 openAlbum();
                 break;
             case R.id.user_info_edit_ll_video:
-                getNavigator().navtoMediaUpLoad(this, (ArrayList<VideoEntity>) videos);
+                getNavigator().navtoMediaUpLoad(this, (ArrayList<VideoEntity>) mVideosAdapter.getData());
                 break;
         }
     }

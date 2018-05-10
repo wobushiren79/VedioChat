@@ -10,5 +10,5 @@ public class Constants {
     /**
      * 阿里云地址
      */
-    public static String AliyunEndPoint="";
+    public static String AliyunEndPoint="oss-cn-beijing.aliyuncs.com";
 }

@@ -10,7 +10,8 @@
     <RelativeLayout
         android:id="@+id/rl_layout_normal"
         android:layout_width="@dimen/dimen_230dp"
-        android:layout_height="@dimen/dimen_230dp">
+        android:layout_height="@dimen/dimen_230dp"
+        android:visibility="gone">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="match_parent"
@@ -25,18 +26,27 @@
             app:riv_corner_radius="@dimen/dimen_12dp" />
 
         <ImageView
+            android:id="@+id/normal_iv_play"
             android:layout_width="@dimen/dimen_60dp"
             android:layout_height="@dimen/dimen_60dp"
             android:layout_centerInParent="true"
             android:src="@drawable/icon_video_play" />
+
+        <RadioButton
+            android:id="@+id/normal_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:buttonTint="@color/color_f64d99"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/rl_layout_upload"
         android:layout_width="@dimen/dimen_230dp"
         android:layout_height="@dimen/dimen_230dp"
-        android:background="@drawable/back_dotted_line_gray">
+        android:background="@drawable/back_dotted_line_gray"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/media_upload_iv_add"
@@ -56,5 +66,32 @@
             android:textColor="@color/base_gray"
             android:textSize="@dimen/dimen_24dp" />
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_layout_loading"
+        android:layout_width="@dimen/dimen_230dp"
+        android:layout_height="@dimen/dimen_230dp"
+        android:visibility="gone">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/loading_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:riv_corner_radius="@dimen/dimen_12dp" />
+
+        <ProgressBar
+            android:id="@+id/loading_pb"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/loading_iv_cancel"
+            android:layout_width="@dimen/dimen_44dp"
+            android:layout_height="@dimen/dimen_44dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/btn_dialog_cancel" />
     </RelativeLayout>
 </LinearLayout>

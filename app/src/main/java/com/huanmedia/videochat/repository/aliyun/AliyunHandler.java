@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.repository.aliyun;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -20,6 +21,8 @@ import com.huanmedia.videochat.common.Constants;
 import com.huanmedia.videochat.repository.base.HttpFileResponseHandler;
 
 public class AliyunHandler {
+
+
     /**
      * 初始化参数
      *
@@ -32,11 +35,11 @@ public class AliyunHandler {
 
         // 在移动端建议使用STS方式初始化OSSClient。
         // 更多信息可查看sample 中 sts 使用方式(https://github.com/aliyun/aliyun-oss-android-sdk/tree/master/app/src/main/java/com/alibaba/sdk/android/oss/app)
-        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider("<StsToken.AccessKeyId>", "<StsToken.SecretKeyId>", "<StsToken.SecurityToken>");
+        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ak, sk, token);
         //该配置类如果不设置，会有默认配置，具体可看该类
         ClientConfiguration conf = new ClientConfiguration();
-        conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
-        conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+        conf.setConnectionTimeout(3600 * 1000); // 连接超时，默认15秒
+        conf.setSocketTimeout(3600 * 1000); // socket超时，默认15秒
         conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
         conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
         //开启可以在控制台看到日志，并且会支持写入手机sd卡中的一份日志文件位置在SDCard_path\OSSLog\logs.csv  默认不开启
@@ -63,9 +66,9 @@ public class AliyunHandler {
      *
      * @param oss
      */
-    public OSSAsyncTask uploadFile(OSS oss, String bucketName, String objectKey, String uploadFilePath, HttpFileResponseHandler handler) {
+    public OSSAsyncTask uploadFile(Context context, OSS oss, String bucketName, String objectKey, String uploadFilePath, HttpFileResponseHandler handler) {
         // 构造上传请求
-        PutObjectRequest put = new PutObjectRequest("<bucketName>", "<objectKey>", "<uploadFilePath>");
+        PutObjectRequest put = new PutObjectRequest(bucketName, objectKey, uploadFilePath);
         // 异步上传时可以设置进度回调
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
             @Override

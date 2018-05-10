@@ -33,8 +33,30 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/media_upload_rv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/media_upload_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="@dimen/dimen_600dp"
+            android:layout_height="@dimen/dimen_92dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dimen_108dp"
+            android:background="@drawable/base_btn_solid"
+            android:gravity="center"
+            android:text="删除视频"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_36dp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
 </LinearLayout>
