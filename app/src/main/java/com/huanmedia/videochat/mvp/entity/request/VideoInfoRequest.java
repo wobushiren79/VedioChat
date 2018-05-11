@@ -10,9 +10,17 @@ public class VideoInfoRequest {
     private long duration;//视频时长
     private long size;//视频大小
     private String imagePath;//视频缩略图路径
-    private int imageId;//视频缩略图ID
+    private int imageId;//图片路径
+    private String imageVideo;//视频路径
     private Bitmap bitmap;//缩略图
 
+    public String getImageVideo() {
+        return imageVideo;
+    }
+
+    public void setImageVideo(String imageVideo) {
+        this.imageVideo = imageVideo;
+    }
 
     public long getDuration() {
         return duration;

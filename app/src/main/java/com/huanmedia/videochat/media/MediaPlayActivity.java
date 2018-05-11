@@ -76,8 +76,8 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
         mPlayAdapter = new MediaPlayAdapter(this, mListVedioView);
         mMediaoVP.setAdapter(mPlayAdapter);
         mMediaoVP.addOnPageChangeListener(this);
-        mMediaoVP.setOffscreenPageLimit(mListVedioUrl.size());
-
+        mMediaoVP.setOffscreenPageLimit(mListVedioView.size());
+        mMediaoVP.setCurrentItem(getIntent().getIntExtra("position", 0));
         mTVPage.setText((getIntent().getIntExtra("position", 0) + 1) + "/" + mListVedioUrl.size());
     }
 

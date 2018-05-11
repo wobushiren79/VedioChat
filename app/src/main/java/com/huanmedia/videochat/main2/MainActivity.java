@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.ViewGroup;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -24,6 +25,7 @@ import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.event.CoinChangeEvent;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.local.LocationService;
+import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.service.notifserver.HuaWeiPushHelper;
 import com.huanmedia.videochat.common.service.notifserver.PushServiceManager;
@@ -123,6 +125,27 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         if (data != null)
             mHuaweiPushHelper.errorResult(requestCode, resultCode, data);
     }
+
+    // 用来计算返回键的点击间隔时间
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                //弹出提示，可以有多种方式
+                ToastUtils.showToastShort(getApplicationContext(), "再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                ActivitManager.getAppManager().AppExit(this);
+            }
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     @Override
     public void onBackPressed() {

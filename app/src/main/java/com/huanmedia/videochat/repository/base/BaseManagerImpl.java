@@ -3,6 +3,7 @@ package com.huanmedia.videochat.repository.base;
 import android.content.Context;
 
 import com.huanmedia.videochat.common.manager.ResourceManager;
+import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
@@ -23,21 +24,43 @@ public class BaseManagerImpl {
         this.mThreadProvider = ResourceManager.getInstance().getDefaultThreadProvider();
     }
 
+    private HintDialog mHintDialog;
+
+
     protected <T> void requestPost(Context context, Observable<DataResponse<T>> observable, HttpResponseHandler handler) {
+        requestPost(context, observable, handler, false);
+    }
+
+    protected <T> void requestPost(Context context, Observable<DataResponse<T>> observable, HttpResponseHandler handler, boolean isShowDialog) {
+        if (isShowDialog) {
+            if (mHintDialog == null || !mHintDialog.isShowing()) {
+                mHintDialog = new HintDialog(context, HintDialog.HintType.LOADING);
+                mHintDialog.show();
+                mHintDialog.setCanceledOnTouchOutside(false);
+                mHintDialog.setTitleText("加载中。。。");
+            }
+        }
+
         observable
                 .map(response -> {
                     if (response.getCode() != 0) {
                         return new Exception("请求失败：" + response.getMessage());
                     } else {
+                        if (response.getResult() == null)
+                            return new Object();
                         return response.getResult();
                     }
                 })
                 .compose(ThreadExecutorHandler.toMain(mThreadProvider))
                 .subscribe(response -> {
                             handler.onSuccess(response);
+                            if (mHintDialog != null && mHintDialog.isShowing())
+                                mHintDialog.cancel();
                         },
                         throwable -> {
                             handler.onError(throwable.getMessage());
+                            if (mHintDialog != null && mHintDialog.isShowing())
+                                mHintDialog.cancel();
                         });
     }
 
@@ -69,7 +92,6 @@ public class BaseManagerImpl {
         }
         return map;
     }
-
 
 
 }

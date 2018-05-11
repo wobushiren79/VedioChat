@@ -1,18 +1,13 @@
 package com.huanmedia.videochat.media;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +21,7 @@ import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.presenter.file.FileHandlerPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.file.IFileHandlerPresenter;
 import com.huanmedia.videochat.mvp.view.file.IFileHandlerView;
+import com.huanmedia.videochat.my.UserInfoEditActivity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 
 import java.util.ArrayList;
@@ -33,6 +29,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerView {
 
@@ -48,9 +46,11 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
 
     private IFileHandlerPresenter mFileHandlerPresenter;
 
+
     public static Intent getCallingIntent(Context context, ArrayList<VideoEntity> videos) {
         Intent intent = new Intent(context, MediaUpLoadActivity.class);
         intent.putParcelableArrayListExtra("videos", videos);
+        intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         return intent;
     }
 
@@ -64,6 +64,27 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            backLastActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 返回之前的界面
+     */
+    private void backLastActivity() {
+        if (mUpLoadAdapter.isHasUpLoadTask()) {
+            Intent intent = new Intent(this, UserInfoEditActivity.class);
+            intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        } else {
+            finish();
+        }
+    }
 
     @Override
     protected void initView() {
@@ -85,12 +106,7 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
             mListVideoData = new ArrayList<>();
 
         VideoEntity addItem = new VideoEntity();
-        if(mUpLoadAdapter.mHasUpLoadTask){
-            addItem.setUploadStatus(1);
-        }else{
-            addItem.setUploadStatus(-1);
-        }
-
+        addItem.setUploadStatus(-1);
 
         mListVideoData.add(addItem);
 
@@ -110,7 +126,7 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        mToolbar.setNavigationOnClickListener(v -> backLastActivity());
     }
 
     @Override
@@ -146,6 +162,11 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
         if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
             Uri uri = data.getData();
             VideoInfoRequest videoInfoRequest = mFileHandlerPresenter.getVideoInfoByUri(uri, this.getContentResolver());
+            if(videoInfoRequest.getImagePath()==null)
+            {
+                ToastUtils.showToastLong(this,"请选择视频文件！");
+                return;
+            }
             mUpLoadAdapter.setUpLoadVideoFile(videoInfoRequest);
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -165,6 +186,7 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_delete:
+                mUpLoadAdapter.deleteUserVideo();
                 break;
         }
     }

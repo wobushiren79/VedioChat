@@ -12,6 +12,14 @@ public class VideoEntity implements Parcelable {
     private int loadPB = 0;//上传进度
     private int isSelect=0;//是否选中
 
+    public int getIsSelect() {
+        return isSelect;
+    }
+
+    public void setIsSelect(int isSelect) {
+        this.isSelect = isSelect;
+    }
+
     public int getLoadPB() {
         return loadPB;
     }

@@ -1,15 +1,11 @@
 package com.huanmedia.videochat.media;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -18,19 +14,20 @@ import android.widget.RelativeLayout;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.applecoffee.devtools.base.adapter.BaseRCAdapter;
 import com.applecoffee.devtools.base.adapter.BaseViewHolder;
+import com.applecoffee.devtools.utils.IntentHelpUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
-import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.utils.DoubleClickUtils;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
+import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
 import com.huanmedia.videochat.mvp.presenter.file.FileUpLoadPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.file.IFileUpLoadPresenter;
-import com.huanmedia.videochat.mvp.presenter.user.IUserVideoUpLoadPresenter;
-import com.huanmedia.videochat.mvp.presenter.user.UserVideoUpLoadPresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.user.IUserVideoDataPresenter;
+import com.huanmedia.videochat.mvp.presenter.user.UserVideoDataPresenterImpl;
 import com.huanmedia.videochat.mvp.view.file.IFileUpLoadView;
-import com.huanmedia.videochat.mvp.view.user.IUserVideoUpLoadView;
+import com.huanmedia.videochat.mvp.view.user.IUserVideoDataView;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -44,36 +41,17 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements EasyPermissions.PermissionCallbacks, IFileUpLoadView, IUserVideoUpLoadView {
+public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements EasyPermissions.PermissionCallbacks, IFileUpLoadView, IUserVideoDataView {
     private static final int REQUEST_WRITE_READ_PERM = 1;//权限标识符
 
     private IFileUpLoadPresenter mFileUpLoadPresenter;
-    private IUserVideoUpLoadPresenter mUserVideoUpLoadPresenter;
+    private IUserVideoDataPresenter mUserVideoDataPresenter;
 
     private VideoInfoRequest mUpLoadVideoInfo;//上传视频信息
     private FileUpLoadResults mUpLoadResults;//上传视频信息
     private OSSAsyncTask mUpLoadTask;//上传任务
-    public static boolean mHasUpLoadTask = false;//是否有下载任务
-
-    /**
-     * 下载任务处理
-     */
-    public static Handler taskHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            MediaUpLoadActivity mediaActivity =
-                    (MediaUpLoadActivity) ActivitManager.getAppManager().getActivity(MediaUpLoadActivity.class);
-            switch (msg.what) {
-                case 1:
-
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-            }
-        }
-    };
+    private boolean mHasUpLoadTask = false;//是否还有下载任务
+    private List<VideoEntity> deleteUserVideoData;
 
     private @ItemType
     int mItemType = ItemType.NORMAL;
@@ -87,7 +65,16 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
     public MediaUpLoadAdapter(Context context) {
         super(context, R.layout.layout_media_upload_item);
         mFileUpLoadPresenter = new FileUpLoadPresenterImpl(this);
-        mUserVideoUpLoadPresenter = new UserVideoUpLoadPresenterImpl(this);
+        mUserVideoDataPresenter = new UserVideoDataPresenterImpl(this);
+    }
+
+    /**
+     * 是否还有下载任务
+     *
+     * @return
+     */
+    public boolean isHasUpLoadTask() {
+        return mHasUpLoadTask;
     }
 
     /***
@@ -102,13 +89,19 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
         notifyDataSetChanged();
     }
 
+    /**
+     * 删除用户数据
+     */
+    public void deleteUserVideo() {
+        mUserVideoDataPresenter.deleteUserVideoInfo();
+    }
+
     @Override
     public void convert(BaseViewHolder baseViewHolder, VideoEntity videoEntity, int i) {
         RelativeLayout rlNormal = baseViewHolder.getView(R.id.rl_layout_normal);
         RelativeLayout rlUpload = baseViewHolder.getView(R.id.rl_layout_upload);
         RelativeLayout rlLoading = baseViewHolder.getView(R.id.rl_layout_loading);
         RadioButton rbSelect = baseViewHolder.getView(R.id.normal_rb);
-        rbSelect.setEnabled(false);
         ImageView ivPlay = baseViewHolder.getView(R.id.normal_iv_play);
         if (videoEntity.getUploadStatus() == 0) {
             //普通状态
@@ -146,7 +139,7 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
             public void onClick(View v) {
                 if (mUpLoadTask != null && !mUpLoadTask.isCanceled() && !mUpLoadTask.isCompleted()) {
                     mUpLoadTask.cancel();
-                    uploadFileByAliyunFail("已取消下载任务");
+                    uploadFileByAliyunFail("已取消上传视频");
                 }
             }
         });
@@ -171,13 +164,24 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
                         navigator.navtoMediaPlay((Activity) mContext, (ArrayList<String>) listData, i);
                     } else {
                         if (rbSelect.isChecked()) {
-                            videoEntity.setUploadStatus(0);
+                            videoEntity.setIsSelect(0);
                             rbSelect.setChecked(false);
                         } else {
-                            videoEntity.setUploadStatus(1);
+                            videoEntity.setIsSelect(1);
                             rbSelect.setChecked(true);
                         }
                     }
+                }
+            }
+        });
+
+        rbSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    videoEntity.setIsSelect(1);
+                } else {
+                    videoEntity.setIsSelect(0);
                 }
             }
         });
@@ -199,8 +203,7 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
         if (DoubleClickUtils.isFastDoubleClick()) return;
         String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(mContext, perms)) {
-            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-            ((Activity) mContext).startActivityForResult(intent, 1);
+            IntentHelpUtils.IntentToVideoSelect(((Activity) mContext), 1);
         } else {
             EasyPermissions.requestPermissions(((Activity) mContext), mContext.getString(R.string.rationale_camera_write_read), REQUEST_WRITE_READ_PERM, perms);
         }
@@ -241,41 +244,52 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
 
     @Override
     public void getAliyunUpLoadInfoFail(String msg) {
-        mHasUpLoadTask = false;
         showToast(msg);
+        mHasUpLoadTask = false;
     }
     //------------------------阿里云文件上传--------------------------------------------
 
     @Override
     public void uploadFileByAliyunSuccess() {
-        List<String> images = new ArrayList<>();
-        images.add(mUpLoadVideoInfo.getImagePath());
-        mUserVideoUpLoadPresenter.uploadUserVideoInfo();
-        taskHandler.sendEmptyMessage(1);
+        ((Activity) getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                List<String> images = new ArrayList<>();
+                images.add(mUpLoadVideoInfo.getImagePath());
+                mUserVideoDataPresenter.uploadUserVideoInfo();
+            }
+        });
     }
 
     @Override
     public void uploadFileByAliyunFail(String msg) {
         mHasUpLoadTask = false;
-        VideoEntity videoEntity = mDatas.get(mDatas.size() - 1);
-        videoEntity.setUploadStatus(-1);
-        videoEntity.setLoadPB(0);
-        notifyItemChanged(mDatas.size() - 1);
-        if (!msg.contains("Task is cancel"))
-            showToast(msg);
-        taskHandler.sendEmptyMessage(2);
+        ((Activity) getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                VideoEntity videoEntity = mDatas.get(mDatas.size() - 1);
+                videoEntity.setUploadStatus(-1);
+                videoEntity.setLoadPB(0);
+                notifyItemChanged(mDatas.size() - 1);
+                if (!msg.contains("Task is cancel"))
+                    showToast(msg);
+            }
+        });
     }
 
     @Override
     public void uploadFileOnProgress(long currentSize, long totalSize) {
-
-        int loadPB = (int) (((float) currentSize / (float) totalSize) * 100f);
-        VideoEntity videoEntity = mDatas.get(mDatas.size() - 1);
-        if (loadPB != videoEntity.getLoadPB()) {
-            videoEntity.setLoadPB(loadPB);
-            notifyItemChanged(mDatas.size() - 1);
-        }
-        taskHandler.sendEmptyMessage(3);
+        ((Activity) getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int loadPB = (int) (((float) currentSize / (float) totalSize) * 100f);
+                VideoEntity videoEntity = mDatas.get(mDatas.size() - 1);
+                if (loadPB != videoEntity.getLoadPB()) {
+                    videoEntity.setLoadPB(loadPB);
+                    notifyItemChanged(mDatas.size() - 1);
+                }
+            }
+        });
     }
 
     @Override
@@ -296,10 +310,11 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
 
     //------------------视频数据上傳接口------------------------
     @Override
-    public void uploadUserVideoSuccess() {
+    public void uploadUserVideoSuccess(UserVideoDataResults results) {
         mHasUpLoadTask = false;
         VideoEntity videoEntity = mDatas.get(mDatas.size() - 1);
         videoEntity.setUploadStatus(0);
+        videoEntity.setId(results.getId());
         videoEntity.setLoadPB(0);
         VideoEntity newAddItem = new VideoEntity();
         newAddItem.setUploadStatus(-1);
@@ -314,6 +329,17 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
     }
 
     @Override
+    public void deleteUserVideoSuccess() {
+        removeData(deleteUserVideoData);
+    }
+
+    @Override
+    public void deleteUserVideoFail(String msg) {
+        showToast("删除视频失败：" + msg);
+        deleteUserVideoData.clear();
+    }
+
+    @Override
     public String getUpLoadVideoName() {
         return mUpLoadResults.getFilename();
     }
@@ -323,5 +349,18 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
         if (mUpLoadVideoInfo != null && mUpLoadVideoInfo.getImagePath() != null)
             return mUpLoadVideoInfo.getImagePath();
         return null;
+    }
+
+    @Override
+    public List<String> getDeleteVideoIds() {
+        deleteUserVideoData = new ArrayList<>();
+        List<String> stringData = new ArrayList<>();
+        for (VideoEntity itemData : getData()) {
+            if (itemData.getIsSelect() == 1) {
+                deleteUserVideoData.add(itemData);
+                stringData.add(itemData.getId() + "");
+            }
+        }
+        return stringData;
     }
 }

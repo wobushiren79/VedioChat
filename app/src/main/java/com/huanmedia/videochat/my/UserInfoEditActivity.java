@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.huanmedia.videochat.common.utils.DoubleClickUtils;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
+import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.repository.entity.ItemMenuEntity;
 import com.huanmedia.videochat.repository.entity.OccupationsEntity;
 import com.huanmedia.videochat.repository.entity.PhpotsEntity;
@@ -55,6 +57,8 @@ import mvp.data.store.glide.GlideUtils;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 @SuppressWarnings("ButterKnifeInjectNotCalled")
 public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter> implements UserInfoEditView, EasyPermissions.PermissionCallbacks {
@@ -122,6 +126,25 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            backLastActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 返回之前的界面
+     */
+    private void backLastActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     protected View getTitlebarView() {
         return mToolbar;
     }
@@ -152,6 +175,8 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
 //            isPhotoChange = false;
 //            getBasePresenter().getUserInfo();
 //        }
+        mPhotosAdapter.getData().clear();
+        mVideosAdapter.getData().clear();
         getBasePresenter().getUserInfo();
     }
 
@@ -283,7 +308,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        mToolbar.setNavigationOnClickListener(v -> backLastActivity());
     }
 
     @Override

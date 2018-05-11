@@ -6,10 +6,10 @@ import android.content.Context;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
-import com.huanmedia.videochat.mvp.entity.request.UserVideoUpLoadRequest;
+import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
-import com.huanmedia.videochat.mvp.entity.results.UserVideoUpLoadResults;
+import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
 
 public interface MainManager {
 
@@ -43,5 +43,11 @@ public interface MainManager {
     void ossInfo(Context context, FileUpLoadRequest params, HttpResponseHandler<FileUpLoadResults> handler);
 
 
-
+    /**
+     * 删除上传视频信息
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void userVideoDelete(Context context, UserVideoDataRequest params, HttpResponseHandler<Object> handler);
 }

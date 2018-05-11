@@ -4,9 +4,9 @@ import android.content.Context;
 
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.huanmedia.videochat.mvp.entity.request.UserVideoUpLoadRequest;
+import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
-import com.huanmedia.videochat.mvp.entity.results.UserVideoUpLoadResults;
+import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
 import com.huanmedia.videochat.repository.entity.PhpotsEntity;
 
 import java.util.ArrayList;
@@ -42,5 +42,6 @@ public interface FileManager {
      * @param params
      * @param handler
      */
-    void userVideoUpLoad(Context context, UserVideoUpLoadRequest params, HttpResponseHandler<UserVideoUpLoadResults> handler);
+    void userVideoUpLoad(Context context, UserVideoDataRequest params, HttpResponseHandler<UserVideoDataResults> handler);
+
 }

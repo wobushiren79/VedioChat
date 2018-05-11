@@ -31,4 +31,24 @@ public class DevUtils {
         String strs[] = str.split(mark);
         return ArraryToList(strs);
     }
+
+
+    /**
+     * List 用 mark分割成String
+     *
+     * @param list
+     * @param mark
+     * @return
+     */
+    public static String ListToStrByMark(List<String> list, String mark) {
+        StringBuffer str = new StringBuffer();
+        boolean isFirst = true;
+        for (String item : list) {
+            if (!isFirst)
+                str.append(mark);
+            str.append(item);
+            isFirst = false;
+        }
+        return str.toString();
+    }
 }

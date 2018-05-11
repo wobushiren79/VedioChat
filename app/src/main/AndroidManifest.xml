@@ -299,7 +299,7 @@
         <activity
             android:name=".main2.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.Main"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
@@ -340,8 +340,8 @@
             android:name=".media.MediaPlayActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/BrowseTransitionTheme" />
-
+          />
+        <!--android:theme="@style/BrowseTransitionTheme"-->
         <activity
             android:name=".media.MediaUpLoadActivity"
             android:launchMode="singleTop"

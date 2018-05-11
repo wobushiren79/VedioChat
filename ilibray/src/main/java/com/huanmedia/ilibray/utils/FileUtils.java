@@ -1,6 +1,12 @@
 package com.huanmedia.ilibray.utils;
 
+import android.graphics.Bitmap;
+import android.os.Environment;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class FileUtils {
@@ -35,5 +41,32 @@ public class FileUtils {
      */
     public static boolean hasFileExists(File parent, String child) {
         return new File(parent, child).exists();
+    }
+
+
+    /**
+     * 保存bitmap到sd目录下
+     * @param bitmap
+     * @return
+     */
+    public static File saveBitMapToSDCard(Bitmap bitmap) {
+        File file = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (out != null) {
+                out.flush();
+                out.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
+
     }
 }

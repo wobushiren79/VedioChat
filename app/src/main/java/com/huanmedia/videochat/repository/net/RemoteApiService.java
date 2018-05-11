@@ -5,12 +5,11 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
-import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
-import com.huanmedia.videochat.mvp.entity.results.UserVideoUpLoadResults;
+import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
 import com.huanmedia.videochat.repository.entity.BillDetialEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
@@ -24,7 +23,6 @@ import com.huanmedia.videochat.repository.entity.MyLevelEntity;
 import com.huanmedia.videochat.repository.entity.OccupationsEntity;
 import com.huanmedia.videochat.repository.entity.PayCoinTypeMode;
 import com.huanmedia.videochat.repository.entity.PayOlderEntity;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
 import com.huanmedia.videochat.repository.entity.TrustValueEntity;
 import com.huanmedia.videochat.repository.entity.UserAccountBoundEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
@@ -325,7 +323,12 @@ public interface RemoteApiService {
     //上传用户视频
     @POST("/index/userextv2/ossvoidupload")
     @FormUrlEncoded
-    Observable<DataResponse<UserVideoUpLoadResults>> ossvoidupload(@FieldMap Map<String, Object> params);
+    Observable<DataResponse<UserVideoDataResults>> ossvoidupload(@FieldMap Map<String, Object> params);
+
+    //删除用户视频
+    @POST("/index/userextv2/ossdel")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> ossdel(@FieldMap Map<String, Object> params);
 
 
     @Multipart
@@ -336,6 +339,13 @@ public interface RemoteApiService {
             @PartMap() Map<String, RequestBody> partMap
     );
 
+    @Multipart
+    @POST
+    Observable<DataResponse<UserVideoDataResults>> uploadViedoData(
+            @Url() String url,
+            @QueryMap Map<String, String> parms,
+            @PartMap() Map<String, RequestBody> partMap
+    );
 
     /**
      * 创建一个API服务
