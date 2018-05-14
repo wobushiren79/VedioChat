@@ -146,24 +146,24 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     protected void statusBarConfig() {
     }
 
-    @Override
-    protected void onVisible() {
-        super.onVisible();
-        if (mImmersionBar == null) {
-            mImmersionBar = ImmersionBar.with(this).statusBarDarkFont(true);
-            mImmersionBar.keyboardEnable(true).navigationBarWithKitkatEnable(false).init();
-        } else {
-            mImmersionBar.statusBarDarkFont(true).init();
-        }
-    }
-
-    @Override
-    protected void onInvisible() {
-        super.onInvisible();
-        if (mImmersionBar != null) {
-            mImmersionBar.statusBarDarkFont(false).init();
-        }
-    }
+//    @Override
+//    protected void onVisible() {
+//        super.onVisible();
+//        if (mImmersionBar == null) {
+//            mImmersionBar = ImmersionBar.with(this).statusBarDarkFont(true);
+//            mImmersionBar.keyboardEnable(true).navigationBarWithKitkatEnable(false).init();
+//        } else {
+//            mImmersionBar.statusBarDarkFont(true).init();
+//        }
+//    }
+//
+//    @Override
+//    protected void onInvisible() {
+//        super.onInvisible();
+//        if (mImmersionBar != null) {
+//            mImmersionBar.statusBarDarkFont(false).init();
+//        }
+//    }
 
     @Override
     public void onAttach(Context context) {

@@ -10,7 +10,7 @@
         android:id="@+id/iv_icon"
         android:layout_width="@dimen/dimen_260dp"
         android:layout_height="@dimen/dimen_172dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@color/base_gray"
         app:riv_corner_radius="@dimen/dimen_12dp" />
 

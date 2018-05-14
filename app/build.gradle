@@ -248,5 +248,7 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
-    implementation 'com.github.wobushiren79:DevTools:version_0.287'
+    implementation 'com.github.wobushiren79:DevTools:version_0.288'
+    implementation 'com.aliyun.dpa:oss-android-sdk:+'
+
 }

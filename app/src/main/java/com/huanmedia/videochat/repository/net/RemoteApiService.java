@@ -7,6 +7,7 @@ import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
+import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
@@ -329,6 +330,11 @@ public interface RemoteApiService {
     @POST("/index/userextv2/ossdel")
     @FormUrlEncoded
     Observable<DataResponse<Object>> ossdel(@FieldMap Map<String, Object> params);
+
+    //广告数据
+    @POST("/index/userextv2/ads")
+    @FormUrlEncoded
+    Observable<DataResponse<List<ShufflingAdsResults>>> ads(@FieldMap Map<String, Object> params);
 
 
     @Multipart

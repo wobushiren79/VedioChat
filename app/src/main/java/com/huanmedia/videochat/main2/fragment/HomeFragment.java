@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseFragment;
@@ -77,6 +78,7 @@ public class HomeFragment extends BaseFragment implements MatchFragment.MatchInt
         mToolbar.getLayoutParams().height += DisplayUtil.getStatusBarHeight(getContext());
         mToolbarHight=mToolbar.getLayoutParams().height;
     }
+
 
     @Override
     protected void initView(View view) {

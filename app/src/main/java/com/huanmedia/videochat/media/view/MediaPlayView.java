@@ -62,7 +62,6 @@ public class MediaPlayView extends BaseFragment implements
         mVedioView.setOnPreparedListener(this);
         mVedioView.setOnCompletionListener(this);
         mVedioView.setOnErrorListener(this);
-
     }
 
     @Override
@@ -200,7 +199,7 @@ public class MediaPlayView extends BaseFragment implements
         if (mVedioView != null && mVedioIcon != null) {
             mVedioPic.setVisibility(View.VISIBLE);
             mVedioIcon.setVisibility(View.VISIBLE);
-            mVedioView.setVisibility(View.INVISIBLE);
+            mVedioView.setVisibility(View.GONE);
             mVedioView.pause();
 //            mVedioIcon.setImageResource(R.drawable.icon_video_play);
         }

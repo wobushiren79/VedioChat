@@ -8,10 +8,11 @@
 
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_layout_normal"
         android:layout_width="@dimen/dimen_230dp"
         android:layout_height="@dimen/dimen_230dp"
-        android:visibility="gone">
+        >
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="match_parent"
@@ -39,6 +40,14 @@
             android:layout_alignParentRight="true"
             android:buttonTint="@color/color_f64d99"
             android:visibility="gone" />
+
+        <TextView
+            android:textColor="@color/color_ff4747"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/dimen_38dp"
+            android:id="@+id/normal_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <RelativeLayout

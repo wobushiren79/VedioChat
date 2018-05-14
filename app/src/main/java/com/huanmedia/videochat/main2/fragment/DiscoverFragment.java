@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.huanmedia.ilibray.widgets.ErrorView;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
+import com.huanmedia.videochat.common.widget.ShufflingViewPager;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.repository.entity.DiscoverEntity;
 import com.huanmedia.videochat.repository.entity.DiscoverPageEntity;
@@ -38,6 +40,9 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
     RecyclerView mDiscoverFmRv;
     @BindView(R.id.discover_fm_sv)
     SpringView mDiscoverFmSv;
+    @BindView(R.id.discover_vp)
+    ShufflingViewPager mShufflingVP;
+
     private MainInteractionListener mListener;
     private ErrorView mEmptyView;
     private BaseQuickAdapter<DiscoverEntity, BaseViewHolder> mAdapter;
@@ -108,14 +113,14 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
                         .setText(R.id.item_discover_grids_tv_charge, String.format("%d钻/分钟", item.getStarcoin()))
                         .setText(R.id.item_discover_grids_tv_distance, Check.checkReplace(item.getDistance(), "未知"));
 
-                if(item.getOnlinestatus()==0){
+                if (item.getOnlinestatus() == 0) {
                     helper.setText(R.id.item_discover_grids_tv_status,
                             TimeUtils.getFriendlyTimeSpanByFrom(item.getLogintime() * 1000L
                                     , item.getSystemtime() * 1000L));
-                }else if(item.getOnlinestatus()==1){
-                    helper.setText(R.id.item_discover_grids_tv_status,"在线");
-                }else if(item.getOnlinestatus()==2){
-                    helper.setText(R.id.item_discover_grids_tv_status,"忙碌");
+                } else if (item.getOnlinestatus() == 1) {
+                    helper.setText(R.id.item_discover_grids_tv_status, "在线");
+                } else if (item.getOnlinestatus() == 2) {
+                    helper.setText(R.id.item_discover_grids_tv_status, "忙碌");
                 }
 
                 ImageView imageView = helper.getView(R.id.item_discover_grids_iv_status);
@@ -144,7 +149,6 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
         mAdapter.setOnLoadMoreListener(() -> {
             getBasePresenter().getDiscoverData(LoadDataView.LOADING_STATUS_MORE);
         }, mDiscoverFmRv);
-
 
         mDiscoverFmRv.addOnItemTouchListener(new OnItemClickListener() {
             @Override
@@ -187,6 +191,7 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
 
     @Override
     public void onDestroyView() {
+        mShufflingVP.closeTimer();
         super.onDestroyView();
     }
 

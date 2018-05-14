@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseFragment;
@@ -67,6 +68,7 @@ public class FriendFragment extends BaseFragment {
         mHomeToolbarFl.getLayoutParams().height += DisplayUtil.getStatusBarHeight(getContext());
     }
 
+
     @Override
     protected void initView(View view) {
         mMainFriendVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -119,7 +121,7 @@ public class FriendFragment extends BaseFragment {
             mFragments = new Fragment[]{ComeAcrossFriendFragment.newInstance(), FansFragment.newInstance(), AttentionFragment.newInstance()};
         } else {
             titles = new String[]{getString(R.string.calling_people), getString(R.string.attention_people)};
-            mFragments = new Fragment[]{ ComeAcrossFriendFragment.newInstance(),AttentionFragment.newInstance()};
+            mFragments = new Fragment[]{ComeAcrossFriendFragment.newInstance(), AttentionFragment.newInstance()};
         }
 
         HomeFragmentAdapter adapter = new HomeFragmentAdapter(getFragmentManager(), mFragments);

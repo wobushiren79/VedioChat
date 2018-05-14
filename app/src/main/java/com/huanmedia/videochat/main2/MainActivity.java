@@ -15,6 +15,7 @@ import com.baidu.location.BDLocationListener;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
@@ -93,7 +94,11 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
+    }
 
+    @Override
+    protected ImmersionBar defaultBarConfig() {
+        return super.defaultBarConfig().statusBarDarkFont(true);
     }
 
     @Override
@@ -208,10 +213,11 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     }
 
 
-    @Override
-    public boolean isImmersionBarEnabled() {
-        return true;
-    }
+//    @Override
+//    public boolean isImmersionBarEnabled() {
+//        return false;
+//    }
+
 
     @Override
     protected void initView() {

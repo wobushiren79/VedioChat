@@ -8,9 +8,29 @@ public class VideoEntity implements Parcelable {
     private int id;
     private String voideurl;
     private String imgurl;
+
+    /**
+     * 视频审核状态
+     *
+     * 查看自己时有数据，  0未审  -1审核不过  1审核通过
+     *
+     * 查看别人时无此数据项
+     */
+    private int status;
+
+
     private int uploadStatus;
     private int loadPB = 0;//上传进度
-    private int isSelect=0;//是否选中
+    private int isSelect = 0;//是否选中
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getIsSelect() {
         return isSelect;
@@ -78,6 +98,7 @@ public class VideoEntity implements Parcelable {
         sb.append("id=").append(id);
         sb.append(", voideurl='").append(voideurl).append('\'');
         sb.append(", imgurl='").append(imgurl).append('\'');
+        sb.append(", status='").append(status).append('\'');
         sb.append('}');
         return sb.toString();
     }
@@ -91,6 +112,7 @@ public class VideoEntity implements Parcelable {
         this.id = in.readInt();
         this.voideurl = in.readString();
         this.imgurl = in.readString();
+        this.status = in.readInt();
     }
 
     public VideoEntity() {
@@ -101,5 +123,6 @@ public class VideoEntity implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.voideurl);
         dest.writeString(this.imgurl);
+        dest.writeInt(this.status);
     }
 }

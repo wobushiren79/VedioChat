@@ -3,6 +3,7 @@ package com.huanmedia.videochat.common;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -29,12 +30,12 @@ public class LocalHtmlWebActivity extends BaseActivity {
     private String mTitle;
 
 
-    public static Intent getCallingIntent(Context context,String url, String title) {
+    public static Intent getCallingIntent(Context context, String url, String title) {
         Intent intent = new Intent();
         intent.setClass(context, LocalHtmlWebActivity.class);
         intent.putExtra("url", url);
-        if (title!=null)
-        intent.putExtra("title",title);
+        if (title != null)
+            intent.putExtra("title", title);
         return intent;
     }
 
@@ -42,10 +43,12 @@ public class LocalHtmlWebActivity extends BaseActivity {
     protected View getTitlebarView() {
         return mToolbar;
     }
+
     @Override
     protected ImmersionBar defaultBarConfig() {
         return super.defaultBarConfig().statusBarDarkFont(true);
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_localhtml_web;
@@ -66,8 +69,10 @@ public class LocalHtmlWebActivity extends BaseActivity {
         }
         setToolBar();
 
-        if (getSupportActionBar() != null)
+        if (getSupportActionBar() != null && mTitle != null && mTitle.length() > 0) {
             getSupportActionBar().setTitle(mTitle);
+        }
+
 
         WebSettings settings = webView.getSettings();
 //        settings.setJavaScriptEnabled(true);
@@ -75,6 +80,8 @@ public class LocalHtmlWebActivity extends BaseActivity {
         settings.setDatabaseEnabled(false);
         settings.setJavaScriptEnabled(true);
         settings.setLoadsImagesAutomatically(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        settings.setSupportMultipleWindows(true);
         webView.requestFocusFromTouch();
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -85,7 +92,7 @@ public class LocalHtmlWebActivity extends BaseActivity {
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (localhtmlWebProgressBar==null)return;
+                if (localhtmlWebProgressBar == null) return;
                 if (newProgress == 100) {
                     localhtmlWebProgressBar.setVisibility(View.INVISIBLE);
                 } else {
@@ -110,6 +117,16 @@ public class LocalHtmlWebActivity extends BaseActivity {
 //        webView.loadUrl("content://com.android.htmlfileprovider/sdcard/index.html");
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
+            webView.goBack();// 返回前一个页面
+            return true;
+        } else {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     private void setToolBar() {
         setSupportActionBar(mToolbar);

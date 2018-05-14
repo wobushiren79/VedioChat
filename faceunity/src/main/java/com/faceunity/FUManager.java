@@ -91,6 +91,9 @@ public class FUManager {
      */
     private void initV3() throws Exception {
         final byte[] authData = authpack.A();
+        if (context == null) {
+            return;
+        }
         InputStream is = context.getAssets().open("v3.bundle");
         faceunity.fuCreateEGLContext();
         byte[] v3data = new byte[is.available()];
@@ -107,6 +110,8 @@ public class FUManager {
      * @throws Exception
      */
     private void initAnimModel() throws Exception {
+        if(context==null)
+            return;
         InputStream animModel = context.getAssets().open("anim_model.bundle");
         byte[] animModeldata = new byte[animModel.available()];
         animModel.read(animModeldata);
@@ -120,6 +125,8 @@ public class FUManager {
      * @throws Exception
      */
     private void initArData() throws Exception {
+        if(context==null)
+            return;
         InputStream arModel = context.getAssets().open("ardata_ex.bundle");
         byte[] arModelData = new byte[arModel.available()];
         arModel.read(arModelData);

@@ -30,8 +30,8 @@
     <color name="base_violet_light_alpha">#bb8a1bde</color>
     <color name="base_yellow_alpha">#88fd7005</color>
     <color name="base_yellow_dark">#fd7005</color>
-    <color name="base_black">#2c2c32</color>
     <color name="base_gray">#787e88</color>
+    <color name="base_black">#2c2c32</color>
     <color name="base_blue">#38B6FF</color>
     <color name="base_hint">#D1D6E3</color>
     <color name="base_green">#0FFF18</color>
@@ -73,6 +73,7 @@
     <color name="color_F1F1F1_90">#90F1F1F1</color>
     <color name="color_fe6f06">#fe6f06</color>
     <color name="color_fe6f06_90">#90fe6f06</color>
+    <color name="color_ff4747">#ff4747</color>
 
 
     <color name="header_border_gray">#b4b4b4</color>

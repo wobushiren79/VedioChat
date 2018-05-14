@@ -4,13 +4,16 @@ import android.content.Context;
 
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
+import com.huanmedia.videochat.mvp.entity.request.ShufflingAdsRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
+import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
+import java.util.List;
 import java.util.Map;
 
 public class MainManagerImpl extends BaseManagerImpl implements MainManager {
@@ -55,6 +58,12 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void userVideoDelete(Context context, UserVideoDataRequest params, HttpResponseHandler<Object> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.ossdel(paramsMap), handler,true);
+    }
+
+    @Override
+    public void getShufflingAds(Context context, ShufflingAdsRequest params, HttpResponseHandler<List<ShufflingAdsResults>> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.ads(paramsMap), handler);
     }
 
 

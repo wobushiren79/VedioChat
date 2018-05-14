@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.applecoffee.devtools.base.adapter.BaseRCAdapter;
@@ -108,15 +109,26 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
             rlNormal.setVisibility(View.VISIBLE);
             rlUpload.setVisibility(View.GONE);
             rlLoading.setVisibility(View.GONE);
+            TextView tvContent = baseViewHolder.getView(R.id.normal_tv_content);
             RoundedImageView ivIcon = baseViewHolder.getView(R.id.normal_icon);
             GlideUtils.getInstance().loadBitmapNoAnim(mContext, videoEntity.getImgurl(), ivIcon);
             if (mItemType == 1) {
                 rbSelect.setVisibility(View.GONE);
                 ivPlay.setVisibility(View.VISIBLE);
+                if (videoEntity.getStatus() == -1) {
+                    tvContent.setText("审核未通过");
+                    tvContent.setVisibility(View.VISIBLE);
+                    ivPlay.setVisibility(View.GONE);
+                } else {
+                    tvContent.setVisibility(View.GONE);
+                    ivPlay.setVisibility(View.VISIBLE);
+                }
             } else {
+                tvContent.setVisibility(View.GONE);
                 rbSelect.setVisibility(View.VISIBLE);
                 ivPlay.setVisibility(View.GONE);
             }
+
         } else if (videoEntity.getUploadStatus() == -1) {
             //上传按钮
             rlNormal.setVisibility(View.GONE);
