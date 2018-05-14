@@ -3,6 +3,8 @@ package com.huanmedia.videochat.media;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +35,7 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
 
     private MediaPlayAdapter mPlayAdapter;
     private List<String> mListVedioUrl;
-    private List<View> mListVedioView;
+    private List<Fragment> mListVedioView;
 
     public static Intent getCallingIntent(Context context, ArrayList<String> vedios, int position) {
         Intent intent = new Intent(context, MediaPlayActivity.class);
@@ -70,14 +72,17 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
         for (int i = 0; i < mListVedioUrl.size(); i++) {
             if (mListVedioUrl.get(i) == null)
                 continue;
-            MediaPlayView itemView = new MediaPlayView(this, mListVedioUrl.get(i));
+            MediaPlayView itemView = new MediaPlayView();
+            itemView.setVedioUrl(mListVedioUrl.get(i));
             mListVedioView.add(itemView);
         }
-        mPlayAdapter = new MediaPlayAdapter(this, mListVedioView);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        mPlayAdapter = new MediaPlayAdapter(fragmentManager, mListVedioView);
         mMediaoVP.setAdapter(mPlayAdapter);
         mMediaoVP.addOnPageChangeListener(this);
         mMediaoVP.setOffscreenPageLimit(mListVedioView.size());
         mMediaoVP.setCurrentItem(getIntent().getIntExtra("position", 0));
+        ((MediaPlayView) mListVedioView.get(getIntent().getIntExtra("position", 0))).setFirst(true);
         mTVPage.setText((getIntent().getIntExtra("position", 0) + 1) + "/" + mListVedioUrl.size());
     }
 
@@ -90,7 +95,11 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
     public void onPageSelected(int position) {
         for (int i = 0; i < mListVedioView.size(); i++) {
             MediaPlayView itemView = (MediaPlayView) mListVedioView.get(i);
-            itemView.stopVideo();
+            if (position == i) {
+                itemView.startVideo();
+            } else {
+                itemView.stopVideo();
+            }
         }
         mTVPage.setText((position + 1) + "/" + mListVedioUrl.size());
     }

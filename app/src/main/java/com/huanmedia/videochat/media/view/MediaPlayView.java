@@ -1,11 +1,21 @@
 package com.huanmedia.videochat.media.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +26,12 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseFragment;
 import com.huanmedia.videochat.common.BaseLinearLayout;
 
-public class MediaPlayView extends BaseLinearLayout implements
+import java.util.HashMap;
+
+public class MediaPlayView extends BaseFragment implements
         MediaPlayer.OnPreparedListener,
         MediaPlayer.OnCompletionListener,
         MediaPlayer.OnErrorListener {
@@ -27,13 +40,10 @@ public class MediaPlayView extends BaseLinearLayout implements
     private RelativeLayout mRLLayout;
     private VideoView mVedioView;
     private ImageView mVedioIcon;
+    private ImageView mVedioPic;
     private ProgressBar mVedioPB;
 
-    public MediaPlayView(Context context, String vedioUrl) {
-        super(context);
-        this.mVedioUrl = vedioUrl;
-        init();
-    }
+    private boolean isFirst = false;
 
 
     @Override
@@ -43,30 +53,47 @@ public class MediaPlayView extends BaseLinearLayout implements
 
     @Override
     protected void initView(View baseView) {
-        mVedioView = getView(R.id.media_view);
-        mVedioIcon = getView(R.id.medio_icon);
-        mRLLayout = getView(R.id.media_rl_layout);
-        mVedioPB = getView(R.id.media_pb);
+        mVedioView = findViewById(R.id.media_view);
+        mVedioIcon = findViewById(R.id.medio_icon);
+        mRLLayout = findViewById(R.id.media_rl_layout);
+        mVedioPB = findViewById(R.id.media_pb);
+        mVedioPic = findViewById(R.id.media_pic);
+
         mVedioView.setOnPreparedListener(this);
         mVedioView.setOnCompletionListener(this);
         mVedioView.setOnErrorListener(this);
 
-        this.setBackgroundColor(getContext().getResources().getColor(R.color.base_black));
-
-        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mRLLayout.setLayoutParams(layoutParams);
     }
 
     @Override
     protected void initData() {
+        Uri uri = Uri.parse(mVedioUrl);
+        mVedioView.setVideoURI(uri);
+
+//        ((Activity) getContext()).runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Bitmap videoPic = createVideoThumbnail(mVedioUrl);
+//                if (videoPic != null)
+//                    mVedioPic.setImageBitmap(videoPic);
+//            }
+//        });
+
 
     }
 
-    public void init() {
-        if (mVedioUrl == null)
-            return;
-        Uri uri = Uri.parse(mVedioUrl);
-        mVedioView.setVideoURI(uri);
+    /**
+     * 设置视频地址
+     *
+     * @param videoUrl
+     */
+    public void setVedioUrl(String videoUrl) {
+        mVedioUrl = videoUrl;
+    }
+
+
+    public void setFirst(boolean first) {
+        isFirst = first;
     }
 
     @Override
@@ -76,12 +103,12 @@ public class MediaPlayView extends BaseLinearLayout implements
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        mVedioIcon.setVisibility(VISIBLE);
-        mVedioPB.setVisibility(GONE);
+        if (isFirst) {
+            mVedioIcon.setVisibility(View.VISIBLE);
+        }
+        isFirst = false;
+        mVedioPB.setVisibility(View.GONE);
         mp.setLooping(true);
-//        mVedioView.start();
-//        mVedioView.pause();
-
         mVedioView.setOnTouchListener(new View.OnTouchListener() {
             GestureDetector mGesture;
 
@@ -140,9 +167,14 @@ public class MediaPlayView extends BaseLinearLayout implements
         if (mVedioView == null)
             return;
         if (mVedioView.isPlaying()) {
-            stopVideo();
+            mVedioView.pause();
+            mVedioIcon.setVisibility(View.VISIBLE);
+//            mVedioIcon.setImageResource(R.drawable.icon_video_play);
         } else {
-            startVideo();
+            mVedioView.start();
+            mVedioPic.setVisibility(View.GONE);
+            mVedioIcon.setVisibility(View.GONE);
+//            mVedioIcon.setImageResource(R.drawable.icon_video_stop);
         }
     }
 
@@ -150,20 +182,86 @@ public class MediaPlayView extends BaseLinearLayout implements
     /**
      * 开始视频
      */
-    private void startVideo() {
-        mVedioView.start();
-        mVedioIcon.setImageResource(R.drawable.icon_video_stop);
+    public void startVideo() {
+        if (mVedioView != null && mVedioIcon != null) {
+            mVedioPic.setVisibility(View.GONE);
+            mVedioIcon.setVisibility(View.GONE);
+            mVedioView.setVisibility(View.VISIBLE);
+            mVedioView.start();
+//            mVedioIcon.setImageResource(R.drawable.icon_video_stop);
+        }
     }
+
 
     /**
      * 暂停视频
      */
     public void stopVideo() {
         if (mVedioView != null && mVedioIcon != null) {
+            mVedioPic.setVisibility(View.VISIBLE);
+            mVedioIcon.setVisibility(View.VISIBLE);
+            mVedioView.setVisibility(View.INVISIBLE);
             mVedioView.pause();
-            mVedioIcon.setImageResource(R.drawable.icon_video_play);
+//            mVedioIcon.setImageResource(R.drawable.icon_video_play);
         }
     }
 
+    /**
+     * 获取网络缩略图
+     *
+     * @param url
+     * @param width
+     * @param height
+     * @return
+     */
+    private Bitmap createVideoThumbnail(String url) {
+        Bitmap bitmap = null;
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        int kind = MediaStore.Video.Thumbnails.MINI_KIND;
+        try {
+            if (Build.VERSION.SDK_INT >= 14) {
+                retriever.setDataSource(url, new HashMap<String, String>());
+            } else {
+                retriever.setDataSource(url);
+            }
+            bitmap = retriever.getFrameAtTime();
+        } catch (IllegalArgumentException ex) {
+            // Assume this is a corrupt video file
+        } catch (RuntimeException ex) {
+            // Assume this is a corrupt video file.
+        } finally {
+            try {
+                retriever.release();
+            } catch (RuntimeException ex) {
+                // Ignore failures while cleaning up.
+            }
+        }
+//        if (kind == MediaStore.Images.Thumbnails.MICRO_KIND && bitmap != null) {
+//            bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
+//                    ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+//        }
+        return bitmap;
+    }
 
+    @Override
+    public void onResume() {
+        mVedioView.setVisibility(View.VISIBLE);
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mVedioView != null && mVedioIcon != null) {
+            mVedioView.stopPlayback();
+            mVedioIcon.setVisibility(View.GONE);
+//            mVedioIcon.setImageResource(R.drawable.icon_video_play);
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        stopVideo();
+        super.onPause();
+    }
 }
