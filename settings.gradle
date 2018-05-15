@@ -1,1 +1,1 @@
-include ':app', ':ilibray', ':MaterialDialogCore', ':hmalbumlib', ':wheel', ':updatepluginlib', ':smallGift', ':springView', ':faceunity'
+include ':app', ':ilibray', ':materialdialogcore', ':hmalbumlib', ':wheel', ':updatepluginlib', ':smallGift', ':springView', ':faceunity', ':materialdialogcore'

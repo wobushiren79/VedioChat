@@ -7,13 +7,7 @@
     <!-- <uses-permission android:name="android.permission.BLUETOOTH"/> -->
     <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/> -->
     <!-- &lt;!&ndash; 个推3.0电子围栏功能所需权限 &ndash;&gt; -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <!-- the following 2 com.xiaomi.mipushdemo should be changed to your package name -->
     <permission
         android:name="com.xiaomi.mipushdemo.permission.MIPUSH_RECEIVE"

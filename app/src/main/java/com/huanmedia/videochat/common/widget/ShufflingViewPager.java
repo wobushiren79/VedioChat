@@ -33,6 +33,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.GlideUtils;
 
 public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAdsView {
@@ -121,10 +122,19 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
                 }
 
             });
-            GlideUtils.getInstance().loadBitmapNoAnim(getContext(), itemData.getBimg(), itemView);
+            GlideApp.with(getContext()).asBitmap().load(itemData.getBimg()).placeholder(R.drawable.icon_shuffling_lodading).error(R.drawable.icon_shuffling_lodading).
+                    into(itemView);
             mListView.add(itemView);
 
+            RadioGroup.LayoutParams rbLayout = new RadioGroup.LayoutParams
+                    (getResources().getDimensionPixelOffset(R.dimen.dimen_16dp),
+                            getResources().getDimensionPixelOffset(R.dimen.dimen_4dp));
+            rbLayout.leftMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_6dp);
+            rbLayout.rightMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_6dp);
             RadioButton itemRB = new RadioButton(getContext());
+            itemRB.setLayoutParams(rbLayout);
+            itemRB.setBackgroundResource(R.drawable.rb_style_2);
+            itemRB.setButtonDrawable(null);
             mRGContent.addView(itemRB);
             mListRBView.add(itemRB);
         }
@@ -181,6 +191,7 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
                 for (int i = 0; i < mListRBView.size(); i++) {
                     RadioButton rbItem = mListRBView.get(i);
                     if (rbItem.getId() == checkedId) {
+                        mCurrentPage = i;
                         mVPContent.setCurrentItem(i);
                     }
                 }

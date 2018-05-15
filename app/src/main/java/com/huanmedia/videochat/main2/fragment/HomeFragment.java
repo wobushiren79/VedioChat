@@ -79,7 +79,6 @@ public class HomeFragment extends BaseFragment implements MatchFragment.MatchInt
         mToolbarHight=mToolbar.getLayoutParams().height;
     }
 
-
     @Override
     protected void initView(View view) {
         MatchFragment matchFragment = MatchFragment.newInstance();

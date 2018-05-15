@@ -6,24 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.huanmedia.videochat.main2.fragment.DiscoverFragment">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/discover_fm_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.huanmedia.videochat.common.widget.ShufflingViewPager
-            android:id="@+id/discover_vp"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_220dp"></com.huanmedia.videochat.common.widget.ShufflingViewPager>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/discover_fm_rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:listitem="@layout/item_discover_grids" />
-    </LinearLayout>
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/item_discover_grids" />
 
 
 </com.liaoinstan.springview.widget.SpringView>

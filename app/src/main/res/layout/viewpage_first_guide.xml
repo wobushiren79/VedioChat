@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
-        tools:src="@drawable/glide_p1" />
+        tools:src="@drawable/glide_p4" />
     <!--<LinearLayout-->
     <!--android:orientation="vertical"-->
     <!--android:layout_width="match_parent"-->
@@ -99,10 +99,10 @@
         android:layout_height="@dimen/dimen_80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dimen_102dp"
+        android:layout_marginBottom="@dimen/dimen_350dp"
         android:background="@drawable/base_btn_solid"
         android:gravity="center"
-        android:text="即刻开启"
+        android:text="立即开启"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_36dp" />
 </RelativeLayout>

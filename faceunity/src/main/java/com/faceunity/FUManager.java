@@ -445,8 +445,8 @@ public class FUManager {
         private float red_level = 0.5f;//红润
         private float face_shape = 3f;//脸型
         private float face_shape_level = 0.5f;//脸型程度
-        private float cheek_thinning = 0.0f;//瘦脸
-        private float eye_enlarging = 0.0f;//大眼
+        private float cheek_thinning = 0.5f;//瘦脸
+        private float eye_enlarging = 0.5f;//大眼
         private int filter_position = 0;//滤镜
         private List<String> mask = new ArrayList<>();//面具
 

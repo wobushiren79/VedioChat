@@ -26,12 +26,12 @@ def getAppChannelId() {
     //018.wifi的推广渠道号 (车站)
     //019.wifi的推广渠道号 (车上)
     //020.公众号
-    return "21"
+    return "0"
 }
 
 android {
 //    useLibrary 'org.apache.http.legacy'
-    compileSdkVersion build_versions.target_sdk
+    compileSdkVersion 26
     defaultConfig {
         multiDexEnabled true
         minSdkVersion build_versions.min_sdk
@@ -156,7 +156,7 @@ android {
         }
     }
 
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '26.0.1'
 }
 android.applicationVariants.all { variant ->
     variant.outputs.all {
@@ -225,7 +225,7 @@ dependencies {
     androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
     androidTestImplementation deps.dexmaker
     implementation project(':ilibray')
-    implementation project(':MaterialDialogCore')
+    implementation project(':materialdialogcore')
     implementation deps.support.annotations
     implementation project(':hmalbumlib')
     implementation project(':wheel')
@@ -236,19 +236,16 @@ dependencies {
     implementation project(':smallGift')
     implementation project(':springView')
     implementation project(':faceunity')
-
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    //    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     implementation 'ch.halcyon:squareprogressbar:1.6.4'
     implementation 'co.lujun:androidtagview:1.1.4'
-
     implementation 'com.umeng.sdk:common:latest.integration'
     implementation 'com.umeng.sdk:analytics:latest.integration'
-
     implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
-
     implementation 'com.github.wobushiren79:DevTools:version_0.288'
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
 
+//    compile 'com.shuyu:GSYVideoPlayer:4.1.3'
 }

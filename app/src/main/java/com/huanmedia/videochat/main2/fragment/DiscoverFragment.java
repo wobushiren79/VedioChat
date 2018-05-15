@@ -40,8 +40,9 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
     RecyclerView mDiscoverFmRv;
     @BindView(R.id.discover_fm_sv)
     SpringView mDiscoverFmSv;
-    @BindView(R.id.discover_vp)
-    ShufflingViewPager mShufflingVP;
+
+
+    private ShufflingViewPager mShufflingVP;
 
     private MainInteractionListener mListener;
     private ErrorView mEmptyView;
@@ -157,7 +158,9 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
                 getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance());
             }
         });
+        mShufflingVP = new ShufflingViewPager(getContext());
         mAdapter.setEmptyView(mEmptyView);
+        mAdapter.addHeaderView(mShufflingVP);
     }
 
     @Override

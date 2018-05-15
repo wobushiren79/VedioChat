@@ -66,7 +66,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-            initView(view);
+        initView(view);
 
         if (isImmersionBarEnabled())
             statusBarConfig();
@@ -107,15 +107,16 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 查找Fragment中的控件
+     *
      * @param id
      * @param <T>
      * @return
      */
     protected <T extends View> T findViewById(@IdRes int id) {
-        if (getView()!=null)
-        return (T) getView().findViewById(id);
+        if (getView() != null)
+            return (T) getView().findViewById(id);
         else
-        return null;
+            return null;
     }
 
 
@@ -167,8 +168,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-
-
     private void onLazyLoad() {
         if (mIsVisible && mIsPrepare) {
             mIsPrepare = false;
@@ -185,13 +184,13 @@ public abstract class BaseFragment extends Fragment {
             mImmersionBar.titleBar(getTitlebarView());
         }
         mImmersionBar
-        .keyboardEnable(true)
-        .navigationBarWithKitkatEnable(false)
-        .init();
+                .keyboardEnable(true)
+                .navigationBarWithKitkatEnable(false).statusBarDarkFont(true)
+                .init();
     }
 
-    protected View getTitlebarView(){
-         return findViewById(R.id.toolbar_content);
+    protected View getTitlebarView() {
+        return findViewById(R.id.toolbar_content);
     }
 
     /**
