@@ -38,8 +38,8 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         applicationId 'com.huanmedia.videochat'
-        versionCode 3
-        versionName '1.0'
+        versionCode 4
+        versionName '1.1'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         testApplicationId 'com.huanmedia.videochat.test'
         manifestPlaceholders = [
@@ -158,6 +158,8 @@ android {
     }
 
     buildToolsVersion '27.0.3'
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 }
 android.applicationVariants.all { variant ->
     variant.outputs.all {
