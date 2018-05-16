@@ -140,7 +140,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SimpleTo
         return ImmersionBar.with(this)
                 .transparentStatusBar()
                 .navigationBarEnable(false);
-
+//                .statusBarDarkFont(true);
 //                .statusBarColor(R.color.colorPrimaryDark);
     }
 

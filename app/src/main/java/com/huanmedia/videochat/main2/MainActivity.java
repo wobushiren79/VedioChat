@@ -97,6 +97,11 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected ImmersionBar defaultBarConfig() {
         return super.defaultBarConfig().statusBarDarkFont(true);
     }
