@@ -1277,6 +1277,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     private void setTimeUp() {
         isShowTimer = true;
         //设置进度条样式
+        mTimeProgressView.setVisibility(View.VISIBLE);
         mTimeProgressView.clearAnimation();
         mTimeProgressView.setProgress(100);
         mTimeProgressView.setColor(getResources().getColor(R.color.progress_green));

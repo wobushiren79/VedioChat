@@ -165,10 +165,6 @@ public abstract class BaseActivity extends AppCompatActivity implements SimpleTo
     }
 
 
-    public Navigator getNavigator() {
-        return navigator;
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -181,6 +177,10 @@ public abstract class BaseActivity extends AppCompatActivity implements SimpleTo
         if (isShowFouceDialog())
             showFouceExitDialog();
         MobclickAgent.onResume(this);
+    }
+
+    public Navigator getNavigator() {
+        return navigator;
     }
 
     @Override

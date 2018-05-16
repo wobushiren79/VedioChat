@@ -329,7 +329,7 @@ public class FUManager {
         if (nameList.size() == 0) {
             mPagePosition = null;
         } else {
-            if (pagePosition != 0 && position != 0)
+            if (position != 0)
                 mPagePosition = new int[]{pagePosition, position};
         }
         clearMask();

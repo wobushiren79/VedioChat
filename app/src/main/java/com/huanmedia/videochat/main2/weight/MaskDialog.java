@@ -352,7 +352,6 @@ public class MaskDialog extends Dialog {
                             SparseArray<SkinMode> item = new SparseArray<>();
                             item.put(position1, maskMode);
                             mFilterSelect.put(pagePosition, item);
-                            adapter.notifyItemChanged(position1);
                             for (String itemName : maskMode.getPackName()) {
                                 mask.add(new File(MaskHandler.getCacheDir(), itemName).getAbsolutePath());
                             }
@@ -365,11 +364,12 @@ public class MaskDialog extends Dialog {
                             }
                             mask = new ArrayList<>();
                         }
-                        FUManager.setMaskByNameList(mask, pagePosition, position);
+                        FUManager.setMaskByNameList(mask, pagePosition, position1);
                     } else {
                         FUManager.setMaskByNameList(new ArrayList<>(), pagePosition, position);
                         Toast.makeText(view1.getContext(), "对方用户揭面后无法选择面具", Toast.LENGTH_SHORT).show();
                     }
+                    adapter.notifyItemChanged(position1);
                 }
             });
             return adapter;

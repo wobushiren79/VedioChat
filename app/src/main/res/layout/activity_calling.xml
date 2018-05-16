@@ -27,15 +27,14 @@
         android:layout_width="@dimen/dimen_165dp"
         android:layout_height="@dimen/dimen_280dp"
         android:layout_gravity="end"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dimen_20dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
         tools:background="@color/base_black">
 
         <ch.halcyon.squareprogressbar.SquareProgressView
             android:id="@+id/view_time_progress"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:rotationY="180"></ch.halcyon.squareprogressbar.SquareProgressView>
+            android:layout_height="match_parent"></ch.halcyon.squareprogressbar.SquareProgressView>
 
         <FrameLayout
             android:id="@+id/calling_fl_video_small"

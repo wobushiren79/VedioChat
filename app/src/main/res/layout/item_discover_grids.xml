@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_8dp"
+    android:layout_marginBottom="@dimen/dimen_8dp"
+    android:layout_marginLeft="@dimen/dimen_8dp"
+    android:layout_marginRight="@dimen/dimen_8dp"
     android:background="@color/white"
-    android:layout_marginLeft="@dimen/dimen_4dp"
-    android:layout_marginRight="@dimen/dimen_4dp"
     tools:layout_height="216dp"
     tools:layout_width="178dp">
 
@@ -16,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_216"
         android:scaleType="centerCrop"
-        tools:src="@drawable/bg"/>
+        tools:src="@drawable/bg" />
 
     <!--图片上面的阴影-->
     <View
@@ -24,7 +25,7 @@
         android:layout_height="@dimen/dp_60"
         android:background="@drawable/bg_discover_item"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_discover_grids_tv_name"/>
+        app:layout_constraintTop_toTopOf="@+id/item_discover_grids_tv_name" />
 
     <LinearLayout
         android:id="@+id/item_discover_grids_ll_status"
@@ -35,8 +36,7 @@
         android:background="@drawable/bg_item_discover_round_solid"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/item_discover_grids_iv_status"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/dp_2"
-            android:src="@drawable/online_status"/>
+            android:src="@drawable/online_status" />
 
         <TextView
             android:id="@+id/item_discover_grids_tv_status"
@@ -55,8 +55,7 @@
             android:maxLines="1"
             android:textColor="@color/white"
             android:textSize="@dimen/tz_12"
-            tools:text="5分钟前"
-            />
+            tools:text="5分钟前" />
 
     </LinearLayout>
 
@@ -73,7 +72,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/item_discover_grids_tv_charge"
         app:layout_constraintStart_toStartOf="@+id/item_discover_grids_tv_charge"
-        tools:text="小花猫"/>
+        tools:text="小花猫" />
 
     <TextView
         android:id="@+id/item_discover_grids_tv_charge"
@@ -89,7 +88,7 @@
         android:textSize="@dimen/tz_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="300钻/分钟"/>
+        tools:text="300钻/分钟" />
 
     <TextView
         android:id="@+id/item_discover_grids_tv_distance"
@@ -105,6 +104,6 @@
         android:textSize="@dimen/tz_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="1036km"/>
+        tools:text="1036km" />
 
 </android.support.constraint.ConstraintLayout>

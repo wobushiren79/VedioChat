@@ -34,12 +34,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:tl_divider_width="@dimen/dp_0"
+            app:tl_iconHeight="@dimen/dimen_55dp"
             app:tl_iconVisible="true"
+            app:tl_iconWidth="@dimen/dimen_55dp"
+            app:tl_indicator_anim_enable="false"
+            app:tl_indicator_bounce_enable  ="false"
             app:tl_indicator_height="@dimen/dp_0"
             app:tl_indicator_width="@dimen/dp_0"
             app:tl_textSelectColor="@color/base_black"
             app:tl_textUnselectColor="@color/base_hint"
-            app:tl_textsize="@dimen/tz_12" />
+            app:tl_textsize="@dimen/dimen_24dp" />
     </LinearLayout>
 
 

@@ -133,16 +133,16 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
                 GlideUtils.getInstance().loadBitmapNoAnim(DiscoverFragment.this, Check.checkReplace(url, item.getUserphoto_thumb()), helper.getView(R.id.item_discover_grids_iv_photo));
             }
         };
-        RecyclerViewItemDecoration mCurrentItemDecoration = new RecyclerViewItemDecoration.Builder(getContext())
-                .color(ContextCompat.getColor(getContext(), R.color.windows_background))
-                .thickness(DisplayUtil.dip2px(getContext(), 4))
-                .gridTopVisible(true)
-                .gridBottomVisible(true)
-                .gridHorizontalSpacing(DisplayUtil.dip2px(getContext(), 4))
-                .gridVerticalSpacing(DisplayUtil.dip2px(getContext(), 4))
-                .create();
-
-        mDiscoverFmRv.addItemDecoration(mCurrentItemDecoration);
+//        RecyclerViewItemDecoration mCurrentItemDecoration = new RecyclerViewItemDecoration.Builder(getContext())
+//                .color(ContextCompat.getColor(getContext(), R.color.windows_background))
+//                .thickness(DisplayUtil.dip2px(getContext(), 4))
+//                .gridTopVisible(true)
+//                .gridBottomVisible(true)
+//                .gridHorizontalSpacing(DisplayUtil.dip2px(getContext(), 4))
+//                .gridVerticalSpacing(DisplayUtil.dip2px(getContext(), 4))
+//                .create();
+//
+//        mDiscoverFmRv.addItemDecoration(mCurrentItemDecoration);
         mEmptyView = (ErrorView) getLayoutInflater().inflate(R.layout.base_list_empty, mDiscoverFmRv, false);
         mDiscoverFmRv.setAdapter(mAdapter);
 

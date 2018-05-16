@@ -211,6 +211,7 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
         TextView ok = contentView.findViewById(R.id.dialog_readmain_account_tv_ok);
         TextView cancle = contentView.findViewById(R.id.dialog_readmain_account_tv_cancle);
         title.setText("请输入QQ号");
+        title.setInputType(InputType.TYPE_CLASS_NUMBER);
         dialog.setOnDismissListener(dialog1 -> InputMethodUtils.hideSoftInput(getActivity()));
         ok.setOnClickListener(v -> {
             String price = editText.getText().toString();
@@ -238,6 +239,7 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
         TextView ok = contentView.findViewById(R.id.dialog_readmain_account_tv_ok);
         TextView cancle = contentView.findViewById(R.id.dialog_readmain_account_tv_cancle);
         title.setText("请输入微信号");
+        title.setInputType(InputType.TYPE_CLASS_TEXT);
         dialog.setOnDismissListener(dialog1 -> InputMethodUtils.hideSoftInput(getActivity()));
         ok.setOnClickListener(v -> {
             String price = editText.getText().toString();

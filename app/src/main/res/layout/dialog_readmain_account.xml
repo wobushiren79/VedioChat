@@ -24,7 +24,7 @@
         tools:text="498869020"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:inputType="text"
+        android:inputType="number"
         android:maxLength="20"
         android:paddingBottom="22dp"
         android:paddingTop="0dp"

@@ -250,8 +250,6 @@ public class MainPresenter extends Presenter<MainView> {
                 if (message.getType().equals("beginACCOMPANYchatnotice")) {
                     VideoChatEntity mVideoChatEntity = mGson.fromJson(mGson.toJson(message.getBody()), VideoChatEntity.class);
                     if (CallingActivity.getmCallingState() == CallingActivity.CallingType.LEISURE) {//红人
-
-                        NotificationHandler.sendNotification(mVideoChatEntity);
                         ConditionEntity condition = new ConditionEntity();
                         condition.setVideoType(ConditionEntity.VideoType.REDMAN);
                         condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.PERSON);
@@ -265,14 +263,14 @@ public class MainPresenter extends Presenter<MainView> {
                         } else {
                             ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "\n向你发起视频聊天，是否接受?;(接受可获" + mVideoChatEntity.getChatcoin() + "{钻石}/分钟)");
                         }
-
+                        NotificationHandler.sendNotification(mVideoChatEntity);
                     } else {
                         chatEnd(Integer.parseInt(mVideoChatEntity.getCallid()), 1);
                     }
                 } else if (message.getType().equals("beginDEFAULTchatnotice")) {//非红人直接聊天
                     VideoChatEntity mVideoChatEntity = mGson.fromJson(mGson.toJson(message.getBody()), VideoChatEntity.class);
                     if (CallingActivity.getmCallingState() == CallingActivity.CallingType.LEISURE) {
-                        NotificationHandler.sendNotification(mVideoChatEntity);
+
                         ConditionEntity condition = new ConditionEntity();
                         condition.setVideoType(ConditionEntity.VideoType.MATCH);
                         condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.PERSON);
@@ -282,6 +280,7 @@ public class MainPresenter extends Presenter<MainView> {
                             condition.setNeedCloseFU(0);
                         }
                         ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "\n向你发起视频聊天，是否接受?");
+                        NotificationHandler.sendNotification(mVideoChatEntity);
                     } else {
                         chatEnd(Integer.parseInt(mVideoChatEntity.getCallid()), 1);
                     }

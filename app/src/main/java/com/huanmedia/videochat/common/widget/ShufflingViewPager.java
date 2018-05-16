@@ -19,6 +19,7 @@ import com.huanmedia.ilibray.utils.TimeUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
 import com.huanmedia.videochat.mvp.presenter.info.IShufflingAdsPresenter;
 import com.huanmedia.videochat.mvp.presenter.info.ShufflingAdsPresenterImpl;
@@ -113,6 +114,7 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
                     case 0:
                         break;
                     case 1:
+                        shufflingIntent(itemData.getLinkurl());
                         break;
                     case 2:
                     case 3:
@@ -201,6 +203,22 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
         startTime();
     }
 
+    /**
+     * 广告内联跳转
+     *
+     * @param intentUrl
+     */
+    private void shufflingIntent(String intentUrl) {
+        if (intentUrl == null && intentUrl.length() == 0)
+            return;
+        Navigator navigator = ((BaseActivity) getContext()).getNavigator();
+        switch (intentUrl) {
+            case "RechargePage":
+                //充值页
+                navigator.navtoCoinPay((Activity) getContext(), null);
+                break;
+        }
+    }
 
     /**
      * 启动定时器

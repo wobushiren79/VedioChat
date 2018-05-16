@@ -31,7 +31,7 @@ def getAppChannelId() {
 
 android {
 //    useLibrary 'org.apache.http.legacy'
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         multiDexEnabled true
         minSdkVersion build_versions.min_sdk
@@ -156,7 +156,7 @@ android {
         }
     }
 
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '27.0.3'
 }
 android.applicationVariants.all { variant ->
     variant.outputs.all {

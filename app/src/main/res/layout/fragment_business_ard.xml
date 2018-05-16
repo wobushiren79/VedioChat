@@ -30,8 +30,9 @@
         android:id="@+id/business_card_iv_calling"
         android:visibility="gone"
         tools:visibility="visible"
+        android:layout_marginBottom="@dimen/dimen_22dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
+        android:layout_width="@dimen/dimen_120dp"
+        android:layout_height="@dimen/dimen_120dp"
         android:src="@drawable/btn_information_video"/>
 </android.support.design.widget.CoordinatorLayout>
