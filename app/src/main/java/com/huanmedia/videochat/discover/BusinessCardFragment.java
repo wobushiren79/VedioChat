@@ -26,6 +26,8 @@ import com.huanmedia.videochat.main2.weight.MaskDialog;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.UserEvaluateEntity;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +40,25 @@ import butterknife.OnClick;
 public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter> implements BusinessCardView {
     private static final String ARG_DATA = "mUid";
     private static final String ARG_DISTANCE = "distance";
+    private static final String ARG_SHOWTYPE = "showtype";
     public static String TAG = "/BusinessCardFragment";
+
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ShowType {
+        //红人            //普通
+        int ReadMan = 1, Normal = 2;
+    }
+
     @BindView(R.id.business_card_rv)
     RecyclerView mBusinessCardRv;
     @BindView(R.id.business_card_iv_calling)
     ImageView mBusinessCardIvCalling;
     private BusinessCardAdapter mAdapter;
     private int mUid;
+
+    private @ShowType
+    int showType;
+
     private BusinessCardEntity mData;
     private String distance;
     private HintDialog mHintDialog;
@@ -57,10 +71,11 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
         // Required empty public constructor
     }
 
-    public static BusinessCardFragment newInstance(int uid, String distance) {
+    public static BusinessCardFragment newInstance(int uid, String distance, @ShowType int showType) {
         BusinessCardFragment fragment = new BusinessCardFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_DATA, uid);
+        args.putInt(ARG_SHOWTYPE, showType);
         if (!Check.isEmpty(distance))
             args.putString(ARG_DISTANCE, distance);
         fragment.setArguments(args);
@@ -73,6 +88,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
         if (getArguments() != null) {
             mUid = getArguments().getInt(ARG_DATA);
             distance = getArguments().getString(ARG_DISTANCE, null);
+            showType = getArguments().getInt(ARG_SHOWTYPE);
         }
     }
 
@@ -114,7 +130,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        mAdapter = new BusinessCardAdapter(getContext(), null, distance);
+        mAdapter = new BusinessCardAdapter(getContext(), null, distance, showType);
         mAdapter.bindToRecyclerView(mBusinessCardRv);
         mAdapter.disableLoadMoreIfNotFullPage();
         mErrorView = (ErrorView) getLayoutInflater().inflate(R.layout.base_list_empty, mBusinessCardRv, false);

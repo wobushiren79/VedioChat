@@ -314,8 +314,13 @@ public class MainPresenter extends Presenter<MainView> {
 
             @Override
             public void onError(Throwable ex) {
-                if (!(ex instanceof UnknownHostException))
-                    Toast.makeText(getContext(), Log.getStackTraceString(ex), Toast.LENGTH_SHORT).show();
+                if (!(ex instanceof UnknownHostException)) {
+                    Log.v("this", "" + Log.getStackTraceString(ex));
+                    WebSocketManager.getInstance().reConnection();
+//                    Toast.makeText(getContext(), Log.getStackTraceString(ex), Toast.LENGTH_SHORT).show();
+                }
+//                    Toast.makeText(getContext(), "亲，您的网络有异常哟", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), Log.getStackTraceString(ex), Toast.LENGTH_SHORT).show();
             }
         };
         WebSocketManager.getInstance().addMessageListener(mWsListener);

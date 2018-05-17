@@ -174,7 +174,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         switch (action.getAction()) {
             case EventBusAction.ACTION_SYSTEM_MESSAGE://系统消息更新
                 int msgCount = 0;
-                if (Objects.equals(action.getAction(), EventBusAction.ACTION_SYSTEM_MESSAGE)) {
+                if (action.getAction().equals(EventBusAction.ACTION_SYSTEM_MESSAGE)) {
                     msgCount = action.getIntExtra("msgCount", 0);
                     if (msgCount == 0) {
                         mMainCommonTablayout.hideMsg(2);

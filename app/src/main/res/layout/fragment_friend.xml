@@ -34,6 +34,10 @@
             app:tl_textsize="@dimen/tz_18" />
     </FrameLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1dp"
+        android:background="@color/color_e8ebf1" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/main_friend_vp"

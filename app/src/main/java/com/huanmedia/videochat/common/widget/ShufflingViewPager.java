@@ -20,6 +20,7 @@ import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.navigation.Navigator;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
 import com.huanmedia.videochat.mvp.presenter.info.IShufflingAdsPresenter;
 import com.huanmedia.videochat.mvp.presenter.info.ShufflingAdsPresenterImpl;
@@ -122,7 +123,7 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
                                 ((Activity) getContext(), itemData.getLinkurl(), null);
                         break;
                 }
-
+                UMengUtils.AdsBanner(getContext(), itemData.getId() + "");
             });
             GlideApp.with(getContext()).asBitmap().load(itemData.getBimg()).placeholder(R.drawable.icon_shuffling_lodading).error(R.drawable.icon_shuffling_lodading).
                     into(itemView);

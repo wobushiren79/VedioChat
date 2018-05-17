@@ -21,6 +21,7 @@ import android.content.Intent;
 
 import com.huanmedia.videochat.common.LocalHtmlWebActivity;
 import com.huanmedia.videochat.discover.BusinessCardAcitivty;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main.NotificationMessageActivity;
 import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
@@ -95,9 +96,9 @@ public class Navigator {
      * @param activity
      * @param uid
      */
-    public void navDiscoverInfo(Activity activity, int uid, String distance) {
+    public void navDiscoverInfo(Activity activity, int uid, String distance, @BusinessCardFragment.ShowType int showType) {
         if (uid == 0) return;
-        activity.startActivity(BusinessCardAcitivty.getCallingIntent(activity, uid, distance));
+        activity.startActivity(BusinessCardAcitivty.getCallingIntent(activity, uid, distance,showType));
     }
 
     /**

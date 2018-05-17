@@ -13,13 +13,14 @@ import com.huanmedia.videochat.common.BaseActivity;
 /**
  * 这个页面修改为个人名片
  */
-public class BusinessCardAcitivty extends BaseActivity{
+public class BusinessCardAcitivty extends BaseActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_discover_info;
@@ -31,7 +32,12 @@ public class BusinessCardAcitivty extends BaseActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        addFragmentAndShow(R.id.discover_info_fl_content, BusinessCardFragment.newInstance(getIntent().getIntExtra("data",0),getIntent().getStringExtra("destance")), BusinessCardFragment.TAG);
+        addFragmentAndShow(R.id.discover_info_fl_content, BusinessCardFragment
+                        .newInstance(
+                                getIntent().getIntExtra("data", 0),
+                                getIntent().getStringExtra("destance"),
+                                getIntent().getIntExtra("showType", 0)),
+                BusinessCardFragment.TAG);
     }
 
     @Override
@@ -44,10 +50,11 @@ public class BusinessCardAcitivty extends BaseActivity{
         return super.defaultBarConfig().statusBarDarkFont(true);
     }
 
-    public static Intent getCallingIntent(Context context, int uid, String destance) {
+    public static Intent getCallingIntent(Context context, int uid, String destance, @BusinessCardFragment.ShowType int showType) {
         Intent intent = new Intent(context, BusinessCardAcitivty.class);
-        intent.putExtra("data",uid);
-        intent.putExtra("destance",destance);
+        intent.putExtra("data", uid);
+        intent.putExtra("destance", destance);
+        intent.putExtra("showType", showType);
         return intent;
     }
 

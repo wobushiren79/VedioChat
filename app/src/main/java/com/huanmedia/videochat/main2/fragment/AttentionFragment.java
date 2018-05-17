@@ -26,6 +26,7 @@ import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.common.widget.dialog.ReportDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.MaskDialog;
 import com.huanmedia.videochat.main2.weight.OPtionPopWindows;
@@ -177,7 +178,7 @@ public class AttentionFragment extends BaseMVPFragment<AttentionPresenter> imple
 
         mAdapter.setOnItemClickListener((adapter, view1, position) -> {
             ChatPeopleEntity.ItemsEntity mCallingData = mAdapter.getData().get(position);
-            getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance());
+            getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance(), BusinessCardFragment.ShowType.ReadMan);
         });
         mAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @SuppressLint("RestrictedApi")

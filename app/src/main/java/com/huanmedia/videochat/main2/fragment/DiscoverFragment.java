@@ -26,6 +26,7 @@ import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.widget.ShufflingViewPager;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.repository.entity.DiscoverEntity;
 import com.huanmedia.videochat.repository.entity.DiscoverPageEntity;
 import com.liaoinstan.springview.container.DefaultHeader;
@@ -155,7 +156,7 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 DiscoverEntity mCallingData = mAdapter.getData().get(position);
-                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance());
+                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance(), BusinessCardFragment.ShowType.ReadMan);
             }
         });
         mShufflingVP = new ShufflingViewPager(getContext());

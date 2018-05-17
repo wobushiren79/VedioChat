@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.ilibray.utils.RxCountDown;
@@ -27,6 +28,7 @@ import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.common.widget.dialog.ReportDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.MaskDialog;
 import com.huanmedia.videochat.main2.weight.OPtionPopWindows;
@@ -183,6 +185,14 @@ public class FansFragment extends BaseMVPFragment<FansPresenter> implements Fans
 //            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                ChatPeopleEntity.ItemsEntity mCallingData = mAdapter.getData().get(position);
 //                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(),mCallingData.getDistance());
+//            }
+//        });
+
+//        mComeAcrossFmRv.addOnItemTouchListener(new OnItemClickListener() {
+//            @Override
+//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                ChatPeopleEntity.ItemsEntity mCallingData = mAdapter.getData().get(position);
+//                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance(), BusinessCardFragment.ShowType.Normal);
 //            }
 //        });
         mComeAcrossFmRv.addOnItemTouchListener(new OnItemLongClickListener() {
