@@ -2,11 +2,13 @@ package com.huanmedia.videochat.discover;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.huanmedia.ilibray.utils.ToastUtils;
@@ -51,8 +53,12 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
 
     @BindView(R.id.business_card_rv)
     RecyclerView mBusinessCardRv;
+    @BindView(R.id.ll_bt_layout)
+    LinearLayout mBTLayout;
     @BindView(R.id.business_card_iv_calling)
     ImageView mBusinessCardIvCalling;
+    @BindView(R.id.business_card_iv_appointment)
+    ImageView mBusinessCardIvAppointment;
     private BusinessCardAdapter mAdapter;
     private int mUid;
 
@@ -153,7 +159,10 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     @Override
     public void showHeadData(BusinessCardEntity businessCard) {
         if (businessCard.getBase() == null) return;
-        mBusinessCardIvCalling.setVisibility(View.VISIBLE);
+        mBTLayout.setVisibility(View.VISIBLE);
+        if (businessCard.getBase().getAppointmentFlag() == 0) {
+            mBusinessCardIvAppointment.setVisibility(View.GONE);
+        }
         this.mData = businessCard;
         List<BusinessMultiItem> data = new ArrayList<>();
         data.add(businessCard.getBase());
@@ -207,9 +216,12 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     }
 
     @SuppressLint("DefaultLocale")
-    @OnClick({R.id.business_card_iv_calling})
+    @OnClick({R.id.business_card_iv_calling, R.id.business_card_iv_appointment})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.business_card_iv_appointment:
+                getNavigator().navtoAppointment((Activity) getContext());
+                break;
             case R.id.business_card_iv_calling:
                 if (!UserManager.getInstance().islogin()) {
                     CommDialogUtils.showNavToLogin(getActivity(), (dialog, which) ->

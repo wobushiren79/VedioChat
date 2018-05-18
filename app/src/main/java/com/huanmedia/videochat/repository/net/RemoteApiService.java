@@ -5,6 +5,8 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
+import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
+import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
@@ -175,7 +177,7 @@ public interface RemoteApiService {
     //获取用户名片
     @POST("/index/userext/userinfoall")
     @FormUrlEncoded
-    Observable<DataResponse<BusinessCardEntity>> userinfoall(@Field("uid") int id);
+    Observable<DataResponse<BusinessCardInfoResults>> userinfoall(@Field("uid") int id);
 
     //用户账户提现绑定信息
     @POST("/index/Userconsumption/userbindCacheInfo")

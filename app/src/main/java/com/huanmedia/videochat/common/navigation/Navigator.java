@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.huanmedia.videochat.appointment.AppointmentActivity;
 import com.huanmedia.videochat.common.LocalHtmlWebActivity;
 import com.huanmedia.videochat.discover.BusinessCardAcitivty;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
@@ -287,5 +288,13 @@ public class Navigator {
      */
     public void navtoMediaUpLoad(Activity context, ArrayList<VideoEntity> videos) {
         context.startActivity(MediaUpLoadActivity.getCallingIntent(context, videos));
+    }
+    /**
+     * 视频上传界面
+     *
+     * @param context
+     */
+    public void navtoAppointment(Activity context) {
+        context.startActivity(AppointmentActivity.getCallingIntent(context));
     }
 }

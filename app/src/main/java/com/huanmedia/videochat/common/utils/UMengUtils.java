@@ -44,7 +44,7 @@ public class UMengUtils {
             String eventID = "banner_ads";
             Map<String, String> dataMap = new HashMap<>();
             dataMap.put("banner_id", bannerId);
-            baseSendMsg(context, eventID, dataMap,2);
+            baseSendMsg(context, eventID, dataMap,1);
         } catch (Exception e) {
             e.printStackTrace();
         }

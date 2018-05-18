@@ -25,6 +25,7 @@ import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.common.widget.dialog.ReportDialog;
@@ -199,16 +200,21 @@ public class ComeAcrossFriendFragment extends BaseMVPFragment<ComeAcrossFriendPr
 //                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(),mCallingData.getDistance());
 //            }
 //        });
-//        mComeAcrossFmRv.addOnItemTouchListener(new OnItemClickListener() {
-//            @Override
-//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                ChatPeopleEntity.ItemsEntity mCallingData = mAdapter.getData().get(position);
-//                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance(), BusinessCardFragment.ShowType.Normal);
-//            }
-//        });
+        mComeAcrossFmRv.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ChatPeopleEntity.ItemsEntity itemData = mAdapter.getItem(position);
+                BusinessCardDialog dialog = new BusinessCardDialog(getContext());
+                dialog.setUid(itemData.getUid());
+                dialog.setDistance(itemData.getDistance());
+                dialog.show();
+            }
+        });
+
         mComeAcrossFmRv.addOnItemTouchListener(new OnItemLongClickListener() {
             @Override
             public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+
                 if (mPopWindow == null) {
                     mPopWindow = OPtionPopWindows.getComeAcrossListOption(context());
                     mPopWindow.setHorizontalOffset(DisplayUtil.getDisplayWidth(context()) - DisplayUtil.dip2px(context(), 142));

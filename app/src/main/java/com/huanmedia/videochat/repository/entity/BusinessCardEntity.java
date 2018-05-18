@@ -74,7 +74,7 @@ public class BusinessCardEntity implements Serializable {
         private int startime;
         private int starcoin;
         private String nickname;
-        private int sex;
+        private int sex;//1男 2女
         private String userphoto;
         private String userphoto_thumb;
         private int age;
@@ -90,6 +90,15 @@ public class BusinessCardEntity implements Serializable {
         private int maxtrustvalue;//评价数量
         private int trustvalue;//好评数量
         private int onlinestatus;//0不在线 1在线 2忙碌
+        private int appointmentFlag;//是否开启了预约功能
+
+        public int getAppointmentFlag() {
+            return appointmentFlag;
+        }
+
+        public void setAppointmentFlag(int appointmentFlag) {
+            this.appointmentFlag = appointmentFlag;
+        }
 
         public List<VideoEntity> getVoides() {
             return voides;
@@ -324,6 +333,7 @@ public class BusinessCardEntity implements Serializable {
             sb.append(", maxtrustvalue=").append(maxtrustvalue);
             sb.append(", trustvalue=").append(trustvalue);
             sb.append(", onlinestatus=").append(onlinestatus);
+            sb.append(", appointmentFlag=").append(appointmentFlag);
             sb.append('}');
             return sb.toString();
         }

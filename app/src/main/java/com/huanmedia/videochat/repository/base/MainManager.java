@@ -3,11 +3,13 @@ package com.huanmedia.videochat.repository.base;
 
 import android.content.Context;
 
+import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShufflingAdsRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
@@ -49,6 +51,7 @@ public interface MainManager {
 
     /**
      * 删除上传视频信息
+     *
      * @param context
      * @param params
      * @param handler
@@ -58,9 +61,20 @@ public interface MainManager {
 
     /**
      * 获取轮播广告信息
+     *
      * @param context
      * @param params
-     * @param listData
+     * @param handler
      */
-    void getShufflingAds(Context context, ShufflingAdsRequest params,HttpResponseHandler<List<ShufflingAdsResults>> listData);
+    void getShufflingAds(Context context, ShufflingAdsRequest params, HttpResponseHandler<List<ShufflingAdsResults>> handler);
+
+
+    /**
+     * 获取个人名片信息
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void getBusinessCardInfo(Context context, BusinessCardInfoRequest params, HttpResponseHandler<BusinessCardInfoResults> handler);
 }
