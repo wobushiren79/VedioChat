@@ -6,6 +6,7 @@ import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -337,6 +338,11 @@ public interface RemoteApiService {
     @POST("/index/userextv2/ads")
     @FormUrlEncoded
     Observable<DataResponse<List<ShufflingAdsResults>>> ads(@FieldMap Map<String, Object> params);
+
+    //预约红人数据
+    @POST("/index/userextv2/appointmentPageData")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentUserInfoResults>> appointmentPageData(@FieldMap Map<String, Object> params);
 
 
     @Multipart

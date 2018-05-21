@@ -110,7 +110,7 @@ public class FUManager {
      * @throws Exception
      */
     private void initAnimModel() throws Exception {
-        if(context==null)
+        if (context == null)
             return;
         InputStream animModel = context.getAssets().open("anim_model.bundle");
         byte[] animModeldata = new byte[animModel.available()];
@@ -125,7 +125,7 @@ public class FUManager {
      * @throws Exception
      */
     private void initArData() throws Exception {
-        if(context==null)
+        if (context == null)
             return;
         InputStream arModel = context.getAssets().open("ardata_ex.bundle");
         byte[] arModelData = new byte[arModel.available()];
@@ -237,7 +237,6 @@ public class FUManager {
 
     public void destroyItems() {
         context = null;
-
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -248,11 +247,18 @@ public class FUManager {
                  函数原型：
                  void fuDestroyAllItems();
                  */
-                faceunity.fuDestroyAllItems();
-                effectItem.clear();
-                faceBeautyItem = 0;
-                faceunity.fuOnDeviceLost();
-                handler.removeCallbacksAndMessages(null);
+                try {
+                    faceunity.fuDestroyAllItems();
+                    effectItem.clear();
+                    faceBeautyItem = 0;
+                    faceunity.fuOnDeviceLost();
+                    handler.removeCallbacksAndMessages(null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    effectItem.clear();
+                    faceBeautyItem = 0;
+                    handler.removeCallbacksAndMessages(null);
+                }
             }
         });
     }

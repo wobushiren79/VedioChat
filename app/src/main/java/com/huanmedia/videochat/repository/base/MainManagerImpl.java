@@ -3,12 +3,14 @@ package com.huanmedia.videochat.repository.base;
 import android.content.Context;
 
 import com.huanmedia.videochat.common.manager.ResourceManager;
+import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShufflingAdsRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
@@ -71,6 +73,12 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     @Override
     public void getBusinessCardInfo(Context context, BusinessCardInfoRequest params, HttpResponseHandler<BusinessCardInfoResults> handler) {
         requestPost(context, mApiService.userinfoall(params.getUid()), handler, true);
+    }
+
+    @Override
+    public void getAppointmentUserInfo(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentUserInfoResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentPageData(paramsMap), handler, true);
     }
 
 

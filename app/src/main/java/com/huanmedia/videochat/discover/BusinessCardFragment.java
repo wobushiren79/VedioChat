@@ -220,7 +220,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.business_card_iv_appointment:
-                getNavigator().navtoAppointment((Activity) getContext());
+                getNavigator().navtoAppointment((Activity) getContext(),mUid);
                 break;
             case R.id.business_card_iv_calling:
                 if (!UserManager.getInstance().islogin()) {

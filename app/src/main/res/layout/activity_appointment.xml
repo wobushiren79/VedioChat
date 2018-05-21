@@ -1,31 +1,327 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/block_gray"
     tools:context=".appointment.AppointmentActivity">
 
-    <LinearLayout
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_400dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_title_back"
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/icon_novice_guidance_match_2" />
 
-            <ImageView
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@color/color_fcfcfc_80" />
-        </RelativeLayout>
-    </LinearLayout>
-</ScrollView>
+                android:layout_height="wrap_content"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_collapseMode="parallax">
+
+                    <ImageView
+                        android:id="@+id/iv_title_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/rl_title_layout"
+                        android:layout_alignLeft="@+id/rl_title_layout"
+                        android:layout_alignRight="@+id/rl_title_layout"
+                        android:layout_alignTop="@+id/rl_title_layout"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignBottom="@+id/rl_title_layout"
+                        android:layout_alignLeft="@+id/rl_title_layout"
+                        android:layout_alignRight="@+id/rl_title_layout"
+                        android:layout_alignTop="@+id/rl_title_layout"
+                        android:src="@color/color_fcfcfc_80" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_title_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/iv_icon"
+                            android:layout_width="@dimen/dimen_132dp"
+                            android:layout_height="@dimen/dimen_132dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dimen_35dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_headportrait"
+                            app:riv_border_color="@color/header_border_gray"
+                            app:riv_border_width="@dimen/dimen_1dp"
+                            app:riv_oval="true" />
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_icon"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dimen_28dp"
+                            android:text=""
+                            android:textColor="@color/base_black"
+                            android:textSize="@dimen/dimen_32dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_charge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_name"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dimen_18dp"
+                            android:background="@drawable/base_bg_round_theme"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/dimen_4dp"
+                            android:paddingLeft="@dimen/dimen_16dp"
+                            android:paddingRight="@dimen/dimen_16dp"
+                            android:paddingTop="@dimen/dimen_4dp"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dimen_28dp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_online_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_charge"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dimen_28dp"
+                            android:text="TA经常在线的时间"
+                            android:textColor="@color/base_gray"
+                            android:textSize="@dimen/dimen_28dp" />
+
+                        <TextView
+                            android:id="@+id/tv_online_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_online_title"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/dimen_44dp"
+                            android:layout_marginTop="@dimen/dimen_16dp"
+                            android:textColor="@color/base_black"
+                            android:textSize="@dimen/dimen_32dp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/nav_btn_back_black"
+                    app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
+                    app:title=" " />
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_select_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_44dp"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_36dp"
+                    android:text="选择时间"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/dimen_32dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/ll_select_day_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dimen_36dp"
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="@dimen/dimen_44dp"
+                    android:paddingTop="@dimen/dimen_44dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="日期"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp" />
+
+                    <TextView
+                        android:id="@+id/tv_timeselect_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/dimen_32dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dimen_20dp"
+                        android:src="@drawable/btn_return_gray" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:background="@color/color_eff1f7" />
+
+                <LinearLayout
+                    android:id="@+id/ll_select_min_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dimen_30dp"
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="@dimen/dimen_44dp"
+                    android:paddingTop="@dimen/dimen_30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="时间"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp" />
+
+                    <TextView
+                        android:id="@+id/tv_timeselect_min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8012"
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/dimen_32dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_32dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dimen_20dp"
+                        android:src="@drawable/btn_return_gray" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:background="@color/color_eff1f7" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dimen_30dp"
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="@dimen/dimen_44dp"
+                    android:paddingTop="@dimen/dimen_30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="预约押金"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp" />
+
+                    <TextView
+                        android:id="@+id/tv_deposit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/dimen_32dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_appointment_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_24dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_appointment_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_44dp"
+                        android:layout_marginLeft="@dimen/dimen_44dp"
+                        android:layout_marginRight="@dimen/dimen_44dp"
+                        android:layout_marginTop="@dimen/dimen_36dp"
+                        android:text="TA的预约"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"></android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dimen_172dp"
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="@dimen/dimen_44dp"
+                    android:paddingTop="@dimen/dimen_24dp"
+                    android:text="@string/appointment_warring"
+                    android:textColor="@color/base_gray"
+                    android:textSize="@dimen/dimen_24dp" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <TextView
+        android:layout_width="@dimen/dimen_600dp"
+        android:layout_height="@dimen/dimen_104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dimen_44dp"
+        android:background="@drawable/icon_appointment_submit" />
+</RelativeLayout>
+
+
+

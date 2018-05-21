@@ -294,7 +294,7 @@ public class Navigator {
      *
      * @param context
      */
-    public void navtoAppointment(Activity context) {
-        context.startActivity(AppointmentActivity.getCallingIntent(context));
+    public void navtoAppointment(Activity context,int uid) {
+        context.startActivity(AppointmentActivity.getCallingIntent(context,uid));
     }
 }
