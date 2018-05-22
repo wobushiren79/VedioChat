@@ -6,6 +6,15 @@ public class AppointmentUserInfoResults {
     private Base base;
     private List<AppointmentDataResults> list;
     private int coin;
+    private int timeinterval;//时间跨度
+
+    public int getTimeinterval() {
+        return timeinterval;
+    }
+
+    public void setTimeinterval(int timeinterval) {
+        this.timeinterval = timeinterval;
+    }
 
     public List<AppointmentDataResults> getList() {
         return list;
@@ -38,15 +47,7 @@ public class AppointmentUserInfoResults {
         private String appointend;
         private int appoindset;//1每天  2工作日  3周末
         private String userphoto_thumb;
-        private int timeinterval;//时间跨度
 
-        public int getTimeinterval() {
-            return timeinterval;
-        }
-
-        public void setTimeinterval(int timeinterval) {
-            this.timeinterval = timeinterval;
-        }
 
         public String getNickname() {
             return nickname;

@@ -315,6 +315,7 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <TextView
+        android:id="@+id/tv_submit"
         android:layout_width="@dimen/dimen_600dp"
         android:layout_height="@dimen/dimen_104dp"
         android:layout_alignParentBottom="true"

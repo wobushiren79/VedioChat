@@ -1,6 +1,8 @@
 package com.huanmedia.videochat.common.widget.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -19,6 +21,9 @@ import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.widget.dialog.adapter.CitysSubWheelAdapter;
 import com.huanmedia.videochat.common.widget.dialog.adapter.CitysWheelAdapter;
 import com.huanmedia.videochat.common.widget.dialog.adapter.OccupationWheelAdapter;
+import com.huanmedia.videochat.common.widget.dialog.adapter.StringWheelAdapter;
+import com.huanmedia.videochat.common.widget.dialog.adapter.TimeQuantumWheelAdapter;
+import com.huanmedia.videochat.common.widget.dialog.adapter.TimeWheelAdapter;
 import com.huanmedia.videochat.repository.entity.ItemMenuEntity;
 
 import java.text.ParseException;
@@ -39,7 +44,10 @@ public class DialogPick {
     private final Context mContext;
     private OnDatePickSelectListener datelistener;
     private ReadmainListener mReadmainListener;
+    private OnTimePickSelectListener mOnTimeSelectListener;
+    private OnStrPickSelectListener mOnStrSelectListener;
     private OnOccupationSelectListener mOnOccupationSelectListener;
+    private OnTimeQuantumListener mTimeQuantumListener;
     private OnAreaPickSelectListener mOnAreaPickSelectListener;
 
     public DialogPick(Context context) {
@@ -49,6 +57,18 @@ public class DialogPick {
 
     public void setDatelistener(OnDatePickSelectListener datelistener) {
         this.datelistener = datelistener;
+    }
+
+    public void setOnTimeQuantumListener(OnTimeQuantumListener timeQuantumListener) {
+        this.mTimeQuantumListener = timeQuantumListener;
+    }
+
+    public void setOnStrPickSelectListener(OnStrPickSelectListener onStrSelectListener) {
+        mOnStrSelectListener = onStrSelectListener;
+    }
+
+    public void setOnTimeSelectListener(OnTimePickSelectListener onTimeSelectListener) {
+        mOnTimeSelectListener = onTimeSelectListener;
     }
 
     public void setOnOccupationSelectListener(OnOccupationSelectListener onOccupationSelectListener) {
@@ -102,12 +122,7 @@ public class DialogPick {
         dialog.show();
         title.setText(Check.checkReplace(titleStr));
         hint.setText(Check.checkReplace(hintString));
-        Window dialogWindow = dialog.getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        lp.gravity = Gravity.BOTTOM;
-        dialogWindow.setAttributes(lp);
+        setDialogLayout(dialog);
     }
 
 
@@ -202,14 +217,7 @@ public class DialogPick {
         dialog.show();
         TextView tvTitle = (TextView) dialogview.findViewById(R.id.wheel_title);
         tvTitle.setText(title);
-        Window dialogWindow = dialog.getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        DisplayMetrics metrics = DisplayUtil.getDisplayMetrics(mContext);
-        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        lp.gravity = Gravity.BOTTOM;
-//        lp.windowAnimations=R.style.Windows_Anim_Upward;
-        dialogWindow.setAttributes(lp);
+        setDialogLayout(dialog);
     }
 
     /**
@@ -266,14 +274,7 @@ public class DialogPick {
             dialog.dismiss();
         });
         dialog.show();
-        Window dialogWindow = dialog.getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        DisplayMetrics metrics = DisplayUtil.getDisplayMetrics(mContext);
-        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        lp.gravity = Gravity.BOTTOM;
-//        lp.windowAnimations=R.style.Windows_Anim_Upward;
-        dialogWindow.setAttributes(lp);
+        setDialogLayout(dialog);
     }
 
     private boolean isFutureDate(String format, Integer yearN, Integer monthM, Integer dayM) {
@@ -322,12 +323,7 @@ public class DialogPick {
             dialog.dismiss();
         });
         dialogview.findViewById(R.id.whell_dialog_2).setVisibility(View.GONE);
-        Window dialogWindow = dialog.getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        lp.gravity = Gravity.BOTTOM;
-        dialogWindow.setAttributes(lp);
+        setDialogLayout(dialog);
     }
 
     /**
@@ -387,6 +383,126 @@ public class DialogPick {
 //                profileEditorTvHometown.setTag(chooseids);
             dialog.dismiss();
         });
+        setDialogLayout(dialog);
+    }
+
+    /**
+     * 展示时间选择（精确到分钟）
+     */
+    public void showTimeSelectPickerDialog(String defData, int intervalHour, int intervalMin) {
+        String[] data = defData.split(":");
+        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_time_wheelview, null);
+        WheelView hourWheel = dialogView.findViewById(R.id.whell_dialog_1);
+        WheelView minWheel = dialogView.findViewById(R.id.whell_dialog_2);
+
+        TimeWheelAdapter dayWheelAdapter = new TimeWheelAdapter(mContext, TimeWheelAdapter.TimeType.HOUR, intervalHour);
+        TimeWheelAdapter minWheelAdapter = new TimeWheelAdapter(mContext, TimeWheelAdapter.TimeType.MIN, intervalMin);
+        hourWheel.setViewAdapter(dayWheelAdapter);
+        minWheel.setViewAdapter(minWheelAdapter);
+
+        if (data != null && data.length == 2) {
+            int dayPosition = dayWheelAdapter.getDefPosition(data[0]);
+            if (dayPosition != -1)
+                hourWheel.setCurrentItem(dayPosition);
+
+            int minPosition = minWheelAdapter.getDefPosition(data[1]);
+            if (minPosition != -1)
+                minWheel.setCurrentItem(minPosition);
+        }
+        AlertDialog dialog = new AlertDialog
+                .Builder(mContext, R.style.customDialog_upward)
+                .setView(dialogView)
+                .create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (mOnTimeSelectListener != null) {
+                    String hourStr = ((TimeWheelAdapter) hourWheel.getViewAdapter()).getListData().get(hourWheel.getCurrentItem());
+                    String minStr = ((TimeWheelAdapter) minWheel.getViewAdapter()).getListData().get(minWheel.getCurrentItem());
+                    mOnTimeSelectListener.pickSelect(hourStr + ":" + minStr);
+                }
+            }
+        });
+        dialog.show();
+        setDialogLayout(dialog);
+    }
+
+    /**
+     * 设置普通列表
+     */
+    public void showStringListPickerDialog(List<String> listData, String defData) {
+        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_string_wheelview, null);
+        WheelView strWheel = dialogView.findViewById(R.id.whell_dialog_1);
+        StringWheelAdapter adapter = new StringWheelAdapter(mContext, listData);
+        strWheel.setViewAdapter(adapter);
+
+        if (defData != null && defData.length() > 0) {
+            int position = adapter.getDefPosition(defData);
+            if (position != -1)
+                strWheel.setCurrentItem(position);
+        }
+        AlertDialog dialog = new AlertDialog
+                .Builder(mContext, R.style.customDialog_upward)
+                .setView(dialogView)
+                .create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (mOnStrSelectListener != null) {
+                    mOnStrSelectListener.pickSelect(strWheel.getCurrentItem(), adapter.getListData().get(strWheel.getCurrentItem()));
+                }
+            }
+        });
+        dialog.show();
+        setDialogLayout(dialog);
+    }
+
+    /**
+     * 设置时间段选择
+     */
+    public void showTimeQuantumPickerDialog(String beginTime, String endTime) {
+        View dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_time_quantum_wheelview, null);
+        WheelView beginWheel = dialogView.findViewById(R.id.whell_dialog_1);
+        WheelView endWheel = dialogView.findViewById(R.id.whell_dialog_2);
+
+        TimeQuantumWheelAdapter beginAdapter = new TimeQuantumWheelAdapter(mContext);
+        TimeQuantumWheelAdapter endAdapter = new TimeQuantumWheelAdapter(mContext);
+
+        beginWheel.setViewAdapter(beginAdapter);
+        endWheel.setViewAdapter(endAdapter);
+
+        if (beginTime != null && endTime != null) {
+            int beginPosition = beginAdapter.getDefPosition(beginTime);
+            if (beginPosition != -1)
+                beginWheel.setCurrentItem(beginPosition);
+
+            int endPosition = endAdapter.getDefPosition(endTime);
+            if (endPosition != -1)
+                endWheel.setCurrentItem(endPosition);
+        }
+        AlertDialog dialog = new AlertDialog
+                .Builder(mContext, R.style.customDialog_upward)
+                .setView(dialogView)
+                .create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (mTimeQuantumListener != null) {
+                    mTimeQuantumListener.pickSelect
+                            (beginAdapter.getListData().get(beginWheel.getCurrentItem()), endAdapter.getListData().get(endWheel.getCurrentItem()));
+                }
+            }
+        });
+        dialog.show();
+        setDialogLayout(dialog);
+    }
+
+    /**
+     * 设置弹窗样式高度
+     *
+     * @param dialog
+     */
+    private void setDialogLayout(Dialog dialog) {
         Window dialogWindow = dialog.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -395,8 +511,30 @@ public class DialogPick {
         dialogWindow.setAttributes(lp);
     }
 
+
     /**
-     * 用于时间选择
+     * 时间段选择
+     */
+    public interface OnTimeQuantumListener {
+        void pickSelect(String beginTime, String endTime);
+    }
+
+    /**
+     * 时间选择器监听
+     */
+    public interface OnTimePickSelectListener {
+        void pickSelect(String obj);
+    }
+
+    /**
+     * 数据选择器监听
+     */
+    public interface OnStrPickSelectListener {
+        void pickSelect(int position, String obj);
+    }
+
+    /**
+     * 用于日期选择
      */
     public interface OnDatePickSelectListener {
         void pickSelect(String obj);

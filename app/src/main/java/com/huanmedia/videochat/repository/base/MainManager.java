@@ -10,6 +10,7 @@ import com.huanmedia.videochat.mvp.entity.request.ShufflingAdsRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -87,4 +88,21 @@ public interface MainManager {
      * @param handler
      */
     void getAppointmentUserInfo(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentUserInfoResults> handler);
+
+    /**
+     * 提交预约红人数据
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void submitAppointment(Context context,AppointmentRequest params,HttpResponseHandler handler);
+
+
+    /**
+     * 获取预约
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void getAppointmentSettingInfo(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentSettingResults> handler);
 }

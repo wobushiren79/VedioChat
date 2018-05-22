@@ -15,22 +15,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.huanmedia.ilibray.utils.DisplayUtil;
-import com.huanmedia.ilibray.utils.TimeUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.appointment.adapter.AppointmentListApdater;
 import com.huanmedia.videochat.common.BaseActivity;
-import com.huanmedia.videochat.common.manager.ScrollLinearLayoutManager;
-import com.huanmedia.videochat.common.widget.ScrollRecyclerView;
+import com.huanmedia.videochat.common.service.notifserver.ringtone.RingtoneManager;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
-import com.huanmedia.videochat.common.widget.ptr.PtrLayout;
+import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
-import com.huanmedia.videochat.mvp.presenter.user.AppointmentUserInfoPresenterImpl;
-import com.huanmedia.videochat.mvp.presenter.user.IAppointmentUserInfoPresenter;
-import com.huanmedia.videochat.mvp.view.user.IAppointmentUserInfoView;
+import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentSubmitPresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentUserInfoPresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.appointment.IAppointmentSubmitPresenter;
+import com.huanmedia.videochat.mvp.presenter.appointment.IAppointmentUserInfoPresenter;
+import com.huanmedia.videochat.mvp.view.appointment.IAppointmentSubmitView;
+import com.huanmedia.videochat.mvp.view.appointment.IAppointmentUserInfoView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.Calendar;
@@ -41,7 +42,7 @@ import butterknife.OnClick;
 import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.transform.BlurTransformation;
 
-public class AppointmentActivity extends BaseActivity implements IAppointmentUserInfoView {
+public class AppointmentActivity extends BaseActivity implements IAppointmentUserInfoView, IAppointmentSubmitView {
     @BindView(R.id.rl_title_layout)
     RelativeLayout mTitleLayout;
     @BindView(R.id.iv_title_back)
@@ -56,6 +57,10 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
     TextView mTVDeposit;
     @BindView(R.id.tv_timeselect_day)
     TextView mTVTimeSelectDay;
+    @BindView(R.id.tv_timeselect_min)
+    TextView mTVTimeSelectTime;
+    @BindView(R.id.tv_submit)
+    TextView mTVSubmit;
     @BindView(R.id.iv_icon)
     RoundedImageView mIVIcon;
     @BindView(R.id.toolbar)
@@ -76,7 +81,9 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
     private int mUid;
     private AppointmentUserInfoResults mUserData;
     private AppointmentListApdater mAppointmentApdater;
+
     private IAppointmentUserInfoPresenter mAppointmentUserInfoPresenter;
+    private IAppointmentSubmitPresenter mAppointmentSubmitPresenter;
 
     public static Intent getCallingIntent(Context context, int uid) {
         Intent intent = new Intent(context, AppointmentActivity.class);
@@ -105,6 +112,7 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
         super.initData();
         mUid = getIntent().getIntExtra("uid", 0);
         mAppointmentUserInfoPresenter = new AppointmentUserInfoPresenterImpl(this);
+        mAppointmentSubmitPresenter = new AppointmentSubmitPresenterImpl(this);
         mAppointmentUserInfoPresenter.getAppointmentInfo(mUid);
 
         mAppointmentApdater = new AppointmentListApdater(this);
@@ -112,6 +120,7 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
         mRecyclerView.setAdapter(mAppointmentApdater);
 
         mTVTimeSelectDay.setText(getDefDay());
+        mTVTimeSelectTime.setText(getDefMin());
 
         mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -211,7 +220,7 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
         ToastUtils.showToastLong(this, toast);
     }
 
-    @OnClick({R.id.ll_select_min_layout, R.id.ll_select_day_layout})
+    @OnClick({R.id.ll_select_min_layout, R.id.ll_select_day_layout, R.id.tv_submit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_select_min_layout:
@@ -220,7 +229,42 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
             case R.id.ll_select_day_layout:
                 showDialogPickForDay();
                 break;
+            case R.id.tv_submit:
+                submitAppointment();
+                break;
         }
+    }
+
+    /**
+     * 提交预约
+     */
+    private void submitAppointment() {
+        if (mUserData == null)
+            return;
+        int appointmentCoin = mUserData.getCoin();
+        String appointmentName = mUserData.getBase().getNickname();
+        String appointmentDate = getAppointmentDate();
+        String appointmentTime = getAppointmentTime();
+
+        if (appointmentDate == null || appointmentDate.length() == 0) {
+            showToast("还没有选择预约日期");
+            return;
+        }
+        if (appointmentTime == null || appointmentTime.length() == 0) {
+            showToast("还没有选择预约时间");
+            return;
+        }
+        new MaterialDialog.Builder(this)
+                .title("确认信息")
+                .content("您即将预约" + appointmentName + "在" + appointmentDate + "，" + appointmentTime + "视频聊天，并支付" + appointmentCoin + "钻石押金")
+                .negativeText("取消")
+                .positiveText("确定")
+                .negativeColorRes(R.color.base_gray)
+                .positiveColorRes(R.color.base_yellow)
+                .onPositive((dialog, which) -> {
+                    mAppointmentSubmitPresenter.submitAppointment();
+                })
+                .show();
     }
 
     /**
@@ -238,9 +282,24 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
     }
 
     /**
+     * 获取默认时间
+     *
+     * @return
+     */
+    private String getDefMin() {
+        //默认值
+        Calendar cal = Calendar.getInstance();
+        int currentDay = cal.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = cal.get(Calendar.MINUTE);
+        return currentDay + ":" + currentMinute;
+    }
+
+    /**
      * 展示天数选择框
      */
     private void showDialogPickForDay() {
+        if (mUserData == null)
+            return;
         DialogPick pick = new DialogPick(this.getContext());
         pick.setDatelistener(obj -> {
             mTVTimeSelectDay.setText(obj);
@@ -252,10 +311,38 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
      * 展示小时选择框
      */
     private void showDialogPickForMin() {
+        if (mUserData == null)
+            return;
         DialogPick pick = new DialogPick(this.getContext());
-        pick.setDatelistener(obj -> {
-            mTVTimeSelectDay.setText(obj);
+        pick.setOnTimeSelectListener(obj -> {
+            mTVTimeSelectTime.setText(obj);
         });
-        pick.showPickerDate("日期选择", getDefDay(), "%s-%s-%s");
+        pick.showTimeSelectPickerDialog(mTVTimeSelectTime.getText().toString(), 0, mUserData.getTimeinterval());
+    }
+
+    @Override
+    public void submitAppointmentSuccess() {
+        showToast("预约成功");
+        finish();
+    }
+
+    @Override
+    public void submitAppointmentFail(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public int getAppointmentUid() {
+        return mUid;
+    }
+
+    @Override
+    public String getAppointmentDate() {
+        return mTVTimeSelectDay.getText().toString();
+    }
+
+    @Override
+    public String getAppointmentTime() {
+        return mTVTimeSelectTime.getText().toString();
     }
 }

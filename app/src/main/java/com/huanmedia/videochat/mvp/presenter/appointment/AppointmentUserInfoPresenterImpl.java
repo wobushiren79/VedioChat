@@ -1,11 +1,11 @@
-package com.huanmedia.videochat.mvp.presenter.user;
+package com.huanmedia.videochat.mvp.presenter.appointment;
 
 import com.huanmedia.videochat.mvp.base.BaseMVPPresenter;
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
-import com.huanmedia.videochat.mvp.model.user.AppointmentUserInfoModelImpl;
-import com.huanmedia.videochat.mvp.view.user.IAppointmentUserInfoView;
+import com.huanmedia.videochat.mvp.model.appointment.AppointmentUserInfoModelImpl;
+import com.huanmedia.videochat.mvp.view.appointment.IAppointmentUserInfoView;
 
 public class AppointmentUserInfoPresenterImpl extends BaseMVPPresenter<IAppointmentUserInfoView, AppointmentUserInfoModelImpl> implements IAppointmentUserInfoPresenter {
 

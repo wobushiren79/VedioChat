@@ -1,4 +1,4 @@
-package com.huanmedia.videochat.mvp.model.user;
+package com.huanmedia.videochat.mvp.model.appointment;
 
 import android.content.Context;
 

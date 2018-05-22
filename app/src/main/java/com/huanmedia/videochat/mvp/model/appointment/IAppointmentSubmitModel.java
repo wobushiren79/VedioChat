@@ -1,17 +1,17 @@
-package com.huanmedia.videochat.mvp.model.user;
+package com.huanmedia.videochat.mvp.model.appointment;
 
 import android.content.Context;
 
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 
-public interface IAppointmentUserInfoModel {
+public interface IAppointmentSubmitModel {
     /**
-     * 获取预约红人信息
+     * 提交红人预约
      *
      * @param context
      * @param params
      * @param callBack
      */
-    void getAppointmentUserInfo(Context context, AppointmentRequest params, DataCallBack callBack);
+    void submit(Context context, AppointmentRequest params, DataCallBack callBack);
 }

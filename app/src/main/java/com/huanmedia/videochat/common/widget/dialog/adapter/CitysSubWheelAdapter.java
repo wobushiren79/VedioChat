@@ -20,11 +20,12 @@ import kankan.wheel.widget.adapters.AbstractWheelAdapter;
  * 兴趣、家乡、行业
  */
 public class CitysSubWheelAdapter extends AbstractWheelAdapter {
-        private final LayoutInflater inft;
-        List<ItemMenuEntity.SubEntity> entities =new ArrayList<>();
-        public CitysSubWheelAdapter(Context context) {
-            inft = LayoutInflater.from(context);
-        }
+    private final LayoutInflater inft;
+    List<ItemMenuEntity.SubEntity> entities = new ArrayList<>();
+
+    public CitysSubWheelAdapter(Context context) {
+        inft = LayoutInflater.from(context);
+    }
 
     public List<ItemMenuEntity.SubEntity> getEntities() {
         return entities;
@@ -36,20 +37,22 @@ public class CitysSubWheelAdapter extends AbstractWheelAdapter {
 
     public CitysSubWheelAdapter(Context context, List<? extends ItemMenuEntity.SubEntity> entities) {
         inft = LayoutInflater.from(context);
-        this.entities= (List<ItemMenuEntity.SubEntity>) entities;
+        this.entities = (List<ItemMenuEntity.SubEntity>) entities;
     }
-        @Override
-        public int getItemsCount() {
-            return entities.size();
-        }
-        @Override
-        public View getItem(int index, View convertView, ViewGroup parent) {
-            if (convertView==null){
-                convertView = inft.inflate(android.R.layout.simple_list_item_1, null);
-                ((TextView)convertView).setGravity(Gravity.CENTER);
-            }
-            TextView tv = ViewFindUtils.find(convertView,android.R.id.text1);
-            tv.setText(entities.get(index).getName());
-            return convertView;
-        }
+
+    @Override
+    public int getItemsCount() {
+        return entities.size();
     }
+
+    @Override
+    public View getItem(int index, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = inft.inflate(android.R.layout.simple_list_item_1, null);
+            ((TextView) convertView).setGravity(Gravity.CENTER);
+        }
+        TextView tv = ViewFindUtils.find(convertView, android.R.id.text1);
+        tv.setText(entities.get(index).getName());
+        return convertView;
+    }
+}

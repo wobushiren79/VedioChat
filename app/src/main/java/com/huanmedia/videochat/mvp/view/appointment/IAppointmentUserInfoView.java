@@ -1,4 +1,4 @@
-package com.huanmedia.videochat.mvp.view.user;
+package com.huanmedia.videochat.mvp.view.appointment;
 
 import com.huanmedia.videochat.mvp.base.BaseMVPView;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataResults;

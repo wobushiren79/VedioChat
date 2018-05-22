@@ -72,7 +72,7 @@ public class WheelDateAdapter extends AbstractWheelAdapter {
 
         switch (type) {
             case YEAR:
-                MaxValue = cal.get(Calendar.YEAR);
+                MaxValue = cal.get(Calendar.YEAR)+10;
                 if (MinValue == 0)
                     MinValue = 1970;
                 addData(MaxValue + 1 - MinValue);

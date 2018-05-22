@@ -10,6 +10,7 @@ import com.huanmedia.videochat.mvp.entity.request.ShufflingAdsRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -79,6 +80,17 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void getAppointmentUserInfo(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentUserInfoResults> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.appointmentPageData(paramsMap), handler, true);
+    }
+
+    @Override
+    public void submitAppointment(Context context, AppointmentRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentSubmit(paramsMap), handler, true);
+    }
+
+    @Override
+    public void getAppointmentSettingInfo(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentSettingResults> handler) {
+        requestPost(context, mApiService.appointmentSettingInfo(), handler, true);
     }
 
 
