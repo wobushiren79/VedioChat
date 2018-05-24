@@ -220,7 +220,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.business_card_iv_appointment:
-                getNavigator().navtoAppointment((Activity) getContext(),mUid);
+                getNavigator().navtoAppointment((Activity) getContext(), mUid);
                 break;
             case R.id.business_card_iv_calling:
                 if (!UserManager.getInstance().islogin()) {
@@ -230,7 +230,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                     return;
                 }
                 boolean isReadMain = mData.getBase().getStarbutton() == 1 && mData.getBase().getIsstarauth() == 1;
-                if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < 20) {
+                if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < mData.getBase().getStarcoin()) {
                     CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
                 } else if (mData.getBase().getOnlinestatus() == 2) {
                     ToastUtils.showToastShort(getContext(), "对方忙！");

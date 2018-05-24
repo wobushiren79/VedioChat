@@ -345,7 +345,8 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".appointment.AppointmentActivity"></activity>
+        <activity android:name=".appointment.AppointmentActivity" />
+        <activity android:name=".appointment.AppointmentListActivity"></activity>
     </application>
 
 </manifest>

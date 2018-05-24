@@ -3,6 +3,7 @@ package com.huanmedia.videochat.mvp.presenter.appointment;
 import com.huanmedia.videochat.mvp.base.BaseMVPPresenter;
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.model.appointment.AppointmentSubmitModelImpl;
 import com.huanmedia.videochat.mvp.view.appointment.IAppointmentSubmitView;
 
@@ -32,11 +33,11 @@ public class AppointmentSubmitPresenterImpl extends BaseMVPPresenter<IAppointmen
         AppointmentRequest params = new AppointmentRequest();
         params.setDate(mMvpView.getAppointmentDate());
         params.setUid(mMvpView.getAppointmentUid());
-        params.setTime(mMvpView.getAppointmentTime()+":00");
-        mMvpModel.submit(mMvpView.getContext(), params, new DataCallBack() {
+        params.setTime(mMvpView.getAppointmentTime() + ":00");
+        mMvpModel.submit(mMvpView.getContext(), params, new DataCallBack<AppointmentUserInfoResults>() {
             @Override
-            public void getDataSuccess(Object data) {
-                mMvpView.submitAppointmentSuccess();
+            public void getDataSuccess(AppointmentUserInfoResults data) {
+                mMvpView.submitAppointmentSuccess(data);
             }
 
             @Override

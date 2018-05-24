@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huanmedia.ilibray.utils.DisplayUtil;
+import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.widget.dialog.adapter.CitysSubWheelAdapter;
@@ -94,8 +95,6 @@ public class DialogPick {
                 break;
             }
         }
-
-
         int VisibleItems = 4;
         View dialogview = LayoutInflater.from(mContext).inflate(R.layout.dialog_wheelview_readmain, null);
         WheelView moneyView = dialogview.findViewById(R.id.whell_dialog_1);
@@ -118,7 +117,6 @@ public class DialogPick {
                 mReadmainListener.pickSelect(result_money, Integer.parseInt(result_money));
             }
         });
-
         dialog.show();
         title.setText(Check.checkReplace(titleStr));
         hint.setText(Check.checkReplace(hintString));
@@ -142,7 +140,6 @@ public class DialogPick {
         WheelView year = dialogview.findViewById(R.id.whell_dialog_1);
         WheelView month = dialogview.findViewById(R.id.whell_dialog_2);
         WheelView day = dialogview.findViewById(R.id.whell_dialog_3);
-//        Button btn_ok = (Button) dialogview.findViewById(R.id.wheel_ok);
         month.addScrollingListener(new OnWheelScrollListener() {
             @Override
             public void onScrollingStarted(WheelView wheel) {
@@ -194,12 +191,12 @@ public class DialogPick {
         day.setViewAdapter(dayAdapter);
         year.setVisibleItems(VisibleItems);
         year.setCyclic(true);
-        year.setCurrentItem(Integer.parseInt(dates[0]) - 10);
+        year.setCurrentItem(yearAdapter.getDefPosition(Integer.valueOf(dates[0])));
         month.setVisibleItems(VisibleItems);
-        month.setCurrentItem(Integer.parseInt(dates[1]) - 1);
+        month.setCurrentItem(monthAdapter.getDefPosition(Integer.valueOf(dates[1])));
         month.setCyclic(true);
         day.setVisibleItems(VisibleItems);
-        day.setCurrentItem(Integer.parseInt(dates[2]) - 1);
+        day.setCurrentItem(dayAdapter.getDefPosition(Integer.valueOf(dates[2])));
         day.setCyclic(true);
         AlertDialog dialog = new AlertDialog
                 .Builder(mContext, R.style.customDialog_upward)
@@ -244,16 +241,11 @@ public class DialogPick {
         WheelDateAdapter monthAdapter = new WheelDateAdapter(mContext, WheelDateAdapter.WheelDateType.MONTH);
         monthAdapter.createData();
         month.setViewAdapter(monthAdapter);
-        //默认值
-        Calendar cal = Calendar.getInstance();
-        int currentYear = cal.get(Calendar.YEAR);
-        int curentCurentYears = currentYear - Integer.parseInt(dates[0]);
-        int countyears = currentYear - minValue;
         year.setVisibleItems(VisibleItems);
         year.setCyclic(false);
-        year.setCurrentItem(countyears - curentCurentYears);
+        year.setCurrentItem(adapter.getDefPosition(Integer.valueOf(dates[0])));
         month.setVisibleItems(VisibleItems);
-        month.setCurrentItem(Integer.parseInt(dates[1]) - 1);
+        month.setCurrentItem(monthAdapter.getDefPosition(Integer.valueOf(dates[1])));
         month.setCyclic(false);
         AlertDialog dialog = new AlertDialog
                 .Builder(mContext, R.style.customDialog_upward)
@@ -488,8 +480,14 @@ public class DialogPick {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (mTimeQuantumListener != null) {
+                    String beginTime = beginAdapter.getListData().get(beginWheel.getCurrentItem());
+                    String endTime = endAdapter.getListData().get(endWheel.getCurrentItem());
+                    if (Integer.valueOf(beginTime.substring(0, 2)) >= Integer.valueOf(endTime.substring(0, 2))) {
+                        ToastUtils.showToastShort(mContext, "结束时间不能比开始时间早");
+                        return;
+                    }
                     mTimeQuantumListener.pickSelect
-                            (beginAdapter.getListData().get(beginWheel.getCurrentItem()), endAdapter.getListData().get(endWheel.getCurrentItem()));
+                            (beginTime, endTime);
                 }
             }
         });

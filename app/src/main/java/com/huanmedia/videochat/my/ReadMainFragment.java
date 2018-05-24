@@ -8,6 +8,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> implements ReadMainView, IAppointmentSettingView {
+public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> implements ReadMainView, IAppointmentSettingView, CompoundButton.OnCheckedChangeListener {
 
 
     @BindView(R.id.toolbar)
@@ -113,6 +114,7 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
         mIsVisible = true;//控制数据加载 如果是false 将不会调用initData方法
         mToolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.READMAN);
+
     }
 
     @Override
@@ -195,7 +197,7 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
         return getActivity();
     }
 
-    @OnClick({R.id.frm_cl_callingUnit, R.id.frm_cl_WXAccount, R.id.frm_cl_QQAccount, R.id.frm_cl_otherAccountUnit, R.id.appointment_online_layout,R.id.appointment_online_time_layout})
+    @OnClick({R.id.frm_cl_callingUnit, R.id.frm_cl_WXAccount, R.id.frm_cl_QQAccount, R.id.frm_cl_otherAccountUnit, R.id.appointment_online_layout, R.id.appointment_online_time_layout})
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.frm_cl_callingUnit://聊天价格
@@ -237,10 +239,14 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
         }
     }
 
+    /**
+     * 创建时间段设置弹窗
+     */
     private void showOnlineTimeDialog() {
         DialogPick pick = new DialogPick(this.getContext());
         pick.setOnTimeQuantumListener((beginTime, endTime) -> {
             mAppointmentOnlineTimeContent.setText(beginTime + "-" + endTime);
+            mAppointmentSettingPresenter.submitSettingInfo(3);
         });
         String[] date = mAppointmentOnlineTimeContent.getText().toString().split("-");
         String beginTime = null;
@@ -261,6 +267,7 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
         DialogPick pick = new DialogPick(this.getContext());
         pick.setOnStrPickSelectListener((position, data) -> {
             mAppointmentOnlineContent.setText(data);
+            mAppointmentSettingPresenter.submitSettingInfo(2);
         });
         List<String> list = new ArrayList<>();
         list.add("每天");
@@ -345,6 +352,7 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
     @Override
     public void getAppointmentSettingSuccess(AppointmentSettingResults results) {
         mAppointmentSettingData = results;
+        mAppointmentTypeContent.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -372,8 +380,28 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
     }
 
     @Override
-    public void submitAppointmentSettingSuccess() {
+    public int getAppointmentType() {
+        if (mAppointmentTypeContent.isChecked()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
+    @Override
+    public String getAppointmentTimeQuantum() {
+        return mAppointmentOnlineTimeContent.getText().toString();
+    }
+
+    @Override
+    public String getAppointmentTimeStatus() {
+        return mAppointmentOnlineContent.getText().toString();
+    }
+
+    @Override
+    public void submitAppointmentSettingSuccess() {
+        showToast("修改成功");
+        mAppointmentSettingPresenter.getSettingInfo();
     }
 
     @Override
@@ -383,6 +411,17 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
 
     @Override
     public void showToast(String toast) {
-        ToastUtils.showToastLong(getContext(), toast);
+        ToastUtils.showToastShort(getContext(), toast);
+    }
+
+    /**
+     * 预约模式切换
+     *
+     * @param compoundButton
+     * @param b
+     */
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        mAppointmentSettingPresenter.submitSettingInfo(1);
     }
 }

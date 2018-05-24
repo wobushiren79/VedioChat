@@ -57,7 +57,6 @@ public class PtrHeadLoadLayout extends CustomPtrLoadView {
 
     @Override
     public void onUIRefreshBegin(PtrFrameLayout frame) {
-        Log.v("this", "ptr:onUIRefreshBegin");
         if (mAnimDB != null) {
             mIVLoad.setImageDrawable(mAnimDB);
             mAnimDB.start();
@@ -67,15 +66,12 @@ public class PtrHeadLoadLayout extends CustomPtrLoadView {
 
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame, boolean isHeader) {
-        Log.v("this", "ptr:onUIRefreshComplete");
         if (mAnimDB != null)
             mAnimDB.stop();
     }
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
-        Log.v("this", "ptr:onUIPositionChange");
-        Log.v("this", "ptr:" + ptrIndicator.getCurrentPosY());
 //
 //        if (ptrIndicator.getCurrentPosY() < 150) {
 //            mIVLoad.setImageDrawable(mAnimDB.getFrame(0));

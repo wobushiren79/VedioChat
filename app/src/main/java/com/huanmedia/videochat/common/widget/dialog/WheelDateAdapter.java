@@ -33,6 +33,21 @@ public class WheelDateAdapter extends AbstractWheelAdapter {
         return datas;
     }
 
+    /**
+     * 获取目标数值的下标
+     *
+     * @param itemData
+     * @return
+     */
+    public int getDefPosition(int itemData) {
+        for (int i = 0; i < datas.size(); i++) {
+            if (itemData == datas.get(i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void setDatas(ArrayList<Integer> datas) {
         this.datas = datas;
     }
@@ -72,7 +87,7 @@ public class WheelDateAdapter extends AbstractWheelAdapter {
 
         switch (type) {
             case YEAR:
-                MaxValue = cal.get(Calendar.YEAR)+10;
+                MaxValue = cal.get(Calendar.YEAR) + 10;
                 if (MinValue == 0)
                     MinValue = 1970;
                 addData(MaxValue + 1 - MinValue);

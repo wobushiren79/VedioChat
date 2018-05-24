@@ -19,7 +19,6 @@ public interface IAppointmentSettingView extends BaseMVPView {
      */
     void getAppointmentSettingFail(String msg);
 
-
     /**
      * 设置预约模式是否开启
      *
@@ -43,12 +42,29 @@ public interface IAppointmentSettingView extends BaseMVPView {
      */
     void setAppointmentTimeStatus(int status, String statusStr);
 
+    /**
+     * 获取预约模式
+     * @return
+     */
+    int getAppointmentType();
+
+    /**
+     * 获取预约时间段
+     * @return
+     */
+    String getAppointmentTimeQuantum();
+
+
+    /**
+     * 获取预约时间状态
+     * @return
+     */
+    String getAppointmentTimeStatus();
 
     /**
      * 提交预约设置信息成功
      */
     void submitAppointmentSettingSuccess();
-
 
     /**
      * 提交预约设置信息失败

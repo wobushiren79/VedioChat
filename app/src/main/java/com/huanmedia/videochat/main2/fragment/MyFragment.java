@@ -99,6 +99,8 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     TextView mMyFmTvHelp;
     @BindView(R.id.my_fm_rl_help)
     RelativeLayout mMyFmRlHelp;
+    @BindView(R.id.my_fm_rl_appointment)
+    RelativeLayout mAppointmentLayout;
     private MainInteractionListener mListener;
     private Badge mMsgBadeg;
 //    private Badge mMyBadeg;
@@ -246,7 +248,11 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     }
 
 
-    @OnClick({R.id.my_fm_iv_mail, R.id.my_fm_rl_readman, R.id.my_fm_tv_btn_data_editor, R.id.my_fm_iv_header, R.id.my_fm_rl_account, R.id.my_fm_rl_trust, R.id.my_fm_rl_generalize, R.id.my_fm_rl_setting, R.id.my_fm_rl_help})
+    @OnClick({R.id.my_fm_iv_mail, R.id.my_fm_rl_readman,
+            R.id.my_fm_tv_btn_data_editor, R.id.my_fm_iv_header,
+            R.id.my_fm_rl_account, R.id.my_fm_rl_trust,
+            R.id.my_fm_rl_generalize, R.id.my_fm_rl_setting,
+            R.id.my_fm_rl_help, R.id.my_fm_rl_appointment})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -282,6 +288,9 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
                 break;
             case R.id.my_fm_tv_btn_data_editor:
                 getNavigator().navtoUserInfoEdit(getActivity(), false, null);
+                break;
+            case R.id.my_fm_rl_appointment:
+                getNavigator().navtoAppointmentList(getActivity());
                 break;
         }
     }

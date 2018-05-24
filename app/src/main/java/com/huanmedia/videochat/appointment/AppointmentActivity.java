@@ -19,11 +19,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
-import com.huanmedia.videochat.appointment.adapter.AppointmentListApdater;
+import com.huanmedia.videochat.appointment.adapter.AppointmentListAdapter;
 import com.huanmedia.videochat.common.BaseActivity;
-import com.huanmedia.videochat.common.service.notifserver.ringtone.RingtoneManager;
+import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
-import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentSubmitPresenterImpl;
@@ -42,7 +41,9 @@ import butterknife.OnClick;
 import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.transform.BlurTransformation;
 
-public class AppointmentActivity extends BaseActivity implements IAppointmentUserInfoView, IAppointmentSubmitView {
+public class AppointmentActivity
+        extends BaseActivity
+        implements IAppointmentUserInfoView, IAppointmentSubmitView {
     @BindView(R.id.rl_title_layout)
     RelativeLayout mTitleLayout;
     @BindView(R.id.iv_title_back)
@@ -80,7 +81,7 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
 
     private int mUid;
     private AppointmentUserInfoResults mUserData;
-    private AppointmentListApdater mAppointmentApdater;
+    private AppointmentListAdapter mAppointmentApdater;
 
     private IAppointmentUserInfoPresenter mAppointmentUserInfoPresenter;
     private IAppointmentSubmitPresenter mAppointmentSubmitPresenter;
@@ -115,7 +116,7 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
         mAppointmentSubmitPresenter = new AppointmentSubmitPresenterImpl(this);
         mAppointmentUserInfoPresenter.getAppointmentInfo(mUid);
 
-        mAppointmentApdater = new AppointmentListApdater(this);
+        mAppointmentApdater = new AppointmentListAdapter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAppointmentApdater);
 
@@ -304,7 +305,7 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
         pick.setDatelistener(obj -> {
             mTVTimeSelectDay.setText(obj);
         });
-        pick.showPickerDate("日期选择", getDefDay(), "%s-%s-%s");
+        pick.showPickerDate("日期选择", mTVTimeSelectDay.getText().toString(), "%s-%s-%s");
     }
 
     /**
@@ -321,7 +322,8 @@ public class AppointmentActivity extends BaseActivity implements IAppointmentUse
     }
 
     @Override
-    public void submitAppointmentSuccess() {
+    public void submitAppointmentSuccess(AppointmentUserInfoResults data) {
+        UserManager.getInstance().getCurrentUser().getUserinfo().setCoin(data.getCoin());
         showToast("预约成功");
         finish();
     }

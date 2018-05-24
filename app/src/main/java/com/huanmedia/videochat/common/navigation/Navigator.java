@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.huanmedia.videochat.appointment.AppointmentActivity;
+import com.huanmedia.videochat.appointment.AppointmentListActivity;
 import com.huanmedia.videochat.common.LocalHtmlWebActivity;
 import com.huanmedia.videochat.discover.BusinessCardAcitivty;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
@@ -99,7 +100,7 @@ public class Navigator {
      */
     public void navDiscoverInfo(Activity activity, int uid, String distance, @BusinessCardFragment.ShowType int showType) {
         if (uid == 0) return;
-        activity.startActivity(BusinessCardAcitivty.getCallingIntent(activity, uid, distance,showType));
+        activity.startActivity(BusinessCardAcitivty.getCallingIntent(activity, uid, distance, showType));
     }
 
     /**
@@ -278,7 +279,7 @@ public class Navigator {
      * @param context
      */
     public void navtoMediaPlay(Activity context, ArrayList<String> vedios, int position) {
-        context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios,  position));
+        context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios, position));
     }
 
     /**
@@ -289,12 +290,22 @@ public class Navigator {
     public void navtoMediaUpLoad(Activity context, ArrayList<VideoEntity> videos) {
         context.startActivity(MediaUpLoadActivity.getCallingIntent(context, videos));
     }
+
     /**
-     * 视频上传界面
+     * 预约界面
      *
      * @param context
      */
-    public void navtoAppointment(Activity context,int uid) {
-        context.startActivity(AppointmentActivity.getCallingIntent(context,uid));
+    public void navtoAppointment(Activity context, int uid) {
+        context.startActivity(AppointmentActivity.getCallingIntent(context, uid));
+    }
+
+    /**
+     * 预约列表界面
+     *
+     * @param context
+     */
+    public void navtoAppointmentList(Activity context) {
+        context.startActivity(AppointmentListActivity.getCallingIntent(context));
     }
 }

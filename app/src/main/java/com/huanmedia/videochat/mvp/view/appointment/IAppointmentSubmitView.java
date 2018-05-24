@@ -1,12 +1,13 @@
 package com.huanmedia.videochat.mvp.view.appointment;
 
 import com.huanmedia.videochat.mvp.base.BaseMVPView;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 
 public interface IAppointmentSubmitView extends BaseMVPView {
     /***
      * 提交预约成功
      */
-    void submitAppointmentSuccess();
+    void submitAppointmentSuccess(AppointmentUserInfoResults data);
 
     /**
      * 提交预约失败

@@ -4,12 +4,15 @@ import android.content.Context;
 
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
+import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
+import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShufflingAdsRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
@@ -93,5 +96,27 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
         requestPost(context, mApiService.appointmentSettingInfo(), handler, true);
     }
 
+    @Override
+    public void setAppointmentSetting(Context context, AppointmentSettingRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentSettingSet(paramsMap), handler, true);
+    }
 
+    @Override
+    public void getAppointmentListForReadMan(Context context, PageRequest params, HttpResponseHandler<AppointmentListResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentListDataForReadMan(paramsMap), handler);
+    }
+
+    @Override
+    public void getAppointmentListForNormal(Context context, PageRequest params, HttpResponseHandler<AppointmentListResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentListDataForNormal(paramsMap), handler);
+    }
+
+    @Override
+    public void confirmAppointment(Context context, AppointmentRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentConfirm(paramsMap), handler, true);
+    }
 }

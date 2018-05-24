@@ -12,9 +12,9 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentDataResults;
 import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.GlideUtils;
 
-public class AppointmentListApdater extends BaseRCAdapter<AppointmentDataResults> {
+public class AppointmentListAdapter extends BaseRCAdapter<AppointmentDataResults> {
 
-    public AppointmentListApdater(Context context) {
+    public AppointmentListAdapter(Context context) {
         super(context, R.layout.item_appointment_style_1);
     }
 

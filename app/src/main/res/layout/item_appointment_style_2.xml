@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dimen_116dp"
+        android:layout_height="@dimen/dimen_116dp"
+        android:layout_marginBottom="@dimen/dimen_32dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_32dp"
+        android:layout_marginTop="@dimen/dimen_32dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="@dimen/dimen_116dp"
+            android:scaleType="fitXY"
+            android:layout_height="@dimen/dimen_116dp"
+            android:src="@drawable/icon_headportrait"
+            app:riv_border_color="@color/header_border_gray"
+            app:riv_border_width="@dimen/dimen_1dp"
+            app:riv_oval="true" />
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/iv_sex"
+            android:layout_width="@dimen/dimen_35dp"
+            android:layout_height="@dimen/dimen_35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_focus_boy" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="@dimen/dimen_44dp">
+
+        <LinearLayout
+            android:id="@+id/ll_base_info_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:text=""
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_32dp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:text=""
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/dimen_28dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_submit_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="@dimen/dimen_152dp"
+                android:layout_height="@dimen/dimen_44dp"
+                android:layout_marginBottom="@dimen/dimen_6dp"
+                android:background="@drawable/base_bg_round_theme"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/dimen_12dp"
+                android:text="确 认"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_28dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="@dimen/dimen_152dp"
+                android:layout_height="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_6dp"
+                android:gravity="center"
+                android:text="取 消"
+                android:textColor="@color/base_gray"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textSize="@dimen/dimen_28dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_eff1f7"></View>
+    </RelativeLayout>
+</LinearLayout>
