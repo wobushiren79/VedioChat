@@ -29,6 +29,12 @@ public class AppointmentListPresenterImpl extends BaseMVPPresenter<IAppointmentL
         PageRequest params = new PageRequest();
         params.setPage(mMvpView.getPageForReadMan());
         params.setPagesize(mMvpView.getPageForReadMan());
+        if (mMvpView.getFiltrateYear() != 0) {
+            params.setYear(mMvpView.getFiltrateYear());
+        }
+        if (mMvpView.getFiltrateMonth() != 0) {
+            params.setMonth(mMvpView.getFiltrateMonth());
+        }
         mMvpModel.getAppointmentListForReadMan(mMvpView.getContext(), params, new DataCallBack<AppointmentListResults>() {
 
             @Override
@@ -60,6 +66,12 @@ public class AppointmentListPresenterImpl extends BaseMVPPresenter<IAppointmentL
         PageRequest params = new PageRequest();
         params.setPage(mMvpView.getPageForNormal());
         params.setPagesize(mMvpView.getPageSizeForNormal());
+        if (mMvpView.getFiltrateYear() != 0) {
+            params.setYear(mMvpView.getFiltrateYear());
+        }
+        if (mMvpView.getFiltrateMonth() != 0) {
+            params.setMonth(mMvpView.getFiltrateMonth());
+        }
         mMvpModel.getAppointmentListForNormal(mMvpView.getContext(), params, new DataCallBack<AppointmentListResults>() {
 
             @Override

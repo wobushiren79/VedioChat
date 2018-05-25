@@ -35,6 +35,8 @@ public class AppointmentListFragment extends BaseFragment implements IAppointmen
     int mUserType;
     private int page = 1;
     private int pageSize = 10;
+    private int year = 0;
+    private int month = 0;
 
     public void setUserType(int mUserType) {
         this.mUserType = mUserType;
@@ -53,6 +55,8 @@ public class AppointmentListFragment extends BaseFragment implements IAppointmen
         mPtrLayout.setCallBack(new PtrLayout.PtrHandleCallBack() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
+                if (mAppointmentListPresenter == null)
+                    return;
                 if (mUserType == UserType.NORMAL) {
                     mAppointmentListPresenter.getAppointmentListForNormal();
                 } else if (mUserType == UserType.READMAN) {
@@ -62,6 +66,8 @@ public class AppointmentListFragment extends BaseFragment implements IAppointmen
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
+                if (mAppointmentListPresenter == null)
+                    return;
                 if (mUserType == UserType.NORMAL) {
                     mAppointmentListPresenter.getAppointmentListForNormal();
                 } else if (mUserType == UserType.READMAN) {
@@ -80,6 +86,24 @@ public class AppointmentListFragment extends BaseFragment implements IAppointmen
         RxCountDown.delay2(500).subscribe(integer -> {
             mPtrLayout.setRefresh();
         });
+    }
+
+    /**
+     * 刷新数据
+     */
+    public void refreshData() {
+        mPtrLayout.setRefresh();
+    }
+
+    /**
+     * 设置筛选条件
+     *
+     * @param year
+     * @param month
+     */
+    public void setfiltrateData(int year, int month) {
+        this.year = year;
+        this.month = month;
     }
 
     @Override
@@ -120,6 +144,16 @@ public class AppointmentListFragment extends BaseFragment implements IAppointmen
     @Override
     public int getPageSizeForNormal() {
         return pageSize;
+    }
+
+    @Override
+    public int getFiltrateYear() {
+        return year;
+    }
+
+    @Override
+    public int getFiltrateMonth() {
+        return month;
     }
 
     @Override

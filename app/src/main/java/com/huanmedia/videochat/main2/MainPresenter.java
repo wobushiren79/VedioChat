@@ -1,6 +1,8 @@
 package com.huanmedia.videochat.main2;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
@@ -15,6 +17,7 @@ import com.huanmedia.ilibray.utils.Installation;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.cipher.Base64Cipher;
 import com.huanmedia.videochat.BuildConfig;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.manager.ActivitManager;
@@ -29,12 +32,14 @@ import com.huanmedia.videochat.common.service.socket.WSonMessageListener;
 import com.huanmedia.videochat.common.service.socket.WebSocketManager;
 import com.huanmedia.videochat.common.utils.LocationHandler;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.main.NotificationMessageActivity;
 import com.huanmedia.videochat.main.mode.SystemMessage;
 import com.huanmedia.videochat.main.mode.mapping.SystemMessageDataMapper;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.MatchConfig;
 import com.huanmedia.videochat.repository.datasouce.impl.MainRepostiory;
+import com.huanmedia.videochat.repository.entity.AppointmentEntity;
 import com.huanmedia.videochat.repository.entity.SMsgEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.huanmedia.videochat.repository.entity.VideoChatEntity;
@@ -307,6 +312,57 @@ public class MainPresenter extends Presenter<MainView> {
                             ToastUtils.showToastShort(getContext(), "您已被封号");
                             UserManager.getInstance().outLogin(null);
                             UserManager.getInstance().exit();
+                            break;
+                    }
+                } else if (message.getType().equals("appointmentNotice")) {
+                    AppointmentEntity data = mGson.fromJson(mGson.toJson(message.getBody()), AppointmentEntity.class);
+                    switch (message.getStype()) {
+                        case "daojishi":
+                            break;
+                        case "cancel":
+                            sysNotice(message);
+                            break;
+                        case "timeget":
+                            String contentStr;
+                            Activity currentActivity;
+                            boolean isCalling = ActivitManager.getAppManager().existsActivity(CallingActivity.class);
+                            if (isCalling) {
+                                currentActivity = ActivitManager.getAppManager().getActivity(CallingActivity.class);
+                                contentStr = "您与" + data.getUnickname() + "已到预约视频聊天时间，点击发起视频，并挂掉当前视频通话";
+                            } else {
+                                currentActivity = (Activity) getContext();
+                                contentStr = "您与" + data.getUnickname() + "已到预约视频聊天时间，点击发起视频";
+                            }
+
+
+                            GeneralDialog dialog = new GeneralDialog(currentActivity);
+                            dialog
+                                    .setContent(contentStr)
+                                    .setCallBack(new GeneralDialog.CallBack() {
+                                        @Override
+                                        public void submitClick(Dialog dialog) {
+                                            if (isCalling) {
+                                                currentActivity.finish();
+                                            }
+                                            UserEntity myInfo = UserManager.getInstance().getCurrentUser();
+                                            ConditionEntity condition = new ConditionEntity();
+                                            condition.setVideoType(ConditionEntity.VideoType.REDMAN);
+                                            condition.getReadMainConfig().setRedManId((int) myInfo.getId());
+                                            condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
+                                            condition.getReadMainConfig().setRedMainStartCoin(myInfo.getUserinfo().getStarcoin());
+                                            condition.getReadMainConfig().setReadMainStartTime(myInfo.getUserinfo().getStartime());
+                                            VideoChatEntity videoChatEntity = new VideoChatEntity();
+                                            videoChatEntity.setTouid(data.getUidfrom());
+                                            condition.getReadMainConfig().setVideoChatConfig(videoChatEntity);
+                                            ((BaseActivity) getContext()).getNavigator().navtoCalling((Activity) getContext(), condition, "连接中...; ");
+                                        }
+
+                                        @Override
+                                        public void cancelClick(Dialog dialog) {
+
+                                        }
+                                    })
+                                    .show();
                             break;
                     }
                 }

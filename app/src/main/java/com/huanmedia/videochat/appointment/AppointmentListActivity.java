@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -18,6 +20,8 @@ import com.huanmedia.videochat.appointment.adapter.AppointmentFragmentAdapter;
 import com.huanmedia.videochat.appointment.fragment.AppointmentListFragment;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.widget.dialog.DialogPick;
+import com.huanmedia.videochat.pay.MyWalletFragment;
 
 import butterknife.BindView;
 
@@ -29,6 +33,9 @@ public class AppointmentListActivity extends BaseActivity implements OnTabSelect
     @BindView(R.id.view_pager)
     ViewPager mVPList;
 
+    AppointmentListFragment[] fragments;
+    private String mCurrentDate = "";
+
     public static Intent getCallingIntent(Context context) {
         Intent intent = new Intent(context, AppointmentListActivity.class);
         return intent;
@@ -39,6 +46,32 @@ public class AppointmentListActivity extends BaseActivity implements OnTabSelect
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.account_particulars_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.account_particulars_menu_time_filter://时间筛选
+                DialogPick dialogPick = new DialogPick(this);
+                dialogPick.setDatelistener(obj -> {
+                    mCurrentDate = obj;
+                    String[] data = mCurrentDate.split("-");
+                    if (data != null && data.length == 2) {
+                        for (AppointmentListFragment itemFragment : fragments) {
+                            itemFragment.setfiltrateData(Integer.valueOf(data[0]), Integer.valueOf(data[1]));
+                            itemFragment.refreshData();
+                        }
+                    }
+                });
+                dialogPick.showDateFilter(mCurrentDate, "%d-%d");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void initView() {
@@ -52,22 +85,22 @@ public class AppointmentListActivity extends BaseActivity implements OnTabSelect
         int starButton = UserManager.getInstance().getCurrentUser().getUserinfo().getStarbutton();
         int isStarauth = UserManager.getInstance().getCurrentUser().getUserinfo().getIsstarauth();
         String[] titles;
-        Fragment[] fragments;
         if (isStarauth == 1 && starButton == 1) {
-            titles = new String[]{ "被预约","预约"};
-            AppointmentListFragment readmanAppointment = new AppointmentListFragment();
-            readmanAppointment.setUserType(AppointmentListFragment.UserType.READMAN);
-            AppointmentListFragment normalAppointment = new AppointmentListFragment();
-            normalAppointment.setUserType(AppointmentListFragment.UserType.NORMAL);
-            fragments = new Fragment[]{readmanAppointment,normalAppointment};
+            titles = new String[]{"被预约", "预约"};
+            AppointmentListFragment mReadManAppointment = new AppointmentListFragment();
+            mReadManAppointment.setUserType(AppointmentListFragment.UserType.READMAN);
+            AppointmentListFragment mNormalAppointment = new AppointmentListFragment();
+            mNormalAppointment.setUserType(AppointmentListFragment.UserType.NORMAL);
+            fragments = new AppointmentListFragment[]{mReadManAppointment, mNormalAppointment};
         } else {
             titles = new String[]{"预约"};
-            AppointmentListFragment normalAppointment = new AppointmentListFragment();
-            normalAppointment.setUserType(AppointmentListFragment.UserType.NORMAL);
-            fragments = new Fragment[]{normalAppointment};
+            AppointmentListFragment mNormalAppointment = new AppointmentListFragment();
+            mNormalAppointment.setUserType(AppointmentListFragment.UserType.NORMAL);
+            fragments = new AppointmentListFragment[]{mNormalAppointment};
         }
 
         mVPList.setAdapter(new AppointmentFragmentAdapter(getSupportFragmentManager(), fragments));
+        mVPList.setOffscreenPageLimit(2);
         mTitleTab.setViewPager(mVPList, titles);
         this.onTabSelect(0);
     }

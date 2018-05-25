@@ -180,6 +180,16 @@ public class ComeAcrossFriendFragment extends BaseMVPFragment<ComeAcrossFriendPr
                         }
                     }
                 });
+                helper.setOnClickListener(R.id.layout, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ChatPeopleEntity.ItemsEntity itemData = mAdapter.getItem(helper.getLayoutPosition());
+                        BusinessCardDialog dialog = new BusinessCardDialog(getContext());
+                        dialog.setUid(itemData.getUid());
+                        dialog.setDistance(itemData.getDistance());
+                        dialog.show();
+                    }
+                });
             }
         };
 
@@ -191,25 +201,6 @@ public class ComeAcrossFriendFragment extends BaseMVPFragment<ComeAcrossFriendPr
         mAdapter.setOnLoadMoreListener(() -> {
             getBasePresenter().loadMoreData(LoadDataView.LOADING_STATUS_MORE, getBasePresenter().getPage().nextpage());
         }, mComeAcrossFmRv);
-
-//
-//        mComeAcrossFmRv.addOnItemTouchListener(new OnItemClickListener() {
-//            @Override
-//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                ChatPeopleEntity.ItemsEntity mCallingData = mAdapter.getData().get(position);
-//                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(),mCallingData.getDistance());
-//            }
-//        });
-        mComeAcrossFmRv.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ChatPeopleEntity.ItemsEntity itemData = mAdapter.getItem(position);
-                BusinessCardDialog dialog = new BusinessCardDialog(getContext());
-                dialog.setUid(itemData.getUid());
-                dialog.setDistance(itemData.getDistance());
-                dialog.show();
-            }
-        });
 
         mComeAcrossFmRv.addOnItemTouchListener(new OnItemLongClickListener() {
             @Override

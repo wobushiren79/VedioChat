@@ -65,6 +65,18 @@ public interface IAppointmentListView extends BaseMVPView {
     int getPageSizeForNormal();
 
     /**
+     * 获取筛选条件年
+     * @return
+     */
+    int getFiltrateYear();
+
+    /**
+     * 获取筛选条件月
+     * @return
+     */
+    int getFiltrateMonth();
+
+    /**
      * 获取红人下拉
      * @return
      */

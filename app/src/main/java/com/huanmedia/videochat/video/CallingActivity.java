@@ -223,6 +223,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mTimeDownSub != null)
+            mTimeDownSub.dispose();
     }
 
 

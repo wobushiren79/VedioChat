@@ -144,6 +144,7 @@ public class FansFragment extends BaseMVPFragment<FansPresenter> implements Fans
                         FansFragment.this,
                         Check.checkReplace(item.getUserphoto_thumb()),
                         ivIcon);
+
                 helper.setOnClickListener(R.id.item_main_friend_iv_video, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -168,6 +169,17 @@ public class FansFragment extends BaseMVPFragment<FansPresenter> implements Fans
                         getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
                     }
                 });
+
+                helper.setOnClickListener(R.id.layout, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ChatPeopleEntity.ItemsEntity itemData = mAdapter.getItem(helper.getLayoutPosition());
+                        BusinessCardDialog dialog = new BusinessCardDialog(getContext());
+                        dialog.setUid(itemData.getUid());
+                        dialog.setDistance(itemData.getDistance());
+                        dialog.show();
+                    }
+                });
             }
         };
 
@@ -189,16 +201,12 @@ public class FansFragment extends BaseMVPFragment<FansPresenter> implements Fans
 //            }
 //        });
 
-        mComeAcrossFmRv.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ChatPeopleEntity.ItemsEntity itemData = mAdapter.getItem(position);
-                BusinessCardDialog dialog = new BusinessCardDialog(getContext());
-                dialog.setUid(itemData.getUid());
-                dialog.setDistance(itemData.getDistance());
-                dialog.show();
-            }
-        });
+//        mComeAcrossFmRv.addOnItemTouchListener(new OnItemClickListener() {
+//            @Override
+//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+//
+//            }
+//        });
         mComeAcrossFmRv.addOnItemTouchListener(new OnItemLongClickListener() {
             @Override
             public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
