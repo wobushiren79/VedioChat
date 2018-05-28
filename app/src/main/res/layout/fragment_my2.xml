@@ -22,15 +22,16 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/home_toolbar_fl"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_288dp"
+                android:paddingTop="@dimen/dimen_30dp"
+                android:layout_height="@dimen/dimen_320dp"
                 android:background="@color/base_appbar_background_light">
 
                 <ImageView
                     android:id="@+id/my_fm_iv_mail"
                     android:layout_width="@dimen/dimen_64dp"
                     android:layout_height="@dimen/dimen_64dp"
-                    android:layout_marginRight="@dimen/dimen_44dp"
-                    android:layout_marginTop="@dimen/dp_34"
+                    android:layout_marginRight="@dimen/dimen_60dp"
+                    android:layout_marginTop="@dimen/dimen_78dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/btn_mail"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +93,7 @@
                     android:layout_width="@dimen/dimen_160dp"
                     android:layout_height="@dimen/dimen_48dp"
                     android:layout_marginRight="@dimen/dimen_44dp"
-                    android:drawablePadding="@dimen/dp_8"
+                    android:drawablePadding="@dimen/dimen_16dp"
                     android:drawableRight="@drawable/btn_return_gray"
                     android:gravity="center_vertical|end"
                     android:text="资料编辑"
@@ -364,6 +365,11 @@
 
             </RelativeLayout>
 
+            <View
+
+                android:background="@color/block_gray"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1dp"></View>
             <!--帮助-->
 
             <RelativeLayout

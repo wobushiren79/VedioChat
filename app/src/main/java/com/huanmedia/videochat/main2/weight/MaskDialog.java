@@ -300,7 +300,7 @@ public class MaskDialog extends Dialog {
                             if (FUManager.getmPagePosition() == null)
                                 riv.setBorderColor(ContextCompat.getColor(mContext, R.color.transparent));
                             else
-                                riv.setBorderColor(ContextCompat.getColor(mContext, R.color.base_violet_light_alpha));
+                                riv.setBorderColor(ContextCompat.getColor(mContext, R.color.color_f65aa0));
                         } else {
                             riv.setBorderColor(ContextCompat.getColor(mContext, R.color.transparent));
                         }

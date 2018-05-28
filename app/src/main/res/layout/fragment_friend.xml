@@ -26,8 +26,7 @@
             app:tl_indicator_color="@color/orange"
             app:tl_indicator_corner_radius="@dimen/dimen_4dp"
             app:tl_indicator_height="@dimen/dimen_4dp"
-            app:tl_indicator_width="@dimen/dimen_64dp"
-
+            app:tl_indicator_width="@dimen/dimen_32dp"
             app:tl_tab_padding="@dimen/dimen_30dp"
             app:tl_textSelectColor="@color/base_black"
             app:tl_textUnselectColor="@color/base_gray"

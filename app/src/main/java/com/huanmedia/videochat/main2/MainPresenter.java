@@ -1,7 +1,6 @@
 package com.huanmedia.videochat.main2;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -31,7 +30,6 @@ import com.huanmedia.videochat.common.service.socket.WMessage;
 import com.huanmedia.videochat.common.service.socket.WSonMessageListener;
 import com.huanmedia.videochat.common.service.socket.WebSocketManager;
 import com.huanmedia.videochat.common.utils.LocationHandler;
-import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.main.NotificationMessageActivity;
 import com.huanmedia.videochat.main.mode.SystemMessage;

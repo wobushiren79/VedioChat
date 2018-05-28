@@ -14,16 +14,17 @@
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar_layout"
+            android:elevation="@dimen/dimen_0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:elevation="@dimen/dimen_0dp"
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:contentScrim="?attr/colorPrimary">
 
 
                 <RelativeLayout
@@ -283,7 +284,7 @@
                         android:id="@+id/tv_appointment_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dimen_44dp"
+                        android:layout_marginBottom="@dimen/dimen_22dp"
                         android:layout_marginLeft="@dimen/dimen_44dp"
                         android:layout_marginRight="@dimen/dimen_44dp"
                         android:layout_marginTop="@dimen/dimen_36dp"
@@ -306,6 +307,7 @@
                     android:paddingBottom="@dimen/dimen_172dp"
                     android:paddingLeft="@dimen/dimen_44dp"
                     android:paddingRight="@dimen/dimen_44dp"
+                    android:lineSpacingExtra="@dimen/dimen_16dp"
                     android:paddingTop="@dimen/dimen_24dp"
                     android:text="@string/appointment_warring"
                     android:textColor="@color/base_gray"

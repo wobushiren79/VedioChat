@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.main2.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -24,11 +25,11 @@ import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.common.widget.dialog.ReportDialog;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
-import com.huanmedia.videochat.main2.weight.MaskDialog;
 import com.huanmedia.videochat.main2.weight.OPtionPopWindows;
 import com.huanmedia.videochat.repository.entity.ChatPeopleEntity;
 import com.liaoinstan.springview.container.DefaultHeader;
@@ -233,22 +234,27 @@ public class AttentionFragment extends BaseMVPFragment<AttentionPresenter> imple
                 if ((UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= 20) ||//如果是视频直聊需要20钻石 固定
                         UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= data.getStarcoin()) {
                     int cost = data.getStarcoin() / (data.getStartime() == 0 ? 1 : data.getStartime());
-                    new MaterialDialog.Builder(getActivity())
-                            .content("视频聊天需花费" + String.format("%d钻石/分钟", cost))
-                            .negativeColorRes(R.color.base_gray)
-                            .negativeText("取消")
-                            .positiveText("确定")
-                            .positiveColorRes(R.color.base_yellow)
-                            .onPositive((dialog, which) -> {
-                                ConditionEntity condition = new ConditionEntity();
-                                condition.setVideoType(ConditionEntity.VideoType.REDMAN);
-                                condition.getReadMainConfig().setRedManId(data.getUid());
-                                condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
-                                condition.getReadMainConfig().setRedMainStartCoin(data.getStarcoin());
-                                condition.getReadMainConfig().setReadMainStartTime(data.getStartime());
-                                getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                    GeneralDialog dialog = new GeneralDialog(getContext());
+                    dialog
+                            .setContent("视频聊天需花费" + String.format("%d钻石/分钟", cost))
+                            .setCallBack(new GeneralDialog.CallBack() {
+                                @Override
+                                public void submitClick(Dialog dialog) {
+                                    ConditionEntity condition = new ConditionEntity();
+                                    condition.setVideoType(ConditionEntity.VideoType.REDMAN);
+                                    condition.getReadMainConfig().setRedManId(data.getUid());
+                                    condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
+                                    condition.getReadMainConfig().setRedMainStartCoin(data.getStarcoin());
+                                    condition.getReadMainConfig().setReadMainStartTime(data.getStartime());
+                                    getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                                }
 
-                            }).show();
+                                @Override
+                                public void cancelClick(Dialog dialog) {
+
+                                }
+                            })
+                            .show();
                 } else {
                     CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
                 }

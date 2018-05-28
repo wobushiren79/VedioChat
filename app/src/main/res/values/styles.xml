@@ -231,4 +231,28 @@
         <!-- Inactive thumb color switch关闭时的拇指按钮的颜色 -->
         <item name="colorSwitchThumbNormal">@color/base_gray</item>
     </style>
+
+    <style name="btn_submit_style_1">
+        <item name="android:layout_weight">@dimen/dimen_632dp</item>
+        <item name="android:background">@drawable/btn_submit_style_1</item>
+        <item name="android:paddingBottom">@dimen/dimen_32dp</item>
+        <item name="android:layout_height">@dimen/dimen_120dp</item>
+        <item name="android:textSize">@dimen/dimen_40dp</item>
+    </style>
+
+    <style name="btn_submit_style_2">
+        <item name="android:layout_weight">@dimen/dimen_632dp</item>
+        <item name="android:background">@drawable/btn_submit_style_2</item>
+        <item name="android:paddingBottom">@dimen/dimen_32dp</item>
+        <item name="android:layout_height">@dimen/dimen_120dp</item>
+        <item name="android:textSize">@dimen/dimen_40dp</item>
+    </style>
+
+    <style name="btn_submit_style_3">
+        <item name="android:layout_weight">@dimen/dimen_632dp</item>
+        <item name="android:background">@drawable/btn_submit_style_3</item>
+        <item name="android:paddingBottom">@dimen/dimen_32dp</item>
+        <item name="android:layout_height">@dimen/dimen_120dp</item>
+        <item name="android:textSize">@dimen/dimen_40dp</item>
+    </style>
 </resources>

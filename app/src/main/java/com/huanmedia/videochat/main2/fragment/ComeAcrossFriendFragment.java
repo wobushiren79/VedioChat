@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.main2.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -14,7 +15,6 @@ import android.widget.ImageView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.ilibray.utils.RxCountDown;
@@ -27,9 +27,9 @@ import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.common.widget.dialog.ReportDialog;
-import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.MaskDialog;
 import com.huanmedia.videochat.main2.weight.MatchConfig;
@@ -38,8 +38,6 @@ import com.huanmedia.videochat.repository.entity.ChatPeopleEntity;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.makeramen.roundedimageview.RoundedImageView;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import mvp.data.net.ApiException;
@@ -159,22 +157,36 @@ public class ComeAcrossFriendFragment extends BaseMVPFragment<ComeAcrossFriendPr
                         ChatPeopleEntity.ItemsEntity data = mAdapter.getItem(helper.getLayoutPosition());
 
                         if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= 200) {
-                            new MaterialDialog.Builder(getActivity())
-                                    .content("再次发起视频聊天需花费200钻")
-                                    .negativeColorRes(R.color.base_gray)
-                                    .negativeText("取消")
-                                    .positiveText("确定")
-                                    .positiveColorRes(R.color.base_yellow)
-                                    .onPositive((dialog, which) -> {
-                                        ConditionEntity condition = new ConditionEntity();
-                                        condition.setVideoType(ConditionEntity.VideoType.MATCH);
-                                        condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.SELF);
-                                        condition.getMatchConfig().setMask(MaskDialog.getCurrentMask());
-                                        condition.getMatchConfig().setUid(data.getUid());
-                                        condition.getMatchConfig().setMatchType(MatchConfig.MatchType.CALL);
-                                        getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                            new GeneralDialog(getContext())
+                                    .setContent("再次发起视频聊天需花费200钻")
+                                    .setCallBack(new GeneralDialog.CallBack() {
+                                        @Override
+                                        public void submitClick(Dialog dialog) {
+                                            ConditionEntity condition = new ConditionEntity();
+                                            condition.setVideoType(ConditionEntity.VideoType.MATCH);
+                                            condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.SELF);
+                                            condition.getMatchConfig().setMask(MaskDialog.getCurrentMask());
+                                            condition.getMatchConfig().setUid(data.getUid());
+                                            condition.getMatchConfig().setMatchType(MatchConfig.MatchType.CALL);
+                                            getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                                        }
 
-                                    }).show();
+                                        @Override
+                                        public void cancelClick(Dialog dialog) {
+
+                                        }
+                                    })
+                                    .show();
+//                            new MaterialDialog.Builder(getActivity())
+//                                    .content("再次发起视频聊天需花费200钻")
+//                                    .negativeColorRes(R.color.base_gray)
+//                                    .negativeText("取消")
+//                                    .positiveText("确定")
+//                                    .positiveColorRes(R.color.base_yellow)
+//                                    .onPositive((dialog, which) -> {
+//
+//
+//                                    }).show();
                         } else {
                             CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
                         }

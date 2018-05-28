@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.appointment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.huanmedia.videochat.appointment.adapter.AppointmentListAdapter;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentSubmitPresenterImpl;
@@ -202,6 +204,9 @@ public class AppointmentActivity
         if (listData == null || listData.size() == 0) {
             mLLAppointmentLayout.setVisibility(View.GONE);
         } else {
+            AppBarLayout.LayoutParams mParams = (AppBarLayout.LayoutParams) mAppBar.getChildAt(0).getLayoutParams();
+            mParams.setScrollFlags
+                    (AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
             mAppointmentApdater.setData(listData);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
                     (ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelOffset(R.dimen.dimen_78dp) * listData.size());
@@ -255,17 +260,20 @@ public class AppointmentActivity
             showToast("还没有选择预约时间");
             return;
         }
-        new MaterialDialog.Builder(this)
-                .title("确认信息")
-                .content("您即将预约" + appointmentName + "在" + appointmentDate + "，" + appointmentTime + "视频聊天，并支付" + appointmentCoin + "钻石押金")
-                .negativeText("取消")
-                .positiveText("确定")
-                .negativeColorRes(R.color.base_gray)
-                .positiveColorRes(R.color.base_yellow)
-                .onPositive((dialog, which) -> {
-                    mAppointmentSubmitPresenter.submitAppointment();
-                })
-                .show();
+        GeneralDialog dialog = new GeneralDialog(getContext());
+        dialog
+                .setContent("您即将预约" + appointmentName + "在" + appointmentDate + " " + appointmentTime + "视频聊天，并支付" + appointmentCoin + "钻石押金。")
+                .setCallBack(new GeneralDialog.CallBack() {
+                    @Override
+                    public void submitClick(Dialog dialog) {
+                        mAppointmentSubmitPresenter.submitAppointment();
+                    }
+
+                    @Override
+                    public void cancelClick(Dialog dialog) {
+
+                    }
+                }).show();
     }
 
     /**

@@ -26,17 +26,16 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/dimen_10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/dimen_356dp">
 
             <TextView
                 android:id="@+id/my_account_tv_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_44dp"
-                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_104dp"
                 android:text="可提现M币"
-                android:textColor="#88ffffff"
+                android:textColor="@color/white"
                 android:textSize="@dimen/dimen_28dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -93,8 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dimen_44dp"
-            android:drawableRight="@drawable/icon_arrows"
             android:drawablePadding="@dimen/dimen_16dp"
+            android:drawableRight="@drawable/icon_arrows"
             android:textColor="@color/base_gray"
             android:textSize="@dimen/dimen_32dp"
             app:layout_constraintBottom_toBottomOf="@+id/my_account_tv_withdraw_deposit"
@@ -154,14 +153,14 @@
         </LinearLayout>
 
         <TextView
-            android:paddingTop="@dimen/dimen_44dp"
-            android:paddingBottom="@dimen/dimen_36dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/base_item_select"
             android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dimen_36dp"
             android:paddingEnd="@dimen/dimen_44dp"
             android:paddingStart="@dimen/dimen_44dp"
+            android:paddingTop="@dimen/dimen_44dp"
             android:text="200起提，按10的倍数输入（如：210,390）"
             android:textColor="@color/base_gray"
             android:textSize="@dimen/dimen_28dp" />
@@ -169,21 +168,19 @@
 
     <Button
         android:id="@+id/my_account_btn_ok"
-        android:layout_width="@dimen/dimen_600dp"
-        android:layout_height="@dimen/dimen_96dp"
+        style="@style/btn_submit_style_1"
+        android:layout_width="@dimen/dimen_632dp"
         android:layout_marginTop="@dimen/dimen_100dp"
-        android:background="@drawable/my_account_btn_solid"
         android:text="提现"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_account_ll_cash_withdrawal_amount" />
 
     <TextView
-        android:layout_marginTop="@dimen/dimen_8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
         android:gravity="center_horizontal"
         android:text="试运营期间，每月仅能提现800元，敬请谅解~\n如有更高额度需求，请联系官方微信：mengmiankeji"
         android:textColor="@color/base_gray"

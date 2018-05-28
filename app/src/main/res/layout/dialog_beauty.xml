@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="0.5dp"/>
     <android.support.v7.widget.RecyclerView
-        android:paddingEnd="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
         android:id="@+id/dialog_beauty_rv"
         app:layout_constraintTop_toBottomOf="@+id/dialog_beauty_v_line"
         app:layout_constraintStart_toStartOf="parent"

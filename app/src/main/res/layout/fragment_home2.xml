@@ -18,25 +18,20 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dimen_32dp"
+            android:layout_marginTop="@dimen/dimen_32dp"
             app:tl_divider_width="@dimen/dp_0"
             app:tl_iconVisible="false"
             app:tl_indicator_anim_enable="true"
             app:tl_indicator_color="@color/orange"
-            app:tl_indicator_corner_radius="@dimen/dp_2"
-            app:tl_indicator_height="@dimen/dp_2"
-            app:tl_indicator_width="@dimen/dp_16"
+            app:tl_indicator_corner_radius="@dimen/dimen_4dp"
+            app:tl_indicator_height="@dimen/dimen_4dp"
+            app:tl_indicator_width="@dimen/dimen_32dp"
             app:tl_tab_padding="@dimen/dimen_30dp"
             app:tl_textSelectColor="@color/base_black"
             app:tl_textUnselectColor="@color/base_gray"
-            app:tl_textsize="@dimen/tz_18" />
+            app:tl_textsize="@dimen/dimen_36dp" />
     </FrameLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_1dp"
-        android:background="@color/color_e8ebf1" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/main_home_vp_mainpage"

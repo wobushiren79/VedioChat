@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dimen_660dp"
+    android:layout_width="@dimen/dimen_600dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_marginLeft="@dimen/dimen_60dp"
@@ -14,22 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="@dimen/dimen_36dp"
+        android:layout_marginBottom="@dimen/dimen_26dp"
         android:layout_marginTop="@dimen/dimen_36dp"
         android:gravity="center"
         android:text="提示"
         android:textColor="@color/base_black"
-        android:textSize="@dimen/dimen_44dp"
+        android:textSize="@dimen/dimen_36dp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_60dp"
+        android:layout_marginBottom="@dimen/dimen_36dp"
         android:paddingRight="@dimen/dimen_44dp"
         android:paddingLeft="@dimen/dimen_44dp"
         android:textColor="@color/base_gray"
+        android:lineSpacingExtra="@dimen/dimen_18dp"
         android:textSize="@dimen/dimen_32dp" />
 
     <TextView

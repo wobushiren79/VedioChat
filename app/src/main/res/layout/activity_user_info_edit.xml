@@ -224,13 +224,14 @@
                         android:textSize="@dimen/dimen_32dp"
                         tools:text="萌萌的一百天" />
 
-                    <View
-                        android:id="@+id/user_info_edit_base_name_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/user_info_edit_base_name_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:background="@drawable/divider_ll" />
                 <!--性别-->
                 <RelativeLayout
                     android:id="@+id/user_info_edit_base_rl_sex"
@@ -261,13 +262,13 @@
                         android:textSize="@dimen/dimen_32dp"
                         tools:text="女" />
 
-                    <View
-                        android:id="@+id/user_info_edit_base_sex_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
+
+                <View
+                    android:id="@+id/user_info_edit_base_sex_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:background="@drawable/divider_ll" />
                 <!--年龄-->
                 <RelativeLayout
                     android:id="@+id/user_info_edit_base_rl_age"
@@ -298,13 +299,14 @@
                         android:textSize="@dimen/tz_16"
                         tools:text="18" />
 
-                    <View
-                        android:id="@+id/user_info_edit_base_age_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/divider_ll" />
+
                 </RelativeLayout>
+
+                <View
+                    android:id="@+id/user_info_edit_base_age_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:background="@drawable/divider_ll" />
                 <!--所在地-->
                 <RelativeLayout
                     android:id="@+id/user_info_edit_base_rl_addr"
@@ -337,13 +339,13 @@
                         android:textSize="@dimen/dimen_32dp"
                         tools:text="北京" />
 
-                    <View
-                        android:id="@+id/user_info_edit_base_addr_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
+
+                <View
+                    android:id="@+id/user_info_edit_base_addr_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:background="@drawable/divider_ll" />
                 <!--职业-->
                 <RelativeLayout
                     android:id="@+id/user_info_edit_base_rl_occupation"
@@ -377,13 +379,14 @@
                         android:textSize="@dimen/dimen_32dp"
                         tools:text="策划" />
 
-                    <View
-                        android:id="@+id/user_info_edit_base_occupation_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/divider_ll" />
                 </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/user_info_edit_base_occupation_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:background="@drawable/divider_ll" />
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
 

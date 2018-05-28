@@ -3,6 +3,7 @@ package com.huanmedia.videochat.discover;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.discover.adapter.BusinessCardAdapter;
 import com.huanmedia.videochat.discover.adapter.BusinessMultiItem;
@@ -233,36 +235,42 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                 if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < mData.getBase().getStarcoin()) {
                     CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
                 } else if (mData.getBase().getOnlinestatus() == 2) {
-                    ToastUtils.showToastShort(getContext(), "对方忙！");
+                    ToastUtils.showToastShortInCenter(getContext(), "TA正在连线哟~");
                 } else if (mData.getBase().getOnlinestatus() == 0) {
-                    ToastUtils.showToastShort(getContext(), "对方不在线！");
+                    ToastUtils.showToastShortInCenter(getContext(), "TA正在休息哦~");
                 } else if ((!isReadMain && UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= 20) ||//如果是视频直聊需要20钻石 固定
                         UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= mData.getBase().getStarcoin()) {
                     int cost = mData.getBase().getStarcoin() / (mData.getBase().getStartime() == 0 ? 1 : mData.getBase().getStartime());
-                    new MaterialDialog.Builder(getActivity())
-                            .content("视频聊天需花费" + ((!isReadMain) ? " 20钻" : String.format("%d钻/分钟", cost)))
-                            .negativeColorRes(R.color.base_gray)
-                            .negativeText("取消")
-                            .positiveText("确定")
-                            .positiveColorRes(R.color.base_yellow)
-                            .onPositive((dialog, which) -> {
-                                if (isReadMain) {
-                                    ConditionEntity condition = new ConditionEntity();
-                                    condition.setVideoType(ConditionEntity.VideoType.REDMAN);
-                                    condition.getReadMainConfig().setRedManId(mData.getBase().getUid());
-                                    condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
-                                    condition.getReadMainConfig().setRedMainStartCoin(mData.getBase().getStarcoin());
-                                    condition.getReadMainConfig().setReadMainStartTime(mData.getBase().getStartime());
-                                    getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
-                                } else {
-                                    ConditionEntity condition = new ConditionEntity();
-                                    condition.setVideoType(ConditionEntity.VideoType.MATCH);
-                                    condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.SELF);
-                                    condition.getMatchConfig().setMask(MaskDialog.getCurrentMask());
-                                    condition.getMatchConfig().setUid(mData.getBase().getUid());
-                                    getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                    GeneralDialog dialog = new GeneralDialog(getContext());
+                    dialog
+                            .setContent("视频聊天需花费" + ((!isReadMain) ? " 20钻" : String.format("%d钻/分钟", cost)))
+                            .setCallBack(new GeneralDialog.CallBack() {
+                                @Override
+                                public void submitClick(Dialog dialog) {
+                                    if (isReadMain) {
+                                        ConditionEntity condition = new ConditionEntity();
+                                        condition.setVideoType(ConditionEntity.VideoType.REDMAN);
+                                        condition.getReadMainConfig().setRedManId(mData.getBase().getUid());
+                                        condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
+                                        condition.getReadMainConfig().setRedMainStartCoin(mData.getBase().getStarcoin());
+                                        condition.getReadMainConfig().setReadMainStartTime(mData.getBase().getStartime());
+                                        getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                                    } else {
+                                        ConditionEntity condition = new ConditionEntity();
+                                        condition.setVideoType(ConditionEntity.VideoType.MATCH);
+                                        condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.SELF);
+                                        condition.getMatchConfig().setMask(MaskDialog.getCurrentMask());
+                                        condition.getMatchConfig().setUid(mData.getBase().getUid());
+                                        getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                                    }
                                 }
-                            }).show();
+
+                                @Override
+                                public void cancelClick(Dialog dialog) {
+
+                                }
+                            })
+                            .show();
                 } else {
                     CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
                 }

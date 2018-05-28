@@ -64,14 +64,14 @@
                 <TextView
                     android:layout_width="@dimen/dimen_32dp"
                     android:layout_height="@dimen/dimen_4dp"
-                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
                     android:background="@color/color_f65aa0" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/main_iv_back"
-                android:layout_width="@dimen/dp_38"
-                android:layout_height="@dimen/dp_38"
+                android:layout_width="@dimen/dimen_76dp"
+                android:layout_height="@dimen/dimen_76dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -99,7 +99,7 @@
                     android:layout_width="@dimen/dimen_76dp"
                     android:layout_height="@dimen/dimen_76dp"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginEnd="@dimen/dp_110"
+                    android:layout_marginRight="@dimen/dimen_220dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/btn_mask" />
 
@@ -108,7 +108,7 @@
                     android:layout_width="@dimen/dimen_76dp"
                     android:layout_height="@dimen/dimen_76dp"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginStart="@dimen/dp_110"
+                    android:layout_marginLeft="@dimen/dimen_220dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/btn_skincare" />
 

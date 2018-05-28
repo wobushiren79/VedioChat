@@ -17,6 +17,7 @@ import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.constants.TimeConstants;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.appointment.fragment.AppointmentListFragment;
+import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentConfirmPresenterImpl;
@@ -121,6 +122,13 @@ public class AppointmentListPtrAdapter extends BaseRCAdapter<AppointmentListResu
         } else {
 
         }
+
+        //个人资料
+        baseViewHolder.itemView.setOnClickListener(view -> {
+            BusinessCardDialog dialog = new BusinessCardDialog(getContext());
+            dialog.setUid(itemData.getUid());
+            dialog.show();
+        });
     }
 
     @Override
@@ -131,7 +139,6 @@ public class AppointmentListPtrAdapter extends BaseRCAdapter<AppointmentListResu
                 this.notifyItemChanged(i);
                 break;
             }
-
         }
     }
 

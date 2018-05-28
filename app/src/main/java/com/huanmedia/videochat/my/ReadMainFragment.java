@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.my;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.NoviceGuidanceView;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
+import com.huanmedia.videochat.common.widget.dialog.EditTextDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentSettingPresenterImpl;
@@ -277,58 +279,97 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
     }
 
     private void showQQDialog() {
-        View contentView = getLayoutInflater().inflate(R.layout.dialog_readmain_account, null, false);
-        MaterialDialog dialog = new MaterialDialog.Builder(context())
-                .customView(contentView, false)
-                .show();
-        TextView title = contentView.findViewById(R.id.dialog_readmain_account_tv_title);
-        EditText editText = contentView.findViewById(R.id.dialog_readmain_account_et);
-        TextView ok = contentView.findViewById(R.id.dialog_readmain_account_tv_ok);
-        TextView cancle = contentView.findViewById(R.id.dialog_readmain_account_tv_cancle);
-        title.setText("请输入QQ号");
-        title.setInputType(InputType.TYPE_CLASS_NUMBER);
-        dialog.setOnDismissListener(dialog1 -> InputMethodUtils.hideSoftInput(getActivity()));
-        ok.setOnClickListener(v -> {
-            String price = editText.getText().toString();
-            if (price.length() == 0) {
-                return;
-            } else {
-                dialog.dismiss();
-                if (!price.equals(mFrmTvQQAccountEnter.getText().toString())) {
-                    mFrmTvQQAccountEnter.setText(price);
-                    getBasePresenter().configPrice(null, price, 0);
+//        View contentView = getLayoutInflater().inflate(R.layout.dialog_readmain_account, null, false);
+//        MaterialDialog dialog = new MaterialDialog.Builder(context())
+//                .customView(contentView, false)
+//                .show();
+//        TextView title = contentView.findViewById(R.id.dialog_readmain_account_tv_title);
+//        EditText editText = contentView.findViewById(R.id.dialog_readmain_account_et);
+//        TextView ok = contentView.findViewById(R.id.dialog_readmain_account_tv_ok);
+//        TextView cancle = contentView.findViewById(R.id.dialog_readmain_account_tv_cancle);
+//        title.setText("请输入QQ号");
+//        title.setInputType(InputType.TYPE_CLASS_NUMBER);
+//        dialog.setOnDismissListener(dialog1 -> InputMethodUtils.hideSoftInput(getActivity()));
+//        ok.setOnClickListener(v -> {
+//            String price = editText.getText().toString();
+//            if (price.length() == 0) {
+//                return;
+//            } else {
+//                dialog.dismiss();
+//                if (!price.equals(mFrmTvQQAccountEnter.getText().toString())) {
+//                    mFrmTvQQAccountEnter.setText(price);
+//                    getBasePresenter().configPrice(null, price, 0);
+//                }
+//            }
+//        });
+//        cancle.setOnClickListener(v -> dialog.dismiss());
+
+        EditTextDialog etDialog = new EditTextDialog(getContext());
+        etDialog.setTitle("请输入QQ号");
+        etDialog.setEditTitle("QQ:");
+        etDialog.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etDialog.setCallBack(new EditTextDialog.CallBack() {
+            @Override
+            public void submitOnClick(Dialog view, String content) {
+                if (content.length() == 0) {
+                    return;
+                } else {
+                    etDialog.dismiss();
+                    if (!content.equals(mFrmTvQQAccountEnter.getText().toString())) {
+                        mFrmTvQQAccountEnter.setText(content);
+                        getBasePresenter().configPrice(null, content, 0);
+                    }
                 }
             }
         });
-        cancle.setOnClickListener(v -> dialog.dismiss());
+        etDialog.show();
     }
 
     private void showWxDialog() {
-        View contentView = getLayoutInflater().inflate(R.layout.dialog_readmain_account, null, false);
-        MaterialDialog dialog = new MaterialDialog.Builder(context())
-                .customView(contentView, false)
-                .show();
-        TextView title = contentView.findViewById(R.id.dialog_readmain_account_tv_title);
-        EditText editText = contentView.findViewById(R.id.dialog_readmain_account_et);
-        editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        TextView ok = contentView.findViewById(R.id.dialog_readmain_account_tv_ok);
-        TextView cancle = contentView.findViewById(R.id.dialog_readmain_account_tv_cancle);
-        title.setText("请输入微信号");
-        title.setInputType(InputType.TYPE_CLASS_TEXT);
-        dialog.setOnDismissListener(dialog1 -> InputMethodUtils.hideSoftInput(getActivity()));
-        ok.setOnClickListener(v -> {
-            String price = editText.getText().toString();
-            if (price.length() == 0) {
-                return;
-            } else {
-                dialog.dismiss();
-                if (!price.equals(mFrmTvWXAccountEnter.getText().toString())) {
-                    mFrmTvWXAccountEnter.setText(price);
-                    getBasePresenter().configPrice(price, null, 0);
+//        View contentView = getLayoutInflater().inflate(R.layout.dialog_readmain_account, null, false);
+//        MaterialDialog dialog = new MaterialDialog.Builder(context())
+//                .customView(contentView, false)
+//                .show();
+//        TextView title = contentView.findViewById(R.id.dialog_readmain_account_tv_title);
+//        EditText editText = contentView.findViewById(R.id.dialog_readmain_account_et);
+//        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+//        TextView ok = contentView.findViewById(R.id.dialog_readmain_account_tv_ok);
+//        TextView cancle = contentView.findViewById(R.id.dialog_readmain_account_tv_cancle);
+//        title.setText("请输入微信号");
+//        title.setInputType(InputType.TYPE_CLASS_TEXT);
+//        dialog.setOnDismissListener(dialog1 -> InputMethodUtils.hideSoftInput(getActivity()));
+//        ok.setOnClickListener(v -> {
+//            String price = editText.getText().toString();
+//            if (price.length() == 0) {
+//                return;
+//            } else {
+//                dialog.dismiss();
+//                if (!price.equals(mFrmTvWXAccountEnter.getText().toString())) {
+//                    mFrmTvWXAccountEnter.setText(price);
+//                    getBasePresenter().configPrice(price, null, 0);
+//                }
+//            }
+//        });
+//        cancle.setOnClickListener(v -> dialog.dismiss());
+
+        EditTextDialog etDialog = new EditTextDialog(getContext());
+        etDialog.setTitle("请输入微信号");
+        etDialog.setEditTitle("微信号:");
+        etDialog.setInputType(InputType.TYPE_CLASS_TEXT);
+        etDialog.setCallBack(new EditTextDialog.CallBack() {
+            @Override
+            public void submitOnClick(Dialog view, String content) {
+                if (content.length() == 0) {
+                    return;
+                } else {
+                    if (!content.equals(mFrmTvWXAccountEnter.getText().toString())) {
+                        mFrmTvWXAccountEnter.setText(content);
+                        getBasePresenter().configPrice(content, null, 0);
+                    }
                 }
             }
         });
-        cancle.setOnClickListener(v -> dialog.dismiss());
+        etDialog.show();
     }
 
     @SuppressWarnings("unchecked")
