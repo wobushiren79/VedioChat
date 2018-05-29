@@ -8,8 +8,8 @@
     android:background="@drawable/base_item_select"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:paddingEnd="@dimen/dp_0"
-    android:paddingStart="@dimen/dp_22">
+    android:paddingRight="@dimen/dp_0"
+    android:paddingLeft="@dimen/dp_22">
 
     <FrameLayout
         android:id="@+id/item_main_friend_fl_heard"
@@ -27,8 +27,7 @@
             android:scaleType="centerCrop"
             app:riv_border_color="@color/base_gray"
             app:riv_border_width="@dimen/dp_2"
-            app:riv_oval="true"
-            tools:src="@drawable/bg" />
+            app:riv_oval="true"/>
 
         <ImageView
             android:id="@+id/item_main_friend_iv_sex"
@@ -41,7 +40,7 @@
             android:id="@+id/item_main_friend_iv_flag"
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_50"
-            android:layout_marginStart="-12dp"
+            android:layout_marginLeft="-12dp"
             android:layout_marginTop="-9dp"
             tools:src="@drawable/icon_pendant_girl" />
     </FrameLayout>
@@ -50,7 +49,7 @@
         android:id="@+id/item_main_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginLeft="@dimen/dp_16"
         android:textColor="@color/base_black"
         android:textSize="@dimen/tz_16"
         app:layout_constraintStart_toEndOf="@id/item_main_friend_fl_heard"

@@ -23,6 +23,8 @@ import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
 import com.huanmedia.videochat.pay.MyWalletFragment;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 
 public class AppointmentListActivity extends BaseActivity implements OnTabSelectListener, ViewPager.OnPageChangeListener {
@@ -44,12 +46,26 @@ public class AppointmentListActivity extends BaseActivity implements OnTabSelect
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCurrentDate = getDefDay();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.account_particulars_menu, menu);
         return true;
+    }
+
+    /**
+     * 获取默认日期
+     *
+     * @return
+     */
+    private String getDefDay() {
+        //默认值
+        Calendar cal = Calendar.getInstance();
+        int currentYear = cal.get(Calendar.YEAR);
+        int currentMonth = cal.get(Calendar.MONTH);
+        return currentYear + "-" + (currentMonth + 1);
     }
 
     @Override

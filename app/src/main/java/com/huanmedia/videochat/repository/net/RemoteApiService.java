@@ -84,6 +84,11 @@ public interface RemoteApiService {
     @FormUrlEncoded
     Observable<DataResponse<DiscoverPageEntity>> readManList(@FieldMap Map<String, String> prams);
 
+    //约聊列表
+    @POST("/index/Chatpage/yuyelist")
+    @FormUrlEncoded
+    Observable<DataResponse<DiscoverPageEntity>> yuyeList(@FieldMap Map<String, String> prams);
+
     //随机列表未登录
     @POST("/index/findtouristpage/index")
     @FormUrlEncoded

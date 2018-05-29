@@ -228,7 +228,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     protected void initView() {
         checkNewVersion();
         mTabs = new ArrayList<>();
-        mTabs.add(new TabMode("发现", R.drawable.tab_home_found_sel, R.drawable.tab_home_found_nor));
+        mTabs.add(new TabMode("约聊", R.drawable.tab_home_found_sel, R.drawable.tab_home_found_nor));
         mTabs.add(new TabMode("萌友", R.drawable.tab_home_friend_sel, R.drawable.tab_home_friend_nor));
         mTabs.add(new TabMode("我", R.drawable.tab_home_my_sel, R.drawable.tab_home_my_nor));
 

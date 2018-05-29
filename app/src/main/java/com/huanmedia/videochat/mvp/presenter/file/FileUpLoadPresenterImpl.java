@@ -64,8 +64,8 @@ public class FileUpLoadPresenterImpl extends BaseMVPPresenter<IFileUpLoadView, F
             mMvpView.showToast("视频时长不能超过60秒");
             return null;
         }
-        if (videoInfo.getSize() > 100000000) {
-            mMvpView.showToast("视频大小不能超过100M");
+        if (videoInfo.getSize() > 30000000) {
+            mMvpView.showToast("视频大小不能超过30M");
             return null;
         }
         if (videoInfo.getVideoPath() == null) {

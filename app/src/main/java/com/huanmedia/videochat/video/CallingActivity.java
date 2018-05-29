@@ -423,7 +423,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             localVideoStarting = true;
             EventBus.getDefault().post(new Intent(EventBusAction.ACTION_MAINOPENCAMERA));
             SurfaceView surfaceV = RtcEngine.CreateRendererView(FApplication.getApplication());
-//        rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
+            rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
             mUidsList.put((int) UserManager.getInstance().getId(), surfaceV);
             mCallingFlVideoSmall.addView(surfaceV);
             surfaceV.setZOrderOnTop(true);

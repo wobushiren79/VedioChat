@@ -122,8 +122,6 @@ public class AppointmentActivity
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAppointmentApdater);
 
-        mTVTimeSelectDay.setText(getDefDay());
-        mTVTimeSelectTime.setText(getDefMin());
 
         mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -159,6 +157,8 @@ public class AppointmentActivity
     @Override
     public void getAppointmentUserInfoSuccess(AppointmentUserInfoResults results) {
         mUserData = results;
+        mTVTimeSelectDay.setText(getDefDay());
+        mTVTimeSelectTime.setText(getDefMin());
     }
 
     @Override
@@ -262,7 +262,11 @@ public class AppointmentActivity
         }
         GeneralDialog dialog = new GeneralDialog(getContext());
         dialog
-                .setContent("您即将预约" + appointmentName + "在" + appointmentDate + " " + appointmentTime + "视频聊天，并支付" + appointmentCoin + "钻石押金。")
+                .setContentHtml
+                        ("您即将预约" +
+                                "<font color='#f65aa0'>" + appointmentName + "</font>" +
+                                "在<font color='#f65aa0'>" + appointmentDate + " " + appointmentTime + "</font>视频聊天，" +
+                                "并支付" + appointmentCoin + "钻石押金。")
                 .setCallBack(new GeneralDialog.CallBack() {
                     @Override
                     public void submitClick(Dialog dialog) {
@@ -298,9 +302,44 @@ public class AppointmentActivity
     private String getDefMin() {
         //默认值
         Calendar cal = Calendar.getInstance();
-        int currentDay = cal.get(Calendar.HOUR_OF_DAY);
+        StringBuffer hourStr = new StringBuffer();
+        StringBuffer minuteStr = new StringBuffer();
+        int currentHour = cal.get(Calendar.HOUR_OF_DAY);
         int currentMinute = cal.get(Calendar.MINUTE);
-        return currentDay + ":" + currentMinute;
+
+        if ((currentMinute + 15) >= 60) {
+            if (currentHour < 23) {
+                currentHour += 1;
+            }
+            currentMinute = currentMinute + 15 - 60;
+        } else {
+            currentMinute += 15;
+        }
+
+        if (mUserData != null) {
+            int temp = currentMinute % 10;
+            if (mUserData.getTimeinterval() >= temp) {
+                currentMinute += (Math.abs(mUserData.getTimeinterval() - temp));
+                if (currentMinute >= 60) {
+                    if (currentHour < 23) {
+                        currentHour += 1;
+                    }
+                    currentMinute = currentMinute - 60;
+                }
+            } else {
+                currentMinute -= (Math.abs(mUserData.getTimeinterval() - temp));
+            }
+        }
+
+        if (currentMinute < 10) {
+            minuteStr.append("0");
+        }
+        if (currentHour < 10) {
+            hourStr.append("0");
+        }
+        hourStr.append(currentHour);
+        minuteStr.append(currentMinute);
+        return hourStr.toString() + ":" + minuteStr.toString();
     }
 
     /**
@@ -338,7 +377,33 @@ public class AppointmentActivity
 
     @Override
     public void submitAppointmentFail(String msg) {
-        showToast(msg);
+        if (msg.contains("金币不足"))
+            errorNoMoney();
+        else
+            showToast(msg);
+    }
+
+    /**
+     * 用户金币不足处理
+     */
+    private void errorNoMoney() {
+        GeneralDialog dialog = new GeneralDialog(getContext());
+        dialog
+                .setContent("抱歉，无法完成预约，此账户钻余额不足支付红人设定的最低价格。")
+                .setCallBack(new GeneralDialog.CallBack() {
+                    @Override
+                    public void submitClick(Dialog dialog) {
+                        getNavigator().navtoCoinPay(AppointmentActivity.this, null);
+                    }
+
+                    @Override
+                    public void cancelClick(Dialog dialog) {
+
+                    }
+                })
+                .setCancelText("我没钱")
+                .setSubmitText("我要充值")
+                .show();
     }
 
     @Override

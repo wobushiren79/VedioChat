@@ -1,7 +1,9 @@
 package com.huanmedia.videochat.main2;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
@@ -322,17 +324,13 @@ public class MainPresenter extends Presenter<MainView> {
                             break;
                         case "timeget":
                             String contentStr;
-                            Activity currentActivity;
+                            Activity currentActivity = ActivitManager.getAppManager().currentActivity();
                             boolean isCalling = ActivitManager.getAppManager().existsActivity(CallingActivity.class);
                             if (isCalling) {
-                                currentActivity = ActivitManager.getAppManager().getActivity(CallingActivity.class);
                                 contentStr = "您与" + data.getUnickname() + "已到预约视频聊天时间，点击发起视频，并挂掉当前视频通话";
                             } else {
-                                currentActivity = (Activity) getContext();
                                 contentStr = "您与" + data.getUnickname() + "已到预约视频聊天时间，点击发起视频";
                             }
-
-
                             GeneralDialog dialog = new GeneralDialog(currentActivity);
                             dialog
                                     .setContent(contentStr)

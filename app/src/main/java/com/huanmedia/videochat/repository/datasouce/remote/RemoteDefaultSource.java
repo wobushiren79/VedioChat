@@ -76,13 +76,16 @@ public class RemoteDefaultSource implements MainSource {
 
     @Override
     public Observable<DiscoverPageEntity> readMainList(Map<String, String> prams) {
-        return mRemoteApiService.readManList(prams).map(listDataResponse -> {
-            if (listDataResponse.getResult() == null) {
-                throw new ApiException(ApiException.NULL, "没有获取到数据");
-            } else {
-                return listDataResponse.getResult();
-            }
-        });
+        return mRemoteApiService
+//                .readManList(prams)
+                .yuyeList(prams)
+                .map(listDataResponse -> {
+                    if (listDataResponse.getResult() == null) {
+                        throw new ApiException(ApiException.NULL, "没有获取到数据");
+                    } else {
+                        return listDataResponse.getResult();
+                    }
+                });
     }
 
     @Override
@@ -382,7 +385,6 @@ public class RemoteDefaultSource implements MainSource {
             }
         });
     }
-
 
 
 }

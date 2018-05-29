@@ -37,8 +37,9 @@
                     android:gravity="right"
                     android:paddingRight="@dimen/dimen_44dp"
                     android:text="说明"
+                    android:textStyle="bold"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/dimen_30dp" />
+                    android:textSize="@dimen/dimen_32dp" />
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>

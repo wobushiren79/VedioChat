@@ -27,6 +27,7 @@ import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.common.widget.dialog.ReportDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.OPtionPopWindows;
 import com.huanmedia.videochat.repository.entity.ChatPeopleEntity;
@@ -170,10 +171,14 @@ public class FansFragment extends BaseMVPFragment<FansPresenter> implements Fans
                     @Override
                     public void onClick(View view) {
                         ChatPeopleEntity.ItemsEntity itemData = mAdapter.getItem(helper.getLayoutPosition());
-                        BusinessCardDialog dialog = new BusinessCardDialog(getContext());
-                        dialog.setUid(itemData.getUid());
-                        dialog.setDistance(itemData.getDistance());
-                        dialog.show();
+                        if (isRadmain) {
+                            getNavigator().navDiscoverInfo(getActivity(), itemData.getUid(), itemData.getDistance(), BusinessCardFragment.ShowType.ReadMan);
+                        } else {
+                            BusinessCardDialog dialog = new BusinessCardDialog(getContext());
+                            dialog.setUid(itemData.getUid());
+                            dialog.setDistance(itemData.getDistance());
+                            dialog.show();
+                        }
                     }
                 });
             }

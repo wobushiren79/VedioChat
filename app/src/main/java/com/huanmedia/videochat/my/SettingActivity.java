@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -48,9 +49,9 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
     @BindView(R.id.setting_tv_account)
     TextView mSettingTvAccount;
     @BindView(R.id.setting_notification_sb)
-    SwitchButton mSettingNotificationSb;
+    Switch mSettingNotificationSb;
     @BindView(R.id.setting_sound_sb)
-    SwitchButton mSettingSoundSb;
+    Switch mSettingSoundSb;
     DataKeeper mDataKeeper = new DataKeeper(FApplication.getApplication(), DataKeeper.DEFULTFILE);
     public static final String SETTING_KEY_NO_NOTIFICATION = "setting_key_no_notification";
     public static final String SETTING_KEY_SOUND = "setting_key_sound";

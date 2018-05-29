@@ -25,7 +25,7 @@
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"/>-->
     <LinearLayout
-        android:visibility="gone"
+
         android:id="@+id/ll_bt_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,17 +36,17 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/business_card_iv_appointment"
-            android:layout_width="@dimen/dimen_152dp"
+            android:layout_width="@dimen/dimen_272dp"
             android:layout_height="@dimen/dimen_152dp"
             android:layout_marginLeft="@dimen/dimen_60dp"
-            android:layout_marginRight="@dimen/dimen_60dp"
+            android:layout_marginRight="@dimen/dimen_30dp"
             android:src="@drawable/btn_information_appointment" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/business_card_iv_calling"
-            android:layout_width="@dimen/dimen_152dp"
+            android:layout_width="@dimen/dimen_272dp"
             android:layout_height="@dimen/dimen_152dp"
-            android:layout_marginLeft="@dimen/dimen_60dp"
+            android:layout_marginLeft="@dimen/dimen_30dp"
             android:layout_marginRight="@dimen/dimen_60dp"
             android:src="@drawable/btn_information_video" />
 

@@ -116,16 +116,23 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
                         .setText(R.id.item_discover_grids_tv_distance, Check.checkReplace(item.getDistance(), "未知"));
 
                 if (item.getOnlinestatus() == 0) {
-                    helper.setText(R.id.item_discover_grids_tv_status,
-                            TimeUtils.getFriendlyTimeSpanByFrom(item.getLogintime() * 1000L
-                                    , item.getSystemtime() * 1000L));
+//                    helper.setText(R.id.item_discover_grids_tv_status,
+//                            TimeUtils.getFriendlyTimeSpanByFrom(item.getLogintime() * 1000L
+//                                    , item.getSystemtime() * 1000L));
+                    helper.setText(R.id.item_discover_grids_tv_status, "可预约");
                 } else if (item.getOnlinestatus() == 1) {
                     helper.setText(R.id.item_discover_grids_tv_status, "在线");
                 } else if (item.getOnlinestatus() == 2) {
                     helper.setText(R.id.item_discover_grids_tv_status, "忙碌");
+                } else {
+                    helper.setText(R.id.item_discover_grids_tv_status, "可预约");
                 }
-
                 ImageView imageView = helper.getView(R.id.item_discover_grids_iv_status);
+                if (item.getOnlinestatus() == 0) {
+                    imageView.setVisibility(View.GONE);
+                } else {
+                    imageView.setVisibility(View.VISIBLE);
+                }
                 imageView.getDrawable().setLevel(item.getOnlinestatus());
                 String url = null;
                 if (item.getPhotos() != null && item.getPhotos().size() > 0) {

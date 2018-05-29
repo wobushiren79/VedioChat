@@ -1,5 +1,7 @@
 package com.huanmedia.videochat.appointment.adapter;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +18,19 @@ import com.huanmedia.ilibray.utils.TimeUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.constants.TimeConstants;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.appointment.AppointmentListActivity;
 import com.huanmedia.videochat.appointment.fragment.AppointmentListFragment;
 import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentConfirmPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.appointment.IAppointmentConfirmPresenter;
 import com.huanmedia.videochat.mvp.view.appointment.IAppointmentConfirmView;
 import com.makeramen.roundedimageview.RoundedImageView;
+
+import java.text.SimpleDateFormat;
 
 import kotlin.Unit;
 import mvp.data.store.glide.GlideApp;
@@ -63,7 +70,7 @@ public class AppointmentListPtrAdapter extends BaseRCAdapter<AppointmentListResu
         GlideApp.with(mContext).asBitmap().load(sexPicId).into(ivSex);
 
         tvName.setText(itemData.getNickname());
-        tvTime.setText(TimeUtils.getString("yyyy-MM-dd HH:mm", itemData.getDatetime(), TimeConstants.SEC));
+        tvTime.setText(TimeUtils.millis2String(itemData.getDatetime() * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm")));
 
         tvStatus.setVisibility(View.GONE);
         tvStatus.setTextColor(mContext.getResources().getColor(R.color.base_gray));
@@ -77,26 +84,38 @@ public class AppointmentListPtrAdapter extends BaseRCAdapter<AppointmentListResu
             } else {
                 llSubmitLayout.setVisibility(View.VISIBLE);
                 tvSubmit.setOnClickListener(view -> {
-                    new MaterialDialog.Builder(getContext())
-                            .content("是否确认该预约信息")
-                            .negativeColorRes(R.color.base_gray)
-                            .negativeText("否")
-                            .positiveText("是")
-                            .positiveColorRes(R.color.base_yellow)
-                            .onPositive((dialog, which) -> {
-                                mAppointmentConfirmPresenter.confirmAppointment(itemData.getAid());
-                            }).show();
+                    GeneralDialog dialog = new GeneralDialog(getContext());
+                    dialog
+                            .setContent("是否确认该预约信息")
+                            .setCallBack(new GeneralDialog.CallBack() {
+                                @Override
+                                public void submitClick(Dialog dialog) {
+                                    mAppointmentConfirmPresenter.confirmAppointment(itemData.getAid());
+                                }
+
+                                @Override
+                                public void cancelClick(Dialog dialog) {
+
+                                }
+                            })
+                            .show();
                 });
                 tvCancel.setOnClickListener(view -> {
-                    new MaterialDialog.Builder(getContext())
-                            .content("是否取消该预约信息")
-                            .negativeColorRes(R.color.base_gray)
-                            .negativeText("否")
-                            .positiveText("是")
-                            .positiveColorRes(R.color.base_yellow)
-                            .onPositive((dialog, which) -> {
-                                mAppointmentConfirmPresenter.cancelAppointment(itemData.getAid());
-                            }).show();
+                    GeneralDialog dialog = new GeneralDialog(getContext());
+                    dialog
+                            .setContent("是否取消该预约信息")
+                            .setCallBack(new GeneralDialog.CallBack() {
+                                @Override
+                                public void submitClick(Dialog dialog) {
+                                    mAppointmentConfirmPresenter.cancelAppointment(itemData.getAid());
+                                }
+
+                                @Override
+                                public void cancelClick(Dialog dialog) {
+
+                                }
+                            })
+                            .show();
                 });
             }
         } else if (itemData.getStatus() == 1) {
@@ -125,9 +144,15 @@ public class AppointmentListPtrAdapter extends BaseRCAdapter<AppointmentListResu
 
         //个人资料
         baseViewHolder.itemView.setOnClickListener(view -> {
-            BusinessCardDialog dialog = new BusinessCardDialog(getContext());
-            dialog.setUid(itemData.getUid());
-            dialog.show();
+            if (itemData.getIsstart() == 1) {
+                ((AppointmentListActivity) getContext()).getNavigator().navDiscoverInfo
+                        ((Activity) getContext(), itemData.getUid(), null, BusinessCardFragment.ShowType.ReadMan);
+            } else {
+                BusinessCardDialog dialog = new BusinessCardDialog(getContext());
+                dialog.setUid(itemData.getUid());
+                dialog.show();
+            }
+
         });
     }
 

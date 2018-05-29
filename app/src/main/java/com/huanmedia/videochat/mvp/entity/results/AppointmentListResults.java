@@ -22,6 +22,15 @@ public class AppointmentListResults extends ListDataResults {
         private long datetime; //预约人的时间戳
         private int sex;//1男 2女
         private int status;//预约的状态 0未处理 -1红人自己取消 -2用户取消  1红人确认
+        private int isstart;//1红人 0非红人
+
+        public int getIsstart() {
+            return isstart;
+        }
+
+        public void setIsstart(int isstart) {
+            this.isstart = isstart;
+        }
 
         public int getSex() {
             return sex;

@@ -276,7 +276,7 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
                 intent = new Intent(EventBusAction.ACTION_SYSTEM_MESSAGE);
                 intent.putExtra("msgCount", 0);
                 EventBus.getDefault().post(intent);
-                ToastUtils.showToastShort(getContext(), "功能开发中");
+                ToastUtils.showToastShortInCenter(getContext(), "功能开发中");
                 break;
             case R.id.my_fm_rl_setting://设置
                 getNavigator().navtoSetting(getActivity());

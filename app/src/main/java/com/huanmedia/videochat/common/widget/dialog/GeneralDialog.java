@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class GeneralDialog extends Dialog implements View.OnClickListener {
 
     private String titleStr;
     private String contentStr;
+    private String contentHtmlStr;
     private String submitStr;
     private String cancelStr;
 
@@ -54,9 +56,13 @@ public class GeneralDialog extends Dialog implements View.OnClickListener {
 
     private void initData() {
         mTVTitle.setText(titleStr);
-        mTVContent.setText(contentStr);
         mTVSubmit.setText(submitStr);
         mTVCancel.setText(cancelStr);
+
+        if (contentStr != null && contentStr.length() > 0)
+            mTVContent.setText(contentStr);
+        if (contentHtmlStr != null && contentHtmlStr.length() > 0)
+            mTVContent.setText(Html.fromHtml(contentHtmlStr));
 
         mTVSubmit.setOnClickListener(this);
         mTVCancel.setOnClickListener(this);
@@ -79,6 +85,17 @@ public class GeneralDialog extends Dialog implements View.OnClickListener {
      */
     public GeneralDialog setContent(String content) {
         contentStr = content;
+        return this;
+    }
+
+    /**
+     * 设置富文本
+     *
+     * @param content
+     * @return
+     */
+    public GeneralDialog setContentHtml(String content) {
+        contentHtmlStr = content;
         return this;
     }
 
