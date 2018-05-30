@@ -33,7 +33,18 @@
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_24dp"
             tools:text="(接受后可获得10钻)" />
+
+        <TextView
+            android:id="@+id/video_call_tv_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_44dp"
+            android:text="10秒后即将开始..."
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_36dp" />
     </LinearLayout>
+
+
 
     <com.huanmedia.videochat.video.widget.RippleBackground
         android:id="@+id/video_calling_rbg"

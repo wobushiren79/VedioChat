@@ -31,6 +31,7 @@ import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.service.notifserver.HuaWeiPushHelper;
 import com.huanmedia.videochat.common.service.notifserver.PushServiceManager;
 import com.huanmedia.videochat.common.utils.UMengUtils;
+import com.huanmedia.videochat.common.widget.AppointmentHintView;
 import com.huanmedia.videochat.common.widget.NoviceGuidanceView;
 import com.huanmedia.videochat.main2.datamodel.TabMode;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
@@ -54,6 +55,7 @@ import org.lzh.framework.updatepluginlib.UpdateBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 
@@ -72,6 +74,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     CommonTabLayout mMainCommonTablayout;
     @BindView(R.id.view_noviceguidance)
     NoviceGuidanceView mGuidanceView;
+    @BindView(R.id.appointment_hint_view)
+    AppointmentHintView mHintView;
 
     private ArrayList<CustomTabEntity> mTabs;
     private Fragment[] mFragments;
@@ -216,13 +220,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     public void onUpDataCoin(CoinChangeEvent typeMode) {//支付成功
         getBasePresenter().coinChange();
     }
-
-
-//    @Override
-//    public boolean isImmersionBarEnabled() {
-//        return false;
-//    }
-
 
     @Override
     protected void initView() {
@@ -393,7 +390,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
     @Override
     public void uploadUserDataSuccess() {
-
     }
 
     @Override
@@ -409,5 +405,10 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     @Override
     public void showToast(String toast) {
         ToastUtils.showToastShort(getContext(), toast);
+    }
+
+    @Override
+    public void showAppointmentHint(int coundDownTime) {
+        mHintView.startCountDown(coundDownTime);
     }
 }

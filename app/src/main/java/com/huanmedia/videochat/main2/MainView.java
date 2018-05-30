@@ -7,5 +7,5 @@ import mvp.view.BaseView;
  */
 
 public interface MainView extends BaseView {
-
+    void showAppointmentHint(int coundDownTime);
 }

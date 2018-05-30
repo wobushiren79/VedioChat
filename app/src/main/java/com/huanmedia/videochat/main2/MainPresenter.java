@@ -318,6 +318,7 @@ public class MainPresenter extends Presenter<MainView> {
                     AppointmentEntity data = mGson.fromJson(mGson.toJson(message.getBody()), AppointmentEntity.class);
                     switch (message.getStype()) {
                         case "daojishi":
+                            getView().showAppointmentHint((int) (data.getApptime() - data.getSystime()));
                             break;
                         case "cancel":
                             sysNotice(message);
@@ -332,6 +333,7 @@ public class MainPresenter extends Presenter<MainView> {
                                 contentStr = "您与" + data.getUnickname() + "已到预约视频聊天时间，点击发起视频";
                             }
                             GeneralDialog dialog = new GeneralDialog(currentActivity);
+
                             dialog
                                     .setContent(contentStr)
                                     .setCallBack(new GeneralDialog.CallBack() {
@@ -350,7 +352,7 @@ public class MainPresenter extends Presenter<MainView> {
                                             VideoChatEntity videoChatEntity = new VideoChatEntity();
                                             videoChatEntity.setTouid(data.getUidfrom());
                                             condition.getReadMainConfig().setVideoChatConfig(videoChatEntity);
-                                            ((BaseActivity) getContext()).getNavigator().navtoCalling((Activity) getContext(), condition, "连接中...; ");
+                                            ((BaseActivity) getContext()).getNavigator().navtoCalling((Activity) getContext(), condition, "您已进入约聊中;");
                                         }
 
                                         @Override

@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceView;
 import android.view.View;
@@ -116,6 +117,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     TextView mVideoCallTvSmallCalling;
     @BindView(R.id.video_call_ll_hint)
     LinearLayout mVideoCallLlHint;
+    @BindView(R.id.video_call_tv_countdown)
+    TextView mVideoCallTvCountDown;
     @BindView(R.id.video_call_iv_header)
     RoundedImageView mVideoCallIvHeader;
     @BindView(R.id.video_calling_tv_name)
@@ -263,20 +266,31 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
             if (conditionEntigy.getVideoType() == VideoType.REDMAN) {
                 if (conditionEntigy.getReadMainConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
-                    //对方拨打电话
-                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATERECEIVE);//超时计时器
                     VideoChatEntity mvideoConfig = conditionEntigy.getReadMainConfig().getVideoChatConfig();
                     mvideoConfig.set_location_VideoType(conditionEntigy.getVideoType());
                     getBasePresenter().setVideoChatEntity(mvideoConfig);
-//                    setUserData(mvideoConfig);
                     setCallingUserData(mvideoConfig);
-                    mVideoCallIvAnswer.setVisibility(View.VISIBLE);
-                } else {//呼叫对方
+                } else {
                     getBasePresenter().setSendEndCallMsg(true);
-                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATECALL);//超时计时器
                     getBasePresenter().chatBegininfo();
-                    startCallAnim();
                 }
+                getBasePresenter().addDisposable(RxCountDown.countdown(10).subscribe(//匹配成功后等待10秒执行连接
+                        integer -> {
+                            if (integer == 0) {
+                                mVideoCallTvCountDown.setVisibility(View.GONE);
+                                if (conditionEntigy.getReadMainConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
+                                    //对方拨打电话
+                                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATERECEIVE);//超时计时器
+                                    mVideoCallIvAnswer.setVisibility(View.VISIBLE);
+                                } else {//呼叫对方
+                                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATECALL);//超时计时器
+                                    startCallAnim();
+                                }
+                            } else {
+                                mVideoCallTvCountDown.setText(integer + "秒后即将开始...");
+                            }
+                        }));
+
             } else {
                 if (conditionEntigy.getMatchConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
                     //对方拨打电话
@@ -1363,7 +1377,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         }
         isConnection = true;
         setCallingUserData(videoChatEntity);
-        getBasePresenter().addDisposable(RxCountDown.delay(3).subscribe(//匹配成功后等待3秒执行连接
+        getBasePresenter().addDisposable(RxCountDown.delay(10).subscribe(//匹配成功后等待10秒执行连接
                 integer -> {
                     if (!isConnection)
                         return;

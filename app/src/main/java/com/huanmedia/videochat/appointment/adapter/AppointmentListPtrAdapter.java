@@ -139,7 +139,9 @@ public class AppointmentListPtrAdapter extends BaseRCAdapter<AppointmentListResu
         } else if (itemData.getStatus() == -2) {
             //自己取消
         } else {
-
+            tvStatus.setVisibility(View.VISIBLE);
+            tvStatus.setTextColor(mContext.getResources().getColor(R.color.base_gray));
+            tvStatus.setText("未处理");
         }
 
         //个人资料

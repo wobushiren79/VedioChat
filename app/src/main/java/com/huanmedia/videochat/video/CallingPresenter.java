@@ -454,7 +454,7 @@ public class CallingPresenter extends Presenter<CallingView> {
 
     void callTimerStart(String action) {
         if (mCallTimer == null)
-            mCallTimer = RxCountDown.delay(60).subscribe(
+            mCallTimer = RxCountDown.delay(40).subscribe(
                     integer -> {
                         if (!isNullView()) {
                             switch (action) {
