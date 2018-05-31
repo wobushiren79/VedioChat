@@ -290,7 +290,7 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
                 getNavigator().navtoUserInfoEdit(getActivity(), false, null);
                 break;
             case R.id.my_fm_rl_appointment:
-                getNavigator().navtoAppointmentList(getActivity());
+                getNavigator().navtoAppointmentList(getActivity(),0);
                 break;
         }
     }

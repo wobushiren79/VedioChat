@@ -320,7 +320,7 @@ public class MainPresenter extends Presenter<MainView> {
                     AppointmentEntity data = mGson.fromJson(mGson.toJson(message.getBody()), AppointmentEntity.class);
                     switch (message.getStype()) {
                         case "daojishi":
-                            getView().showAppointmentHint((int) (data.getApptime() - data.getSystime()));
+                            getView().showAppointmentHint((int) (data.getApptime() - data.getSystime()), data.getUidfrom(), data.getUidto());
                             break;
                         case "cancel":
                         case "appointconfirm":
@@ -339,7 +339,7 @@ public class MainPresenter extends Presenter<MainView> {
                                 contentStr = "您与" + data.getUnickname() + "已到预约视频聊天时间，点击发起视频";
                             }
                             GeneralDialog dialog = new GeneralDialog(currentActivity);
-
+                            dialog.setCanceledOnTouchOutside(false);
                             dialog
                                     .setContent(contentStr)
                                     .setCallBack(new GeneralDialog.CallBack() {

@@ -18,6 +18,7 @@ import com.applecoffee.devtools.base.layout.BaseLinearLayout;
 import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.common.manager.UserManager;
 
 
 import io.reactivex.disposables.Disposable;
@@ -28,6 +29,8 @@ public class AppointmentHintView extends BaseLinearLayout implements View.OnTouc
     private TextView mTVTime;
     private boolean hasAnim = false;
     private int lastX, lastY;
+    private int mReadManId = 0;
+    private int mNormalId = 0;
 
     private AnimationSet mAnimationSet;
     private Disposable mCountDownDis;
@@ -63,9 +66,11 @@ public class AppointmentHintView extends BaseLinearLayout implements View.OnTouc
      * 开始倒计时
      * @param second
      */
-    public void startCountDown(int second) {
+    public void startCountDown(int second, int fromId, int toId) {
         if (second <= 0)
             return;
+        mReadManId = fromId;
+        mNormalId = toId;
         this.setVisibility(VISIBLE);
         showViewAnim();
         if (mCountDownDis != null)
@@ -214,7 +219,13 @@ public class AppointmentHintView extends BaseLinearLayout implements View.OnTouc
                 if (Math.abs(downX - (int) event.getRawX()) > 50 || Math.abs(downY - (int) event.getRawY()) > 50) {
 
                 } else {
-                    ((BaseActivity) getContext()).getNavigator().navtoAppointmentList((Activity) getContext());
+                    int tabPosition = 0;
+                    if (UserManager.getInstance().getCurrentUser().getId() == mReadManId) {
+                        tabPosition = 0;
+                    } else if (UserManager.getInstance().getCurrentUser().getId() == mNormalId) {
+                        tabPosition = 1;
+                    }
+                    ((BaseActivity) getContext()).getNavigator().navtoAppointmentList((Activity) getContext(), tabPosition);
                 }
                 break;
             default:

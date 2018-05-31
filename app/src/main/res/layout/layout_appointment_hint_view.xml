@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dimen_100dp"
-    android:layout_height="@dimen/dimen_100dp"
+    android:layout_width="@dimen/dimen_125dp"
+    android:layout_height="@dimen/dimen_125dp"
     android:background="@drawable/icon_cricle_style_1"
     android:gravity="center"
     android:orientation="vertical">
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="约"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_28dp" />
 

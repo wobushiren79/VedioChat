@@ -23,6 +23,8 @@ import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
 import com.huanmedia.videochat.pay.MyWalletFragment;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -35,11 +37,13 @@ public class AppointmentListActivity extends BaseActivity implements OnTabSelect
     @BindView(R.id.view_pager)
     ViewPager mVPList;
 
+
     AppointmentListFragment[] fragments;
     private String mCurrentDate = "";
 
-    public static Intent getCallingIntent(Context context) {
+    public static Intent getCallingIntent(Context context, int tabPosition) {
         Intent intent = new Intent(context, AppointmentListActivity.class);
+        intent.putExtra("tabPosition", tabPosition);
         return intent;
     }
 
@@ -118,7 +122,12 @@ public class AppointmentListActivity extends BaseActivity implements OnTabSelect
         mVPList.setAdapter(new AppointmentFragmentAdapter(getSupportFragmentManager(), fragments));
         mVPList.setOffscreenPageLimit(2);
         mTitleTab.setViewPager(mVPList, titles);
-        this.onTabSelect(0);
+        int tabPosition = getIntent().getIntExtra("tabPosition", 0);
+        if (titles.length == 1) {
+            this.onTabSelect(0);
+        } else {
+            this.onTabSelect(tabPosition);
+        }
     }
 
     @Override

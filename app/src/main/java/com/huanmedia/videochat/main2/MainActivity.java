@@ -408,7 +408,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     }
 
     @Override
-    public void showAppointmentHint(int coundDownTime) {
-        mHintView.startCountDown(coundDownTime);
+    public void showAppointmentHint(int coundDownTime, int fromId, int toId) {
+        mHintView.startCountDown(coundDownTime, fromId, toId);
     }
 }

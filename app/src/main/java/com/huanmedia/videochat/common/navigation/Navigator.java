@@ -305,7 +305,7 @@ public class Navigator {
      *
      * @param context
      */
-    public void navtoAppointmentList(Activity context) {
-        context.startActivity(AppointmentListActivity.getCallingIntent(context));
+    public void navtoAppointmentList(Activity context, int tabPosition) {
+        context.startActivity(AppointmentListActivity.getCallingIntent(context, tabPosition));
     }
 }

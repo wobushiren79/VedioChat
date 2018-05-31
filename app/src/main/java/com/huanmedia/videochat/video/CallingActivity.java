@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.faceunity.FUManager;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.ilibray.utils.RxCountDown;
@@ -87,6 +88,7 @@ import io.agora.propeller.preprocessing.VideoPreProcessing;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.reactivex.disposables.Disposable;
+import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.GlideUtils;
 
 public class CallingActivity extends BaseVideoActivity<CallingPresenter> implements CallingView, AGEventHandler {
