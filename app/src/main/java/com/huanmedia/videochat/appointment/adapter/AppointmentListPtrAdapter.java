@@ -138,6 +138,10 @@ public class AppointmentListPtrAdapter extends BaseRCAdapter<AppointmentListResu
             }
         } else if (itemData.getStatus() == -2) {
             //自己取消
+        } else if (itemData.getStatus() == -3) {
+            tvStatus.setVisibility(View.VISIBLE);
+            tvStatus.setTextColor(mContext.getResources().getColor(R.color.base_gray));
+            tvStatus.setText("预约单超时");
         } else {
             tvStatus.setVisibility(View.VISIBLE);
             tvStatus.setTextColor(mContext.getResources().getColor(R.color.base_gray));

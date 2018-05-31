@@ -287,6 +287,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                                     startCallAnim();
                                 }
                             } else {
+                                mVideoCallTvCountDown.setVisibility(View.VISIBLE);
                                 mVideoCallTvCountDown.setText(integer + "秒后即将开始...");
                             }
                         }));
@@ -1376,8 +1377,14 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             return;
         }
         isConnection = true;
+        int delayTime = 1;
+        if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN) {
+            if (getBasePresenter().getCondition().getReadMainConfig().getRequestType() == ConditionEntity.RequestType.SELF) {
+                delayTime = 10;
+            }
+        }
         setCallingUserData(videoChatEntity);
-        getBasePresenter().addDisposable(RxCountDown.delay(10).subscribe(//匹配成功后等待10秒执行连接
+        getBasePresenter().addDisposable(RxCountDown.delay(delayTime).subscribe(//匹配成功后等待10秒执行连接
                 integer -> {
                     if (!isConnection)
                         return;

@@ -95,7 +95,13 @@ public class NotificationMessageActivity extends BaseMVPActivity<NotificationMes
             @Override
             protected void convert(BaseViewHolder helper, SystemMessage item) {
                 TextView titleView = helper.getView(R.id.item_notif_msg_tv_title);
-                titleView.setText(Check.checkReplace(item.getTitle() + item.getDesc()));
+                String title = item.getTitle();
+                String desc = item.getDesc();
+                if (title == null)
+                    title = "";
+                if (desc == null)
+                    desc = "";
+                titleView.setText(Check.checkReplace(title + desc));
                 helper.setText(R.id.item_notif_msg_tv_time, Check.checkReplace(item.getStrtime()));
                 if (!Check.isEmpty(item.getUrl())) {
                     helper.itemView.setOnClickListener(v -> {
@@ -114,7 +120,7 @@ public class NotificationMessageActivity extends BaseMVPActivity<NotificationMes
                     helper.itemView.setOnClickListener(null);
                     TextViewDrawableUtils.clearDrawable(titleView);
                 }
-                if (item.getType().equals("SYSTEMNOTICE")) {
+                if (item != null && item.getType() != null && item.getType().equals("SYSTEMNOTICE")) {
                     ((RecyclerView.LayoutParams) helper.itemView.getLayoutParams()).topMargin = DisplayUtil.dip2px(context(), 20);
                     helper.setImageResource(R.id.item_notif_msg_iv_icon, R.drawable.icon_system_notice);
                 } else {

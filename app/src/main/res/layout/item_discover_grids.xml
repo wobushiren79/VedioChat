@@ -46,6 +46,8 @@
             android:src="@drawable/online_status" />
 
         <TextView
+            android:paddingRight="@dimen/dimen_12dp"
+            android:paddingLeft="@dimen/dimen_12dp"
             android:id="@+id/item_discover_grids_tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

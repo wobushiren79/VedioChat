@@ -102,14 +102,14 @@ public class AppointmentListActivity extends BaseActivity implements OnTabSelect
         int isStarauth = UserManager.getInstance().getCurrentUser().getUserinfo().getIsstarauth();
         String[] titles;
         if (isStarauth == 1 && starButton == 1) {
-            titles = new String[]{"被预约", "预约"};
+            titles = new String[]{"预约订单", "我的预约"};
             AppointmentListFragment mReadManAppointment = new AppointmentListFragment();
             mReadManAppointment.setUserType(AppointmentListFragment.UserType.READMAN);
             AppointmentListFragment mNormalAppointment = new AppointmentListFragment();
             mNormalAppointment.setUserType(AppointmentListFragment.UserType.NORMAL);
             fragments = new AppointmentListFragment[]{mReadManAppointment, mNormalAppointment};
         } else {
-            titles = new String[]{"预约"};
+            titles = new String[]{"我的预约"};
             AppointmentListFragment mNormalAppointment = new AppointmentListFragment();
             mNormalAppointment.setUserType(AppointmentListFragment.UserType.NORMAL);
             fragments = new AppointmentListFragment[]{mNormalAppointment};

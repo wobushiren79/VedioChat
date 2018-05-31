@@ -313,6 +313,8 @@ public class MainPresenter extends Presenter<MainView> {
                             UserManager.getInstance().outLogin(null);
                             UserManager.getInstance().exit();
                             break;
+                        default:
+                            break;
                     }
                 } else if (message.getType().equals("appointmentNotice")) {
                     AppointmentEntity data = mGson.fromJson(mGson.toJson(message.getBody()), AppointmentEntity.class);
@@ -321,7 +323,11 @@ public class MainPresenter extends Presenter<MainView> {
                             getView().showAppointmentHint((int) (data.getApptime() - data.getSystime()));
                             break;
                         case "cancel":
+                        case "appointconfirm":
                             sysNotice(message);
+                            break;
+                        case "hasnewappoint":
+                            systemMsg(message);
                             break;
                         case "timeget":
                             String contentStr;
@@ -455,8 +461,10 @@ public class MainPresenter extends Presenter<MainView> {
                             SystemMessage systemMessage = systemMessages.get(i);
                             NotificationMode mode = new NotificationMode();
                             mode.setNotifiID(systemMessage.getMsgId());
-                            mode.setTitle(systemMessage.getTitle());
-                            mode.setContent(systemMessage.getDesc());
+                            if (systemMessage.getTitle() != null)
+                                mode.setTitle(systemMessage.getTitle());
+                            if (systemMessage.getDesc() != null)
+                                mode.setContent(systemMessage.getDesc());
                             if (i == 0) {
                                 NotificationHandler.sendNotification(mode);
                             } else {
@@ -490,8 +498,10 @@ public class MainPresenter extends Presenter<MainView> {
                     EventBus.getDefault().post(systemMessage);
                     NotificationMode mode = new NotificationMode();
                     mode.setNotifiID(Integer.valueOf(message.getFrom()));
-                    mode.setTitle(systemMessage.getTitle());
-                    mode.setContent(systemMessage.getDesc());
+                    if (systemMessage.getTitle() != null)
+                        mode.setTitle(systemMessage.getTitle());
+                    if (systemMessage.getDesc() != null)
+                        mode.setContent(systemMessage.getDesc());
                     NotificationHandler.sendNotification(mode);
                     UserManager.getInstance().setSystemMsgMaxId(systemMessage.getMsgId());
                     int count = -1;

@@ -35,6 +35,7 @@
             tools:text="(接受后可获得10钻)" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/video_call_tv_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

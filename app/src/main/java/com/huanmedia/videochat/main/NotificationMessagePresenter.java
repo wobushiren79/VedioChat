@@ -39,6 +39,8 @@ public class NotificationMessagePresenter extends Presenter<NotificationMessageV
 
                             for (int i = 0; i < data.size(); i++) {
                                 SystemMessage message = data.get(i);
+                                if (message == null || message.getType() == null)
+                                    continue;
                                 if (!message.getType().equals("SYSTEMNOTICE")) {
                                     buffer.append(data.get(i).getId());
                                     buffer.append(",");
