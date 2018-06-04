@@ -389,7 +389,7 @@ public class AppointmentActivity
     private void errorNoMoney() {
         GeneralDialog dialog = new GeneralDialog(getContext());
         dialog
-                .setContent("抱歉，无法完成预约，此账户钻余额不足支付红人设定的最低价格。")
+                .setContent("抱歉，无法完成预约，此账户钻石余额小于红人设定的最低价格。")
                 .setCallBack(new GeneralDialog.CallBack() {
                     @Override
                     public void submitClick(Dialog dialog) {

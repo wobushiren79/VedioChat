@@ -18,6 +18,7 @@ import com.huanmedia.ilibray.utils.Installation;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.cipher.Base64Cipher;
 import com.huanmedia.videochat.BuildConfig;
+import com.huanmedia.videochat.appointment.AppointmentListActivity;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.event.EventBusAction;
@@ -40,6 +41,7 @@ import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.MatchConfig;
 import com.huanmedia.videochat.repository.datasouce.impl.MainRepostiory;
 import com.huanmedia.videochat.repository.entity.AppointmentEntity;
+import com.huanmedia.videochat.repository.entity.CoinEntity;
 import com.huanmedia.videochat.repository.entity.SMsgEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.huanmedia.videochat.repository.entity.VideoChatEntity;
@@ -296,9 +298,9 @@ public class MainPresenter extends Presenter<MainView> {
                         case "WARNING":
                             Object items = message.getBody().get("items");
                             if (items == null) {
-                                sysNotice(message);
+                                sysNotice(message, null);
                             } else {
-                                sysNotices(message);
+                                sysNotices(message, null);
                             }
                             break;
                         case "STARAUTH"://红人认证通知
@@ -306,7 +308,7 @@ public class MainPresenter extends Presenter<MainView> {
                             break;
                         case "CASHTOACCOUNT"://提现通知
                         case "SYSTEMDIAMOND"://系统发放钻石
-                            systemMsg(message);
+                            systemMsg(message, null);
                             break;
                         case "OUTACCOUNT"://踢下线
                             ToastUtils.showToastShort(getContext(), "您已被封号");
@@ -324,10 +326,10 @@ public class MainPresenter extends Presenter<MainView> {
                             break;
                         case "cancel":
                         case "appointconfirm":
-                            sysNotice(message);
+                            sysNotice(message, AppointmentListActivity.class);
                             break;
                         case "hasnewappoint":
-                            systemMsg(message);
+                            systemMsg(message, AppointmentListActivity.class);
                             break;
                         case "timeget":
                             String contentStr;
@@ -369,6 +371,14 @@ public class MainPresenter extends Presenter<MainView> {
                                     .show();
                             break;
                     }
+                } else if (message.getType().equals("coin")) {
+                    switch (message.getStype()) {
+                        case "coin":
+                            CoinEntity data = mGson.fromJson(mGson.toJson(message.getBody()), CoinEntity.class);
+                            UserManager.getInstance().getCurrentUser().getUserinfo().setCoin(data.getCoin());
+                            systemMsg(message, null);
+                            break;
+                    }
                 }
             }
 
@@ -386,7 +396,7 @@ public class MainPresenter extends Presenter<MainView> {
         WebSocketManager.getInstance().addMessageListener(mWsListener);
     }
 
-    private void systemMsg(WMessage message) {
+    private void systemMsg(WMessage message, Class intentActivity) {
         Observable.just(message)
                 .compose(ThreadExecutorHandler.toMain(ResourceManager.getInstance().getDefaultThreadProvider()))
                 .map(message1 -> {
@@ -399,6 +409,8 @@ public class MainPresenter extends Presenter<MainView> {
                     mode.setNotifiID(Integer.valueOf(message.getFrom()));
                     mode.setTitle(systemMessage.getTitle());
                     mode.setContent(systemMessage.getDesc());
+                    if (intentActivity != null)
+                        mode.setIntentActivity(intentActivity);
                     NotificationHandler.sendNotification(mode);
                     int count = -1;
                     if (!ActivitManager.getAppManager().existsActivity(NotificationMessageActivity.class)) {
@@ -446,7 +458,7 @@ public class MainPresenter extends Presenter<MainView> {
         });
     }
 
-    private void sysNotices(WMessage message) {//登录后返回的未推送系统消息列表
+    private void sysNotices(WMessage message, Class intentActivity) {//登录后返回的未推送系统消息列表
         Observable.just(message)
                 .compose(ThreadExecutorHandler.toMain(ResourceManager.getInstance().getDefaultThreadProvider()))
                 .map(message1 -> {
@@ -465,6 +477,8 @@ public class MainPresenter extends Presenter<MainView> {
                                 mode.setTitle(systemMessage.getTitle());
                             if (systemMessage.getDesc() != null)
                                 mode.setContent(systemMessage.getDesc());
+                            if (intentActivity != null)
+                                mode.setIntentActivity(intentActivity);
                             if (i == 0) {
                                 NotificationHandler.sendNotification(mode);
                             } else {
@@ -488,7 +502,7 @@ public class MainPresenter extends Presenter<MainView> {
 
     }
 
-    private void sysNotice(WMessage message) {
+    private void sysNotice(WMessage message, Class intentActivity) {
         Observable.just(message)
                 .compose(ThreadExecutorHandler.toMain(ResourceManager.getInstance().getDefaultThreadProvider()))
                 .map(message1 -> {
@@ -502,6 +516,8 @@ public class MainPresenter extends Presenter<MainView> {
                         mode.setTitle(systemMessage.getTitle());
                     if (systemMessage.getDesc() != null)
                         mode.setContent(systemMessage.getDesc());
+                    if (intentActivity != null)
+                        mode.setIntentActivity(intentActivity);
                     NotificationHandler.sendNotification(mode);
                     UserManager.getInstance().setSystemMsgMaxId(systemMessage.getMsgId());
                     int count = -1;

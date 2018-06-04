@@ -95,7 +95,10 @@ public class LoginFragment extends BaseMVPFragment<LoginPresenter> implements Lo
             });
         }
         mLoginTvFirsttosee.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-        mLoginEtPhone.setText(UserManager.getInstance().getOldUserPhone());
+        if (UserManager.getInstance().getOldUserPhone() != null && UserManager.getInstance().getOldUserPhone().length() > 0) {
+            mLoginEtPhone.setText(UserManager.getInstance().getOldUserPhone());
+            mLoginTvSmscode.setEnabled(true);
+        }
         mLoginEtPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
