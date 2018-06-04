@@ -23,6 +23,7 @@ import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.manager.ActivitManager;
+import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.launch.StartActivity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
@@ -94,6 +95,7 @@ public class LoginFragment extends BaseMVPFragment<LoginPresenter> implements Lo
             });
         }
         mLoginTvFirsttosee.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        mLoginEtPhone.setText(UserManager.getInstance().getOldUserPhone());
         mLoginEtPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -452,7 +452,7 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
 
     @Override
     public void showToast(String toast) {
-        ToastUtils.showToastShort(getContext(), toast);
+        ToastUtils.showToastShortInCenter(getContext(), toast);
     }
 
     /**

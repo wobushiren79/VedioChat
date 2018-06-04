@@ -44,7 +44,24 @@ public class UMengUtils {
             String eventID = "banner_ads";
             Map<String, String> dataMap = new HashMap<>();
             dataMap.put("banner_id", bannerId);
-            baseSendMsg(context, eventID, dataMap,1);
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /***
+     * 预约提示点击
+     * @param context
+     */
+    public static void AppointmentHintClick(Context context) {
+        try {
+            long userId = UserManager.getInstance().getCurrentUser().getId();
+            String eventID = "appointment_hint";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("user_id", userId + "");
+            baseSendMsg(context, eventID, dataMap, 1);
         } catch (Exception e) {
             e.printStackTrace();
         }

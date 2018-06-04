@@ -24,6 +24,7 @@ import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.orhanobut.logger.Logger;

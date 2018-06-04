@@ -19,6 +19,7 @@ import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 
 
 import io.reactivex.disposables.Disposable;
@@ -225,6 +226,7 @@ public class AppointmentHintView extends BaseLinearLayout implements View.OnTouc
                     } else if (UserManager.getInstance().getCurrentUser().getId() == mNormalId) {
                         tabPosition = 1;
                     }
+                    UMengUtils.AppointmentHintClick(getContext());
                     ((BaseActivity) getContext()).getNavigator().navtoAppointmentList((Activity) getContext(), tabPosition);
                 }
                 break;

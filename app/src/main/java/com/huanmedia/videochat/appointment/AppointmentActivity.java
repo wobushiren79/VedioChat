@@ -223,7 +223,7 @@ public class AppointmentActivity
 
     @Override
     public void showToast(String toast) {
-        ToastUtils.showToastLong(this, toast);
+        ToastUtils.showToastShortInCenter(this, toast);
     }
 
     @OnClick({R.id.ll_select_min_layout, R.id.ll_select_day_layout, R.id.tv_submit})
