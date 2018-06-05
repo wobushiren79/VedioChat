@@ -233,7 +233,17 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                 }
                 boolean isReadMain = mData.getBase().getStarbutton() == 1 && mData.getBase().getIsstarauth() == 1;
                 if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < mData.getBase().getStarcoin()) {
-                    CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
+                    CommDialogUtils.showInsufficientBalance(getActivity(), new GeneralDialog.CallBack() {
+                        @Override
+                        public void submitClick(Dialog dialog) {
+                            getNavigator().navtoCoinPay(getActivity(), null);
+                        }
+
+                        @Override
+                        public void cancelClick(Dialog dialog) {
+
+                        }
+                    });
                 } else if (mData.getBase().getOnlinestatus() == 2) {
                     ToastUtils.showToastShortInCenter(getContext(), "TA正在连线哟~");
                 } else if (mData.getBase().getOnlinestatus() == 0) {
@@ -272,7 +282,18 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                             })
                             .show();
                 } else {
-                    CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
+                    CommDialogUtils.showInsufficientBalance(getActivity(), new GeneralDialog.CallBack() {
+                        @Override
+                        public void submitClick(Dialog dialog) {
+                            getNavigator().navtoCoinPay(getActivity(), null);
+                        }
+
+                        @Override
+                        public void cancelClick(Dialog dialog) {
+
+                        }
+                    });
+
                 }
                 break;
         }

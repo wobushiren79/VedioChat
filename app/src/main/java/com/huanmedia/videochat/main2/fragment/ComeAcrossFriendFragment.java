@@ -189,7 +189,17 @@ public class ComeAcrossFriendFragment extends BaseMVPFragment<ComeAcrossFriendPr
 //
 //                                    }).show();
                         } else {
-                            CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
+                            CommDialogUtils.showInsufficientBalance(getActivity(), new GeneralDialog.CallBack() {
+                                @Override
+                                public void submitClick(Dialog dialog) {
+                                    getNavigator().navtoCoinPay(getActivity(), null);
+                                }
+
+                                @Override
+                                public void cancelClick(Dialog dialog) {
+
+                                }
+                            });
                         }
                     }
                 });

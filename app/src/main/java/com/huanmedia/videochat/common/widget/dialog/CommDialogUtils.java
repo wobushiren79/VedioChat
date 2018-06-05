@@ -13,7 +13,7 @@ import com.huanmedia.videochat.R;
  */
 
 public class CommDialogUtils {
-    public static MaterialDialog showInsufficientBalance(Context context, MaterialDialog.SingleButtonCallback callback){
+    public static MaterialDialog showInsufficientBalance(Context context, MaterialDialog.SingleButtonCallback callback) {
         return new MaterialDialog
                 .Builder(context)
                 .title("余额不足")
@@ -22,10 +22,23 @@ public class CommDialogUtils {
                 .negativeColorRes(R.color.base_yellow)
                 .positiveColorRes(R.color.base_gray)
                 .positiveText("取消")
-                .onNegative(callback).show();
+                .onNegative(callback)
+                .show();
     }
 
-    public static MaterialDialog showNavToLogin(Context context,MaterialDialog.SingleButtonCallback callback) {
+    public static GeneralDialog showInsufficientBalance(Context context, GeneralDialog.CallBack callback) {
+        GeneralDialog dialog = new GeneralDialog(context);
+        dialog
+                .setContent("您的钻石余额不足，是否需要充值？")
+                .setTitle("余额不足")
+                .setSubmitText("前往充值")
+                .setCancelText("取消")
+                .setCallBack(callback)
+                .show();
+        return dialog;
+    }
+
+    public static MaterialDialog showNavToLogin(Context context, MaterialDialog.SingleButtonCallback callback) {
         return new MaterialDialog.Builder(context)
                 .content("您还没有登录，请登录后再试")
                 .negativeText("取消")

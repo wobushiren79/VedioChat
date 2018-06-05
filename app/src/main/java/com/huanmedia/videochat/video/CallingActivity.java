@@ -48,6 +48,7 @@ import com.huanmedia.videochat.common.service.notifserver.ringtone.RingtoneManag
 import com.huanmedia.videochat.common.widget.dialog.CheckContactDialog;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.EvaluationDialog;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.main2.weight.BeautyDialog;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
@@ -747,9 +748,17 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 //                endCall();
 //                break;
             case -8405://余额不足
-                CommDialogUtils.showInsufficientBalance(this, (dialog, which) -> {
-                    coinPay();
-                    dialog.dismiss();
+                CommDialogUtils.showInsufficientBalance(this, new GeneralDialog.CallBack() {
+                    @Override
+                    public void submitClick(Dialog dialog) {
+                        coinPay();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void cancelClick(Dialog dialog) {
+
+                    }
                 });
                 break;
             case -1:
@@ -953,18 +962,25 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                 @Override
                 public void onMaskTa(View view) {
                     if (getBasePresenter().getVideoChatEntity().getTomask() != 0) {
-                        new MaterialDialog.Builder(context()).title("确认信息")
-                                .content("本次揭面需花费您 50钻")
-                                .negativeText("取消")
-                                .negativeColorRes(R.color.base_gray)
-                                .positiveText("确定")
-                                .positiveColorRes(R.color.base_yellow)
-                                .onPositive((dialog, which) -> getBasePresenter().chatCoinConsumption(
-                                        Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid())
-                                        , 6
-                                        , 1
-                                ))
-                                .show();
+                        GeneralDialog dialog = new GeneralDialog(context());
+                        dialog
+                                .setContent("本次揭面需花费您 50钻")
+                                .setCallBack(new GeneralDialog.CallBack() {
+                                    @Override
+                                    public void submitClick(Dialog dialog) {
+                                        getBasePresenter().chatCoinConsumption(
+                                                Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid())
+                                                , 6
+                                                , 1
+                                        );
+                                    }
+
+                                    @Override
+                                    public void cancelClick(Dialog dialog) {
+
+                                    }
+                                }).show();
+
                     }
                 }
 
@@ -1220,21 +1236,25 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
     private void endCallBtn() {
         if (isVideoCalling) {
-            new MaterialDialog.Builder(this)
-                    .content("是否挂断当前视频聊天？")
-                    .negativeText("取消")
-                    .positiveText("确定")
-                    .negativeColorRes(R.color.base_gray)
-                    .positiveColorRes(R.color.base_yellow)
-                    .onPositive((dialog, which) -> {
-                        if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN) {
-                            getBasePresenter().setEndFlag(1);
+            GeneralDialog dialog = new GeneralDialog(this);
+            dialog
+                    .setContent("是否挂断当前视频聊天？")
+                    .setCallBack(new GeneralDialog.CallBack() {
+                        @Override
+                        public void submitClick(Dialog dialog) {
+                            if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN) {
+                                getBasePresenter().setEndFlag(1);
+                            }
+                            RingtoneManager.getInstance().stopSoundVibrate();
+                            isEndCall = true;
+                            endCall();
                         }
-                        RingtoneManager.getInstance().stopSoundVibrate();
-                        isEndCall = true;
-                        endCall();
-                    })
-                    .show();
+
+                        @Override
+                        public void cancelClick(Dialog dialog) {
+
+                        }
+                    }).show();
         } else {
             if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN
                     && getBasePresenter().getCondition().getReadMainConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
@@ -1446,7 +1466,17 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
     @Override
     public void showBalanceDeficiency() {//余额不足
-        CommDialogUtils.showInsufficientBalance(this, (dialog, which) -> coinPay());
+        CommDialogUtils.showInsufficientBalance(this, new GeneralDialog.CallBack() {
+            @Override
+            public void submitClick(Dialog dialog) {
+                coinPay();
+            }
+
+            @Override
+            public void cancelClick(Dialog dialog) {
+
+            }
+        });
     }
 
     @Override

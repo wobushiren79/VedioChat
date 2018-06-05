@@ -28,6 +28,10 @@ android {
         ]
     }
     buildToolsVersion '27.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -36,7 +40,7 @@ dependencies {
     compileOnly deps.support.annotations
     compileOnly deps.support.app_compat
     compileOnly deps.support.recyclerview
-    implementation ('me.zhanghai.android.materialprogressbar:library:' + versions_md.mdProgressBar){
+    implementation('me.zhanghai.android.materialprogressbar:library:' + versions_md.mdProgressBar) {
         exclude group: 'com.android.support'
     }
 }
