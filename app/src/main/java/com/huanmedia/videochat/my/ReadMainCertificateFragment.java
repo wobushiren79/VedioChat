@@ -148,7 +148,7 @@ public class ReadMainCertificateFragment extends BaseMVPFragment<ReadMainCertifi
                 getBasePresenter().checkCompleteness();
                 break;
             case R.id.rmc_tv_protocol_name:
-                getNavigator().navtoWebActiviyt(getActivity(), HostManager.getHtmlUrl() + "wordh5/commitment.html", "用户协议");
+                getNavigator().navtoWebActivity(getActivity(), HostManager.getHtmlUrl() + "wordh5/commitment.html", "用户协议");
 
                 break;
         }

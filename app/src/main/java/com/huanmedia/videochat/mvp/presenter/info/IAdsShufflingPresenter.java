@@ -1,5 +1,5 @@
 package com.huanmedia.videochat.mvp.presenter.info;
 
-public interface IShufflingAdsPresenter {
+public interface IAdsShufflingPresenter {
     void getShufflingAdsInfo();
 }

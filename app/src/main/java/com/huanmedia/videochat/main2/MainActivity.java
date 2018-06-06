@@ -33,6 +33,7 @@ import com.huanmedia.videochat.common.service.notifserver.PushServiceManager;
 import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.widget.AppointmentHintView;
 import com.huanmedia.videochat.common.widget.NoviceGuidanceView;
+import com.huanmedia.videochat.common.widget.dialog.MainHintDialog;
 import com.huanmedia.videochat.main2.datamodel.TabMode;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.adapter.MainPageFragmentAdapter;

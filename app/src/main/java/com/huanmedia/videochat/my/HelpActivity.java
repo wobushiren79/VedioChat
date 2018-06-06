@@ -65,10 +65,10 @@ public class HelpActivity extends BaseMVPActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_new_layout:
-                getNavigator().navtoWebActiviyt(this, HostManager.getHtmlUrl() + "wordh5/helpnewuser/guide1.html", getString(R.string.activity_help_title_1));
+                getNavigator().navtoWebActivity(this, HostManager.getHtmlUrl() + "wordh5/helpnewuser/guide1.html", getString(R.string.activity_help_title_1));
                 break;
             case R.id.ll_call_layout:
-                getNavigator().navtoWebActiviyt(this, HostManager.getHtmlUrl() + "wordh5/helpnotice/call.html", getString(R.string.activity_help_title_2));
+                getNavigator().navtoWebActivity(this, HostManager.getHtmlUrl() + "wordh5/helpnotice/call.html", getString(R.string.activity_help_title_2));
                 break;
         }
     }

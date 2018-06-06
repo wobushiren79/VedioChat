@@ -149,8 +149,19 @@ public class Navigator {
      * @param url
      * @param title
      */
-    public void navtoWebActiviyt(Activity activity, String url, String title) {
+    public void navtoWebActivity(Activity activity, String url, String title) {
         activity.startActivity(LocalHtmlWebActivity.getCallingIntent(activity, url, title));
+    }
+
+    /**
+     * 跳转到Web页面
+     *
+     * @param activity
+     * @param url
+     * @param title
+     */
+    public void navtoWebActivityForResult(Activity activity, String url, String title, int requestCode) {
+        activity.startActivityForResult(LocalHtmlWebActivity.getCallingIntent(activity, url, title), requestCode);
     }
 
     /**

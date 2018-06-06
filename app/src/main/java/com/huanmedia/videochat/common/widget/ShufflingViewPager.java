@@ -15,36 +15,29 @@ import android.widget.RadioGroup;
 
 import com.applecoffee.devtools.base.layout.BaseLinearLayout;
 import com.huanmedia.ilibray.utils.RxCountDown;
-import com.huanmedia.ilibray.utils.TimeUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.utils.UMengUtils;
-import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
-import com.huanmedia.videochat.mvp.presenter.info.IShufflingAdsPresenter;
-import com.huanmedia.videochat.mvp.presenter.info.ShufflingAdsPresenterImpl;
-import com.huanmedia.videochat.mvp.view.info.IShufflingAdsView;
+import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
+import com.huanmedia.videochat.mvp.presenter.info.IAdsShufflingPresenter;
+import com.huanmedia.videochat.mvp.presenter.info.AdsShufflingPresenterImpl;
+import com.huanmedia.videochat.mvp.view.info.IAdsShufflingView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import mvp.data.store.glide.GlideApp;
-import mvp.data.store.glide.GlideUtils;
 
-public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAdsView {
+public class ShufflingViewPager extends BaseLinearLayout implements IAdsShufflingView {
 
     private ViewPager mVPContent;
     private RadioGroup mRGContent;
 
-    private IShufflingAdsPresenter mShufflingAdsPresenter;
-    private List<ShufflingAdsResults> mListAdsData;
+    private IAdsShufflingPresenter mShufflingAdsPresenter;
+    private List<AdsShufflingResults> mListAdsData;
     private List<ImageView> mListView;
     private List<RadioButton> mListRBView;
 
@@ -70,7 +63,7 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
         mListView = new ArrayList<>();
         mListAdsData = new ArrayList<>();
         mListRBView = new ArrayList<>();
-        mShufflingAdsPresenter = new ShufflingAdsPresenterImpl(this);
+        mShufflingAdsPresenter = new AdsShufflingPresenterImpl(this);
         mShufflingAdsPresenter.getShufflingAdsInfo();
     }
 
@@ -81,7 +74,7 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
 
 
     @Override
-    public void getShufflingAdsSuccess(List<ShufflingAdsResults> listData) {
+    public void getShufflingAdsSuccess(List<AdsShufflingResults> listData) {
         this.mListAdsData = listData;
         setViewPagerData();
     }
@@ -107,7 +100,7 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
         mListView.clear();
         mListRBView.clear();
         mRGContent.removeAllViews();
-        for (ShufflingAdsResults itemData : mListAdsData) {
+        for (AdsShufflingResults itemData : mListAdsData) {
             ImageView itemView = new ImageView(getContext());
             itemView.setScaleType(ImageView.ScaleType.FIT_XY);
             itemView.setOnClickListener((view) -> {
@@ -119,7 +112,7 @@ public class ShufflingViewPager extends BaseLinearLayout implements IShufflingAd
                         break;
                     case 2:
                     case 3:
-                        ((BaseActivity) getContext()).getNavigator().navtoWebActiviyt
+                        ((BaseActivity) getContext()).getNavigator().navtoWebActivity
                                 ((Activity) getContext(), itemData.getLinkurl(), null);
                         break;
                 }

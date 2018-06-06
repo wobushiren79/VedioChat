@@ -157,7 +157,7 @@ public class TrustValueActivity extends BaseMVPActivity<TrustValuePresenter> imp
     public void viewOnClick(View view) {
         switch (view.getId()) {
             case R.id.tv_explain:
-                getNavigator().navtoWebActiviyt(this, HostManager.getHtmlUrl() + "wordh5/intro.html", "用户协议");
+                getNavigator().navtoWebActivity(this, HostManager.getHtmlUrl() + "wordh5/intro.html", "用户协议");
                 break;
         }
     }

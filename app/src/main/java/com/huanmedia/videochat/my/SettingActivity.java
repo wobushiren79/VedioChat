@@ -154,7 +154,7 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
                 getNavigator().navtoFeedBack(this);
                 break;
             case R.id.setting_other_user_agreement_rl_desable:
-                getNavigator().navtoWebActiviyt(this, HostManager.getServiceUrl() + "index/h5page/about", "用户协议");
+                getNavigator().navtoWebActivity(this, HostManager.getServiceUrl() + "index/h5page/about", "用户协议");
                 break;
             case R.id.setting_checkNew_rl:
                 if (mUpdata == null) {

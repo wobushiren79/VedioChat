@@ -1,6 +1,6 @@
 package com.huanmedia.videochat.mvp.entity.results;
 
-public class ShufflingAdsResults {
+public class AdsShufflingResults {
     private int id;
     private String title;
     private String ctime;
