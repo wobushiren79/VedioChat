@@ -16,16 +16,23 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.huanmedia.ilibray.utils.DevUtils;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.navigation.Navigator;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import mvp.data.store.glide.GlideApp;
 
 public class MainHintDialog extends Dialog {
 
     private @MainHintType
     int mMainHintType;
     private String mContentStr;
+    private String mTitleStr;
+    private String mImageUrl;
+    private String mJumpUrl;
 
     @Retention(RetentionPolicy.SOURCE)
     public @interface MainHintType {
@@ -62,26 +69,35 @@ public class MainHintDialog extends Dialog {
 
 
     private void initView() {
+        ImageView ivContent = findViewById(R.id.iv_content);
+        ImageView ivCancel = findViewById(R.id.iv_cancel);
         switch (mMainHintType) {
             case 1:
                 ImageView ivBackDebris = findViewById(R.id.iv_back_debris);
                 ImageView ivBackLight = findViewById(R.id.iv_back_light);
-                ImageView ivContent = findViewById(R.id.iv_content);
-                ImageView ivCancel = findViewById(R.id.iv_cancel);
                 TextView tvContent = findViewById(R.id.tv_content);
 
                 tvContent.setText(mContentStr);
-                ivCancel.setOnClickListener(view -> {
-                    this.cancel();
-                });
                 setBackLightAnim(ivBackLight);
                 setBackDebris(ivBackDebris);
                 setCoinAnim(ivContent);
                 setContentTextAnim(tvContent);
                 break;
             default:
+                GlideApp.with(getContext()).load(mImageUrl).into(ivContent);
+                ivContent.setOnClickListener(view -> {
+                    if (mJumpUrl != null && mJumpUrl.length() > 0) {
+                        Navigator navigator = new Navigator();
+                        navigator.navtoWebActivity(DevUtils.scanForActivity(getContext()), mJumpUrl, null);
+                        this.cancel();
+                    }
+                });
                 break;
         }
+
+        ivCancel.setOnClickListener(view -> {
+            this.cancel();
+        });
     }
 
 
@@ -96,6 +112,33 @@ public class MainHintDialog extends Dialog {
      */
     public void setContentText(String contentText) {
         mContentStr = contentText;
+    }
+
+
+    /***
+     * 设置标题文字
+     * @param mTitleStr
+     */
+    public void setTitleStr(String mTitleStr) {
+        this.mTitleStr = mTitleStr;
+    }
+
+    /**
+     * 设置图片内容
+     *
+     * @param mImageUrl
+     */
+    public void setImageUrl(String mImageUrl) {
+        this.mImageUrl = mImageUrl;
+    }
+
+    /**
+     * 设置跳转地址
+     *
+     * @param mJumpUrl
+     */
+    public void setJumpUrl(String mJumpUrl) {
+        this.mJumpUrl = mJumpUrl;
     }
 
     /**

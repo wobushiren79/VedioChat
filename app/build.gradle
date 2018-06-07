@@ -27,6 +27,8 @@ def getAppChannelId() {
 //    019.wifi的推广渠道号 (车上)
 //    020.公众号
 //    21.无流量页面
+    //22.渠道_22_联想开放平台
+    //23渠道_23_金立开放平台
     return "0"
 }
 
@@ -112,7 +114,6 @@ android {
             buildConfigField "int", "appChannel", getAppChannelId()
             resValue "string", "_AppName", "萌面-DEV"
             dimension "dev"
-            resConfigs "xxhdpi"
         }
         devTest {
             build_versions.networkType = 2
@@ -120,7 +121,6 @@ android {
             buildConfigField "int", "appChannel", getAppChannelId()
             resValue "string", "_AppName", "萌面-RC"
             dimension "dev"
-            resConfigs "xxhdpi"
         }
         prod {
             build_versions.networkType = 3

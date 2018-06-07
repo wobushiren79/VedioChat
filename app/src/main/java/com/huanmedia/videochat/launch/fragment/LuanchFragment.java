@@ -25,6 +25,7 @@ import com.huanmedia.videochat.common.BaseFragment;
 import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.event.EventBusAction;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.launch.StartActivity;
 import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
 import com.huanmedia.videochat.mvp.presenter.info.AdsLuanchPresenterImpl;
@@ -69,6 +70,7 @@ public class LuanchFragment extends BaseFragment implements IAdsLuanchView {
     private String mLuanchJumpUrl = "";
 
     private IAdsLuanchPresenter mAdsLuanchPresenter;
+    private boolean showFirstGuide;
 
     @Override
     protected int getLayoutId() {
@@ -77,6 +79,7 @@ public class LuanchFragment extends BaseFragment implements IAdsLuanchView {
 
     @Override
     protected void initView(View view) {
+        showFirstGuide = new DataKeeper(getContext(), DataKeeper.DEFULTFILE).get("showFirstGuide", true);
         mAdsLuanchPresenter = new AdsLuanchPresenterImpl(this);
         mAdsLuanchPresenter.getAdsLuanchInfo();
         disposable = Observable
@@ -140,7 +143,6 @@ public class LuanchFragment extends BaseFragment implements IAdsLuanchView {
      */
     private void start() {
         mIVAds.setOnClickListener(null);
-        boolean showFirstGuide = new DataKeeper(getContext(), DataKeeper.DEFULTFILE).get("showFirstGuide", true);
         if (showFirstGuide) {
             EventBus.getDefault().post(new Intent(EventBusAction.SCHEME_ACTION + "://" + EventBusAction.LUANCH_HOST + FirstGuideFragment.TAG));
         } else {
@@ -188,6 +190,7 @@ public class LuanchFragment extends BaseFragment implements IAdsLuanchView {
             if (mLuanchAdsDis != null)
                 mLuanchAdsDis.dispose();
             getNavigator().navtoWebActivityForResult(getActivity(), jumpUrl, null, 1);
+            UMengUtils.LuanchAdsClick(getContext(), jumpUrl);
         });
     }
 
