@@ -12,6 +12,7 @@ import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
 import java.util.List;
 
 public class AppointmentListModelImpl extends BaseMVPModel implements IAppointmentListModel {
+
     @Override
     public void getAppointmentListForReadMan(Context context, PageRequest params, DataCallBack callBack) {
         MHttpManagerFactory.getMainManager().getAppointmentListForReadMan(context, params, new HttpResponseHandler<AppointmentListResults>() {
@@ -41,4 +42,5 @@ public class AppointmentListModelImpl extends BaseMVPModel implements IAppointme
             }
         });
     }
+
 }
