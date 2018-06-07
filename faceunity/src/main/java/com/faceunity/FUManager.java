@@ -1,5 +1,6 @@
 package com.faceunity;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;

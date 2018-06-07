@@ -213,7 +213,7 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
 
     @Override
     protected void deInitUIandEvent() {
-        if (getBasePresenter() == null) return;
+        if (getBasePresenter() == null || !FUManager.hasInstance()) return;
         FUManager.getInstance(context()).destroyItems();
         //释放视频资源
         if (isInitEvent) {
