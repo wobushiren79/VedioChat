@@ -17,6 +17,9 @@ import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.media.view.MediaPlayView;
+import com.huanmedia.videochat.media.view.MediaPlayView2;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 
 import java.util.ArrayList;
@@ -72,7 +75,7 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
         for (int i = 0; i < mListVedioUrl.size(); i++) {
             if (mListVedioUrl.get(i) == null)
                 continue;
-            MediaPlayView itemView = new MediaPlayView();
+            MediaPlayView2 itemView = new MediaPlayView2();
             itemView.setVedioUrl(mListVedioUrl.get(i));
             mListVedioView.add(itemView);
         }
@@ -82,7 +85,7 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
         mMediaoVP.addOnPageChangeListener(this);
         mMediaoVP.setOffscreenPageLimit(mListVedioView.size());
         mMediaoVP.setCurrentItem(getIntent().getIntExtra("position", 0));
-        ((MediaPlayView) mListVedioView.get(getIntent().getIntExtra("position", 0))).setFirst(true);
+//        ((MediaPlayView) mListVedioView.get(getIntent().getIntExtra("position", 0))).setFirst(true);
         mTVPage.setText((getIntent().getIntExtra("position", 0) + 1) + "/" + mListVedioUrl.size());
     }
 
@@ -94,11 +97,9 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
     @Override
     public void onPageSelected(int position) {
         for (int i = 0; i < mListVedioView.size(); i++) {
-            MediaPlayView itemView = (MediaPlayView) mListVedioView.get(i);
+            MediaPlayView2 itemView = (MediaPlayView2) mListVedioView.get(i);
             if (position == i) {
                 itemView.startVideo();
-            } else {
-                itemView.stopVideo();
             }
         }
         mTVPage.setText((position + 1) + "/" + mListVedioUrl.size());
@@ -114,6 +115,32 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
         if (v == mIVExit) {
             finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (GSYVideoManager.backFromWindowFull(this)) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        GSYVideoManager.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GSYVideoManager.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GSYVideoManager.releaseAllVideos();
     }
 }
 

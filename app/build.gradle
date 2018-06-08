@@ -27,8 +27,8 @@ def getAppChannelId() {
 //    019.wifi的推广渠道号 (车上)
 //    020.公众号
 //    21.无流量页面
-    //22.渠道_22_联想开放平台
-    //23渠道_23_金立开放平台
+    //22.联想开放平台
+    //23.金立开放平台
     return "0"
 }
 
@@ -164,10 +164,10 @@ android {
 android.applicationVariants.all { variant ->
     variant.outputs.all {
         if (variant.buildType.name.equals('debug')) {
-            outputFileName = "VideoChat_${variant.name}_t${variant.versionName}_${variant.versionCode}_Channel" + getAppChannelId() + ".apk";
+            outputFileName = "VideoChat_${variant.name}_t${variant.versionName}_c${variant.versionCode}_Channel" + getAppChannelId() + ".apk";
         }
         if (variant.buildType.name.equals('release')) {
-            outputFileName = "VideoChat_${variant.name}_v${variant.versionName}_${variant.versionCode}-${getApkCreateDate()}_Channel" + getAppChannelId() + ".apk"
+            outputFileName = "VideoChat_${variant.name}_v${variant.versionName}_c${variant.versionCode}-${getApkCreateDate()}_Channel" + getAppChannelId() + ".apk"
         }
     }
 }
@@ -250,6 +250,6 @@ dependencies {
     implementation 'com.github.wobushiren79:DevTools:version_0.288'
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
 
-//    implementation 'com.shuyu:gsyVideoPlayer-java:5.0.0-beta'
-//    implementation 'com.shuyu:gsyVideoPlayer-ex_so:5.0.0-beta'
+    implementation 'com.shuyu:gsyVideoPlayer-java:5.0.0-beta'
+    implementation 'com.shuyu:gsyVideoPlayer-ex_so:5.0.0-beta'
 }
