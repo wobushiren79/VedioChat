@@ -94,6 +94,6 @@ public abstract class Presenter<V extends BaseView> {
         } else if (throwable instanceof InterruptedIOException || throwable instanceof UnknownHostException) {
             return "网络异常";
         }
-        return "未知错误";
+        return "网络不稳定，请稍后再试";
     }
 }

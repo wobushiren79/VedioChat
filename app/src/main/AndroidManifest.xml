@@ -85,10 +85,8 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.Launch">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -97,11 +95,13 @@
             android:name=".test.TestActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/AppBaseTheme.Default">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <!-- 相册 -->
         <activity
@@ -333,19 +333,20 @@
         <activity
             android:name=".media.MediaPlayActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-          />
-        <!--android:theme="@style/BrowseTransitionTheme"-->
+            android:screenOrientation="portrait" />
+        <!-- android:theme="@style/BrowseTransitionTheme" -->
         <activity
             android:name=".media.MediaUpLoadActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
 
+        <activity android:name=".appointment.AppointmentActivity" />
+        <activity android:name=".appointment.AppointmentListActivity"></activity>
     </application>
 
 </manifest>

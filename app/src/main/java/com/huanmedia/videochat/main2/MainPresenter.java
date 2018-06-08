@@ -1,6 +1,9 @@
 package com.huanmedia.videochat.main2;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
@@ -15,6 +18,8 @@ import com.huanmedia.ilibray.utils.Installation;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.cipher.Base64Cipher;
 import com.huanmedia.videochat.BuildConfig;
+import com.huanmedia.videochat.appointment.AppointmentListActivity;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.manager.ActivitManager;
@@ -28,13 +33,15 @@ import com.huanmedia.videochat.common.service.socket.WMessage;
 import com.huanmedia.videochat.common.service.socket.WSonMessageListener;
 import com.huanmedia.videochat.common.service.socket.WebSocketManager;
 import com.huanmedia.videochat.common.utils.LocationHandler;
-import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.main.NotificationMessageActivity;
 import com.huanmedia.videochat.main.mode.SystemMessage;
 import com.huanmedia.videochat.main.mode.mapping.SystemMessageDataMapper;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.MatchConfig;
 import com.huanmedia.videochat.repository.datasouce.impl.MainRepostiory;
+import com.huanmedia.videochat.repository.entity.AppointmentEntity;
+import com.huanmedia.videochat.repository.entity.CoinEntity;
 import com.huanmedia.videochat.repository.entity.SMsgEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.huanmedia.videochat.repository.entity.VideoChatEntity;
@@ -291,9 +298,9 @@ public class MainPresenter extends Presenter<MainView> {
                         case "WARNING":
                             Object items = message.getBody().get("items");
                             if (items == null) {
-                                sysNotice(message);
+                                sysNotice(message, null);
                             } else {
-                                sysNotices(message);
+                                sysNotices(message, null);
                             }
                             break;
                         case "STARAUTH"://红人认证通知
@@ -301,12 +308,75 @@ public class MainPresenter extends Presenter<MainView> {
                             break;
                         case "CASHTOACCOUNT"://提现通知
                         case "SYSTEMDIAMOND"://系统发放钻石
-                            systemMsg(message);
+                            systemMsg(message, null);
                             break;
                         case "OUTACCOUNT"://踢下线
                             ToastUtils.showToastShort(getContext(), "您已被封号");
                             UserManager.getInstance().outLogin(null);
                             UserManager.getInstance().exit();
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (message.getType().equals("appointmentNotice")) {
+                    AppointmentEntity data = mGson.fromJson(mGson.toJson(message.getBody()), AppointmentEntity.class);
+                    switch (message.getStype()) {
+                        case "daojishi":
+                            getView().showAppointmentHint((int) (data.getApptime() - data.getSystime()), data.getUidfrom(), data.getUidto());
+                            break;
+                        case "cancel":
+                        case "appointconfirm":
+                            sysNotice(message, AppointmentListActivity.class);
+                            break;
+                        case "hasnewappoint":
+                            systemMsg(message, AppointmentListActivity.class);
+                            break;
+                        case "timeget":
+                            String contentStr;
+                            Activity currentActivity = ActivitManager.getAppManager().currentActivity();
+                            boolean isCalling = ActivitManager.getAppManager().existsActivity(CallingActivity.class);
+                            if (isCalling) {
+                                contentStr = "您与" + data.getUnickname() + "已到预约视频聊天时间，点击发起视频，并挂掉当前视频通话";
+                            } else {
+                                contentStr = "您与" + data.getUnickname() + "已到预约视频聊天时间，点击发起视频";
+                            }
+                            GeneralDialog dialog = new GeneralDialog(currentActivity);
+                            dialog.setCanceledOnTouchOutside(false);
+                            dialog
+                                    .setContent(contentStr)
+                                    .setCallBack(new GeneralDialog.CallBack() {
+                                        @Override
+                                        public void submitClick(Dialog dialog) {
+                                            if (isCalling) {
+                                                currentActivity.finish();
+                                            }
+                                            UserEntity myInfo = UserManager.getInstance().getCurrentUser();
+                                            ConditionEntity condition = new ConditionEntity();
+                                            condition.setVideoType(ConditionEntity.VideoType.REDMAN);
+                                            condition.getReadMainConfig().setRedManId((int) myInfo.getId());
+                                            condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
+                                            condition.getReadMainConfig().setRedMainStartCoin(myInfo.getUserinfo().getStarcoin());
+                                            condition.getReadMainConfig().setReadMainStartTime(myInfo.getUserinfo().getStartime());
+                                            VideoChatEntity videoChatEntity = new VideoChatEntity();
+                                            videoChatEntity.setTouid(data.getUidfrom());
+                                            condition.getReadMainConfig().setVideoChatConfig(videoChatEntity);
+                                            ((BaseActivity) getContext()).getNavigator().navtoCalling((Activity) getContext(), condition, "您已进入约聊中;");
+                                        }
+
+                                        @Override
+                                        public void cancelClick(Dialog dialog) {
+
+                                        }
+                                    })
+                                    .show();
+                            break;
+                    }
+                } else if (message.getType().equals("coin")) {
+                    switch (message.getStype()) {
+                        case "coin":
+                            CoinEntity data = mGson.fromJson(mGson.toJson(message.getBody()), CoinEntity.class);
+                            UserManager.getInstance().getCurrentUser().getUserinfo().setCoin(data.getCoin());
+                            systemMsg(message, null);
                             break;
                     }
                 }
@@ -314,14 +384,19 @@ public class MainPresenter extends Presenter<MainView> {
 
             @Override
             public void onError(Throwable ex) {
-                if (!(ex instanceof UnknownHostException))
-                    Toast.makeText(getContext(), Log.getStackTraceString(ex), Toast.LENGTH_SHORT).show();
+                if (!(ex instanceof UnknownHostException)) {
+                    Log.v("this", "" + Log.getStackTraceString(ex));
+                    WebSocketManager.getInstance().reConnection();
+//                    Toast.makeText(getContext(), Log.getStackTraceString(ex), Toast.LENGTH_SHORT).show();
+                }
+//                    Toast.makeText(getContext(), "亲，您的网络有异常哟", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), Log.getStackTraceString(ex), Toast.LENGTH_SHORT).show();
             }
         };
         WebSocketManager.getInstance().addMessageListener(mWsListener);
     }
 
-    private void systemMsg(WMessage message) {
+    private void systemMsg(WMessage message, Class intentActivity) {
         Observable.just(message)
                 .compose(ThreadExecutorHandler.toMain(ResourceManager.getInstance().getDefaultThreadProvider()))
                 .map(message1 -> {
@@ -334,6 +409,8 @@ public class MainPresenter extends Presenter<MainView> {
                     mode.setNotifiID(Integer.valueOf(message.getFrom()));
                     mode.setTitle(systemMessage.getTitle());
                     mode.setContent(systemMessage.getDesc());
+                    if (intentActivity != null)
+                        mode.setIntentActivity(intentActivity);
                     NotificationHandler.sendNotification(mode);
                     int count = -1;
                     if (!ActivitManager.getAppManager().existsActivity(NotificationMessageActivity.class)) {
@@ -381,7 +458,7 @@ public class MainPresenter extends Presenter<MainView> {
         });
     }
 
-    private void sysNotices(WMessage message) {//登录后返回的未推送系统消息列表
+    private void sysNotices(WMessage message, Class intentActivity) {//登录后返回的未推送系统消息列表
         Observable.just(message)
                 .compose(ThreadExecutorHandler.toMain(ResourceManager.getInstance().getDefaultThreadProvider()))
                 .map(message1 -> {
@@ -396,8 +473,12 @@ public class MainPresenter extends Presenter<MainView> {
                             SystemMessage systemMessage = systemMessages.get(i);
                             NotificationMode mode = new NotificationMode();
                             mode.setNotifiID(systemMessage.getMsgId());
-                            mode.setTitle(systemMessage.getTitle());
-                            mode.setContent(systemMessage.getDesc());
+                            if (systemMessage.getTitle() != null)
+                                mode.setTitle(systemMessage.getTitle());
+                            if (systemMessage.getDesc() != null)
+                                mode.setContent(systemMessage.getDesc());
+                            if (intentActivity != null)
+                                mode.setIntentActivity(intentActivity);
                             if (i == 0) {
                                 NotificationHandler.sendNotification(mode);
                             } else {
@@ -421,7 +502,7 @@ public class MainPresenter extends Presenter<MainView> {
 
     }
 
-    private void sysNotice(WMessage message) {
+    private void sysNotice(WMessage message, Class intentActivity) {
         Observable.just(message)
                 .compose(ThreadExecutorHandler.toMain(ResourceManager.getInstance().getDefaultThreadProvider()))
                 .map(message1 -> {
@@ -431,8 +512,12 @@ public class MainPresenter extends Presenter<MainView> {
                     EventBus.getDefault().post(systemMessage);
                     NotificationMode mode = new NotificationMode();
                     mode.setNotifiID(Integer.valueOf(message.getFrom()));
-                    mode.setTitle(systemMessage.getTitle());
-                    mode.setContent(systemMessage.getDesc());
+                    if (systemMessage.getTitle() != null)
+                        mode.setTitle(systemMessage.getTitle());
+                    if (systemMessage.getDesc() != null)
+                        mode.setContent(systemMessage.getDesc());
+                    if (intentActivity != null)
+                        mode.setIntentActivity(intentActivity);
                     NotificationHandler.sendNotification(mode);
                     UserManager.getInstance().setSystemMsgMaxId(systemMessage.getMsgId());
                     int count = -1;

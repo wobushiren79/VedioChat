@@ -34,10 +34,68 @@ public class UMengUtils {
         }
     }
 
+    /**
+     * 友盟 首页轮播广告点击
+     *
+     * @param context
+     */
+    public static void AdsBanner(Context context, String bannerId) {
+        try {
+            String eventID = "banner_ads";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("banner_id", bannerId);
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /***
+     * 预约提示点击
+     * @param context
+     */
+    public static void AppointmentHintClick(Context context) {
+        try {
+            long userId = UserManager.getInstance().getCurrentUser().getId();
+            String eventID = "appointment_hint";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("user_id", userId + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 友盟自定义事件
+     *
+     * @param context
+     * @param eventID
+     * @param dataMap
+     * @param du
+     */
     public static void baseSendMsg(Context context, String eventID, Map<String, String> dataMap, int du) {
         MobclickAgent.onEventValue(context, eventID, dataMap, du);
     }
 
+    /**
+     * 友盟自定义事件
+     *
+     * @param context
+     * @param eventID
+     * @param dataMap
+     */
+    public static void baseSendMsg(Context context, String eventID, Map<String, String> dataMap) {
+        MobclickAgent.onEvent(context, eventID, dataMap);
+    }
+
+    /**
+     * 友盟自定义事件
+     *
+     * @param context
+     * @param eventID
+     */
     public static void baseSendMsg(Context context, String eventID) {
         MobclickAgent.onEvent(context, eventID);
     }

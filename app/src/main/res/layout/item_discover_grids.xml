@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dimen_8dp"
     android:layout_marginBottom="@dimen/dimen_8dp"
     android:layout_marginLeft="@dimen/dimen_8dp"
     android:layout_marginRight="@dimen/dimen_8dp"
+    android:layout_marginTop="@dimen/dimen_8dp"
     android:background="@color/white"
     tools:layout_height="216dp"
     tools:layout_width="178dp">
@@ -15,9 +15,8 @@
     <ImageView
         android:id="@+id/item_discover_grids_iv_photo"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_216"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/bg" />
+        android:layout_height="@dimen/dimen_432dp"
+        android:scaleType="centerCrop" />
 
     <!--图片上面的阴影-->
     <View
@@ -31,8 +30,8 @@
         android:id="@+id/item_discover_grids_ll_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dimen_20dp"
+        android:layout_marginTop="@dimen/dimen_20dp"
         android:background="@drawable/bg_item_discover_round_solid"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,10 +42,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dimen_4dp"
             android:src="@drawable/online_status" />
 
         <TextView
+            android:paddingRight="@dimen/dimen_12dp"
+            android:paddingLeft="@dimen/dimen_12dp"
             android:id="@+id/item_discover_grids_tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/white"
-            android:textSize="@dimen/tz_12"
+            android:textSize="@dimen/dimen_24dp"
             tools:text="5分钟前" />
 
     </LinearLayout>
@@ -66,26 +67,36 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:maxWidth="@dimen/dp_80"
+        android:maxWidth="@dimen/dimen_160dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_16"
+        android:textSize="@dimen/dimen_32dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/item_discover_grids_tv_charge"
-        app:layout_constraintStart_toStartOf="@+id/item_discover_grids_tv_charge"
+        app:layout_constraintStart_toStartOf="@+id/item_discover_grids_iv_icon"
         tools:text="小花猫" />
+
+
+    <ImageView
+        android:id="@+id/item_discover_grids_iv_icon"
+        android:layout_width="@dimen/dimen_28dp"
+        android:layout_height="@dimen/dimen_23dp"
+        android:layout_marginBottom="@dimen/dimen_22dp"
+        android:layout_marginLeft="@dimen/dimen_20dp"
+        android:src="@drawable/icon_hone_camera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/item_discover_grids_tv_charge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dimen_20dp"
+        android:layout_marginLeft="@dimen/dimen_55dp"
         android:drawablePadding="@dimen/dp_4"
-        android:drawableStart="@drawable/icon_hone_camera"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_12"
+        android:textSize="@dimen/dimen_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="300钻/分钟" />
@@ -94,14 +105,14 @@
         android:id="@+id/item_discover_grids_tv_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:drawablePadding="@dimen/dp_4"
-        android:drawableStart="@drawable/icon_coordinate"
+        android:layout_marginBottom="@dimen/dimen_20dp"
+        android:layout_marginRight="@dimen/dimen_20dp"
+        android:drawableLeft="@drawable/icon_coordinate"
+        android:drawablePadding="@dimen/dimen_8dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_12"
+        android:textSize="@dimen/dimen_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="1036km" />

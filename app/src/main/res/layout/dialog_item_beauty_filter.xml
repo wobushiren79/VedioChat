@@ -2,10 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/dp_44"
+    android:layout_width="@dimen/dimen_88dp"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical|center_horizontal"
-    android:layout_marginStart="@dimen/dp_16"
+    android:layout_marginLeft="@dimen/dimen_22dp"
     android:gravity="center">
 
     <android.support.constraint.ConstraintLayout
@@ -17,11 +17,11 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/dialog_item_beauty_iv_filter_type"
-            android:layout_width="@dimen/dp_44"
-            android:layout_height="@dimen/dp_44"
+            android:layout_width="@dimen/dimen_88dp"
+            android:layout_height="@dimen/dimen_88dp"
             android:layout_gravity="center_vertical"
             app:riv_border_color="@color/transparent"
-            app:riv_border_width="@dimen/dp_2"
+            app:riv_border_width="@dimen/dimen_6dp"
             app:riv_oval="true"
             tools:src="@drawable/bg_btn_wbq" />
 
@@ -29,11 +29,11 @@
             android:id="@+id/dialog_beauty_ctv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dimen_8dp"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:textColor="@color/dialog_beauty_white_pink_selecter"
-            android:textSize="@dimen/tz_12"
+            android:textSize="@dimen/dimen_24dp"
             app:layout_constraintEnd_toEndOf="@+id/dialog_item_beauty_iv_filter_type"
             app:layout_constraintStart_toStartOf="@+id/dialog_item_beauty_iv_filter_type"
             app:layout_constraintTop_toBottomOf="@+id/dialog_item_beauty_iv_filter_type"
@@ -43,7 +43,7 @@
     <CheckedTextView
         android:id="@+id/dialog_beauty_tv_name"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44"
+        android:layout_height="@dimen/dimen_88dp"
         android:layout_gravity="center"
         android:background="@drawable/beauty_item_level_select"
         android:focusable="false"
@@ -51,6 +51,6 @@
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_22"
+        android:textSize="@dimen/dimen_44dp"
         tools:text="1" />
 </FrameLayout>

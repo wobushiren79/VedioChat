@@ -20,6 +20,7 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -117,8 +118,8 @@ public class ErrorView extends LinearLayout {
             retryText = a.getString(R.styleable.ErrorView_ev_retryText);
             retryBackground = a.getResourceId(R.styleable.ErrorView_ev_retryBackground,
                     R.drawable.error_view_retry_button_background);
-            retryColor = a.getColor(R.styleable.ErrorView_ev_retryColor,
-                    getResources().getColor(R.color.error_view_retry));
+//            retryColor = a.getColor(R.styleable.ErrorView_ev_retryColor,
+//                    getResources().getColor(R.color.error_view_retry));
 
             if (imageRes != 0) {
                 setImage(imageRes);
@@ -141,6 +142,7 @@ public class ErrorView extends LinearLayout {
 
             if (retryText != null) {
                 retryView.setText(retryText);
+
             }
 
             if (!titleVisible) {
@@ -158,7 +160,8 @@ public class ErrorView extends LinearLayout {
             titleView.setTextColor(titleColor);
             subtitleView.setTextColor(subtitleColor);
 
-            retryView.setTextColor(retryColor);
+//            retryView.setTextColor(retryColor);
+            retryView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
             retryView.setBackgroundResource(retryBackground);
         } finally {
             a.recycle();

@@ -38,7 +38,7 @@
             app:tl_iconVisible="true"
             app:tl_iconWidth="@dimen/dimen_55dp"
             app:tl_indicator_anim_enable="false"
-            app:tl_indicator_bounce_enable  ="false"
+            app:tl_indicator_bounce_enable="false"
             app:tl_indicator_height="@dimen/dp_0"
             app:tl_indicator_width="@dimen/dp_0"
             app:tl_textSelectColor="@color/base_black"
@@ -46,12 +46,18 @@
             app:tl_textsize="@dimen/dimen_24dp" />
     </LinearLayout>
 
+    <com.huanmedia.videochat.common.widget.AppointmentHintView
+        android:id="@+id/appointment_hint_view"
+        android:layout_width="@dimen/dimen_125dp"
+        android:layout_height="@dimen/dimen_125dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_300dp"
+        android:visibility="gone"></com.huanmedia.videochat.common.widget.AppointmentHintView>
 
     <com.huanmedia.videochat.common.widget.NoviceGuidanceView
         android:id="@+id/view_noviceguidance"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"></com.huanmedia.videochat.common.widget.NoviceGuidanceView>
-
-
 </FrameLayout>

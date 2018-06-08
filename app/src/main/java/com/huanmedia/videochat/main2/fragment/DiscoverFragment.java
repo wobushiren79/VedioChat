@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -26,6 +27,7 @@ import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.widget.ShufflingViewPager;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.repository.entity.DiscoverEntity;
 import com.huanmedia.videochat.repository.entity.DiscoverPageEntity;
 import com.liaoinstan.springview.container.DefaultHeader;
@@ -110,21 +112,32 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
             @SuppressLint("DefaultLocale")
             @Override
             protected void convert(BaseViewHolder helper, DiscoverEntity item) {
+                LinearLayout llStatus = helper.getView(R.id.item_discover_grids_ll_status);
+
                 helper.setText(R.id.item_discover_grids_tv_name, item.getNickname())
                         .setText(R.id.item_discover_grids_tv_charge, String.format("%d钻/分钟", item.getStarcoin()))
                         .setText(R.id.item_discover_grids_tv_distance, Check.checkReplace(item.getDistance(), "未知"));
-
+                llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid);
                 if (item.getOnlinestatus() == 0) {
-                    helper.setText(R.id.item_discover_grids_tv_status,
-                            TimeUtils.getFriendlyTimeSpanByFrom(item.getLogintime() * 1000L
-                                    , item.getSystemtime() * 1000L));
+//                    helper.setText(R.id.item_discover_grids_tv_status,
+//                            TimeUtils.getFriendlyTimeSpanByFrom(item.getLogintime() * 1000L
+//                                    , item.getSystemtime() * 1000L));
+                    llStatus.setBackgroundResource(R.drawable.base_bg_round_theme);
+                    helper.setText(R.id.item_discover_grids_tv_status, "可预约");
                 } else if (item.getOnlinestatus() == 1) {
                     helper.setText(R.id.item_discover_grids_tv_status, "在线");
                 } else if (item.getOnlinestatus() == 2) {
                     helper.setText(R.id.item_discover_grids_tv_status, "忙碌");
+                } else {
+                    llStatus.setBackgroundResource(R.drawable.base_bg_round_theme);
+                    helper.setText(R.id.item_discover_grids_tv_status, "可预约");
                 }
-
                 ImageView imageView = helper.getView(R.id.item_discover_grids_iv_status);
+                if (item.getOnlinestatus() == 0) {
+                    imageView.setVisibility(View.GONE);
+                } else {
+                    imageView.setVisibility(View.VISIBLE);
+                }
                 imageView.getDrawable().setLevel(item.getOnlinestatus());
                 String url = null;
                 if (item.getPhotos() != null && item.getPhotos().size() > 0) {
@@ -155,7 +168,7 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 DiscoverEntity mCallingData = mAdapter.getData().get(position);
-                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance());
+                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(), mCallingData.getDistance(), BusinessCardFragment.ShowType.ReadMan);
             }
         });
         mShufflingVP = new ShufflingViewPager(getContext());

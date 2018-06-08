@@ -18,8 +18,8 @@
             android:layout_width="@dimen/dimen_42dp"
             android:layout_height="@dimen/dimen_42dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/dimen_30dp"
-            android:layout_marginStart="@dimen/dimen_44dp"
+            android:layout_marginRight="@dimen/dimen_30dp"
+            android:layout_marginLeft="@dimen/dimen_44dp"
             android:background="@drawable/rb_style_1"
             android:button="@null"
             android:gravity="start|center_vertical"
@@ -57,8 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/dialog_condition_rb_filter"
-            android:layout_marginStart="@dimen/dimen_30dp"
-            android:layout_toEndOf="@+id/dialog_condition_rb_filter"
+            android:layout_marginLeft="@dimen/dimen_30dp"
+            android:layout_toRightOf="@+id/dialog_condition_rb_filter"
             android:text="按条件筛选"
             android:textColor="@color/base_black"
             android:textSize="@dimen/dimen_28dp" />
@@ -67,28 +67,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/dialog_condition_rb_filter_text"
-            android:layout_marginStart="@dimen/dp_4"
-            android:layout_toEndOf="@+id/dialog_condition_rb_filter_text"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_toRightOf="@+id/dialog_condition_rb_filter_text"
             android:text="(20钻石每次)"
             android:textSize="@dimen/dimen_28dp" />
 
         <TextView
             android:id="@+id/dialog_condition_tv_sex"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_28"
+            android:layout_height="@dimen/dimen_56dp"
             android:layout_below="@+id/dialog_condition_rb_filter"
-            android:layout_marginTop="@dimen/dp_36"
+            android:layout_marginTop="@dimen/dimen_72dp"
             android:gravity="center_vertical"
             android:text="性别"
             android:textColor="@color/base_black"
-            android:textSize="@dimen/tz_16" />
+            android:textSize="@dimen/dimen_32dp" />
 
         <RadioGroup
             android:id="@+id/dialog_condition_rg_sex"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_28"
+            android:layout_height="@dimen/dimen_56dp"
             android:layout_alignTop="@+id/dialog_condition_tv_sex"
-            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginLeft="@dimen/dimen_64dp"
             android:layout_toEndOf="@+id/dialog_condition_tv_sex"
             android:layout_toRightOf="@+id/dialog_condition_tv_sex"
             android:orientation="horizontal"
@@ -105,7 +105,7 @@
                 android:gravity="center"
                 android:text="女"
                 android:textColor="@color/dialog_conditionfilter_cb_white_gray_selecter"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/dimen_28dp" />
 
             <RadioButton
                 android:id="@+id/dialog_condition_rg_rb_none"
@@ -117,7 +117,7 @@
                 android:gravity="center"
                 android:text="不限"
                 android:textColor="@color/dialog_conditionfilter_cb_white_gray_selecter"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/dimen_28dp" />
 
             <RadioButton
                 android:id="@+id/dialog_condition_rg_rb_man"
@@ -129,27 +129,27 @@
                 android:gravity="center"
                 android:text="男"
                 android:textColor="@color/dialog_conditionfilter_cb_white_gray_selecter"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/dimen_28dp" />
         </RadioGroup>
 
         <TextView
             android:id="@+id/dialog_condition_tv_age"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_28"
+            android:layout_height="@dimen/dimen_56dp"
             android:layout_below="@+id/dialog_condition_tv_sex"
-            android:layout_marginTop="@dimen/dp_32"
+            android:layout_marginTop="@dimen/dimen_64dp"
             android:gravity="center_vertical"
             android:text="年龄"
             android:textColor="@color/base_black"
-            android:textSize="@dimen/tz_16" />
+            android:textSize="@dimen/dimen_32dp" />
 
         <com.huanmedia.videochat.common.widget.bubbleseekbar.BubbleSeekBar
             android:id="@+id/dialog_condition_seebar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/dialog_condition_tv_age"
             android:layout_marginBottom="@dimen/dp_36"
-            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginLeft="@dimen/dp_32"
             android:layout_toEndOf="@+id/dialog_condition_tv_age"
             android:layout_toRightOf="@+id/dialog_condition_tv_age"
             app:bsb_auto_adjust_section_mark="true"
@@ -167,7 +167,7 @@
             app:bsb_thumb_color="@color/color_f64d99"
             app:bsb_thumb_text_size="@dimen/dimen_32dp"
             app:bsb_thumb_type="Round"
-            app:bsb_thumb_width="@dimen/dimen_20dp"
+            app:bsb_thumb_width="@dimen/dimen_15dp"
             app:bsb_touch_to_seek="false"
             app:bsb_track_color="@color/block_gray"
             app:bsb_track_size="@dimen/dimen_10dp" />

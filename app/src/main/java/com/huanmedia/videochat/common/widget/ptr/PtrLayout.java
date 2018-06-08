@@ -81,6 +81,7 @@ public class PtrLayout<T> extends PtrRecyclerView {
         BaseRCAdapter adapter = (BaseRCAdapter) getAdapter();
         if (listDataResults.getPage() == 1 && listDataResults.getTotal() == 0) {
             // 第一页没有数据
+            adapter.setData(listData);
             setHasDataVisibility(View.VISIBLE);
         } else if (listDataResults.getPage() == 1 && listData != null && listData.size() != 0) {
             //第一页 有数据

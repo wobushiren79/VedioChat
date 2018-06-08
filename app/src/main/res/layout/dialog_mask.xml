@@ -30,7 +30,7 @@
             <RadioButton
                 android:layout_width="@dimen/dimen_62dp"
                 android:layout_height="@dimen/dimen_62dp"
-                android:layout_marginEnd="@dimen/dimen_120dp"
+                android:layout_marginRight="@dimen/dimen_120dp"
                 android:background="@drawable/mask_rb_icon_hot"
                 android:button="@null"
                 tools:checked="true" />

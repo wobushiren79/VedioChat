@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.pay;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.huanmedia.videochat.common.BaseMVPActivity;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.pay.OnPayListener;
 import com.huanmedia.videochat.common.pay.alipay.AliPayTools;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -142,13 +144,21 @@ public class AccountBoundActivity extends BaseMVPActivity<AccountBoundPressenter
                 switch (mCurrentCheckId) {
                     case R.id.my_account_bound_rb_aliPay:
                         if (mBoundType == 2) {
-                            new MaterialDialog.Builder(this)
-                                    .content("是否解除账户绑定")
-                                    .positiveText("确定")
-                                    .positiveColorRes(R.color.base_yellow)
-                                    .negativeText("取消")
-                                    .negativeColorRes(R.color.base_gray)
-                                    .onPositive((dialog, which) -> getBasePresenter().unBoundUser(2)).show();
+                            GeneralDialog dialog = new GeneralDialog(this);
+                            dialog
+                                    .setContent("是否解除账户绑定")
+                                    .setCallBack(new GeneralDialog.CallBack() {
+                                        @Override
+                                        public void submitClick(Dialog dialog) {
+                                            getBasePresenter().unBoundUser(2);
+                                        }
+
+                                        @Override
+                                        public void cancelClick(Dialog dialog) {
+
+                                        }
+                                    })
+                                    .show();
                         } else {
                             getBasePresenter().boundUser(2);
                         }

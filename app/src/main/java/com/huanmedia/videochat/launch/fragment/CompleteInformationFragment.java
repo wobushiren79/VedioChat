@@ -38,7 +38,11 @@ import com.huanmedia.videochat.repository.entity.UserEntity;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -54,7 +58,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 /**
  * 登录后完善用户资料
  *
- * @author Eric<br />
+ * @author Eric<br                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               />
  * @version <br/>
  * @description <br/>
  * @email yb498869020@hotmail.com<br/>
@@ -203,10 +207,24 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
             case R.id.complete_info_rl_age:
                 DialogPick pick = new DialogPick(this.getContext());
                 pick.setDatelistener(obj -> {
+                    String[] date = obj.split("-");
+                    if (isFutureDate(obj, Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]))) {
+                        Toast.makeText(getContext(), "出生日期不能在未来", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     mCompleteInfoTvAge.setText(obj);
                     mUserinfo.setBirthday(obj);
                 });
-                pick.showPickerDate(mCompleteInfoTvAge.getText().toString(), "%s-%s-%s");
+                //默认值
+                Calendar cal = Calendar.getInstance();
+                int currentYear = cal.get(Calendar.YEAR);
+                int currentMonth = cal.get(Calendar.MONTH);
+                int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+                String timeStr = (currentYear - 16) + "-" + currentMonth + "-" + currentDay;
+                if (mCompleteInfoTvAge.getText().toString().length() != 0) {
+                    timeStr = mCompleteInfoTvAge.getText().toString();
+                }
+                pick.showPickerDate(getString(R.string.dialog_title_age), timeStr, "%s-%s-%s");
                 break;
             case R.id.complete_info_btn_complete:
                 getBasePresenter().checkUploadUserInfo(mUserinfo);
@@ -214,6 +232,22 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
         }
     }
 
+    private boolean isFutureDate(String format, Integer yearN, Integer monthM, Integer dayM) {
+        Calendar born = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat fromat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();//"yyyy/MM/dd HH:mm:ss"
+        fromat.applyLocalizedPattern("yyyy-MM-dd");
+        Date dateOfBirth = null;
+        String birth = String.format(format, yearN, monthM, dayM);
+        try {
+            dateOfBirth = fromat.parse(birth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        now.setTime(new Date());
+        born.setTime(dateOfBirth);
+        return born.after(now);
+    }
 
     @Override
     public void confirmUpdate(UserEntity.UserinfoEntity userinfo) {
@@ -297,11 +331,11 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
                 if (chooseImages != null && chooseImages.size() > 0) {
                     mUserinfo.setUserphoto(new File(chooseImages.get(0).getImage()).getAbsolutePath());
                     GlideUtils.getInstance().loadContextRoundBitmap(
-                                    getContext(),
-                                    mUserinfo.getUserphoto(),
-                                    mCompleteInfoIvHeader,
-                                    new RoundedCornersTransformation(getContext(),
-                                            DisplayUtil.dip2px(getContext(), 3), 1));
+                            getContext(),
+                            mUserinfo.getUserphoto(),
+                            mCompleteInfoIvHeader,
+                            new RoundedCornersTransformation(getContext(),
+                                    DisplayUtil.dip2px(getContext(), 3), 1));
                 }
             }
         }

@@ -24,6 +24,7 @@ import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.orhanobut.logger.Logger;
@@ -99,6 +100,8 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     TextView mMyFmTvHelp;
     @BindView(R.id.my_fm_rl_help)
     RelativeLayout mMyFmRlHelp;
+    @BindView(R.id.my_fm_rl_appointment)
+    RelativeLayout mAppointmentLayout;
     private MainInteractionListener mListener;
     private Badge mMsgBadeg;
 //    private Badge mMyBadeg;
@@ -246,7 +249,11 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     }
 
 
-    @OnClick({R.id.my_fm_iv_mail, R.id.my_fm_rl_readman, R.id.my_fm_tv_btn_data_editor, R.id.my_fm_iv_header, R.id.my_fm_rl_account, R.id.my_fm_rl_trust, R.id.my_fm_rl_generalize, R.id.my_fm_rl_setting, R.id.my_fm_rl_help})
+    @OnClick({R.id.my_fm_iv_mail, R.id.my_fm_rl_readman,
+            R.id.my_fm_tv_btn_data_editor, R.id.my_fm_iv_header,
+            R.id.my_fm_rl_account, R.id.my_fm_rl_trust,
+            R.id.my_fm_rl_generalize, R.id.my_fm_rl_setting,
+            R.id.my_fm_rl_help, R.id.my_fm_rl_appointment})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -270,7 +277,7 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
                 intent = new Intent(EventBusAction.ACTION_SYSTEM_MESSAGE);
                 intent.putExtra("msgCount", 0);
                 EventBus.getDefault().post(intent);
-                ToastUtils.showToastShort(getContext(), "功能开发中");
+                ToastUtils.showToastShortInCenter(getContext(), "功能开发中");
                 break;
             case R.id.my_fm_rl_setting://设置
                 getNavigator().navtoSetting(getActivity());
@@ -282,6 +289,9 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
                 break;
             case R.id.my_fm_tv_btn_data_editor:
                 getNavigator().navtoUserInfoEdit(getActivity(), false, null);
+                break;
+            case R.id.my_fm_rl_appointment:
+                getNavigator().navtoAppointmentList(getActivity(),0);
                 break;
         }
     }

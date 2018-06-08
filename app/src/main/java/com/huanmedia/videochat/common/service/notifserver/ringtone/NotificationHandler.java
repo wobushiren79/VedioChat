@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.common.service.notifserver.ringtone;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -112,7 +113,12 @@ public class NotificationHandler {
 
         PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(FApplication.getApplication(), currentNotificationID, dismissIntent,
                 0);
-        ComponentName cn = new ComponentName(FApplication.getApplication(), MainActivity.class);
+        ComponentName cn;
+        if (mode.getIntentActivity() != null) {
+            cn = new ComponentName(FApplication.getApplication(), mode.getIntentActivity());
+        } else {
+            cn = new ComponentName(FApplication.getApplication(), MainActivity.class);
+        }
         Intent nfIntent = new Intent();
         nfIntent.putExtra("ComponentName", cn);
         nfIntent.setAction(RingtoneManager.ACTION_CONTENT);

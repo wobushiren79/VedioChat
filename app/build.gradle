@@ -38,8 +38,8 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         applicationId 'com.huanmedia.videochat'
-        versionCode 4
-        versionName '1.1'
+        versionCode 5
+        versionName '1.2'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         testApplicationId 'com.huanmedia.videochat.test'
         manifestPlaceholders = [

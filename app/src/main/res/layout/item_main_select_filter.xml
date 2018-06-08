@@ -22,7 +22,7 @@
             android:layout_gravity="center_vertical"
             android:scaleType="centerCrop"
             app:riv_border_color="@color/transparent"
-            app:riv_border_width="@dimen/dp_2"
+            app:riv_border_width="@dimen/dimen_6dp"
             app:riv_oval="true"
             tools:src="@drawable/bg_btn_wbq" />
 

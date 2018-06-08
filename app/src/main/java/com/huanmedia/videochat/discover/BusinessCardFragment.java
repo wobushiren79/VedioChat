@@ -2,11 +2,14 @@ package com.huanmedia.videochat.discover;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.huanmedia.ilibray.utils.ToastUtils;
@@ -18,6 +21,7 @@ import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.discover.adapter.BusinessCardAdapter;
 import com.huanmedia.videochat.discover.adapter.BusinessMultiItem;
@@ -26,6 +30,8 @@ import com.huanmedia.videochat.main2.weight.MaskDialog;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.UserEvaluateEntity;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +44,29 @@ import butterknife.OnClick;
 public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter> implements BusinessCardView {
     private static final String ARG_DATA = "mUid";
     private static final String ARG_DISTANCE = "distance";
+    private static final String ARG_SHOWTYPE = "showtype";
     public static String TAG = "/BusinessCardFragment";
+
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ShowType {
+        //红人            //普通
+        int ReadMan = 1, Normal = 2;
+    }
+
     @BindView(R.id.business_card_rv)
     RecyclerView mBusinessCardRv;
+    @BindView(R.id.ll_bt_layout)
+    LinearLayout mBTLayout;
     @BindView(R.id.business_card_iv_calling)
     ImageView mBusinessCardIvCalling;
+    @BindView(R.id.business_card_iv_appointment)
+    ImageView mBusinessCardIvAppointment;
     private BusinessCardAdapter mAdapter;
     private int mUid;
+
+    private @ShowType
+    int showType;
+
     private BusinessCardEntity mData;
     private String distance;
     private HintDialog mHintDialog;
@@ -57,10 +79,11 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
         // Required empty public constructor
     }
 
-    public static BusinessCardFragment newInstance(int uid, String distance) {
+    public static BusinessCardFragment newInstance(int uid, String distance, @ShowType int showType) {
         BusinessCardFragment fragment = new BusinessCardFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_DATA, uid);
+        args.putInt(ARG_SHOWTYPE, showType);
         if (!Check.isEmpty(distance))
             args.putString(ARG_DISTANCE, distance);
         fragment.setArguments(args);
@@ -73,6 +96,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
         if (getArguments() != null) {
             mUid = getArguments().getInt(ARG_DATA);
             distance = getArguments().getString(ARG_DISTANCE, null);
+            showType = getArguments().getInt(ARG_SHOWTYPE);
         }
     }
 
@@ -114,7 +138,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        mAdapter = new BusinessCardAdapter(getContext(), null, distance);
+        mAdapter = new BusinessCardAdapter(getContext(), null, distance, showType);
         mAdapter.bindToRecyclerView(mBusinessCardRv);
         mAdapter.disableLoadMoreIfNotFullPage();
         mErrorView = (ErrorView) getLayoutInflater().inflate(R.layout.base_list_empty, mBusinessCardRv, false);
@@ -137,7 +161,10 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     @Override
     public void showHeadData(BusinessCardEntity businessCard) {
         if (businessCard.getBase() == null) return;
-        mBusinessCardIvCalling.setVisibility(View.VISIBLE);
+        mBTLayout.setVisibility(View.VISIBLE);
+        if (businessCard.getBase().getAppointmentFlag() == 0) {
+            mBusinessCardIvAppointment.setVisibility(View.GONE);
+        }
         this.mData = businessCard;
         List<BusinessMultiItem> data = new ArrayList<>();
         data.add(businessCard.getBase());
@@ -191,9 +218,12 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     }
 
     @SuppressLint("DefaultLocale")
-    @OnClick({R.id.business_card_iv_calling})
+    @OnClick({R.id.business_card_iv_calling, R.id.business_card_iv_appointment})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.business_card_iv_appointment:
+                getNavigator().navtoAppointment((Activity) getContext(), mUid);
+                break;
             case R.id.business_card_iv_calling:
                 if (!UserManager.getInstance().islogin()) {
                     CommDialogUtils.showNavToLogin(getActivity(), (dialog, which) ->
@@ -202,41 +232,68 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                     return;
                 }
                 boolean isReadMain = mData.getBase().getStarbutton() == 1 && mData.getBase().getIsstarauth() == 1;
-                if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < 20) {
-                    CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
+                if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < mData.getBase().getStarcoin()) {
+                    CommDialogUtils.showInsufficientBalance(getActivity(), new GeneralDialog.CallBack() {
+                        @Override
+                        public void submitClick(Dialog dialog) {
+                            getNavigator().navtoCoinPay(getActivity(), null);
+                        }
+
+                        @Override
+                        public void cancelClick(Dialog dialog) {
+
+                        }
+                    });
                 } else if (mData.getBase().getOnlinestatus() == 2) {
-                    ToastUtils.showToastShort(getContext(), "对方忙！");
+                    ToastUtils.showToastShortInCenter(getContext(), "TA正在连线哟~");
                 } else if (mData.getBase().getOnlinestatus() == 0) {
-                    ToastUtils.showToastShort(getContext(), "对方不在线！");
+                    ToastUtils.showToastShortInCenter(getContext(), "TA正在休息哦~");
                 } else if ((!isReadMain && UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= 20) ||//如果是视频直聊需要20钻石 固定
                         UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= mData.getBase().getStarcoin()) {
                     int cost = mData.getBase().getStarcoin() / (mData.getBase().getStartime() == 0 ? 1 : mData.getBase().getStartime());
-                    new MaterialDialog.Builder(getActivity())
-                            .content("视频聊天需花费" + ((!isReadMain) ? " 20钻" : String.format("%d钻/分钟", cost)))
-                            .negativeColorRes(R.color.base_gray)
-                            .negativeText("取消")
-                            .positiveText("确定")
-                            .positiveColorRes(R.color.base_yellow)
-                            .onPositive((dialog, which) -> {
-                                if (isReadMain) {
-                                    ConditionEntity condition = new ConditionEntity();
-                                    condition.setVideoType(ConditionEntity.VideoType.REDMAN);
-                                    condition.getReadMainConfig().setRedManId(mData.getBase().getUid());
-                                    condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
-                                    condition.getReadMainConfig().setRedMainStartCoin(mData.getBase().getStarcoin());
-                                    condition.getReadMainConfig().setReadMainStartTime(mData.getBase().getStartime());
-                                    getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
-                                } else {
-                                    ConditionEntity condition = new ConditionEntity();
-                                    condition.setVideoType(ConditionEntity.VideoType.MATCH);
-                                    condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.SELF);
-                                    condition.getMatchConfig().setMask(MaskDialog.getCurrentMask());
-                                    condition.getMatchConfig().setUid(mData.getBase().getUid());
-                                    getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                    GeneralDialog dialog = new GeneralDialog(getContext());
+                    dialog
+                            .setContent("视频聊天需花费" + ((!isReadMain) ? " 20钻" : String.format("%d钻/分钟", cost)))
+                            .setCallBack(new GeneralDialog.CallBack() {
+                                @Override
+                                public void submitClick(Dialog dialog) {
+                                    if (isReadMain) {
+                                        ConditionEntity condition = new ConditionEntity();
+                                        condition.setVideoType(ConditionEntity.VideoType.REDMAN);
+                                        condition.getReadMainConfig().setRedManId(mData.getBase().getUid());
+                                        condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
+                                        condition.getReadMainConfig().setRedMainStartCoin(mData.getBase().getStarcoin());
+                                        condition.getReadMainConfig().setReadMainStartTime(mData.getBase().getStartime());
+                                        getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                                    } else {
+                                        ConditionEntity condition = new ConditionEntity();
+                                        condition.setVideoType(ConditionEntity.VideoType.MATCH);
+                                        condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.SELF);
+                                        condition.getMatchConfig().setMask(MaskDialog.getCurrentMask());
+                                        condition.getMatchConfig().setUid(mData.getBase().getUid());
+                                        getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
+                                    }
                                 }
-                            }).show();
+
+                                @Override
+                                public void cancelClick(Dialog dialog) {
+
+                                }
+                            })
+                            .show();
                 } else {
-                    CommDialogUtils.showInsufficientBalance(getActivity(), (dialog, which) -> getNavigator().navtoCoinPay(getActivity(), null));
+                    CommDialogUtils.showInsufficientBalance(getActivity(), new GeneralDialog.CallBack() {
+                        @Override
+                        public void submitClick(Dialog dialog) {
+                            getNavigator().navtoCoinPay(getActivity(), null);
+                        }
+
+                        @Override
+                        public void cancelClick(Dialog dialog) {
+
+                        }
+                    });
+
                 }
                 break;
         }

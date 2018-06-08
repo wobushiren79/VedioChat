@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/video_call_fl_calling"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:gravity="center"
+    android:orientation="vertical">
+
     <LinearLayout
-        android:layout_marginBottom="-28dp"
-        android:layout_marginTop="@dimen/dp_182"
         android:id="@+id/video_call_ll_hint"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_gravity="bottom|center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:gravity="center"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/video_call_tv_hint"
             android:layout_width="wrap_content"
@@ -23,83 +23,96 @@
             android:gravity="center"
             android:text="匹配中..."
             android:textColor="@color/white"
-            android:textSize="@dimen/tz_18"
-            />
+            android:textSize="@dimen/dimen_36dp" />
+
         <TextView
             android:id="@+id/video_call_tv_hint_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            tools:text="(接受后可获得10钻)"
             android:textColor="@color/white"
-            android:textSize="@dimen/tz_12"
-            />
+            android:textSize="@dimen/dimen_24dp"
+            tools:text="(接受后可获得10钻)" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/video_call_tv_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_44dp"
+            android:text="10秒后即将开始..."
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_36dp" />
     </LinearLayout>
+
+
+
     <com.huanmedia.videochat.video.widget.RippleBackground
-        android:layout_marginTop="@dimen/dp_16"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_152"
         android:id="@+id/video_calling_rbg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_250dp"
         android:layout_gravity="center_horizontal"
         app:rb_color="#55ffffff"
+        app:rb_duration="2000"
         app:rb_radius="38dp"
         app:rb_rippleAmount="3"
-        app:rb_duration="2000"
         app:rb_scale="2">
+
         <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_centerInParent="true"
             android:id="@+id/video_calling_iv_header"
-            android:layout_width="@dimen/dp_76"
-            android:layout_height="@dimen/dp_76"
+            android:layout_width="@dimen/dimen_150dp"
+            android:layout_height="@dimen/dimen_150dp"
+            android:layout_centerInParent="true"
             android:scaleType="centerCrop"
             android:src="@drawable/video_calling_logo"
-            app:riv_oval="true"
-            />
+            app:riv_oval="true" />
     </com.huanmedia.videochat.video.widget.RippleBackground>
+
     <TextView
-        android:visibility="gone"
-        android:layout_marginTop="-16dp"
         android:id="@+id/video_calling_tv_name"
-        android:layout_gravity="center_horizontal"
-        tools:text="大白菜"
-        android:textColor="@color/white"
-        android:textSize="@dimen/tz_16"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_32dp"
         android:visibility="gone"
+        tools:text="大白菜" />
+
+    <TextView
         android:id="@+id/video_calling_tv_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
-        android:drawablePadding="@dimen/dp_4"
         android:layout_gravity="center_horizontal"
-        android:drawableStart="@drawable/icon_coordinate"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:drawableLeft="@drawable/icon_coordinate"
+        android:drawablePadding="@dimen/dimen_8dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_14"
-        tools:text="26km"/>
+        android:textSize="@dimen/dimen_28dp"
+        android:visibility="gone"
+        tools:text="26km" />
     <!--<com.opensource.svgaplayer.SVGAImageView-->
-        <!--android:visibility="gone"-->
-        <!--app:loopCount="0"-->
-        <!--app:fillMode="Forward"-->
-        <!--app:clearsAfterStop="true"-->
-        <!--android:id="@+id/video_call_svg_anim"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:layout_marginBottom="@dimen/dp_50"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="180dp"/>-->
+    <!--android:visibility="gone"-->
+    <!--app:loopCount="0"-->
+    <!--app:fillMode="Forward"-->
+    <!--app:clearsAfterStop="true"-->
+    <!--android:id="@+id/video_call_svg_anim"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:layout_marginBottom="@dimen/dp_50"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="180dp"/>-->
 
     <!--<com.airbnb.lottie.LottieAnimationView-->
-        <!--android:id="@+id/video_call_lav_anim"-->
-        <!--android:layout_width="@dimen/dp_100"-->
-        <!--android:layout_height="@dimen/dp_80"-->
-        <!--android:layout_gravity="start|bottom"-->
-        <!--android:layout_marginBottom="@dimen/dp_100"-->
-        <!--android:layout_marginStart="@dimen/dp_30"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:scaleType="centerInside"-->
-        <!--app:lottie_autoPlay="true"-->
-        <!--app:lottie_fileName="videoCall/data.json"-->
-        <!--app:lottie_imageAssetsFolder="videoCall"-->
-        <!--app:lottie_loop="true"/>-->
+    <!--android:id="@+id/video_call_lav_anim"-->
+    <!--android:layout_width="@dimen/dp_100"-->
+    <!--android:layout_height="@dimen/dp_80"-->
+    <!--android:layout_gravity="start|bottom"-->
+    <!--android:layout_marginBottom="@dimen/dp_100"-->
+    <!--android:layout_marginStart="@dimen/dp_30"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:scaleType="centerInside"-->
+    <!--app:lottie_autoPlay="true"-->
+    <!--app:lottie_fileName="videoCall/data.json"-->
+    <!--app:lottie_imageAssetsFolder="videoCall"-->
+    <!--app:lottie_loop="true"/>-->
 </LinearLayout>

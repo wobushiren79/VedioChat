@@ -26,14 +26,17 @@
             app:tl_indicator_color="@color/orange"
             app:tl_indicator_corner_radius="@dimen/dimen_4dp"
             app:tl_indicator_height="@dimen/dimen_4dp"
-            app:tl_indicator_width="@dimen/dimen_64dp"
-
+            app:tl_indicator_width="@dimen/dimen_32dp"
             app:tl_tab_padding="@dimen/dimen_30dp"
             app:tl_textSelectColor="@color/base_black"
             app:tl_textUnselectColor="@color/base_gray"
             app:tl_textsize="@dimen/tz_18" />
     </FrameLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1dp"
+        android:background="@color/color_e8ebf1" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/main_friend_vp"

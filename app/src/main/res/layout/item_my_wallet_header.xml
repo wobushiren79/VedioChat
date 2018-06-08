@@ -6,11 +6,13 @@
     android:paddingStart="@dimen/dp_22"
     android:paddingEnd="@dimen/dp_22"
     android:paddingTop="@dimen/dp_8"
+    android:background="@color/white"
     android:paddingBottom="@dimen/dp_8"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <TextView
         tools:text="2018-01-10"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

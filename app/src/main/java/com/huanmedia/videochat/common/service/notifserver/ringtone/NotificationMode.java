@@ -11,6 +11,15 @@ public class NotificationMode {
     int notifiID;
     String title;
     String content;
+    Class intentActivity;
+
+    public Class getIntentActivity() {
+        return intentActivity;
+    }
+
+    public void setIntentActivity(Class intentActivity) {
+        this.intentActivity = intentActivity;
+    }
 
     public int getNotifiID() {
         return notifiID;

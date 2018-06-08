@@ -31,6 +31,7 @@ import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.service.notifserver.HuaWeiPushHelper;
 import com.huanmedia.videochat.common.service.notifserver.PushServiceManager;
 import com.huanmedia.videochat.common.utils.UMengUtils;
+import com.huanmedia.videochat.common.widget.AppointmentHintView;
 import com.huanmedia.videochat.common.widget.NoviceGuidanceView;
 import com.huanmedia.videochat.main2.datamodel.TabMode;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
@@ -54,6 +55,7 @@ import org.lzh.framework.updatepluginlib.UpdateBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 
@@ -72,6 +74,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     CommonTabLayout mMainCommonTablayout;
     @BindView(R.id.view_noviceguidance)
     NoviceGuidanceView mGuidanceView;
+    @BindView(R.id.appointment_hint_view)
+    AppointmentHintView mHintView;
 
     private ArrayList<CustomTabEntity> mTabs;
     private Fragment[] mFragments;
@@ -174,7 +178,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         switch (action.getAction()) {
             case EventBusAction.ACTION_SYSTEM_MESSAGE://系统消息更新
                 int msgCount = 0;
-                if (Objects.equals(action.getAction(), EventBusAction.ACTION_SYSTEM_MESSAGE)) {
+                if (action.getAction().equals(EventBusAction.ACTION_SYSTEM_MESSAGE)) {
                     msgCount = action.getIntExtra("msgCount", 0);
                     if (msgCount == 0) {
                         mMainCommonTablayout.hideMsg(2);
@@ -217,18 +221,11 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         getBasePresenter().coinChange();
     }
 
-
-//    @Override
-//    public boolean isImmersionBarEnabled() {
-//        return false;
-//    }
-
-
     @Override
     protected void initView() {
         checkNewVersion();
         mTabs = new ArrayList<>();
-        mTabs.add(new TabMode("发现", R.drawable.tab_home_found_sel, R.drawable.tab_home_found_nor));
+        mTabs.add(new TabMode("约聊", R.drawable.tab_home_found_sel, R.drawable.tab_home_found_nor));
         mTabs.add(new TabMode("萌友", R.drawable.tab_home_friend_sel, R.drawable.tab_home_friend_nor));
         mTabs.add(new TabMode("我", R.drawable.tab_home_my_sel, R.drawable.tab_home_my_nor));
 
@@ -393,7 +390,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
     @Override
     public void uploadUserDataSuccess() {
-
     }
 
     @Override
@@ -409,5 +405,10 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     @Override
     public void showToast(String toast) {
         ToastUtils.showToastShort(getContext(), toast);
+    }
+
+    @Override
+    public void showAppointmentHint(int coundDownTime, int fromId, int toId) {
+        mHintView.startCountDown(coundDownTime, fromId, toId);
     }
 }

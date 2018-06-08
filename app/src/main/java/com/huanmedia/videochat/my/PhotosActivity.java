@@ -83,7 +83,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
         initToolbar();
         //照片墙
         RecyclerViewItemDecoration mCurrentItemDecoration = new RecyclerViewItemDecoration.Builder(context())
-                .color(ContextCompat.getColor(context(), R.color.block_gray))
+                .color(ContextCompat.getColor(context(), R.color.white))
                 .thickness(DisplayUtil.dip2px(context(), 4))
                 .gridHorizontalSpacing(DisplayUtil.dip2px(context(), 4))
                 .gridVerticalSpacing(DisplayUtil.dip2px(context(), 4))

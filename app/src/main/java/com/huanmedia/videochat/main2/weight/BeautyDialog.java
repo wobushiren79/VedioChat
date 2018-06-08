@@ -113,7 +113,7 @@ public class BeautyDialog extends Dialog {
                     case 1://上面图片下面文本
                         RoundedImageView imageView = helper.getView(R.id.dialog_item_beauty_iv_filter_type);
                         imageView.setBorderColor(ContextCompat.getColor(mContext,
-                                isChecked ? R.color.base_violet_light_alpha : R.color.transparent));
+                                isChecked ? R.color.color_f65aa0 : R.color.transparent));
                         helper.setChecked(R.id.dialog_beauty_ctv_name, isChecked)
                                 .setVisible(R.id.dialog_beauty_tv_name, false)
                                 .setVisible(R.id.dialog_item_beauty_cl_filter_type, true)

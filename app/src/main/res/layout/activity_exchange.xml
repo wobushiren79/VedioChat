@@ -26,15 +26,14 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/dimen_10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/dimen_356dp">
 
             <TextView
                 android:id="@+id/exchange_tv_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_44dp"
-                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginLeft="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_104dp"
                 android:text="可用M币(个)"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dimen_28dp"
@@ -44,7 +43,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginLeft="@dimen/dimen_44dp"
                 android:layout_marginTop="@dimen/dimen_52dp"
                 app:layout_constraintStart_toStartOf="@id/exchange_tv_hint"
                 app:layout_constraintTop_toTopOf="@+id/exchange_tv_hint">
@@ -87,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginLeft="@dimen/dimen_44dp"
                 android:layout_marginTop="@dimen/dimen_36dp"
                 android:text="兑换钻石数"
                 android:textColor="@color/base_black"
@@ -102,12 +101,13 @@
                 android:layout_marginTop="@dimen/dimen_12dp"
                 android:background="@null"
                 android:digits="1234567890"
+                android:drawableLeft="@drawable/tab_icon_jewel"
                 android:drawablePadding="@dimen/dimen_20dp"
-                android:drawableStart="@drawable/tab_icon_jewel"
                 android:hint="数量≥100 (100的倍数)"
                 android:inputType="number"
                 android:maxLines="1"
                 android:textColor="@color/base_gray"
+                android:textCursorDrawable="@color/color_f65aa0"
                 android:textSize="@dimen/dimen_32dp" />
         </LinearLayout>
 
@@ -147,13 +147,13 @@
 
     <Button
         android:id="@+id/exchange_btn_ok"
-        android:layout_width="@dimen/dimen_540dp"
-        android:layout_height="@dimen/dimen_80dp"
+        style="@style/btn_submit_style_1"
+        android:layout_width="@dimen/dimen_632dp"
+        android:layout_height="@dimen/dimen_120dp"
         android:layout_marginTop="@dimen/dimen_100dp"
-        android:background="@drawable/my_account_btn_solid"
+        android:paddingBottom="@dimen/dimen_32dp"
         android:text="立即兑换"
         android:textColor="@color/white"
-        android:textSize="@dimen/dimen_32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exchange_ll_cash_withdrawal_amount" />

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -24,11 +23,12 @@ import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.common.widget.dialog.ReportDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
-import com.huanmedia.videochat.main2.weight.MaskDialog;
 import com.huanmedia.videochat.main2.weight.OPtionPopWindows;
 import com.huanmedia.videochat.repository.entity.ChatPeopleEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
@@ -141,6 +141,7 @@ public class FansFragment extends BaseMVPFragment<FansPresenter> implements Fans
                         FansFragment.this,
                         Check.checkReplace(item.getUserphoto_thumb()),
                         ivIcon);
+
                 helper.setOnClickListener(R.id.item_main_friend_iv_video, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -165,6 +166,21 @@ public class FansFragment extends BaseMVPFragment<FansPresenter> implements Fans
                         getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
                     }
                 });
+
+                helper.setOnClickListener(R.id.layout, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ChatPeopleEntity.ItemsEntity itemData = mAdapter.getItem(helper.getLayoutPosition());
+                        if (isRadmain) {
+                            getNavigator().navDiscoverInfo(getActivity(), itemData.getUid(), itemData.getDistance(), BusinessCardFragment.ShowType.ReadMan);
+                        } else {
+                            BusinessCardDialog dialog = new BusinessCardDialog(getContext());
+                            dialog.setUid(itemData.getUid());
+                            dialog.setDistance(itemData.getDistance());
+                            dialog.show();
+                        }
+                    }
+                });
             }
         };
 
@@ -183,6 +199,13 @@ public class FansFragment extends BaseMVPFragment<FansPresenter> implements Fans
 //            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                ChatPeopleEntity.ItemsEntity mCallingData = mAdapter.getData().get(position);
 //                getNavigator().navDiscoverInfo(getActivity(), mCallingData.getUid(),mCallingData.getDistance());
+//            }
+//        });
+
+//        mComeAcrossFmRv.addOnItemTouchListener(new OnItemClickListener() {
+//            @Override
+//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+//
 //            }
 //        });
         mComeAcrossFmRv.addOnItemTouchListener(new OnItemLongClickListener() {

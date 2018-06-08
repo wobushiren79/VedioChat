@@ -103,7 +103,8 @@ public class MediaPlayView extends BaseFragment implements
     @Override
     public void onPrepared(MediaPlayer mp) {
         if (isFirst) {
-            mVedioIcon.setVisibility(View.VISIBLE);
+//            mVedioIcon.setVisibility(View.VISIBLE);
+            mVedioView.start();
         }
         isFirst = false;
         mVedioPB.setVisibility(View.GONE);
@@ -209,8 +210,6 @@ public class MediaPlayView extends BaseFragment implements
      * 获取网络缩略图
      *
      * @param url
-     * @param width
-     * @param height
      * @return
      */
     private Bitmap createVideoThumbnail(String url) {

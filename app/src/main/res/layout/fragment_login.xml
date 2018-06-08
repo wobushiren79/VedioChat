@@ -129,7 +129,7 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="@dimen/dimen_150dp"
         android:background="@drawable/base_btn_solid"
-        android:text="登录"
+        android:text="注册并登录"
         android:textColor="@color/white"
         android:textSize="@dimen/tz_20"
         app:layout_constraintEnd_toEndOf="parent"

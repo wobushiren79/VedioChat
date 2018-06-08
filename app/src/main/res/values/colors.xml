@@ -76,6 +76,7 @@
     <color name="color_e7e7e7">#e7e7e7</color>
     <color name="color_ff4747">#ff4747</color>
     <color name="color_ffffff_90">#90ffffff</color>
+    <color name="color_fcfcfc_80">#80ffffff</color>
     <color name="color_cdcdcd_90">#90cdcdcd</color>
 
 
@@ -89,7 +90,7 @@
     <color name="ksw_md_solid_disable">#FFFFFF</color>
     <color name="ksw_md_solid_normal">#999999</color>
     <color name="ksw_md_solid_shadow">#33000000</color>
-    <color name="orange">#fc4141</color>
+    <color name="orange">#f65aa0</color>
 
     <color name="progress_red">#d62126</color>
     <color name="progress_green">#66c969</color>

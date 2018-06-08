@@ -26,6 +26,7 @@ import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout;
 import com.huanmedia.videochat.main2.weight.GoodProgressView;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
@@ -54,16 +55,19 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
     private BaseQuickAdapter<VideoEntity, BaseViewHolder> mHeaderVideoAdapter;
     private Context context;
     private int mItemSize;
+    private @BusinessCardFragment.ShowType
+    int mShowType;
     private BusinessAdapterListener mBusinessAdapterListener;
 
     public void setBusinessAdapterListener(BusinessAdapterListener businessAdapterListener) {
         mBusinessAdapterListener = businessAdapterListener;
     }
 
-    public BusinessCardAdapter(Context context, List<BusinessMultiItem> data, String distance) {
+    public BusinessCardAdapter(Context context, List<BusinessMultiItem> data, String distance, @BusinessCardFragment.ShowType int showType) {
         super(data);
         this.context = context;
         mDistance = distance;
+        mShowType = showType;
         addItemType(BusinessMultiItem.BusinessType.HEADER, R.layout.item_business_card_baseinfo);
         addItemType(BusinessMultiItem.BusinessType.TAG, R.layout.item_business_card_user_tag);
         addItemType(BusinessMultiItem.BusinessType.EVALUATE, R.layout.item_business_card_evaluate);
@@ -241,8 +245,11 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
             sexSrc = R.drawable.bg_icon_woman_1;
         }
         int charge = businessCard.getStartime() == 0 ? 0 : businessCard.getStarcoin() / businessCard.getStartime();
-        headerHolder.setVisible(R.id.business_card_tv_distance, businessCard.getIsstarauth() == 1)//非红人隐藏距离信息
+        headerHolder
+                .setVisible(R.id.business_card_tv_distance, businessCard.getIsstarauth() == 1)//非红人隐藏距离信息
                 .setVisible(R.id.business_card_tv_charge, businessCard.getIsstarauth() == 1)//非红人隐藏价格信息
+                .setVisible(R.id.business_card_cb_attention,businessCard.getIsstarauth() == 1)//非红人隐藏关注
+                .setVisible(R.id.business_card_tv_cl_trustValue,businessCard.getIsstarauth() == 1)//非红人隐藏信任值
                 //用户基础信息
                 .setText(R.id.business_card_tv_nickName, Check.checkReplace(businessCard.getNickname()))
                 .setText(R.id.business_card_tv_level, String.format("LV.%d", businessCard.getLevel()))

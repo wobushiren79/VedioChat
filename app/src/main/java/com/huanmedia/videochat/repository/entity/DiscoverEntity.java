@@ -42,6 +42,15 @@ public class DiscoverEntity implements Parcelable {
     private List<PhotosEntity> photos;
     int favorited;
     private int starbutton;
+    private int yuyueflag;
+
+    public int getYuyueflag() {
+        return yuyueflag;
+    }
+
+    public void setYuyueflag(int yuyueflag) {
+        this.yuyueflag = yuyueflag;
+    }
 
     public int getSystemtime() {
         return systemtime;
@@ -176,6 +185,7 @@ public class DiscoverEntity implements Parcelable {
         sb.append(", userphoto_thumb='").append(userphoto_thumb).append('\'');
         sb.append(", photos=").append(photos);
         sb.append(", area=").append(area);
+        sb.append(", yuyueflag=").append(yuyueflag);
         sb.append('}');
         return sb.toString();
     }
@@ -376,6 +386,7 @@ public class DiscoverEntity implements Parcelable {
         dest.writeTypedList(this.photos);
         dest.writeInt(this.favorited);
         dest.writeInt(this.starbutton);
+        dest.writeInt(this.yuyueflag);
         dest.writeParcelable(this.area, flags);
     }
 
@@ -395,6 +406,7 @@ public class DiscoverEntity implements Parcelable {
         this.photos = in.createTypedArrayList(PhotosEntity.CREATOR);
         this.favorited = in.readInt();
         this.starbutton = in.readInt();
+        this.yuyueflag = in.readInt();
         this.area = in.readParcelable(AreaEntity.class.getClassLoader());
     }
 

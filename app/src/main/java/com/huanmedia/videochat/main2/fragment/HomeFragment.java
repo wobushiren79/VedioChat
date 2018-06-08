@@ -88,7 +88,7 @@ public class HomeFragment extends BaseFragment implements MatchFragment.MatchInt
         HomeFragmentAdapter adapter = new HomeFragmentAdapter(getFragmentManager(), mFragments);
         mMainHomeVpMainpage.setOffscreenPageLimit(3);
         mMainHomeVpMainpage.setAdapter(adapter);
-        mMainHomeSlidingTableLayout.setViewPager(mMainHomeVpMainpage, new String[]{"偶遇", "发现"});
+        mMainHomeSlidingTableLayout.setViewPager(mMainHomeVpMainpage, new String[]{"偶遇", "约聊"});
         mMainHomeVpMainpage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

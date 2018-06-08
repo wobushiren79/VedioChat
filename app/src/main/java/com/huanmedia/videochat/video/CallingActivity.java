@@ -4,11 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.faceunity.FUManager;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.ilibray.utils.RxCountDown;
@@ -51,6 +48,7 @@ import com.huanmedia.videochat.common.service.notifserver.ringtone.RingtoneManag
 import com.huanmedia.videochat.common.widget.dialog.CheckContactDialog;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.EvaluationDialog;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.main2.weight.BeautyDialog;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
@@ -82,18 +80,16 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import ch.halcyon.squareprogressbar.SquareProgressView;
-import ch.halcyon.squareprogressbar.utils.PercentStyle;
 import io.agora.propeller.model.AGEventHandler;
-import io.agora.propeller.model.ConstantApp;
 import io.agora.propeller.preprocessing.VideoPreProcessing;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.reactivex.disposables.Disposable;
+import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.GlideUtils;
 
 public class CallingActivity extends BaseVideoActivity<CallingPresenter> implements CallingView, AGEventHandler {
@@ -124,6 +120,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     TextView mVideoCallTvSmallCalling;
     @BindView(R.id.video_call_ll_hint)
     LinearLayout mVideoCallLlHint;
+    @BindView(R.id.video_call_tv_countdown)
+    TextView mVideoCallTvCountDown;
     @BindView(R.id.video_call_iv_header)
     RoundedImageView mVideoCallIvHeader;
     @BindView(R.id.video_calling_tv_name)
@@ -223,6 +221,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mTimeDownSub != null)
+            mTimeDownSub.dispose();
     }
 
 
@@ -269,20 +269,32 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
             if (conditionEntigy.getVideoType() == VideoType.REDMAN) {
                 if (conditionEntigy.getReadMainConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
-                    //对方拨打电话
-                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATERECEIVE);//超时计时器
                     VideoChatEntity mvideoConfig = conditionEntigy.getReadMainConfig().getVideoChatConfig();
                     mvideoConfig.set_location_VideoType(conditionEntigy.getVideoType());
                     getBasePresenter().setVideoChatEntity(mvideoConfig);
-//                    setUserData(mvideoConfig);
                     setCallingUserData(mvideoConfig);
-                    mVideoCallIvAnswer.setVisibility(View.VISIBLE);
-                } else {//呼叫对方
+                } else {
                     getBasePresenter().setSendEndCallMsg(true);
-                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATECALL);//超时计时器
                     getBasePresenter().chatBegininfo();
-                    startCallAnim();
                 }
+                getBasePresenter().addDisposable(RxCountDown.countdown(10).subscribe(//匹配成功后等待10秒执行连接
+                        integer -> {
+                            if (integer == 0) {
+                                mVideoCallTvCountDown.setVisibility(View.GONE);
+                                if (conditionEntigy.getReadMainConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
+                                    //对方拨打电话
+                                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATERECEIVE);//超时计时器
+                                    mVideoCallIvAnswer.setVisibility(View.VISIBLE);
+                                } else {//呼叫对方
+                                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATECALL);//超时计时器
+                                    startCallAnim();
+                                }
+                            } else {
+                                mVideoCallTvCountDown.setVisibility(View.VISIBLE);
+                                mVideoCallTvCountDown.setText(integer + "秒后即将开始...");
+                            }
+                        }));
+
             } else {
                 if (conditionEntigy.getMatchConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
                     //对方拨打电话
@@ -429,7 +441,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             localVideoStarting = true;
             EventBus.getDefault().post(new Intent(EventBusAction.ACTION_MAINOPENCAMERA));
             SurfaceView surfaceV = RtcEngine.CreateRendererView(FApplication.getApplication());
-//        rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
+            rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
             mUidsList.put((int) UserManager.getInstance().getId(), surfaceV);
             mCallingFlVideoSmall.addView(surfaceV);
             surfaceV.setZOrderOnTop(true);
@@ -736,9 +748,17 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 //                endCall();
 //                break;
             case -8405://余额不足
-                CommDialogUtils.showInsufficientBalance(this, (dialog, which) -> {
-                    coinPay();
-                    dialog.dismiss();
+                CommDialogUtils.showInsufficientBalance(this, new GeneralDialog.CallBack() {
+                    @Override
+                    public void submitClick(Dialog dialog) {
+                        coinPay();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void cancelClick(Dialog dialog) {
+
+                    }
                 });
                 break;
             case -1:
@@ -942,18 +962,25 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                 @Override
                 public void onMaskTa(View view) {
                     if (getBasePresenter().getVideoChatEntity().getTomask() != 0) {
-                        new MaterialDialog.Builder(context()).title("确认信息")
-                                .content("本次揭面需花费您 50钻")
-                                .negativeText("取消")
-                                .negativeColorRes(R.color.base_gray)
-                                .positiveText("确定")
-                                .positiveColorRes(R.color.base_yellow)
-                                .onPositive((dialog, which) -> getBasePresenter().chatCoinConsumption(
-                                        Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid())
-                                        , 6
-                                        , 1
-                                ))
-                                .show();
+                        GeneralDialog dialog = new GeneralDialog(context());
+                        dialog
+                                .setContent("本次揭面需花费您 50钻")
+                                .setCallBack(new GeneralDialog.CallBack() {
+                                    @Override
+                                    public void submitClick(Dialog dialog) {
+                                        getBasePresenter().chatCoinConsumption(
+                                                Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid())
+                                                , 6
+                                                , 1
+                                        );
+                                    }
+
+                                    @Override
+                                    public void cancelClick(Dialog dialog) {
+
+                                    }
+                                }).show();
+
                     }
                 }
 
@@ -1209,21 +1236,25 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
     private void endCallBtn() {
         if (isVideoCalling) {
-            new MaterialDialog.Builder(this)
-                    .content("是否挂断当前视频聊天？")
-                    .negativeText("取消")
-                    .positiveText("确定")
-                    .negativeColorRes(R.color.base_gray)
-                    .positiveColorRes(R.color.base_yellow)
-                    .onPositive((dialog, which) -> {
-                        if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN) {
-                            getBasePresenter().setEndFlag(1);
+            GeneralDialog dialog = new GeneralDialog(this);
+            dialog
+                    .setContent("是否挂断当前视频聊天？")
+                    .setCallBack(new GeneralDialog.CallBack() {
+                        @Override
+                        public void submitClick(Dialog dialog) {
+                            if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN) {
+                                getBasePresenter().setEndFlag(1);
+                            }
+                            RingtoneManager.getInstance().stopSoundVibrate();
+                            isEndCall = true;
+                            endCall();
                         }
-                        RingtoneManager.getInstance().stopSoundVibrate();
-                        isEndCall = true;
-                        endCall();
-                    })
-                    .show();
+
+                        @Override
+                        public void cancelClick(Dialog dialog) {
+
+                        }
+                    }).show();
         } else {
             if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN
                     && getBasePresenter().getCondition().getReadMainConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
@@ -1368,8 +1399,14 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             return;
         }
         isConnection = true;
+        int delayTime = 1;
+        if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN) {
+            if (getBasePresenter().getCondition().getReadMainConfig().getRequestType() == ConditionEntity.RequestType.SELF) {
+                delayTime = 10;
+            }
+        }
         setCallingUserData(videoChatEntity);
-        getBasePresenter().addDisposable(RxCountDown.delay(3).subscribe(//匹配成功后等待3秒执行连接
+        getBasePresenter().addDisposable(RxCountDown.delay(delayTime).subscribe(//匹配成功后等待10秒执行连接
                 integer -> {
                     if (!isConnection)
                         return;
@@ -1429,7 +1466,17 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
     @Override
     public void showBalanceDeficiency() {//余额不足
-        CommDialogUtils.showInsufficientBalance(this, (dialog, which) -> coinPay());
+        CommDialogUtils.showInsufficientBalance(this, new GeneralDialog.CallBack() {
+            @Override
+            public void submitClick(Dialog dialog) {
+                coinPay();
+            }
+
+            @Override
+            public void cancelClick(Dialog dialog) {
+
+            }
+        });
     }
 
     @Override

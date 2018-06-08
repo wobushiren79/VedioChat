@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wheel_rl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_8dp"
+    android:layout_marginLeft="@dimen/dimen_8dp"
+    android:layout_marginRight="@dimen/dimen_8dp"
+    android:layout_marginTop="@dimen/dimen_8dp"
+    android:background="@color/white"
+    android:minHeight="@dimen/dimen_96dp"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:id="@+id/wheel_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_8dp"
+        android:layout_marginLeft="@dimen/dimen_8dp"
+        android:layout_marginRight="@dimen/dimen_8dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:background="@color/white"
+        android:minHeight="@dimen/dimen_96dp"
+        android:orientation="horizontal">
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/whell_dialog_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</RelativeLayout>

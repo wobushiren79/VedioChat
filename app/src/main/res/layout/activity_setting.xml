@@ -43,13 +43,13 @@
             <LinearLayout
                 android:id="@+id/setting_userAccount_ll"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:layout_marginTop="@dimen/dp_22"
+                android:layout_height="@dimen/dimen_104dp"
+                android:layout_marginTop="@dimen/dimen_44dp"
                 android:background="@drawable/base_item_select"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22">
+                android:paddingLeft="@dimen/dimen_44dp"
+                android:paddingRight="@dimen/dimen_44dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                     android:gravity="start"
                     android:text="账号信息"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
 
                 <TextView
                     android:id="@+id/setting_tv_account"
@@ -67,7 +67,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16"
+                    android:textSize="@dimen/dimen_32dp"
                     tools:text="123456123456" />
             </LinearLayout>
             <!--屏蔽通知、声音提示-->
@@ -75,7 +75,7 @@
                 android:id="@+id/setting_notification_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dimen_40dp"
                 android:divider="@drawable/divider_ll"
                 android:orientation="vertical"
                 android:showDividers="middle"
@@ -84,10 +84,10 @@
                 <RelativeLayout
                     android:id="@+id/setting_notification_rl_desable"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_52"
+                    android:layout_height="@dimen/dimen_104dp"
                     android:background="@drawable/base_item_select"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -95,24 +95,26 @@
                         android:layout_centerVertical="true"
                         android:text="屏蔽通知"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
 
-                    <com.kyleduo.switchbutton.SwitchButton
+                    <Switch
                         android:id="@+id/setting_notification_sb"
-                        style="@style/SwitchButtonStyleMD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dimen_44dp"
+                        android:theme="@style/switch_style_1" />
+
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/setting_sound_rl_desable"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_52"
+                    android:layout_height="@dimen/dimen_104dp"
                     android:background="@drawable/base_item_select"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -120,16 +122,16 @@
                         android:layout_centerVertical="true"
                         android:text="声音提示"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16" />
-
-                    <com.kyleduo.switchbutton.SwitchButton
+                        android:textSize="@dimen/dimen_32dp" />
+                    <Switch
                         android:id="@+id/setting_sound_sb"
-                        style="@style/SwitchButtonStyleMD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        app:kswThumbColor="@color/base_black" />
+                        android:layout_marginRight="@dimen/dimen_44dp"
+                        android:theme="@style/switch_style_1" />
+
                 </RelativeLayout>
             </LinearLayout>
             <!--意见反馈、用户协议-->
@@ -137,7 +139,7 @@
                 android:id="@+id/setting_other_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dimen_40dp"
                 android:divider="@drawable/divider_ll"
                 android:orientation="vertical"
                 android:showDividers="middle"
@@ -146,10 +148,10 @@
                 <RelativeLayout
                     android:id="@+id/setting_other_feedback_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_52"
+                    android:layout_height="@dimen/dimen_104dp"
                     android:background="@drawable/base_item_select"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -157,27 +159,27 @@
                         android:layout_centerVertical="true"
                         android:text="意见反馈"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
 
                     <TextView
                         android:id="@+id/setting_other_feedback_enter_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dp_24"
-                        android:drawableEnd="@drawable/icon_arrows"
+                        android:layout_marginRight="@dimen/dimen_48dp"
+                        android:drawableRight="@drawable/icon_arrows"
                         android:textColor="@color/base_gray"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/setting_other_user_agreement_rl_desable"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_52"
+                    android:layout_height="@dimen/dimen_104dp"
                     android:background="@drawable/base_item_select"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -185,18 +187,18 @@
                         android:layout_centerVertical="true"
                         android:text="用户协议"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
 
                     <TextView
                         android:id="@+id/setting_user_agreement_enter_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dp_24"
-                        android:drawableEnd="@drawable/icon_arrows"
+                        android:layout_marginRight="@dimen/dimen_48dp"
+                        android:drawableRight="@drawable/icon_arrows"
                         android:textColor="@color/base_gray"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -206,7 +208,7 @@
                 android:id="@+id/setting_other2_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dimen_40dp"
                 android:divider="@drawable/divider_ll"
                 android:orientation="vertical"
                 android:showDividers="middle"
@@ -215,10 +217,10 @@
                 <RelativeLayout
                     android:id="@+id/setting_checkNew_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_52"
+                    android:layout_height="@dimen/dimen_104dp"
                     android:background="@drawable/base_item_select"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -226,28 +228,28 @@
                         android:layout_centerVertical="true"
                         android:text="检查更新"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
 
                     <TextView
                         android:id="@+id/setting_other2_checkNew_enter_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dp_16"
-                        android:drawableEnd="@drawable/icon_arrows"
+                        android:layout_marginRight="@dimen/dimen_32dp"
+                        android:drawableRight="@drawable/icon_arrows"
                         android:padding="@dimen/dp_8"
                         android:textColor="@color/base_gray"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/setting_other2_aboutUs_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_52"
+                    android:layout_height="@dimen/dimen_104dp"
                     android:background="@drawable/base_item_select"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -255,32 +257,32 @@
                         android:layout_centerVertical="true"
                         android:text="关于萌面"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
 
                     <TextView
                         android:id="@+id/setting_other2_about_enter_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dp_24"
-                        android:drawableEnd="@drawable/icon_arrows"
+                        android:layout_marginRight="@dimen/dimen_48dp"
+                        android:drawableRight="@drawable/icon_arrows"
                         android:textColor="@color/base_gray"
-                        android:textSize="@dimen/tz_16" />
+                        android:textSize="@dimen/dimen_32dp" />
                 </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/setting_outLogin_ll"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_52"
-                android:layout_marginBottom="@dimen/dp_22"
-                android:layout_marginTop="@dimen/dp_22"
+                android:layout_height="@dimen/dimen_104dp"
+                android:layout_marginBottom="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_44dp"
                 android:background="@drawable/base_item_select"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22"
+                android:paddingLeft="@dimen/dimen_44dp"
+                android:paddingRight="@dimen/dimen_44dp"
                 app:layout_constraintTop_toBottomOf="@+id/setting_other2_ll">
 
                 <TextView
@@ -290,22 +292,22 @@
                     android:gravity="start"
                     android:text="退出登录"
                     android:textColor="@color/base_red"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/setting_debug_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_22"
-                android:layout_marginTop="@dimen/dp_22"
+                android:layout_marginBottom="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_44dp"
                 android:background="@drawable/base_item_select"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22"
+                android:paddingLeft="@dimen/dimen_44dp"
+                android:paddingRight="@dimen/dimen_44dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/setting_outLogin_ll">
@@ -314,7 +316,7 @@
                     android:id="@+id/setting_debug_et_network"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dimen_32dp"
                     android:hint="输入网络类型:1:debug 2:test 3:release"
                     android:inputType="numberSigned" />
 
@@ -322,7 +324,7 @@
                     android:id="@+id/setting_debug_tv_network_current"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/tz_12"
+                    android:textSize="@dimen/dimen_24dp"
                     tools:text="当前网络：" />
 
                 <Button
@@ -330,11 +332,11 @@
                     android:layout_width="80dp"
                     android:layout_height="38dp"
                     android:layout_gravity="end"
-                    android:layout_marginBottom="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dimen_32dp"
+                    android:layout_marginTop="@dimen/dimen_32dp"
                     android:background="@drawable/base_btn_solid"
                     android:text="确定"
-                    android:textSize="@dimen/tz_14" />
+                    android:textSize="@dimen/dimen_28dp" />
 
                 <Button
                     android:id="@+id/setting_debug_btn_monitor"

@@ -75,6 +75,8 @@ public class StartActivity extends BaseActivity {
         switch (Uri.parse(intent.getAction()).getPath()) {
             case FirstGuideFragment.TAG:
                 addFragmentAndShow(R.id.start_fragment, new FirstGuideFragment(),
+
+
                         FirstGuideFragment.TAG, false, true);
                 break;
             case LoginFragment.TAG:

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.huanmedia.videochat.main2.fragment.MyFragment">
 
     <LinearLayout
@@ -23,15 +22,16 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/home_toolbar_fl"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_144"
+                android:paddingTop="@dimen/dimen_30dp"
+                android:layout_height="@dimen/dimen_320dp"
                 android:background="@color/base_appbar_background_light">
 
                 <ImageView
                     android:id="@+id/my_fm_iv_mail"
-                    android:layout_width="@dimen/dp_32"
-                    android:layout_height="@dimen/dp_32"
-                    android:layout_marginEnd="@dimen/dp_22"
-                    android:layout_marginTop="@dimen/dp_34"
+                    android:layout_width="@dimen/dimen_64dp"
+                    android:layout_height="@dimen/dimen_64dp"
+                    android:layout_marginRight="@dimen/dimen_60dp"
+                    android:layout_marginTop="@dimen/dimen_78dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/btn_mail"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -39,17 +39,17 @@
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/my_fm_iv_header"
-                    android:layout_width="@dimen/dp_60"
-                    android:layout_height="@dimen/dp_60"
-                    android:layout_marginStart="@dimen/dp_22"
-                    android:layout_marginTop="@dimen/dp_58"
+                    android:layout_width="@dimen/dimen_120dp"
+                    android:layout_height="@dimen/dimen_120dp"
+                    android:layout_marginLeft="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_106dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/icon_headportrait"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:riv_border_color="@color/header_border_gray"
-                    app:riv_border_width="@dimen/dp_1"
-                    app:riv_corner_radius="@dimen/dp_4"
+                    app:riv_border_width="@dimen/dimen_1dp"
+                    app:riv_corner_radius="@dimen/dimen_8dp"
                     app:riv_oval="true" />
 
                 <ImageView
@@ -63,14 +63,14 @@
                 <TextView
                     android:id="@+id/my_fm_tv_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_24"
-                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:layout_marginLeft="@dimen/dimen_32dp"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:maxWidth="@dimen/dp_80"
+                    android:maxWidth="@dimen/dimen_160dp"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
+                    android:textSize="@dimen/dimen_32dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/my_fm_iv_header"
                     app:layout_constraintStart_toEndOf="@+id/my_fm_iv_header"
@@ -81,7 +81,7 @@
                     android:id="@+id/my_fm_iv_level"
                     android:layout_width="@dimen/dimen_96dp"
                     android:layout_height="@dimen/dimen_24dp"
-                    android:layout_marginStart="@dimen/dimen_12dp"
+                    android:layout_marginLeft="@dimen/dimen_12dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/user_level"
                     app:layout_constraintBottom_toBottomOf="@+id/my_fm_tv_name"
@@ -90,11 +90,11 @@
 
                 <TextView
                     android:id="@+id/my_fm_tv_btn_data_editor"
-                    android:layout_width="@dimen/dp_80"
-                    android:layout_height="@dimen/dp_24"
-                    android:layout_marginEnd="@dimen/dp_22"
-                    android:drawableEnd="@drawable/btn_return_gray"
-                    android:drawablePadding="@dimen/dp_8"
+                    android:layout_width="@dimen/dimen_160dp"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:drawablePadding="@dimen/dimen_16dp"
+                    android:drawableRight="@drawable/btn_return_gray"
                     android:gravity="center_vertical|end"
                     android:text="资料编辑"
                     android:textColor="@color/base_gray"
@@ -115,25 +115,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@drawable/divider_ll"
-            android:orientation="vertical"
-            android:showDividers="middle">
+            android:orientation="vertical">
             <!--我的钱包-->
             <RelativeLayout
                 android:id="@+id/my_fm_rl_account"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:layout_marginBottom="@dimen/dp_12"
+                android:layout_height="@dimen/dimen_120dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
                 android:background="@drawable/base_item_select"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22">
+                android:paddingLeft="@dimen/dimen_44dp"
+                android:paddingRight="@dimen/dimen_44dp">
 
                 <ImageView
                     android:id="@+id/my_fm_iv_myAccount"
-                    android:layout_width="@dimen/dp_24"
-                    android:layout_height="@dimen/dp_24"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/dp_22"
-                    android:layout_marginTop="@dimen/dp_22"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_44dp"
                     android:src="@drawable/icon_money" />
 
                 <TextView
@@ -141,40 +140,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/my_fm_iv_myAccount"
-                    android:layout_toEndOf="@+id/my_fm_iv_myAccount"
+                    android:layout_toRightOf="@+id/my_fm_iv_myAccount"
                     android:text="我的钱包"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
+                    android:textSize="@dimen/dimen_32dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/my_fm_tv_myMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/my_fm_tv_lable_myAccount"
-                    android:drawableEnd="@drawable/btn_return_gray"
+                    android:drawableRight="@drawable/btn_return_gray"
                     android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
 
             </RelativeLayout>
             <!--红人模式-->
             <RelativeLayout
                 android:id="@+id/my_fm_rl_readman"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:layout_marginBottom="@dimen/dp_12"
+                android:layout_height="@dimen/dimen_120dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
                 android:background="@drawable/base_item_select"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22">
+                android:paddingLeft="@dimen/dimen_44dp"
+                android:paddingRight="@dimen/dimen_44dp">
 
                 <ImageView
                     android:id="@+id/my_fm_iv_readman"
-                    android:layout_width="@dimen/dp_24"
-                    android:layout_height="@dimen/dp_24"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/dp_22"
-                    android:layout_marginTop="@dimen/dp_22"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_44dp"
                     android:src="@drawable/icon_video" />
 
                 <TextView
@@ -182,40 +181,81 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/my_fm_iv_readman"
-                    android:layout_toEndOf="@+id/my_fm_iv_readman"
+                    android:layout_toRightOf="@+id/my_fm_iv_readman"
                     android:text="红人模式"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
+                    android:textSize="@dimen/dimen_32dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/my_fm_tv_readman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/my_fm_tv_lable_readman"
-                    android:drawableEnd="@drawable/btn_return_gray"
+                    android:drawableRight="@drawable/btn_return_gray"
                     android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
+
+            </RelativeLayout>
+            <!--我的预约-->
+            <RelativeLayout
+                android:id="@+id/my_fm_rl_appointment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_120dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
+                android:background="@drawable/base_item_select"
+                android:paddingLeft="@dimen/dimen_44dp"
+                android:paddingRight="@dimen/dimen_44dp">
+
+                <ImageView
+                    android:id="@+id/my_fm_iv_appointment"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_44dp"
+                    android:src="@drawable/icon_appointment" />
+
+                <TextView
+                    android:id="@+id/my_fm_tv_lable_appointment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/my_fm_iv_appointment"
+                    android:layout_toRightOf="@+id/my_fm_iv_appointment"
+                    android:text="我的预约"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/dimen_32dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/my_fm_tv_appointment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/my_fm_tv_lable_appointment"
+                    android:drawableRight="@drawable/btn_return_gray"
+                    android:textColor="@color/base_gray"
+                    android:textSize="@dimen/dimen_32dp" />
 
             </RelativeLayout>
             <!--信任值-->
             <RelativeLayout
                 android:id="@+id/my_fm_rl_trust"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:layout_marginBottom="@dimen/dp_12"
+                android:layout_height="@dimen/dimen_120dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
                 android:background="@drawable/base_item_select"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22">
+                android:paddingLeft="@dimen/dimen_44dp"
+                android:paddingRight="@dimen/dimen_44dp">
 
                 <ImageView
                     android:id="@+id/my_fm_iv_trust"
-                    android:layout_width="@dimen/dp_24"
-                    android:layout_height="@dimen/dp_24"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/dp_22"
-                    android:layout_marginTop="@dimen/dp_22"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_44dp"
                     android:src="@drawable/icon_trust" />
 
                 <TextView
@@ -223,21 +263,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/my_fm_iv_trust"
-                    android:layout_toEndOf="@+id/my_fm_iv_trust"
+                    android:layout_toRightOf="@+id/my_fm_iv_trust"
                     android:text="信任值"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
+                    android:textSize="@dimen/dimen_32dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/my_fm_tv_trust"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/my_fm_tv_lable_trust"
-                    android:drawableEnd="@drawable/btn_return_gray"
+                    android:drawableRight="@drawable/btn_return_gray"
                     android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
             </RelativeLayout>
 
             <!--推广-->
@@ -245,19 +285,19 @@
             <RelativeLayout
                 android:id="@+id/my_fm_rl_generalize"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
+                android:layout_height="@dimen/dimen_120dp"
                 android:layout_marginBottom="@dimen/dp_12"
                 android:background="@drawable/base_item_select"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22">
+                android:paddingEnd="@dimen/dimen_44dp"
+                android:paddingStart="@dimen/dimen_44dp">
 
                 <ImageView
                     android:id="@+id/my_fm_iv_generalize"
-                    android:layout_width="@dimen/dp_24"
-                    android:layout_height="@dimen/dp_24"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/dp_22"
-                    android:layout_marginTop="@dimen/dp_22"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_44dp"
                     android:src="@drawable/icon_promote" />
 
                 <TextView
@@ -265,21 +305,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/my_fm_iv_generalize"
-                    android:layout_toEndOf="@+id/my_fm_iv_generalize"
+                    android:layout_toRightOf="@+id/my_fm_iv_generalize"
                     android:text="我的推广"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
+                    android:textSize="@dimen/dimen_32dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/my_fm_tv_generalize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/my_fm_tv_lable_generalize"
-                    android:drawableEnd="@drawable/btn_return_gray"
+                    android:drawableRight="@drawable/btn_return_gray"
                     android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
 
             </RelativeLayout>
 
@@ -288,18 +328,18 @@
             <RelativeLayout
                 android:id="@+id/my_fm_rl_setting"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
+                android:layout_height="@dimen/dimen_120dp"
                 android:background="@drawable/base_item_select"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22">
+                android:paddingEnd="@dimen/dimen_44dp"
+                android:paddingStart="@dimen/dimen_44dp">
 
                 <ImageView
                     android:id="@+id/my_fm_iv_setting"
-                    android:layout_width="@dimen/dp_24"
-                    android:layout_height="@dimen/dp_24"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/dp_22"
-                    android:layout_marginTop="@dimen/dp_22"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_44dp"
                     android:src="@drawable/icon_set" />
 
                 <TextView
@@ -307,42 +347,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/my_fm_iv_setting"
-                    android:layout_toEndOf="@+id/my_fm_iv_setting"
+                    android:layout_toRightOf="@+id/my_fm_iv_setting"
                     android:text="设置"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
+                    android:textSize="@dimen/dimen_32dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/my_fm_tv_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/my_fm_tv_lable_setting"
-                    android:drawableEnd="@drawable/btn_return_gray"
+                    android:drawableRight="@drawable/btn_return_gray"
                     android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
 
             </RelativeLayout>
 
+            <View
+
+                android:background="@color/block_gray"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1dp"></View>
             <!--帮助-->
 
             <RelativeLayout
                 android:id="@+id/my_fm_rl_help"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
+                android:layout_height="@dimen/dimen_120dp"
                 android:layout_marginBottom="@dimen/dp_12"
                 android:background="@drawable/base_item_select"
-                android:paddingEnd="@dimen/dp_22"
-                android:paddingStart="@dimen/dp_22">
+                android:paddingEnd="@dimen/dimen_44dp"
+                android:paddingStart="@dimen/dimen_44dp">
 
                 <ImageView
                     android:id="@+id/my_fm_iv_help"
-                    android:layout_width="@dimen/dp_24"
-                    android:layout_height="@dimen/dp_24"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/dp_22"
-                    android:layout_marginTop="@dimen/dp_22"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_44dp"
                     android:src="@drawable/icon_help" />
 
                 <TextView
@@ -350,21 +395,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/my_fm_iv_help"
-                    android:layout_toEndOf="@+id/my_fm_iv_help"
+                    android:layout_toRightOf="@+id/my_fm_iv_help"
                     android:text="帮助"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16"
+                    android:textSize="@dimen/dimen_32dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/my_fm_tv_help"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/my_fm_tv_lable_help"
-                    android:drawableEnd="@drawable/btn_return_gray"
+                    android:drawableRight="@drawable/btn_return_gray"
                     android:textColor="@color/base_gray"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
 
             </RelativeLayout>
         </LinearLayout>

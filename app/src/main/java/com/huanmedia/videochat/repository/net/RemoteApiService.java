@@ -5,6 +5,12 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
+import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
+import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
@@ -77,6 +83,11 @@ public interface RemoteApiService {
     @POST("/index/Chatpage/starlist")
     @FormUrlEncoded
     Observable<DataResponse<DiscoverPageEntity>> readManList(@FieldMap Map<String, String> prams);
+
+    //约聊列表
+    @POST("/index/Chatpage/yuyelist")
+    @FormUrlEncoded
+    Observable<DataResponse<DiscoverPageEntity>> yuyeList(@FieldMap Map<String, String> prams);
 
     //随机列表未登录
     @POST("/index/findtouristpage/index")
@@ -175,7 +186,7 @@ public interface RemoteApiService {
     //获取用户名片
     @POST("/index/userext/userinfoall")
     @FormUrlEncoded
-    Observable<DataResponse<BusinessCardEntity>> userinfoall(@Field("uid") int id);
+    Observable<DataResponse<BusinessCardInfoResults>> userinfoall(@Field("uid") int id);
 
     //用户账户提现绑定信息
     @POST("/index/Userconsumption/userbindCacheInfo")
@@ -335,6 +346,40 @@ public interface RemoteApiService {
     @POST("/index/userextv2/ads")
     @FormUrlEncoded
     Observable<DataResponse<List<ShufflingAdsResults>>> ads(@FieldMap Map<String, Object> params);
+
+    //预约红人数据
+    @POST("/index/userextv2/appointmentPageData")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentUserInfoResults>> appointmentPageData(@FieldMap Map<String, Object> params);
+
+    //预约红人
+    @POST("/index/userextv2/guestyuye")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentUserInfoResults>> appointmentSubmit(@FieldMap Map<String, Object> params);
+
+    //红人预约设置信息
+    @POST("/index/userextv2/appointvipseeself")
+    Observable<DataResponse<AppointmentSettingResults>> appointmentSettingInfo();
+
+    //红人预约状态设置
+    @POST("/index/userextv2/appointmentset")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentSettingRequest>> appointmentSettingSet(@FieldMap Map<String, Object> params);
+
+    //红人预约数据列表
+    @POST("/index/userextv2/vipappointlist")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentListResults>> appointmentListDataForReadMan(@FieldMap Map<String, Object> params);
+
+    //普通预约数据列表
+    @POST("/index/userextv2/guestappointlist")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentListResults>> appointmentListDataForNormal(@FieldMap Map<String, Object> params);
+
+    //确认预约
+    @POST("/index/userextv2/startconfigcancell")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> appointmentConfirm(@FieldMap Map<String, Object> params);
 
 
     @Multipart
