@@ -149,7 +149,7 @@ public class LuanchFragment extends BaseFragment implements IAdsLuanchView {
             if (UserManager.getInstance().islogin()) {
                 if (UserManager.getInstance().isComplete()) {
                     getNavigator().navToMain(getContext(), true);
-                    ActivitManager.getAppManager().finishActivity(StartActivity.class);
+                    getActivity().finish();
                 } else {
                     Intent intent = new Intent(EventBusAction.SCHEME_ACTION + "://" + EventBusAction.LUANCH_HOST + CompleteInformationFragment.TAG);
                     intent.putExtra("isAddBack", false);

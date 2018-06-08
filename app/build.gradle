@@ -40,8 +40,8 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         applicationId 'com.huanmedia.videochat'
-        versionCode 5
-        versionName '1.2'
+        versionCode 6
+        versionName '1.2.1'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         testApplicationId 'com.huanmedia.videochat.test'
         manifestPlaceholders = [
@@ -250,6 +250,6 @@ dependencies {
     implementation 'com.github.wobushiren79:DevTools:version_0.288'
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
 
-    implementation 'com.shuyu:gsyVideoPlayer-java:5.0.0-beta'
-    implementation 'com.shuyu:gsyVideoPlayer-ex_so:5.0.0-beta'
+//    implementation 'com.shuyu:gsyVideoPlayer-java:5.0.0-beta'
+//    implementation 'com.shuyu:gsyVideoPlayer-ex_so:5.0.0-beta'
 }
