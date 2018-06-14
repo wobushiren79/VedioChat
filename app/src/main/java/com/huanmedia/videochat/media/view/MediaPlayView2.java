@@ -1,7 +1,11 @@
 package com.huanmedia.videochat.media.view;
 
+import android.view.View;
+
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseFragment;
+import com.huanmedia.videochat.common.widget.video.EmptyVideoPlayer;
+import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import butterknife.BindView;
@@ -10,7 +14,7 @@ public class MediaPlayView2 extends BaseFragment {
     private String mVedioUrl;
 
     @BindView(R.id.video_play)
-    StandardGSYVideoPlayer mVideoPlay;
+    EmptyVideoPlayer mVideoPlay;
 
     @Override
     protected int getLayoutId() {
@@ -19,7 +23,8 @@ public class MediaPlayView2 extends BaseFragment {
 
     @Override
     protected void initData() {
-        mVideoPlay.setUp(mVedioUrl, true, "");
+        mVideoPlay.setLooping(true);
+        mVideoPlay.setUp(mVedioUrl, false, "");
         mVideoPlay.startPlayLogic();
     }
 
@@ -28,11 +33,11 @@ public class MediaPlayView2 extends BaseFragment {
     }
 
     public void startVideo() {
-        mVideoPlay.startPlayLogic();
-    }
-
-    public void stopVideo() {
-        mVideoPlay.onVideoPause();
+        if (mVideoPlay != null){
+            mVideoPlay.setLooping(true);
+            mVideoPlay.setUp(mVedioUrl, false, "");
+            mVideoPlay.startPlayLogic();
+        }
     }
 
     @Override

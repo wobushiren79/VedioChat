@@ -159,10 +159,10 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
             @Override
             public void onClick(View v) {
                 if (videoEntity.getUploadStatus() == -1) {
-                    if (mDatas.size() > 6) {
-                        showToast("最多只能上传6个视频");
-                        return;
-                    }
+//                    if (mDatas.size() > 6) {
+//                        showToast("最多只能上传6个视频");
+//                        return;
+//                    }
                     openAlbum();
                 } else if (videoEntity.getUploadStatus() == 0) {
                     if (mItemType == 1) {

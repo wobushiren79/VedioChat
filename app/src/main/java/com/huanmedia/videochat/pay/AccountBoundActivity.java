@@ -265,7 +265,7 @@ public class AccountBoundActivity extends BaseMVPActivity<AccountBoundPressenter
 
             @Override
             public void onError(String msg) {
-                showHint(HintDialog.HintType.WARN, "绑定账户失败");
+                showHint(HintDialog.HintType.WARN, msg);
             }
         }, map.get("result").toString());
 //        },"2015123101057029","2088811033511483","3");

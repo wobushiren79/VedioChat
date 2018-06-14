@@ -1,11 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:clipChildren="false">
 
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+    <com.huanmedia.videochat.common.widget.video.VideoPtrItemPlayer
         android:id="@+id/detail_player"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_user_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dimen_128dp"
+        android:layout_marginLeft="@dimen/dimen_28dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_user_info_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/base_bg_black_transparent_round"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dimen_4dp"
+            android:paddingLeft="@dimen/dimen_16dp"
+            android:paddingRight="@dimen/dimen_16dp"
+            android:paddingTop="@dimen/dimen_4dp">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_20dp"
+                android:layout_height="@dimen/dimen_20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_location_style_1" />
+
+            <TextView
+                android:id="@+id/tv_user_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_16dp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_20dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:shadowColor="@color/black"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_44dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/ll_user_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bt_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dimen_300dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="@dimen/dimen_96dp"
+            android:layout_height="@dimen/dimen_96dp"
+            android:src="@drawable/icon_headportrait"
+            app:riv_oval="true" />
+
+        <ImageView
+            android:id="@+id/iv_love"
+            android:layout_width="@dimen/dimen_66dp"
+            android:layout_height="@dimen/dimen_66dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_60dp"
+            android:src="@drawable/icon_love_unclick" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_6dp"
+            android:gravity="center"
+            android:text="4.2w"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_24dp" />
+    </LinearLayout>
+</RelativeLayout>
