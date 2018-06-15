@@ -262,13 +262,8 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
         if (view == mIVCancel) {
             this.cancel();
         } else if (view == mIVVideo) {
-            ArrayList<String> listData = new ArrayList<>();
-            for (VideoEntity itemData : mUserInfoData.getBase().getVoides()) {
-                if (itemData.getVoideurl() != null)
-                    listData.add(itemData.getVoideurl());
-            }
             Navigator navigator = new Navigator();
-            navigator.navtoMediaPlay(DevUtils.scanForActivity(getContext()), listData, 0);
+            navigator.navtoMediaPlay(DevUtils.scanForActivity(getContext()), (ArrayList<VideoEntity>) mUserInfoData.getBase().getVoides(), 0);
         }
     }
 }

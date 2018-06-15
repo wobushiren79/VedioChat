@@ -93,7 +93,7 @@ public class Navigator {
     }
 
     /**
-     * 发现详情（个人资料）
+     * 发现详情（个人资料 红人）
      *
      * @param activity
      * @param uid
@@ -289,7 +289,7 @@ public class Navigator {
      *
      * @param context
      */
-    public void navtoMediaPlay(Activity context, ArrayList<String> vedios, int position) {
+    public void navtoMediaPlay(Activity context, ArrayList<VideoEntity> vedios, int position) {
         context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios, position));
     }
 

@@ -3,6 +3,7 @@ package com.huanmedia.videochat.common.widget.video;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Surface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -20,7 +21,7 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 public class EmptyVideoPlayer extends StandardGSYVideoPlayer {
 
     private ImageView mStartBT;
-    private FrameLayout mFullLayout;
+    private RelativeLayout mFullLayout;
 
     public EmptyVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
@@ -71,10 +72,13 @@ public class EmptyVideoPlayer extends StandardGSYVideoPlayer {
             @Override
             public void onPrepared(String url, Object... objects) {
                 super.onPrepared(url, objects);
-                mStartBT.setVisibility(GONE);
+                if (mStartBT != null && mStartBT.getVisibility() == VISIBLE) {
+                    mStartBT.setVisibility(INVISIBLE);
+                }
             }
         });
     }
+
 
     @Override
     public int getLayoutId() {
@@ -101,5 +105,25 @@ public class EmptyVideoPlayer extends StandardGSYVideoPlayer {
     }
 
     //-----------------------视频监听-----------------------------------------
+
+    /**
+     * 下方两个重载方法，在播放开始前不屏蔽封面
+     */
+    @Override
+    public void onSurfaceUpdated(Surface surface) {
+        super.onSurfaceUpdated(surface);
+        if (mThumbImageViewLayout != null && mThumbImageViewLayout.getVisibility() == VISIBLE) {
+            mThumbImageViewLayout.setVisibility(INVISIBLE);
+        }
+
+    }
+
+    @Override
+    protected void setViewShowState(View view, int visibility) {
+        if (view == mThumbImageViewLayout && visibility != VISIBLE) {
+            return;
+        }
+        super.setViewShowState(view, visibility);
+    }
 
 }

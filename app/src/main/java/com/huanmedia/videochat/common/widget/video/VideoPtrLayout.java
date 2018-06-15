@@ -35,6 +35,10 @@ public class VideoPtrLayout extends PtrLayout implements ViewPagerLayoutManager.
         startLoadData();
     }
 
+    public void notifyDataSetChanged() {
+        mPtrAdapter.notifyDataSetChanged();
+    }
+
     public void startLoadData() {
         mListData = new ArrayList<>();
 //        ShortVideoResults results1 = new ShortVideoResults();

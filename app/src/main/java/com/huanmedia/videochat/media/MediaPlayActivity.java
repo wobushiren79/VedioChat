@@ -16,8 +16,10 @@ import android.widget.TextView;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.media.view.MediaPlayListLayout;
 import com.huanmedia.videochat.media.view.MediaPlayView;
 import com.huanmedia.videochat.media.view.MediaPlayView2;
+import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
@@ -27,22 +29,20 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class MediaPlayActivity extends BaseActivity implements View.OnClickListener, MediaPlayListLayout.CallBack {
 
     @BindView(R.id.media_vp)
-    ViewPager mMediaoVP;
+    MediaPlayListLayout mMediaoVP;
     @BindView(R.id.media_tv_page)
     TextView mTVPage;
     @BindView(R.id.iv_exit)
     ImageView mIVExit;
 
-    private MediaPlayAdapter mPlayAdapter;
-    private List<String> mListVedioUrl;
-    private List<Fragment> mListVedioView;
+    private List<VideoEntity> mListVedioData;
 
-    public static Intent getCallingIntent(Context context, ArrayList<String> vedios, int position) {
+    public static Intent getCallingIntent(Context context, ArrayList<VideoEntity> vedios, int position) {
         Intent intent = new Intent(context, MediaPlayActivity.class);
-        intent.putStringArrayListExtra("vedios", vedios);
+        intent.putExtra("vedios", vedios);
         intent.putExtra("position", position);
         return intent;
     }
@@ -62,53 +62,23 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
     protected void initView() {
         super.initView();
         mIVExit.setOnClickListener(this);
+        mMediaoVP.setCallBack(this);
         ((RelativeLayout.LayoutParams) mIVExit.getLayoutParams()).topMargin += DisplayUtil.getStatusBarHeight(this);
     }
 
     @Override
     protected void initData() {
         super.initData();
-        mListVedioView = new ArrayList<>();
-        mListVedioUrl = getIntent().getStringArrayListExtra("vedios");
-        if (mListVedioUrl == null || mListVedioUrl.size() <= 0)
+        mListVedioData = getIntent().getParcelableArrayListExtra("vedios");
+        if (mListVedioData == null || mListVedioData.size() <= 0)
             return;
-        for (int i = 0; i < mListVedioUrl.size(); i++) {
-            if (mListVedioUrl.get(i) == null)
-                continue;
-            MediaPlayView2 itemView = new MediaPlayView2();
-            itemView.setVedioUrl(mListVedioUrl.get(i));
-            mListVedioView.add(itemView);
-        }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mPlayAdapter = new MediaPlayAdapter(fragmentManager, mListVedioView);
-        mMediaoVP.setAdapter(mPlayAdapter);
-        mMediaoVP.addOnPageChangeListener(this);
-        mMediaoVP.setOffscreenPageLimit(mListVedioView.size());
-        mMediaoVP.setCurrentItem(getIntent().getIntExtra("position", 0));
-//        ((MediaPlayView) mListVedioView.get(getIntent().getIntExtra("position", 0))).setFirst(true);
-        mTVPage.setText((getIntent().getIntExtra("position", 0) + 1) + "/" + mListVedioUrl.size());
+        int position = getIntent().getIntExtra("position", 0);
+        mMediaoVP.setListData(mListVedioData);
+        mMediaoVP.scrollToPosition(position);
+        mMediaoVP.playVideo(position);
+        mTVPage.setText((position + 1) + "/" + mListVedioData.size());
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        for (int i = 0; i < mListVedioView.size(); i++) {
-            MediaPlayView2 itemView = (MediaPlayView2) mListVedioView.get(i);
-            if (position == i) {
-                itemView.startVideo();
-            }
-        }
-        mTVPage.setText((position + 1) + "/" + mListVedioUrl.size());
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -141,6 +111,11 @@ public class MediaPlayActivity extends BaseActivity implements ViewPager.OnPageC
     protected void onDestroy() {
         super.onDestroy();
         GSYVideoManager.releaseAllVideos();
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mTVPage.setText((position + 1) + "/" + mListVedioData.size());
     }
 }
 

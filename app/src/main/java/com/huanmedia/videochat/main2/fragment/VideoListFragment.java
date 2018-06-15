@@ -47,6 +47,7 @@ public class VideoListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        mPtrLayout.notifyDataSetChanged();
 //        GSYVideoManager.onResume();
     }
 

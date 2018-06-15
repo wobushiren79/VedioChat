@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.common.widget.video;
 
+import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.view.View;
@@ -14,7 +15,10 @@ import android.widget.TextView;
 import com.applecoffee.devtools.base.adapter.BaseRCAdapter;
 import com.applecoffee.devtools.base.adapter.BaseViewHolder;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoResults;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.shuyu.gsyvideoplayer.render.effect.BlackAndWhiteEffect;
 import com.shuyu.gsyvideoplayer.render.view.GSYVideoGLView;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
@@ -37,11 +41,13 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> {
         TextView tvUserLocation = baseViewHolder.getView(R.id.tv_user_location);
         TextView tvUserName = baseViewHolder.getView(R.id.tv_name);
         ImageView ivLove = baseViewHolder.getView(R.id.iv_love);
-        ivLove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startLoveAnim(ivLove);
-            }
+        RoundedImageView ivUserIcon = baseViewHolder.getView(R.id.iv_user_icon);
+
+        ivLove.setOnClickListener(view -> {
+            startLoveAnim(ivLove);
+        });
+        ivUserIcon.setOnClickListener(view -> {
+            ((BaseActivity)mContext).getNavigator().navDiscoverInfo((Activity) mContext,1,"123", BusinessCardFragment.ShowType.ReadMan);
         });
 
         tvUserName.setText("小玉娘");
@@ -87,7 +93,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> {
                 (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 0, dp8 * 2, 0);
         tagTV.setLayoutParams(layoutParams);
-        tagTV.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,dp8 * 4f);
+        tagTV.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, dp8 * 4f);
         llTag.addView(tagTV);
     }
 
@@ -106,13 +112,13 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> {
                 } else {
                     mPlayPosition = 0;
                 }
-                notifyItemChanged(mPlayPosition);
+                notifyDataSetChanged();
             } else {
 
             }
         } else {
             mPlayPosition = position;
-            notifyItemChanged(position);
+            notifyDataSetChanged();
         }
     }
 }

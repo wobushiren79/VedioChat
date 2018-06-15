@@ -186,9 +186,9 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                 if (action.getAction().equals(EventBusAction.ACTION_SYSTEM_MESSAGE)) {
                     msgCount = action.getIntExtra("msgCount", 0);
                     if (msgCount == 0) {
-                        mMainCommonTablayout.hideMsg(2);
+                        mMainCommonTablayout.hideMsg(3);
                     } else {
-                        mMainCommonTablayout.showDot(2);
+                        mMainCommonTablayout.showDot(3);
                     }
                 }
                 break;

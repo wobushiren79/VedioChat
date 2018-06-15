@@ -104,22 +104,22 @@ public class FApplication extends Application {
         list.add(videoOptionModel);
         videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "allowed_media_types", "video"); //根据媒体类型来配置
         list.add(videoOptionModel);
-        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 10000);
-        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 10000);
+//        list.add(videoOptionModel);
         videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "buffer_size", 0);
         list.add(videoOptionModel);
         videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "infbuf", 1);  // 无限读
         list.add(videoOptionModel);
         videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 1);
         list.add(videoOptionModel);
-        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 0);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 1);
         list.add(videoOptionModel);
         videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "flush_packets", 1);
         list.add(videoOptionModel);
         videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "http-detect-range-support", 0);
         list.add(videoOptionModel);
 
-        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 8);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 48);
         list.add(videoOptionModel);
 
         videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "analyzeduration", 1);
@@ -128,11 +128,12 @@ public class FApplication extends Application {
         list.add(videoOptionModel);
         videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 1);
         list.add(videoOptionModel);
-        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 2);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 5);
         list.add(videoOptionModel);
 
         GSYVideoManager.instance().setOptionModelList(list);
         GSYVideoManager.instance().setVideoType(this, GSYVideoType.IJKEXOPLAYER2);
+        GSYVideoManager.instance().enableRawPlay(getApplication());
     }
 
     /**

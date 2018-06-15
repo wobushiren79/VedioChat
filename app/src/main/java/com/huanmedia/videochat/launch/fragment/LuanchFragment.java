@@ -138,6 +138,15 @@ public class LuanchFragment extends BaseFragment implements IAdsLuanchView {
     }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mLuanchAdsDis != null)
+            mLuanchAdsDis.dispose();
+        if (disposable != null)
+            disposable.dispose();
+    }
+
     /**
      * 开始功能
      */
