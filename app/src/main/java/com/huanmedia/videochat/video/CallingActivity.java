@@ -424,6 +424,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         if (worker() != null) {
             worker().getRtcEngine().enableAudio();//开启声音
             worker().configEngine(vProfile, encryptionKey, encryptionMode);
+            worker().getRtcEngine().setVideoQualityParameters(false);
             //设置视频音量
 //            worker().getRtcEngine().setEnableSpeakerphone(true);
 //            worker().getRtcEngine().setSpeakerphoneVolume(50);//0-255

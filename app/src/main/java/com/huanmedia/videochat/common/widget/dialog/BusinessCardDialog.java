@@ -118,11 +118,12 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
                 sexDrawable = getContext().getResources().getDrawable(R.drawable.icon_focus_girl);
                 break;
         }
-        sexDrawable.setBounds(
-                0,
-                0,
-                getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_30dp),
-                getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_30dp));
+        if (sexDrawable != null)
+            sexDrawable.setBounds(
+                    0,
+                    0,
+                    getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_30dp),
+                    getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_30dp));
 
         mTVName.setCompoundDrawables(
                 null,

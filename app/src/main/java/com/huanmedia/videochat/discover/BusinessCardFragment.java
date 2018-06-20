@@ -111,6 +111,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     protected void initData() {
         if (mUid == 0) return;
         getBasePresenter().getBusinessCard(mUid);
+
     }
 
     @Override
@@ -161,7 +162,11 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     @Override
     public void showHeadData(BusinessCardEntity businessCard) {
         if (businessCard.getBase() == null) return;
-        mBTLayout.setVisibility(View.VISIBLE);
+        if (mUid == UserManager.getInstance().getId()) {
+            mBTLayout.setVisibility(View.GONE);
+        }else{
+            mBTLayout.setVisibility(View.VISIBLE);
+        }
         if (businessCard.getBase().getAppointmentFlag() == 0) {
             mBusinessCardIvAppointment.setVisibility(View.GONE);
         }

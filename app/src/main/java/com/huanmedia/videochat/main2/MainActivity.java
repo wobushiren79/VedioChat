@@ -273,10 +273,10 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                     case 0:
                         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
                         break;
-                    case 1:
+                    case 2:
                         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FRIEND);
                         break;
-                    case 2:
+                    case 3:
                         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.MY);
                         break;
                 }
@@ -296,6 +296,9 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
             @Override
             public void onTabReselect(int position) {
+                if (mFragments[position] instanceof VideoListFragment) {
+                    ((VideoListFragment) mFragments[position]).refreshData();
+                }
             }
         });
 
@@ -457,5 +460,14 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     @Override
     public void showAppointmentHint(int coundDownTime, int fromId, int toId) {
         mHintView.startCountDown(coundDownTime, fromId, toId);
+    }
+
+    /**
+     * 获取当前fragment
+     *
+     * @return
+     */
+    public Fragment getCurrentFragment() {
+        return mFragments[mMainVpPage.getCurrentItem()];
     }
 }
