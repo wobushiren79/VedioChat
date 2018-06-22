@@ -34,6 +34,7 @@ import com.huanmedia.videochat.common.service.socket.WSonMessageListener;
 import com.huanmedia.videochat.common.service.socket.WebSocketManager;
 import com.huanmedia.videochat.common.utils.LocationHandler;
 import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
+import com.huanmedia.videochat.common.widget.dialog.MainHintDialog;
 import com.huanmedia.videochat.main.NotificationMessageActivity;
 import com.huanmedia.videochat.main.mode.SystemMessage;
 import com.huanmedia.videochat.main.mode.mapping.SystemMessageDataMapper;
@@ -372,11 +373,25 @@ public class MainPresenter extends Presenter<MainView> {
                             break;
                     }
                 } else if (message.getType().equals("coin")) {
+                    CoinEntity data = mGson.fromJson(mGson.toJson(message.getBody()), CoinEntity.class);
                     switch (message.getStype()) {
                         case "coin":
-                            CoinEntity data = mGson.fromJson(mGson.toJson(message.getBody()), CoinEntity.class);
                             UserManager.getInstance().getCurrentUser().getUserinfo().setCoin(data.getCoin());
                             systemMsg(message, null);
+                            break;
+                        case "registercoin":
+                            UserManager.getInstance().getCurrentUser().getUserinfo().setCoin(data.getCoin());
+                            MainHintDialog coinDialog = new MainHintDialog(getContext(), MainHintDialog.MainHintType.Coin);
+                            coinDialog.setContentText(data.getTxt());
+                            coinDialog.show();
+                            break;
+                        case "ads":
+                            MainHintDialog normalDialog = new MainHintDialog(getContext(), MainHintDialog.MainHintType.Normal);
+                            normalDialog.setContentText(data.getTxt());
+                            normalDialog.setTitleStr(data.getTitle());
+                            normalDialog.setImageUrl(data.getImgurl());
+                            normalDialog.setJumpUrl(data.getJmpurl());
+                            normalDialog.show();
                             break;
                     }
                 }

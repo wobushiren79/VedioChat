@@ -67,6 +67,21 @@ public class UMengUtils {
         }
     }
 
+    /***
+     * 开屏页广告点击
+     * @param context
+     */
+    public static void LuanchAdsClick(Context context, String url) {
+        try {
+            String eventID = "luanch_ads";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("ads_url", url + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 友盟自定义事件
      *

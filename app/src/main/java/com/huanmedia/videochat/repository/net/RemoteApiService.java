@@ -6,19 +6,18 @@ import com.huanmedia.videochat.common.manager.ActivitManager;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
-import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
+import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
-import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
+import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
 import com.huanmedia.videochat.repository.entity.BillDetialEntity;
-import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
 import com.huanmedia.videochat.repository.entity.CashListEntity;
 import com.huanmedia.videochat.repository.entity.ChatPeopleEntity;
@@ -345,7 +344,13 @@ public interface RemoteApiService {
     //广告数据
     @POST("/index/userextv2/ads")
     @FormUrlEncoded
-    Observable<DataResponse<List<ShufflingAdsResults>>> ads(@FieldMap Map<String, Object> params);
+    Observable<DataResponse<List<AdsShufflingResults>>> ads(@FieldMap Map<String, Object> params);
+
+
+    //首页广告数据
+    @POST("/index/findtouristpage/bootad")
+    Observable<DataResponse<AdsLuanchResults>> adsluanch();
+
 
     //预约红人数据
     @POST("/index/userextv2/appointmentPageData")
@@ -397,6 +402,8 @@ public interface RemoteApiService {
             @QueryMap Map<String, String> parms,
             @PartMap() Map<String, RequestBody> partMap
     );
+
+
 
     /**
      * 创建一个API服务

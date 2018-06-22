@@ -33,8 +33,6 @@ public class AppointmentListFragment extends BaseFragment implements IAppointmen
 
     private @UserType
     int mUserType;
-    private int page = 1;
-    private int pageSize = 10;
     private int year = 0;
     private int month = 0;
 
@@ -128,22 +126,22 @@ public class AppointmentListFragment extends BaseFragment implements IAppointmen
 
     @Override
     public int getPageForReadMan() {
-        return page;
+        return mPtrLayout.getPage();
     }
 
     @Override
     public int getPageSizeForReadMan() {
-        return pageSize;
+        return mPtrLayout.getPageSize();
     }
 
     @Override
     public int getPageForNormal() {
-        return page;
+        return mPtrLayout.getPage();
     }
 
     @Override
     public int getPageSizeForNormal() {
-        return pageSize;
+        return mPtrLayout.getPageSize();
     }
 
     @Override

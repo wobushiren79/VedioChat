@@ -3,21 +3,23 @@ package com.huanmedia.videochat.repository.base;
 import android.content.Context;
 
 import com.huanmedia.videochat.common.manager.ResourceManager;
+import com.huanmedia.videochat.mvp.entity.request.AdsLuanchRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
-import com.huanmedia.videochat.mvp.entity.request.ShufflingAdsRequest;
+import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
-import com.huanmedia.videochat.mvp.entity.results.ShufflingAdsResults;
+import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
@@ -69,9 +71,14 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     }
 
     @Override
-    public void getShufflingAds(Context context, ShufflingAdsRequest params, HttpResponseHandler<List<ShufflingAdsResults>> handler) {
+    public void getShufflingAds(Context context, AdsShufflingRequest params, HttpResponseHandler<List<AdsShufflingResults>> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.ads(paramsMap), handler);
+    }
+
+    @Override
+    public void getLuanchAds(Context context, AdsLuanchRequest params, HttpResponseHandler<AdsLuanchResults> handler) {
+        requestPost(context, mApiService.adsluanch(), handler);
     }
 
     @Override

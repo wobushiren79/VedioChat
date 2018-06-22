@@ -186,7 +186,7 @@ public class LoginFragment extends BaseMVPFragment<LoginPresenter> implements Lo
 //                EventBus.getDefault().post(new Intent(EventBusAction.SCHEME_ACTION+"://"+EventBusAction.LUANCH_HOST+CompleteInformationFragment.TAG));
                 break;
             case R.id.login_tv_protocol:
-                getNavigator().navtoWebActiviyt(getActivity(), HostManager.getHtmlUrl() + "wordh5/agreement.html", "用户协议");
+                getNavigator().navtoWebActivity(getActivity(), HostManager.getHtmlUrl() + "wordh5/agreement.html", "用户协议");
                 break;
         }
     }

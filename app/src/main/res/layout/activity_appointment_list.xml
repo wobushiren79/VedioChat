@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             app:elevation="0dp">
 
+            <!--app:layout_scrollFlags="scroll|enterAlways"-->
             <FrameLayout
                 android:id="@+id/home_toolbar_fl"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_108dp"
-                app:layout_scrollFlags="scroll|enterAlways"
                 android:background="@color/white">
 
                 <com.flyco.tablayout.SlidingTabLayout
@@ -72,7 +72,9 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
         </LinearLayout>
 
 

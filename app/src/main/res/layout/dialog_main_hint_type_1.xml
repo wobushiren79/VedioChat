@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_back_light"
+        android:layout_width="@dimen/dimen_700dp"
+        android:layout_height="@dimen/dimen_700dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:src="@drawable/icon_back_light" />
+
+    <ImageView
+        android:id="@+id/iv_back_debris"
+        android:layout_width="@dimen/dimen_600dp"
+        android:layout_height="@dimen/dimen_600dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icon_back_debris" />
+
+    <ImageView
+        android:id="@+id/iv_content"
+        android:layout_width="@dimen/dimen_500dp"
+        android:layout_height="@dimen/dimen_500dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_80dp"
+        android:src="@drawable/icon_coin" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="@dimen/dimen_600dp"
+        android:layout_height="@dimen/dimen_120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_520dp"
+        android:background="@drawable/icon_back_banner_style_1"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/dimen_12dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_44dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_650dp"
+        android:text="请 在 我 的 钱 包 查 看"
+        android:textColor="@color/color_a9a8a8"
+        android:textSize="@dimen/dimen_24dp" />
+
+    <ImageView
+        android:id="@+id/iv_cancel"
+        android:layout_width="@dimen/dimen_70dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_900dp"
+        android:src="@drawable/btn_dialog_cancel_2" />
+</RelativeLayout>

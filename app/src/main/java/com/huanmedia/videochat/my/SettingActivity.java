@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.my;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import com.huanmedia.videochat.common.BaseMVPActivity;
 import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.repository.datasouce.impl.MainRepostiory;
 import com.huanmedia.videochat.repository.net.HostManager;
@@ -115,21 +117,27 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
     }
 
     public void outLogin() {
-        new MaterialDialog.Builder(this)
-                .title("确认退出？")
-                .positiveText("确认")
-                .negativeText("取消")
-                .positiveColorRes(R.color.base_yellow)
-                .negativeColorRes(R.color.base_gray)
-                .onPositive((dialog, which) -> {
-                    Map<String, String> prmas = new HashMap<>();
-                    prmas.put("mobile", UserManager.getInstance().getCurrentUser().getMobile());
-                    new MainRepostiory().outLogin(prmas).subscribe(response -> {
-                    }, Throwable::printStackTrace, () -> Logger.e("异常退出"));
-                    UserManager.getInstance().outLogin(null);
-                    UserManager.getInstance().exit();
+        GeneralDialog dialog = new GeneralDialog(this);
+        dialog
+                .setContent("确认退出？")
+                .setCallBack(new GeneralDialog.CallBack() {
+                    @Override
+                    public void submitClick(Dialog dialog) {
+                        Map<String, String> prmas = new HashMap<>();
+                        prmas.put("mobile", UserManager.getInstance().getCurrentUser().getMobile());
+                        new MainRepostiory().outLogin(prmas).subscribe(response -> {
+                        }, Throwable::printStackTrace, () -> Logger.e("异常退出"));
+                        UserManager.getInstance().outLogin(null);
+                        UserManager.getInstance().exit();
+                    }
+
+                    @Override
+                    public void cancelClick(Dialog dialog) {
+
+                    }
                 })
                 .show();
+
     }
 
     @Override
@@ -154,7 +162,7 @@ public class SettingActivity extends BaseMVPActivity implements CompoundButton.O
                 getNavigator().navtoFeedBack(this);
                 break;
             case R.id.setting_other_user_agreement_rl_desable:
-                getNavigator().navtoWebActiviyt(this, HostManager.getServiceUrl() + "index/h5page/about", "用户协议");
+                getNavigator().navtoWebActivity(this, HostManager.getServiceUrl() + "index/h5page/about", "用户协议");
                 break;
             case R.id.setting_checkNew_rl:
                 if (mUpdata == null) {

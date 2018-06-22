@@ -110,7 +110,7 @@ public class NotificationMessageActivity extends BaseMVPActivity<NotificationMes
                             data.setIsRed(1);
                             data.saveAsync().listen(success -> {
                             });
-                            getNavigator().navtoWebActiviyt(NotificationMessageActivity.this, data.getUrl(), "详情");
+                            getNavigator().navtoWebActivity(NotificationMessageActivity.this, data.getUrl(), "详情");
                             notifyItemChanged(helper.getAdapterPosition());
                         }
                     });

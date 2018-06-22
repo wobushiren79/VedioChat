@@ -13,6 +13,7 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BaseVideoActivity;
 import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.navigation.Navigator;
+import com.huanmedia.videochat.common.widget.dialog.MainHintDialog;
 import com.huanmedia.videochat.video.CallingPresenter;
 
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import io.agora.propeller.model.ConstantApp;
 import io.agora.rtc.RtcEngine;
 
 public class TestActivity extends BaseActivity {
-
 
 
     public TestActivity() {
@@ -44,4 +44,9 @@ public class TestActivity extends BaseActivity {
     }
 
 
+    public void testOnClick(View view) {
+        MainHintDialog dialog = new MainHintDialog(this, MainHintDialog.MainHintType.Coin);
+        dialog.setContentText("恭喜您获得300钻");
+        dialog.show();
+    }
 }
