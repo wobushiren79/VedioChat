@@ -3,6 +3,7 @@ package com.huanmedia.videochat.common.utils;
 import android.content.Context;
 
 import com.huanmedia.ilibray.utils.TimeUtils;
+import com.huanmedia.videochat.BuildConfig;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -106,6 +107,9 @@ public class UMengUtils {
      * @param du
      */
     public static void baseSendMsg(Context context, String eventID, Map<String, String> dataMap, int du) {
+        if (BuildConfig.DEBUG) {
+            return;
+        }
         MobclickAgent.onEventValue(context, eventID, dataMap, du);
     }
 

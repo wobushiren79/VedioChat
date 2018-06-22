@@ -20,6 +20,7 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.utils.VideoChatUtils;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
@@ -164,7 +165,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
         if (businessCard.getBase() == null) return;
         if (mUid == UserManager.getInstance().getId()) {
             mBTLayout.setVisibility(View.GONE);
-        }else{
+        } else {
             mBTLayout.setVisibility(View.VISIBLE);
         }
         if (businessCard.getBase().getAppointmentFlag() == 0) {
@@ -237,69 +238,14 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                     return;
                 }
                 boolean isReadMain = mData.getBase().getStarbutton() == 1 && mData.getBase().getIsstarauth() == 1;
-                if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < mData.getBase().getStarcoin()) {
-                    CommDialogUtils.showInsufficientBalance(getActivity(), new GeneralDialog.CallBack() {
-                        @Override
-                        public void submitClick(Dialog dialog) {
-                            getNavigator().navtoCoinPay(getActivity(), null);
-                        }
-
-                        @Override
-                        public void cancelClick(Dialog dialog) {
-
-                        }
-                    });
-                } else if (mData.getBase().getOnlinestatus() == 2) {
-                    ToastUtils.showToastShortInCenter(getContext(), "TA正在连线哟~");
-                } else if (mData.getBase().getOnlinestatus() == 0) {
-                    ToastUtils.showToastShortInCenter(getContext(), "TA正在休息哦~");
-                } else if ((!isReadMain && UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= 20) ||//如果是视频直聊需要20钻石 固定
-                        UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() >= mData.getBase().getStarcoin()) {
-                    int cost = mData.getBase().getStarcoin() / (mData.getBase().getStartime() == 0 ? 1 : mData.getBase().getStartime());
-                    GeneralDialog dialog = new GeneralDialog(getContext());
-                    dialog
-                            .setContent("视频聊天需花费" + ((!isReadMain) ? " 20钻" : String.format("%d钻/分钟", cost)))
-                            .setCallBack(new GeneralDialog.CallBack() {
-                                @Override
-                                public void submitClick(Dialog dialog) {
-                                    if (isReadMain) {
-                                        ConditionEntity condition = new ConditionEntity();
-                                        condition.setVideoType(ConditionEntity.VideoType.REDMAN);
-                                        condition.getReadMainConfig().setRedManId(mData.getBase().getUid());
-                                        condition.getReadMainConfig().setRequestType(ConditionEntity.RequestType.SELF);
-                                        condition.getReadMainConfig().setRedMainStartCoin(mData.getBase().getStarcoin());
-                                        condition.getReadMainConfig().setReadMainStartTime(mData.getBase().getStartime());
-                                        getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
-                                    } else {
-                                        ConditionEntity condition = new ConditionEntity();
-                                        condition.setVideoType(ConditionEntity.VideoType.MATCH);
-                                        condition.getMatchConfig().setRequestType(ConditionEntity.RequestType.SELF);
-                                        condition.getMatchConfig().setMask(MaskDialog.getCurrentMask());
-                                        condition.getMatchConfig().setUid(mData.getBase().getUid());
-                                        getNavigator().navtoCalling(getActivity(), condition, "连接中...; ");
-                                    }
-                                }
-
-                                @Override
-                                public void cancelClick(Dialog dialog) {
-
-                                }
-                            })
-                            .show();
-                } else {
-                    CommDialogUtils.showInsufficientBalance(getActivity(), new GeneralDialog.CallBack() {
-                        @Override
-                        public void submitClick(Dialog dialog) {
-                            getNavigator().navtoCoinPay(getActivity(), null);
-                        }
-
-                        @Override
-                        public void cancelClick(Dialog dialog) {
-
-                        }
-                    });
-
-                }
+                VideoChatUtils.CheckCallVideo(
+                        getActivity(),
+                        getNavigator(),
+                        isReadMain,
+                        mData.getBase().getStarcoin(),
+                        mData.getBase().getStartime(),
+                        mData.getBase().getOnlinestatus(),
+                        mData.getBase().getUid());
                 break;
         }
     }

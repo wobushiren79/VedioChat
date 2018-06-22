@@ -43,14 +43,15 @@ public class BaseManagerImpl {
 
         observable
                 .map(response -> {
-                    if (response.getCode() != 0) {
-                        return new Exception("请求失败：" + response.getMessage());
-                    } else {
-                        if (response.getResult() == null)
-                            return new Object();
-                        return response.getResult();
-                    }
-                })
+                            if (response.getCode() != 0) {
+                                return new Exception("请求失败：" + response.getMessage());
+                            } else {
+                                if (response.getResult() == null)
+                                    return new Object();
+                                return response.getResult();
+                            }
+                        }
+                )
                 .compose(ThreadExecutorHandler.toMain(mThreadProvider))
                 .subscribe(response -> {
                             handler.onSuccess(response);
@@ -58,8 +59,7 @@ public class BaseManagerImpl {
                                 mHintDialog.cancel();
                         },
                         throwable -> {
-//                            handler.onError(throwable.getMessage());
-                            handler.onError("网络连接失败");
+                            handler.onError(throwable.getMessage());
                             if (mHintDialog != null && mHintDialog.isShowing())
                                 mHintDialog.cancel();
                         });

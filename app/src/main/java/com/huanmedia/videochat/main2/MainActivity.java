@@ -273,6 +273,9 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                     case 0:
                         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
                         break;
+                    case 1:
+                        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.VIDEO);
+                        break;
                     case 2:
                         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FRIEND);
                         break;

@@ -28,7 +28,6 @@ public class VideoPtrLayout extends PtrLayout implements ViewPagerLayoutManager.
         mLayoutManager = new ViewPagerLayoutManager(context);
         mPtrAdapter = new VideoPtrAdapter(context, this);
 
-
         mLayoutManager.setOnViewPagerListener(this);
         setLayoutManager(mLayoutManager);
         setAdapter(mPtrAdapter);

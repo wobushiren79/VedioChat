@@ -26,6 +26,7 @@ import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.utils.UMengUtils;
+import com.huanmedia.videochat.common.utils.VideoChatUtils;
 import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoResults;
@@ -57,9 +58,12 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
 
     @Override
     public void convert(BaseViewHolder baseViewHolder, ShortVideoResults shortVideoResults, int i) {
-        RelativeLayout rlLove = baseViewHolder.getView(R.id.rl_love);
+        RelativeLayout rlAnimLove = baseViewHolder.getView(R.id.rl_love);
+        LinearLayout llLove = baseViewHolder.getView(R.id.ll_love);
         LinearLayout llUserInfo = baseViewHolder.getView(R.id.ll_user_info);
         LinearLayout llUserInfoTag = baseViewHolder.getView(R.id.ll_user_tag);
+        LinearLayout llAppointment = baseViewHolder.getView(R.id.ll_appointment);
+        LinearLayout llCall = baseViewHolder.getView(R.id.ll_call);
         TextView tvUserLocation = baseViewHolder.getView(R.id.tv_user_location);
         TextView tvUserName = baseViewHolder.getView(R.id.tv_name);
         TextView tvDesc = baseViewHolder.getView(R.id.tv_desc);
@@ -67,8 +71,13 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         RoundedImageView ivUserIcon = baseViewHolder.getView(R.id.iv_user_icon);
         TextView tvLoveNum = baseViewHolder.getView(R.id.iv_love_num);
 
-        rlLove.removeAllViews();
-        int praiseNum = mDatas.get(i).getPraise();
+        rlAnimLove.removeAllViews();
+
+        int accountId = shortVideoResults.getAccount_id();
+        int accountStarCoin = shortVideoResults.getAccount_starcoin();
+        int accountOnlineStatus = shortVideoResults.getAccount_onlinestatus();
+        int praiseNum = shortVideoResults.getPraise();
+        int isReadMan = shortVideoResults.getAccount_isstarauth();
 
         if (shortVideoResults.getAccount_id() == 0) {
             //设置头像
@@ -76,10 +85,14 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
             ivUserIcon.setOnClickListener(null);
         } else {
             //设置头像
-            GlideApp.with(mContext).load(shortVideoResults.getAccount_face()).error(R.drawable.icon_headportrait).into(ivUserIcon);
+            GlideApp.with(mContext)
+                    .load(shortVideoResults.getAccount_face())
+                    .placeholder(R.drawable.icon_headportrait)
+                    .error(R.drawable.icon_headportrait)
+                    .into(ivUserIcon);
             ivUserIcon.setOnClickListener(view -> {
                 if (shortVideoResults.getAccount_isstarauth() == 1) {
-                    ((BaseActivity) mContext).getNavigator().navDiscoverInfo((Activity) mContext, shortVideoResults.getAccount_id(), "0", BusinessCardFragment.ShowType.ReadMan);
+                    ((BaseActivity) mContext).getNavigator().navDiscoverInfo((Activity) mContext, accountId, "0", BusinessCardFragment.ShowType.ReadMan);
                 } else {
                     BusinessCardDialog dialog = new BusinessCardDialog(getContext());
                     dialog.setUid(shortVideoResults.getAccount_id());
@@ -102,14 +115,14 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
                 && shortVideoResults.getAccount_nickname().length() > 0) {
             tvUserName.setText(shortVideoResults.getAccount_nickname());
         } else {
-            tvUserName.setText("精选视频");
+            tvUserName.setText("萌友视频");
         }
         //设置用户地址
         tvUserLocation.setText("萌面官方研发团队");
         //设置点赞
         if (shortVideoResults.getIspraise() == 0) {
             Glide.with(mContext).load(R.drawable.icon_love_unclick).into(ivLove);
-            ivLove.setOnClickListener(view -> {
+            llLove.setOnClickListener(view -> {
                 mShortVideoPraisePresenter.shortVideoPraise(shortVideoResults.getId());
                 mDatas.get(i).setIspraise(1);
                 mDatas.get(i).setPraise((praiseNum + 1));
@@ -119,13 +132,33 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
             });
         } else {
             Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
-            ivLove.setOnClickListener(view -> {
+            llLove.setOnClickListener(view -> {
                 Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
                 startLoveAnim(ivLove);
             });
         }
-
         tvLoveNum.setText(loveNumHandler(praiseNum));
+        //预约按钮和发起视频
+        if (isReadMan == 0) {
+            llAppointment.setVisibility(View.GONE);
+            llCall.setVisibility(View.GONE);
+        } else {
+            llAppointment.setVisibility(View.VISIBLE);
+            llCall.setVisibility(View.VISIBLE);
+        }
+        llAppointment.setOnClickListener(view -> {
+            ((BaseActivity) mContext).getNavigator().navtoAppointment((Activity) mContext, accountId);
+        });
+        llCall.setOnClickListener(view -> {
+            VideoChatUtils.CheckCallVideo(
+                    (Activity) mContext,
+                    ((BaseActivity) mContext).getNavigator(),
+                    true,
+                    accountStarCoin,
+                    1,
+                    accountOnlineStatus,
+                    accountId);
+        });
 
         //设置用户标签
         llUserInfoTag.removeAllViews();
@@ -185,7 +218,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
                     tvLoveNum.setText(loveNumHandler(praiseNum + 1));
                     Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
                 }
-                startDoubleLoveAnim(rlLove, e);
+                startDoubleLoveAnim(rlAnimLove, e);
             }
 
             @Override

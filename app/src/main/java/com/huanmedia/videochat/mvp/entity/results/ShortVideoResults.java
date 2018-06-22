@@ -16,6 +16,25 @@ public class ShortVideoResults {
     private String account_lat;//用户纬度
     private String account_lng;//用户经度
     private String videothumb;//视频缩略图
+    private int account_onlinestatus;//用户在线状态
+    private int account_starcoin;//用户聊天金币
+
+
+    public int getAccount_starcoin() {
+        return account_starcoin;
+    }
+
+    public void setAccount_starcoin(int account_starcoin) {
+        this.account_starcoin = account_starcoin;
+    }
+
+    public int getAccount_onlinestatus() {
+        return account_onlinestatus;
+    }
+
+    public void setAccount_onlinestatus(int account_onlinestatus) {
+        this.account_onlinestatus = account_onlinestatus;
+    }
 
     public String getVideothumb() {
         return videothumb;
