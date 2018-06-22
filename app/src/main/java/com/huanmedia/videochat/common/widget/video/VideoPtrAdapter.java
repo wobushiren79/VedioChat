@@ -1,15 +1,20 @@
 package com.huanmedia.videochat.common.widget.video;
 
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Context;
-import android.opengl.GLSurfaceView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.applecoffee.devtools.base.adapter.BaseRCAdapter;
@@ -20,6 +25,7 @@ import com.huanmedia.ilibray.utils.DevUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoResults;
@@ -27,57 +33,48 @@ import com.huanmedia.videochat.mvp.presenter.video.IShortVideoPraisePresenter;
 import com.huanmedia.videochat.mvp.presenter.video.ShortVideoPraisePresenterImpl;
 import com.huanmedia.videochat.mvp.view.video.IShortVideoPraiseView;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.shuyu.gsyvideoplayer.render.effect.BlackAndWhiteEffect;
-import com.shuyu.gsyvideoplayer.render.view.GSYVideoGLView;
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.listener.GSYMediaPlayerListener;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import mvp.data.store.glide.GlideApp;
-import mvp.data.store.glide.GlideUtils;
 
 public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements IShortVideoPraiseView {
 
 
     private IShortVideoPraisePresenter mShortVideoPraisePresenter;
+    private VideoPtrLayout mPtrLayout;
     private int mPlayPosition;
 
-    public VideoPtrAdapter(Context context) {
+    public VideoPtrAdapter(Context context, VideoPtrLayout mPtrLayout) {
         super(context, R.layout.layout_video_ptr_item);
+        this.mPtrLayout = mPtrLayout;
         mPlayPosition = 0;
         mShortVideoPraisePresenter = new ShortVideoPraisePresenterImpl(this);
     }
 
     @Override
     public void convert(BaseViewHolder baseViewHolder, ShortVideoResults shortVideoResults, int i) {
+        RelativeLayout rlLove = baseViewHolder.getView(R.id.rl_love);
         LinearLayout llUserInfo = baseViewHolder.getView(R.id.ll_user_info);
         LinearLayout llUserInfoTag = baseViewHolder.getView(R.id.ll_user_tag);
         TextView tvUserLocation = baseViewHolder.getView(R.id.tv_user_location);
         TextView tvUserName = baseViewHolder.getView(R.id.tv_name);
+        TextView tvDesc = baseViewHolder.getView(R.id.tv_desc);
         ImageView ivLove = baseViewHolder.getView(R.id.iv_love);
         RoundedImageView ivUserIcon = baseViewHolder.getView(R.id.iv_user_icon);
         TextView tvLoveNum = baseViewHolder.getView(R.id.iv_love_num);
+
+        rlLove.removeAllViews();
         int praiseNum = mDatas.get(i).getPraise();
 
         if (shortVideoResults.getAccount_id() == 0) {
-            //设置用户姓名
-            tvUserName.setText("萌面官方");
-            //设置用户地址
-            tvUserLocation.setText("萌面官方研发团队");
             //设置头像
             Glide.with(mContext).load(R.mipmap.icon_logo).into(ivUserIcon);
             ivUserIcon.setOnClickListener(null);
         } else {
-            //设置用户姓名
-            if (shortVideoResults.getAccount_nickname() != null) {
-                tvUserName.setText(shortVideoResults.getAccount_nickname());
-            } else {
-                tvUserName.setText("未知");
-            }
-            //设置用户地址
-            tvUserLocation.setText("四川省成都市锦江区");
             //设置头像
             GlideApp.with(mContext).load(shortVideoResults.getAccount_face()).error(R.drawable.icon_headportrait).into(ivUserIcon);
             ivUserIcon.setOnClickListener(view -> {
@@ -92,6 +89,23 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
             });
         }
 
+        //设置视频描述
+        if (shortVideoResults.getDescribe() == null || shortVideoResults.getDescribe().length() == 0) {
+            tvDesc.setVisibility(View.GONE);
+            tvDesc.setText("");
+        } else {
+            tvDesc.setVisibility(View.VISIBLE);
+            tvDesc.setText(shortVideoResults.getDescribe());
+        }
+        //设置用户姓名
+        if (shortVideoResults.getAccount_nickname() != null
+                && shortVideoResults.getAccount_nickname().length() > 0) {
+            tvUserName.setText(shortVideoResults.getAccount_nickname());
+        } else {
+            tvUserName.setText("精选视频");
+        }
+        //设置用户地址
+        tvUserLocation.setText("萌面官方研发团队");
         //设置点赞
         if (shortVideoResults.getIspraise() == 0) {
             Glide.with(mContext).load(R.drawable.icon_love_unclick).into(ivLove);
@@ -99,12 +113,14 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
                 mShortVideoPraisePresenter.shortVideoPraise(shortVideoResults.getId());
                 mDatas.get(i).setIspraise(1);
                 mDatas.get(i).setPraise((praiseNum + 1));
-                startLoveAnim(ivLove);
                 tvLoveNum.setText(loveNumHandler(praiseNum + 1));
+                Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
+                startLoveAnim(ivLove);
             });
         } else {
             Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
             ivLove.setOnClickListener(view -> {
+                Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
                 startLoveAnim(ivLove);
             });
         }
@@ -144,11 +160,42 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         }
 
         VideoPtrItemPlayer videoPlayer = baseViewHolder.getView(R.id.detail_player);
+        videoPlayer.getStartBT().setVisibility(View.GONE);
         videoPlayer.setUp(videoUrl, true, "");
         videoPlayer.setLooping(true);
         videoPlayer.setThumbImageView(ivThumb);
+        videoPlayer.setCallBack(url -> {
+            //视频播放失败自动
+            if (i + 1 < mDatas.size()) {
+                mPtrLayout.getRecyclerView().scrollToPosition(i + 1);
+                boolean isBottom = false;
+                if (i + 1 == mDatas.size() - 1) {
+                    isBottom = true;
+                }
+                mPtrLayout.playPosition(i + 1, isBottom);
+            }
+        });
+        videoPlayer.setOnVideoClickListener(new EmptyVideoPlayer.OnVideoClickListener() {
+            @Override
+            public void onDoubleTap(MotionEvent e) {
+                if (shortVideoResults.getIspraise() == 0) {
+                    mShortVideoPraisePresenter.shortVideoPraise(shortVideoResults.getId());
+                    mDatas.get(i).setIspraise(1);
+                    mDatas.get(i).setPraise((praiseNum + 1));
+                    tvLoveNum.setText(loveNumHandler(praiseNum + 1));
+                    Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
+                }
+                startDoubleLoveAnim(rlLove, e);
+            }
+
+            @Override
+            public void onSingleTap(MotionEvent e) {
+
+            }
+        });
         if (i == mPlayPosition) {
             videoPlayer.startPlayLogic();
+            UMengUtils.ShortVideoPlay(mContext, shortVideoResults.getId());
         }
     }
 
@@ -179,13 +226,79 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
      * @param view
      */
     private void startLoveAnim(ImageView view) {
-        Glide.with(mContext).load(R.drawable.icon_love_onclick).into(view);
         ScaleAnimation scaleAnimation = new ScaleAnimation
                 (0, 1, 0, 1,
                         Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(1000);
         scaleAnimation.setInterpolator(new BounceInterpolator());
         view.startAnimation(scaleAnimation);
+    }
+
+    private void startDoubleLoveAnim(RelativeLayout rlLayout, MotionEvent e) {
+        int loveSize = mContext.getResources().getDimensionPixelOffset(R.dimen.dimen_200dp);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(loveSize, loveSize);
+        layoutParams.setMargins(
+                (int) e.getRawX() - loveSize,
+                (int) e.getRawY() - loveSize,
+                0,
+                0);
+        ImageView ivLove = new ImageView(mContext);
+        Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
+        ivLove.setLayoutParams(layoutParams);
+        rlLayout.addView(ivLove);
+        AnimationSet animationSet = new AnimationSet(false);
+
+        ScaleAnimation scaleAnimation = new ScaleAnimation
+                (0, 1, 0, 1,
+                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(500);
+        scaleAnimation.setInterpolator(new BounceInterpolator());
+
+        TranslateAnimation translateAnimation = new TranslateAnimation
+                (Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f,
+                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, -0.5f);
+        translateAnimation.setDuration(500);
+        translateAnimation.setStartOffset(500);
+
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
+        alphaAnimation.setDuration(500);
+        alphaAnimation.setStartOffset(500);
+
+        ScaleAnimation scaleAnimation2 = new ScaleAnimation
+                (1, 1.3f, 1, 1.3f,
+                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation2.setDuration(500);
+        scaleAnimation2.setStartOffset(500);
+
+        animationSet.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                new android.os.Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        rlLayout.removeView(ivLove);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animationSet.setDuration(1000);
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(scaleAnimation2);
+        animationSet.addAnimation(translateAnimation);
+        animationSet.addAnimation(alphaAnimation);
+        ivLove.startAnimation(animationSet);
+
     }
 
     /**
@@ -205,7 +318,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
                 (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 0, dp8 * 2, 0);
         tagTV.setLayoutParams(layoutParams);
-        tagTV.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, dp8 * 4f);
+        tagTV.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, dp8 * 3.5f);
         llTag.addView(tagTV);
     }
 
@@ -257,4 +370,6 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
     public void setPlayPosition(int playPosition) {
         this.mPlayPosition = playPosition;
     }
+
+
 }

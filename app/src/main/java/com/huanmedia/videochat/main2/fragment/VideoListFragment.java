@@ -61,7 +61,7 @@ public class VideoListFragment extends BaseFragment implements PtrLayout.PtrHand
     @Override
     protected void onVisible() {
         super.onVisible();
-        mPtrLayout.playVideo();
+        GSYVideoManager.onResume();
     }
 
 

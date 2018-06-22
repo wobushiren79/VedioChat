@@ -58,7 +58,8 @@ public class BaseManagerImpl {
                                 mHintDialog.cancel();
                         },
                         throwable -> {
-                            handler.onError(throwable.getMessage());
+//                            handler.onError(throwable.getMessage());
+                            handler.onError("网络连接失败");
                             if (mHintDialog != null && mHintDialog.isShowing())
                                 mHintDialog.cancel();
                         });

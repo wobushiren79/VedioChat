@@ -26,7 +26,7 @@ public class VideoPtrLayout extends PtrLayout implements ViewPagerLayoutManager.
     public VideoPtrLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mLayoutManager = new ViewPagerLayoutManager(context);
-        mPtrAdapter = new VideoPtrAdapter(context);
+        mPtrAdapter = new VideoPtrAdapter(context, this);
 
 
         mLayoutManager.setOnViewPagerListener(this);
@@ -42,19 +42,6 @@ public class VideoPtrLayout extends PtrLayout implements ViewPagerLayoutManager.
         mPtrAdapter.notifyDataSetChanged();
     }
 
-
-    /**
-     * 播放视频
-     *
-     * @param position
-     */
-    public void playVideo(int position) {
-        mPtrAdapter.playVideo(position);
-    }
-
-    public void playVideo() {
-        mPtrAdapter.playVideo(-1);
-    }
 
     /**
      * 设置当前播放
@@ -73,6 +60,16 @@ public class VideoPtrLayout extends PtrLayout implements ViewPagerLayoutManager.
 
     @Override
     public void onPageSelected(int position, boolean isBottom) {
+        playPosition(position, isBottom);
+    }
+
+    /**
+     * 播放第几个视频
+     *
+     * @param position
+     * @param isBottom
+     */
+    public void playPosition(int position, boolean isBottom) {
         if (position != mCurrentPosition) {
             mPtrAdapter.playVideo(position);
         }
@@ -85,6 +82,7 @@ public class VideoPtrLayout extends PtrLayout implements ViewPagerLayoutManager.
             }
         }
     }
+
 
     @Override
     public void onLayoutComplete() {

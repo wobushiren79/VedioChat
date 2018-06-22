@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false">
@@ -53,9 +54,9 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_12dp"
             android:layout_marginTop="@dimen/dimen_20dp"
-            android:shadowColor="@color/black"
+            android:shadowColor="@color/color_b8b8b8"
             android:shadowDx="3"
             android:shadowDy="3"
             android:shadowRadius="10"
@@ -65,6 +66,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+
             android:id="@+id/ll_user_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,6 +74,15 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxEms="12"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_32dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -89,6 +100,7 @@
             android:id="@+id/iv_user_icon"
             android:layout_width="@dimen/dimen_96dp"
             android:layout_height="@dimen/dimen_96dp"
+            android:scaleType="fitXY"
             android:src="@drawable/icon_headportrait"
             app:riv_oval="true" />
 
@@ -107,8 +119,14 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dimen_6dp"
             android:gravity="center"
-            android:text="4.2w"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_24dp" />
     </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_love"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
 </RelativeLayout>
