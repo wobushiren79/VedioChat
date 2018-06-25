@@ -237,7 +237,9 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
                     UserManager.getInstance().exit();
                     return;
                 }
-                boolean isReadMain = mData.getBase().getStarbutton() == 1 && mData.getBase().getIsstarauth() == 1;
+                boolean isReadMain =
+                        mData.getBase().getStarbutton() == 1
+                                && mData.getBase().getIsstarauth() == 1;
                 VideoChatUtils.CheckCallVideo(
                         getActivity(),
                         getNavigator(),
