@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".discover.ArtistActivity">
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:elevation="@dimen/dimen_0dp">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:minHeight="@dimen/dimen_440dp"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+
+
+                <ImageView
+                    android:id="@+id/iv_user_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@color/black"
+                    app:layout_collapseMode="parallax" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_user_back"
+                    android:layout_alignLeft="@+id/iv_user_back"
+                    android:layout_alignRight="@+id/iv_user_back"
+                    android:layout_alignTop="@+id/iv_user_back"
+                    android:src="@drawable/base_bg_gradient_black" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_user_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/rl_tab">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/iv_user_icon"
+                        android:layout_width="@dimen/dimen_164dp"
+                        android:layout_height="@dimen/dimen_164dp"
+                        android:layout_marginLeft="@dimen/dimen_44dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_headportrait"
+                        app:riv_oval="true" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_42dp"
+                        android:layout_height="@dimen/dimen_42dp"
+                        android:layout_alignBottom="@+id/iv_user_icon"
+                        android:layout_alignRight="@+id/iv_user_icon"
+                        android:layout_marginBottom="@dimen/dimen_6dp"
+                        android:layout_marginRight="@dimen/dimen_6dp"
+                        android:src="@drawable/icon_certification" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_20dp"
+                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:layout_toRightOf="@id/iv_user_icon"
+                        android:maxLines="1"
+                        android:text="小玉娘"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dimen_36dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_team_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/tv_name"
+                        android:layout_below="@+id/tv_name"
+                        android:layout_marginTop="@dimen/dimen_18dp"
+                        android:maxLines="1"
+                        android:text="你好少女"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dimen_24dp" />
+
+                    <TextView
+                        android:id="@+id/tv_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/tv_team_name"
+                        android:layout_below="@+id/tv_team_name"
+                        android:layout_marginBottom="@dimen/dimen_44dp"
+                        android:layout_marginRight="@dimen/dimen_44dp"
+                        android:layout_marginTop="@dimen/dimen_18dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="你好少女你好少女你好少女你好少女你好少女你好少女你好少女你好少女你好少女"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dimen_28dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_more"
+                        android:layout_width="@dimen/dimen_32dp"
+                        android:layout_height="@dimen/dimen_32dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dimen_44dp"
+                        android:src="@drawable/icon_more" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_136dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dimen_22dp"
+                    android:layout_marginRight="@dimen/dimen_22dp">
+
+                    <com.flyco.tablayout.CommonTabLayout
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/base_bg_white_round"
+                        android:paddingLeft="@dimen/dimen_22dp"
+                        android:paddingRight="@dimen/dimen_22dp"
+                        app:tl_divider_width="@dimen/dp_0"
+                        app:tl_iconHeight="@dimen/dimen_55dp"
+                        app:tl_iconVisible="true"
+                        app:tl_iconWidth="@dimen/dimen_55dp"
+                        app:tl_indicator_anim_enable="false"
+                        app:tl_indicator_bounce_enable="false"
+                        app:tl_indicator_height="@dimen/dp_0"
+                        app:tl_indicator_width="@dimen/dp_0"
+                        app:tl_textSelectColor="@color/base_black"
+                        app:tl_textUnselectColor="@color/header_border_gray"
+                        app:tl_textsize="@dimen/dimen_24dp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_exit"
+                    android:layout_width="@dimen/dimen_50dp"
+                    android:layout_height="@dimen/dimen_50dp"
+                    android:layout_marginLeft="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_80dp"
+                    android:src="@drawable/nav_btn_back_black" />
+
+            </RelativeLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</RelativeLayout>

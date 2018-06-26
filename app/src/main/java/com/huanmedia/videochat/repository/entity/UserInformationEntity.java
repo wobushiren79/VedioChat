@@ -50,7 +50,7 @@ public class UserInformationEntity {
     private int city_id;
     private String city_name;
     private String occupation;
-    private List<PhpotsEntity> phpots;
+    private List<PhotosEntity> phpots;
     private List<VideoEntity> voides;
     private int level;//用户等级
     private int isfavorite;//是否关注 1关注 0 未关注
@@ -242,11 +242,11 @@ public class UserInformationEntity {
         this.city_name = city_name;
     }
 
-    public List<PhpotsEntity> getPhpots() {
+    public List<PhotosEntity> getPhpots() {
         return phpots;
     }
 
-    public void setPhpots(List<PhpotsEntity> phpots) {
+    public void setPhpots(List<PhotosEntity> phpots) {
         this.phpots = phpots;
     }
 

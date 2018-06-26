@@ -3,7 +3,7 @@ package com.huanmedia.videochat.mvp.view.file;
 import com.huanmedia.videochat.mvp.base.BaseMVPView;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 
 import java.util.ArrayList;
 import java.util.List;

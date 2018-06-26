@@ -41,4 +41,9 @@ public class RxCountDown {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+    public static Observable<Long> interval(long start,long time) {
+        return Observable.interval(start,time, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

@@ -22,6 +22,7 @@ import android.content.Intent;
 import com.huanmedia.videochat.appointment.AppointmentActivity;
 import com.huanmedia.videochat.appointment.AppointmentListActivity;
 import com.huanmedia.videochat.common.LocalHtmlWebActivity;
+import com.huanmedia.videochat.discover.ArtistActivity;
 import com.huanmedia.videochat.discover.BusinessCardAcitivty;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main.NotificationMessageActivity;
@@ -48,7 +49,7 @@ import com.huanmedia.videochat.pay.ExchangeActivity;
 import com.huanmedia.videochat.pay.MyAccountActivity;
 import com.huanmedia.videochat.pay.MyWalletActivity;
 import com.huanmedia.videochat.repository.entity.PayCoinTypeMode;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.huanmedia.videochat.video.CallingActivity;
 import com.huanmedia.videochat.video.MonitorVideoActivity;
@@ -180,7 +181,7 @@ public class Navigator {
      * @param activity
      * @param data
      */
-    public void navtoPhotos(Activity activity, ArrayList<PhpotsEntity> data) {
+    public void navtoPhotos(Activity activity, ArrayList<PhotosEntity> data) {
         activity.startActivity(PhotosActivity.getCallingIntent(activity, data));
     }
 
@@ -298,8 +299,8 @@ public class Navigator {
      *
      * @param context
      */
-    public void navtoMediaUpLoad(Activity context, ArrayList<VideoEntity> videos) {
-        context.startActivity(MediaUpLoadActivity.getCallingIntent(context, videos));
+    public void navtoMediaUpLoad(Activity context, ArrayList<VideoEntity> videos, boolean isOpenUserEdit) {
+        context.startActivity(MediaUpLoadActivity.getCallingIntent(context, videos, isOpenUserEdit));
     }
 
     /**
@@ -318,5 +319,12 @@ public class Navigator {
      */
     public void navtoAppointmentList(Activity context, int tabPosition) {
         context.startActivity(AppointmentListActivity.getCallingIntent(context, tabPosition));
+    }
+
+    /**
+     * 艺人主界面
+     */
+    public void navtoArtist(Activity context, int uid) {
+        context.startActivity(ArtistActivity.getCallingIntent(context, uid));
     }
 }

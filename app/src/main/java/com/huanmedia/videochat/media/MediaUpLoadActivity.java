@@ -47,9 +47,10 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     private IFileHandlerPresenter mFileHandlerPresenter;
 
 
-    public static Intent getCallingIntent(Context context, ArrayList<VideoEntity> videos) {
+    public static Intent getCallingIntent(Context context, ArrayList<VideoEntity> videos, boolean isOpenUserEdit) {
         Intent intent = new Intent(context, MediaUpLoadActivity.class);
         intent.putParcelableArrayListExtra("videos", videos);
+        intent.putExtra("isOpenUserEdit", isOpenUserEdit);
         intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         return intent;
     }
@@ -77,13 +78,18 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
      * 返回之前的界面
      */
     private void backLastActivity() {
-        if (mUpLoadAdapter.isHasUpLoadTask()) {
-            Intent intent = new Intent(this, UserInfoEditActivity.class);
-            intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
-        } else {
+        if (getIntent().getBooleanExtra("isOpenUserEdit", false)) {
+            if (mUpLoadAdapter.isHasUpLoadTask()) {
+                Intent intent = new Intent(this, UserInfoEditActivity.class);
+                intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            } else {
+                finish();
+            }
+        }else{
             finish();
         }
+
     }
 
     @Override
@@ -162,9 +168,8 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
         if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
             Uri uri = data.getData();
             VideoInfoRequest videoInfoRequest = mFileHandlerPresenter.getVideoInfoByUri(uri, this.getContentResolver());
-            if(videoInfoRequest.getImagePath()==null)
-            {
-                ToastUtils.showToastLong(this,"请选择视频文件！");
+            if (videoInfoRequest.getImagePath() == null) {
+                ToastUtils.showToastLong(this, "请选择视频文件！");
                 return;
             }
             mUpLoadAdapter.setUpLoadVideoFile(videoInfoRequest);

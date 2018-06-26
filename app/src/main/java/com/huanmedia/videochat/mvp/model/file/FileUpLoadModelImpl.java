@@ -11,7 +11,7 @@ import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.repository.base.HttpFileResponseHandler;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
 
 import java.util.ArrayList;

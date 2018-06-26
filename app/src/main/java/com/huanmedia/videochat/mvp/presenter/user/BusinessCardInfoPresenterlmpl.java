@@ -1,17 +1,16 @@
 package com.huanmedia.videochat.mvp.presenter.user;
 
 import com.huanmedia.videochat.mvp.base.BaseMVPPresenter;
-import com.huanmedia.videochat.mvp.base.BaseMVPView;
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.model.user.BusinessCardInfoModelImpl;
 import com.huanmedia.videochat.mvp.view.user.IBusinessCardInfoView;
 
-public class BusinessCardInfoPresenterlImpl extends BaseMVPPresenter<IBusinessCardInfoView, BusinessCardInfoModelImpl> implements IBusinessCardInfoPresenterl {
+public class BusinessCardInfoPresenterlmpl extends BaseMVPPresenter<IBusinessCardInfoView, BusinessCardInfoModelImpl> implements IBusinessCardInfoPresenter {
 
 
-    public BusinessCardInfoPresenterlImpl(IBusinessCardInfoView mMvpView) {
+    public BusinessCardInfoPresenterlmpl(IBusinessCardInfoView mMvpView) {
         super(mMvpView, BusinessCardInfoModelImpl.class);
     }
 

@@ -32,7 +32,7 @@ import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.my.adapter.PhotosAdapter;
 import com.huanmedia.videochat.my.adapter.PhotosItemDragAndSwipeCallback;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -62,7 +62,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
     private PhotosAdapter mAdapter;
     private ItemTouchHelper mItemTouchHelper;
 
-    public static Intent getCallingIntent(Context context, ArrayList<PhpotsEntity> data) {
+    public static Intent getCallingIntent(Context context, ArrayList<PhotosEntity> data) {
         Intent intent = new Intent(context, PhotosActivity.class);
         intent.putParcelableArrayListExtra("data", data);
         return intent;
@@ -126,7 +126,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (mAdapter.isEdit()) {//编辑模式点击选中相片
-                    PhpotsEntity data = ((PhpotsEntity) adapter.getData().get(position));
+                    PhotosEntity data = ((PhotosEntity) adapter.getData().get(position));
                     if (mAdapter.getCheckMap().get(position) == null) {
                         mAdapter.getCheckMap().put(position, data);
                         adapter.notifyItemChanged(position);
@@ -252,7 +252,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
                 StringBuffer buffer = new StringBuffer();
                 for (int i = 0; i < mAdapter.getCheckMap().size(); i++) {
                     HM_PhotoEntity photo = mAdapter.getCheckMap().valueAt(i);
-                    buffer.append(((PhpotsEntity) photo).getId());
+                    buffer.append(((PhotosEntity) photo).getId());
                     if (i < mAdapter.getCheckMap().size() - 1) {
                         buffer.append(",");
                     }
@@ -343,7 +343,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
     }
 
     @Override
-    public void upPhotoSuccess(List<PhpotsEntity> phpotsEntities) {
+    public void upPhotoSuccess(List<PhotosEntity> phpotsEntities) {
         mAdapter.getData().addAll(phpotsEntities);
 
         mAdapter.notifyDataSetChanged();

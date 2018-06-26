@@ -6,7 +6,7 @@ import com.huanmedia.hmalbumlib.extar.HM_PhotoEntity;
 import com.huanmedia.ilibray.utils.GsonUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.repository.datasouce.impl.MainRepostiory;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class PhotosPrestener extends Presenter<PhotosView> {
                 response -> {
                     Gson gson = GsonUtils.getDefGsonBulder().create();
                     String string = gson.toJson(response.getResult());
-                    ArrayList<PhpotsEntity> photos = gson.fromJson(string, new TypeToken<List<PhpotsEntity>>() {
+                    ArrayList<PhotosEntity> photos = gson.fromJson(string, new TypeToken<List<PhotosEntity>>() {
                     }.getType());
                     getView().hideLoading();
                     getView().upPhotoSuccess(photos);
@@ -84,8 +84,8 @@ public class PhotosPrestener extends Presenter<PhotosView> {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < datas.size(); i++) {
             HM_PhotoEntity item = datas.get(i);
-            if (item instanceof PhpotsEntity) {
-                int id = ((PhpotsEntity) item).getId();
+            if (item instanceof PhotosEntity) {
+                int id = ((PhotosEntity) item).getId();
                 buffer.append(id).append("-").append(i+1).append(",");
             }
         }

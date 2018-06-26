@@ -4,7 +4,7 @@ import android.os.Parcel;
 
 import com.huanmedia.hmalbumlib.extar.HM_PhotoEntity;
 
-public  class PhpotsEntity implements HM_PhotoEntity {
+public  class PhotosEntity implements HM_PhotoEntity {
         /**
          * photo : http://mmimg.lzwifi.com/157/08/43/35/67/photos/73e976f4506543b616aa8c1ff5bd1f33.jpg
          * photo_thumb : http://mmimg.lzwifi.com/157/08/43/35/67/photos/73e976f4506543b616aa8c1ff5bd1f33_thumb.jpg
@@ -49,7 +49,7 @@ public  class PhpotsEntity implements HM_PhotoEntity {
 
         @Override
         public String toString() {
-            final StringBuffer sb = new StringBuffer("PhpotsEntity{");
+            final StringBuffer sb = new StringBuffer("PhotosEntity{");
             sb.append("id=").append(id);
             sb.append(", photo='").append(photo).append('\'');
             sb.append(", photo_thumb='").append(photo_thumb).append('\'');
@@ -58,7 +58,7 @@ public  class PhpotsEntity implements HM_PhotoEntity {
             return sb.toString();
         }
 
-        public PhpotsEntity() {
+        public PhotosEntity() {
         }
 
         @Override
@@ -84,22 +84,22 @@ public  class PhpotsEntity implements HM_PhotoEntity {
             dest.writeInt(this.sort);
         }
 
-        protected PhpotsEntity(Parcel in) {
+        protected PhotosEntity(Parcel in) {
             this.id = in.readInt();
             this.photo = in.readString();
             this.photo_thumb = in.readString();
             this.sort = in.readInt();
         }
 
-        public static final Creator<PhpotsEntity> CREATOR = new Creator<PhpotsEntity>() {
+        public static final Creator<PhotosEntity> CREATOR = new Creator<PhotosEntity>() {
             @Override
-            public PhpotsEntity createFromParcel(Parcel source) {
-                return new PhpotsEntity(source);
+            public PhotosEntity createFromParcel(Parcel source) {
+                return new PhotosEntity(source);
             }
 
             @Override
-            public PhpotsEntity[] newArray(int size) {
-                return new PhpotsEntity[size];
+            public PhotosEntity[] newArray(int size) {
+                return new PhotosEntity[size];
             }
         };
     }

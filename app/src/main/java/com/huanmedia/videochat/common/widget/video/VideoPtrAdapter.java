@@ -63,6 +63,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         LinearLayout llUserInfo = baseViewHolder.getView(R.id.ll_user_info);
         LinearLayout llUserInfoTag = baseViewHolder.getView(R.id.ll_user_tag);
         LinearLayout llAppointment = baseViewHolder.getView(R.id.ll_appointment);
+        LinearLayout addVideo=baseViewHolder.getView(R.id.ll_addvideo);
         LinearLayout llCall = baseViewHolder.getView(R.id.ll_call);
         TextView tvUserLocation = baseViewHolder.getView(R.id.tv_user_location);
         TextView tvUserName = baseViewHolder.getView(R.id.tv_name);
@@ -78,6 +79,11 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         int accountOnlineStatus = shortVideoResults.getAccount_onlinestatus();
         int praiseNum = shortVideoResults.getPraise();
         int isReadMan = shortVideoResults.getAccount_isstarauth();
+
+        //添加视频
+        addVideo.setOnClickListener(view->{
+            ((BaseActivity) mContext).getNavigator().navtoMediaUpLoad((Activity) mContext,null,false);
+        });
 
         if (shortVideoResults.getAccount_id() == 0) {
             //设置头像

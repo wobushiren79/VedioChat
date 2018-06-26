@@ -11,7 +11,7 @@ import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
 import com.huanmedia.videochat.repository.aliyun.AliyunHandler;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
 import java.io.File;
@@ -61,7 +61,7 @@ public class FileManagerImpl extends BaseManagerImpl implements FileManager {
     }
 
     @Override
-    public void upLoadImage(Context context, List<String> images, HttpResponseHandler<ArrayList<PhpotsEntity>> handler) {
+    public void upLoadImage(Context context, List<String> images, HttpResponseHandler<ArrayList<PhotosEntity>> handler) {
 
     }
 

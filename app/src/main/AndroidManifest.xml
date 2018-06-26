@@ -90,33 +90,30 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
             <intent-filter>
-                <!-- 协议部分配置 ,要在web配置相同的-->
+
+                <!-- 协议部分配置 ,要在web配置相同的 -->
                 <data
                     android:host="start"
-                    android:scheme="videochat"/>
+                    android:scheme="videochat" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".test.TestActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/AppBaseTheme.Default">
 
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <!-- 相册 -->
         <activity
@@ -354,14 +351,25 @@
             android:name=".media.MediaUpLoadActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".appointment.AppointmentActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".appointment.AppointmentListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".discover.ArtistActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".appointment.AppointmentActivity" />
-        <activity android:name=".appointment.AppointmentListActivity"></activity>
     </application>
 
 </manifest>

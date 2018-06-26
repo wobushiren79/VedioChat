@@ -31,7 +31,7 @@ import com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout
 import com.huanmedia.videochat.main2.weight.GoodProgressView;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.entity.UserEvaluateEntity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 
@@ -51,7 +51,7 @@ import mvp.data.store.glide.GlideUtils;
 public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMultiItem, BaseViewHolder> {
 
     private String mDistance;
-    private BaseQuickAdapter<PhpotsEntity, BaseViewHolder> mHeaderPhotosAdapter;
+    private BaseQuickAdapter<PhotosEntity, BaseViewHolder> mHeaderPhotosAdapter;
     private BaseQuickAdapter<VideoEntity, BaseViewHolder> mHeaderVideoAdapter;
     private Context context;
     private int mItemSize;
@@ -173,7 +173,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
 //            photoRv.getLayoutParams().height = mItemSize * 2 + DisplayUtil.dip2px(mContext, 4) * (count - 1);
 
 //            photoRv.addItemDecoration(mCurrentItemDecoration);
-            mHeaderPhotosAdapter = new BaseQuickAdapter<PhpotsEntity, BaseViewHolder>(R.layout.item_discoverinfo) {
+            mHeaderPhotosAdapter = new BaseQuickAdapter<PhotosEntity, BaseViewHolder>(R.layout.item_discoverinfo) {
                 protected View getItemView(@LayoutRes int layoutResId, ViewGroup parent) {
                     View rootview = mLayoutInflater.inflate(layoutResId, parent, false);
                     rootview.getLayoutParams().height = mItemSize;
@@ -181,7 +181,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                 }
 
                 @Override
-                protected void convert(BaseViewHolder helper, PhpotsEntity item) {
+                protected void convert(BaseViewHolder helper, PhotosEntity item) {
                     ImageView iv = helper.getView(R.id.item_discoverinfo_iv);
                     GlideApp.with(mContext)
                             .asBitmap()

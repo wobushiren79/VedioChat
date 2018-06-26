@@ -7,7 +7,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public interface FileManager {
      * @param images
      * @param handler
      */
-    public void upLoadImage(Context context,List<String> images, HttpResponseHandler<ArrayList<PhpotsEntity>> handler);
+    public void upLoadImage(Context context,List<String> images, HttpResponseHandler<ArrayList<PhotosEntity>> handler);
 
     /**
      * 用户上传视频信息

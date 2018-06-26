@@ -36,7 +36,7 @@ import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.repository.entity.ItemMenuEntity;
 import com.huanmedia.videochat.repository.entity.OccupationsEntity;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -111,7 +111,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
 
     private HintDialog mLoadingDialog;
     private HintDialog mHintDialog;
-    private BaseQuickAdapter<PhpotsEntity, BaseViewHolder> mPhotosAdapter;
+    private BaseQuickAdapter<PhotosEntity, BaseViewHolder> mPhotosAdapter;
     private BaseQuickAdapter<VideoEntity, BaseViewHolder> mVideosAdapter;
     private HashMap<String, Object> modifyUserData;
     private final String KEY_MODIFY_HEADER = "userHeader";
@@ -160,7 +160,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
         if (action == null || action.getAction() == null) return;
         switch (action.getAction()) {
             case EventBusAction.ACTION_USER_PHOTOS_CHANGE:
-                List<PhpotsEntity> photos = action.getParcelableArrayListExtra("data");
+                List<PhotosEntity> photos = action.getParcelableArrayListExtra("data");
                 if (photos != null) {
                     showPhotos(photos);
                 }
@@ -224,7 +224,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
 //                        .marginHorizontal(DisplayUtil.dip2px(context(), 4))
 //                        .marginHorizontal(DisplayUtil.dip2px(context(), 4))
 //                        .create());
-        mPhotosAdapter = new BaseQuickAdapter<PhpotsEntity, BaseViewHolder>(R.layout.item_user_eidt_photo) {
+        mPhotosAdapter = new BaseQuickAdapter<PhotosEntity, BaseViewHolder>(R.layout.item_user_eidt_photo) {
             @Override
             public int getItemCount() {
                 if (mData.size() > 0 && mData.size() <= 3) {
@@ -236,7 +236,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
             }
 
             @Override
-            protected void convert(BaseViewHolder helper, PhpotsEntity item) {
+            protected void convert(BaseViewHolder helper, PhotosEntity item) {
                 GlideUtils.getInstance()
                         .loadBitmapNoAnim(
                                 context(),
@@ -373,7 +373,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
     }
 
     @Override
-    public void showPhotos(List<PhpotsEntity> phpots) {
+    public void showPhotos(List<PhotosEntity> phpots) {
         if (phpots == null || phpots.size() == 0) {
             mUserInfoEditTvPhotosEnter.setText("你还没有上传照片");
             return;
@@ -421,14 +421,14 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
                 break;
             case R.id.user_info_edit_rl_photos:
                 if (getBasePresenter().isCanNavToPhotos()) {
-                    getNavigator().navtoPhotos(this, (ArrayList<PhpotsEntity>) mPhotosAdapter.getData());
+                    getNavigator().navtoPhotos(this, (ArrayList<PhotosEntity>) mPhotosAdapter.getData());
                 }
                 break;
             case R.id.user_info_edit_rl_head:
                 openAlbum();
                 break;
             case R.id.user_info_edit_ll_video:
-                getNavigator().navtoMediaUpLoad(this, (ArrayList<VideoEntity>) mVideosAdapter.getData());
+                getNavigator().navtoMediaUpLoad(this, (ArrayList<VideoEntity>) mVideosAdapter.getData(),true);
                 break;
         }
     }

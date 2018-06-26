@@ -1,6 +1,5 @@
 package com.huanmedia.videochat.common.widget.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -20,11 +19,10 @@ import com.huanmedia.ilibray.utils.DevUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
-import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
-import com.huanmedia.videochat.mvp.presenter.user.BusinessCardInfoPresenterlImpl;
-import com.huanmedia.videochat.mvp.presenter.user.IBusinessCardInfoPresenterl;
+import com.huanmedia.videochat.mvp.presenter.user.BusinessCardInfoPresenterlmpl;
+import com.huanmedia.videochat.mvp.presenter.user.IBusinessCardInfoPresenter;
 import com.huanmedia.videochat.mvp.view.user.IBusinessCardInfoView;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -51,7 +49,7 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
     private RadioGroup mRGContent;
 
     private BusinessCardInfoResults mUserInfoData;
-    private IBusinessCardInfoPresenterl mBussinessCardInfoPresenter;
+    private IBusinessCardInfoPresenter mBussinessCardInfoPresenter;
 
     public BusinessCardDialog(@NonNull Context context) {
         this(context, R.style.customDialog);
@@ -59,7 +57,7 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
 
     public BusinessCardDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
-        mBussinessCardInfoPresenter = new BusinessCardInfoPresenterlImpl(this);
+        mBussinessCardInfoPresenter = new BusinessCardInfoPresenterlmpl(this);
     }
 
     @Override
@@ -139,8 +137,8 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
         if (mUserInfoData == null)
             return;
         List<ImageView> viewList = new ArrayList<>();
-        addImageView(viewList, mUserInfoData.getBase().getUserphoto_thumb());
         if (mUserInfoData.getBase().getPhpots() != null && mUserInfoData.getBase().getPhpots().size() > 0) {
+            addImageView(viewList, mUserInfoData.getBase().getUserphoto_thumb());
             for (int i = 0; i < mUserInfoData.getBase().getPhpots().size(); i++) {
                 addImageView(viewList, mUserInfoData.getBase().getPhpots().get(i).getPhoto_thumb());
             }

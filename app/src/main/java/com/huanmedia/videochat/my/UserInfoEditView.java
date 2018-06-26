@@ -2,7 +2,7 @@ package com.huanmedia.videochat.my;
 
 import com.huanmedia.videochat.repository.entity.ItemMenuEntity;
 import com.huanmedia.videochat.repository.entity.OccupationsEntity;
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ interface UserInfoEditView extends LoadDataView {
      *
      * @param phpots
      */
-    void showPhotos(List<PhpotsEntity> phpots);
+    void showPhotos(List<PhotosEntity> phpots);
 
     /**
      * 展示视频数据

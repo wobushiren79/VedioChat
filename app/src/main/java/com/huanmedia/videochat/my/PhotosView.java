@@ -1,6 +1,6 @@
 package com.huanmedia.videochat.my;
 
-import com.huanmedia.videochat.repository.entity.PhpotsEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ interface PhotosView extends LoadDataView{
     /**
      * 照片上传成功
      */
-    void upPhotoSuccess(List<PhpotsEntity> phpotsEntities);    /**
+    void upPhotoSuccess(List<PhotosEntity> phpotsEntities);    /**
      * 照片上传成功
      */
     void updateUserPhotosOrderSuccess();
