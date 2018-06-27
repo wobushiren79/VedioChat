@@ -35,7 +35,13 @@ EYArchitecture
 
 
 
-
+------------------------萌面webview js调用方法说明-------------------------
+对象名称：VideoChat
+1.获取抽奖信息 getLuckInfo();
+    用例：VideoChat.getLuckInfo();
+2.抽奖信息回调 setLuckInfo(String data); 参数：data—获取到的抽奖信息json字符串
+    用例：function setLuckInfo(data){};
+------------------------------------------------------------------------
 
 Author
 ------

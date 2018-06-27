@@ -59,6 +59,7 @@ public class LocalHtmlWebActivity extends BaseActivity {
         mTitle = getIntent().getStringExtra("title");
         if (!getIntent().getBooleanExtra("Authentication", false)) {
             if (url != null)
+//                webView.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
                 webView.loadUrl(url);
         } else {
             if (url != null) {
@@ -75,13 +76,15 @@ public class LocalHtmlWebActivity extends BaseActivity {
 
 
         WebSettings settings = webView.getSettings();
-//        settings.setJavaScriptEnabled(true);
         settings.setAppCacheEnabled(false);
         settings.setDatabaseEnabled(false);
         settings.setJavaScriptEnabled(true);
         settings.setLoadsImagesAutomatically(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setSupportMultipleWindows(true);
+
+        WebJsObjFunction jsObjFunction = new WebJsObjFunction( webView);
+        webView.addJavascriptInterface(jsObjFunction, "VideoChat");
         webView.requestFocusFromTouch();
         webView.setWebViewClient(new WebViewClient() {
             @Override
