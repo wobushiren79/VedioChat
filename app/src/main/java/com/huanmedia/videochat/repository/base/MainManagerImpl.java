@@ -2,6 +2,7 @@ package com.huanmedia.videochat.repository.base;
 
 import android.content.Context;
 
+import com.google.gson.internal.LinkedTreeMap;
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.mvp.entity.request.AdsLuanchRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
@@ -26,6 +27,7 @@ import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +49,17 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
             }
         }
         return manager;
+    }
+
+    @Override
+    public void commonUrl(Context context, String url, Object params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap;
+        if (params != null) {
+            paramsMap = (Map<String, Object>) params;
+        } else {
+            paramsMap = new HashMap<>();
+        }
+        requestPost(context, mApiService.common(url, paramsMap), handler);
     }
 
     @Override

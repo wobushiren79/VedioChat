@@ -37,10 +37,26 @@ EYArchitecture
 
 ------------------------萌面webview js调用方法说明-------------------------
 对象名称：VideoChat
-1.获取抽奖信息 getLuckInfo();
-    用例：VideoChat.getLuckInfo();
-2.抽奖信息回调 setLuckInfo(String data); 参数：data—获取到的抽奖信息json字符串
-    用例：function setLuckInfo(data){};
+1.提交通用数据 submitCommonInfo(String url, String data);
+    参数：
+         data:提交参数-json类型
+         url:需要提交的接口地址
+    用例：
+         VideoChat.submitCommonInfo("/index/luckyh5/voidpraise","{key:1,uid:2}");
+
+2.提交通用数据成功回调 submitCommonInfoSuccess(String data);
+    返回值：
+         data:提交成功返回数据
+    用例：
+         function submitCommonInfoSuccess(data){};
+
+
+3.提交通用数据失败回调 submitCommonInfoFail(String data);
+    返回值：
+         data:提交失败返回数据
+    用例：
+         function submitCommonInfoFail(data){};
+
 ------------------------------------------------------------------------
 
 Author

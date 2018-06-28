@@ -30,6 +30,15 @@ import java.util.List;
 public interface MainManager {
 
     /**
+     * 通用地址接口
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void commonUrl(Context context, String url, Object params, HttpResponseHandler handler);
+
+    /**
      * 上传更新用户信息
      *
      * @param context

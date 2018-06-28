@@ -75,6 +75,8 @@ public class BaseManagerImpl {
      */
     public static Map<String, Object> objectToMap(Object obj) {
         Map<String, Object> map = new HashMap<>();
+        if (obj == null)
+            return map;
         Class<?> clazz = obj.getClass();
         System.out.println(clazz);
         for (Field field : clazz.getDeclaredFields()) {

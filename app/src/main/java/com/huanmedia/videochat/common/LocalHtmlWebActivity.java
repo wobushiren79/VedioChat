@@ -83,7 +83,7 @@ public class LocalHtmlWebActivity extends BaseActivity {
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setSupportMultipleWindows(true);
 
-        WebJsObjFunction jsObjFunction = new WebJsObjFunction( webView);
+        WebJsObjFunction jsObjFunction = new WebJsObjFunction(this, webView);
         webView.addJavascriptInterface(jsObjFunction, "VideoChat");
         webView.requestFocusFromTouch();
         webView.setWebViewClient(new WebViewClient() {

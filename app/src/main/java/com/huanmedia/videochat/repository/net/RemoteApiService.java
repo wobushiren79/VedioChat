@@ -56,6 +56,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -66,6 +67,11 @@ import retrofit2.http.Url;
  */
 
 public interface RemoteApiService {
+    //通用
+    @POST
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> common(@Url String url, @FieldMap Map<String, Object> params);
+
     //登录
     @FormUrlEncoded
     @POST("/index/user/login")
