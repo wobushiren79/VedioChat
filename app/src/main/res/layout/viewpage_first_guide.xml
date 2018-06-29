@@ -81,16 +81,16 @@
     <!--</LinearLayout>-->
     <!--<Button-->
     <!--android:text="立即进入"-->
-    <!--android:textSize="@dimen/tz_18"-->
+    <!--android:textSize="@dimen/dimen_36dp"-->
     <!--android:textColor="@color/white"-->
     <!--android:id="@+id/page_first_guide_btn"-->
     <!--android:layout_alignParentBottom="true"-->
     <!--android:layout_centerHorizontal="true"-->
     <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/dp_48"-->
-    <!--android:layout_marginStart="@dimen/dp_22"-->
-    <!--android:layout_marginBottom="@dimen/dp_62"-->
-    <!--android:layout_marginEnd="@dimen/dp_22"-->
+    <!--android:layout_height="@dimen/dimen_96dp"-->
+    <!--android:layout_marginStart="@dimen/dimen_44dp"-->
+    <!--android:layout_marginBottom="@dimen/dimen_124dp"-->
+    <!--android:layout_marginEnd="@dimen/dimen_44dp"-->
     <!--android:background="@drawable/guide_btn_solid"-->
     <!--/>-->
     <TextView

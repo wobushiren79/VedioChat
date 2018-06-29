@@ -39,8 +39,8 @@
 
             <ImageView
                 android:id="@+id/main_tv_conditionFilter"
-                android:layout_width="@dimen/dp_38"
-                android:layout_height="@dimen/dp_38"
+                android:layout_width="@dimen/dimen_76dp"
+                android:layout_height="@dimen/dimen_76dp"
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/dimen_22dp"
                 android:scaleType="centerInside"
@@ -84,7 +84,7 @@
             android:id="@+id/main_windowView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dimen_80dp"
             android:layout_weight="1">
             <!--底部按钮-->
             <FrameLayout
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/dp_6">
+                android:layout_marginBottom="@dimen/dimen_12dp">
 
                 <ImageView
                     android:id="@+id/main_iv_mask"

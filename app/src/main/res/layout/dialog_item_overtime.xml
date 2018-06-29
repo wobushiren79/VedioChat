@@ -3,8 +3,8 @@
     android:id="@+id/dialog_item_overtime_fl"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/dp_94"
-    android:layout_height="@dimen/dp_94"
+    android:layout_width="@dimen/dimen_188dp"
+    android:layout_height="@dimen/dimen_188dp"
     tools:background="@drawable/dialog_overtime_selectbg_stroke">
     <TextView
         android:id="@+id/dialog_item_overtime_tv"
@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@color/base_black"
-        android:textSize="@dimen/tz_16"
+        android:textSize="@dimen/dimen_32dp"
         tools:drawableTop="@drawable/icon_camera"
         tools:text="免费(3)"/>
 </FrameLayout>

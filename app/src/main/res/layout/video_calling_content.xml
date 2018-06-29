@@ -98,17 +98,17 @@
     <!--app:clearsAfterStop="true"-->
     <!--android:id="@+id/video_call_svg_anim"-->
     <!--android:layout_gravity="bottom"-->
-    <!--android:layout_marginBottom="@dimen/dp_50"-->
+    <!--android:layout_marginBottom="@dimen/dimen_100dp"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="180dp"/>-->
 
     <!--<com.airbnb.lottie.LottieAnimationView-->
     <!--android:id="@+id/video_call_lav_anim"-->
-    <!--android:layout_width="@dimen/dp_100"-->
-    <!--android:layout_height="@dimen/dp_80"-->
+    <!--android:layout_width="@dimen/dimen_200dp"-->
+    <!--android:layout_height="@dimen/dimen_160dp"-->
     <!--android:layout_gravity="start|bottom"-->
-    <!--android:layout_marginBottom="@dimen/dp_100"-->
-    <!--android:layout_marginStart="@dimen/dp_30"-->
+    <!--android:layout_marginBottom="@dimen/dimen_200dp"-->
+    <!--android:layout_marginStart="@dimen/dimen_60dp"-->
     <!--android:layout_marginTop="8dp"-->
     <!--android:scaleType="centerInside"-->
     <!--app:lottie_autoPlay="true"-->

@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.repository.net.OkhttpManager;
 
 import java.util.HashMap;
@@ -31,11 +32,19 @@ public class LocalHtmlWebActivity extends BaseActivity {
 
 
     public static Intent getCallingIntent(Context context, String url, String title) {
+        return getCallingIntent(context, url, title, false);
+    }
+
+    public static Intent getCallingIntent(Context context, String url, String title, boolean hasLogin) {
         Intent intent = new Intent();
         intent.setClass(context, LocalHtmlWebActivity.class);
         intent.putExtra("url", url);
         if (title != null)
             intent.putExtra("title", title);
+        if (hasLogin) {
+            intent.putExtra("Authentication", true);
+        }
+
         return intent;
     }
 
@@ -65,6 +74,7 @@ public class LocalHtmlWebActivity extends BaseActivity {
             if (url != null) {
                 HashMap<String, String> map = new HashMap<>();
                 map.put("Authentication", OkhttpManager.getAuthentication());
+                url += "?" + "sId=" + UserManager.getInstance().getCurrentUser().getToken();
                 webView.loadUrl(url, map);
             }
         }

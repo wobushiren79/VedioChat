@@ -11,7 +11,7 @@
         android:id="@+id/appBar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="@dimen/dp_0"
+        app:elevation="@dimen/dimen_0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -169,7 +169,7 @@
                 android:layout_toRightOf="@+id/pay_older_iv_allpay"
                 android:text="支付宝支付"
                 android:textColor="@color/base_black"
-                android:textSize="@dimen/tz_16" />
+                android:textSize="@dimen/dimen_32dp" />
 
             <TextView
                 android:layout_width="wrap_content"

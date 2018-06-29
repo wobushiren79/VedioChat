@@ -10,7 +10,7 @@
         android:id="@+id/appBar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="@dimen/dp_0"
+        app:elevation="@dimen/dimen_0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,9 +35,9 @@
         android:id="@+id/my_account_bound_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_22"
-        android:layout_marginStart="@dimen/dp_22"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_marginStart="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_40dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
 
@@ -53,7 +53,7 @@
                 android:button="@null" />
 
             <ImageView
-                android:layout_width="@dimen/dp_120"
+                android:layout_width="@dimen/dimen_240dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/icon_bound_user_allpay" />
@@ -62,7 +62,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_166dp"
-            android:layout_marginTop="@dimen/dp_20">
+            android:layout_marginTop="@dimen/dimen_40dp">
 
             <RadioButton
                 android:id="@+id/my_account_bound_rb_wxPay"
@@ -75,7 +75,7 @@
                 android:focusableInTouchMode="false" />
 
             <ImageView
-                android:layout_width="@dimen/dp_120"
+                android:layout_width="@dimen/dimen_240dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/icon_bound_user_wechat_disable" />
@@ -86,14 +86,14 @@
     <Button
         android:id="@+id/my_account_btn_ok"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dp_52"
-        android:layout_marginBottom="@dimen/dp_22"
-        android:layout_marginEnd="@dimen/dp_22"
-        android:layout_marginStart="@dimen/dp_22"
-        android:layout_marginTop="@dimen/dp_160"
+        android:layout_height="@dimen/dimen_104dp"
+        android:layout_marginBottom="@dimen/dimen_44dp"
+        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_marginStart="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_320dp"
         android:background="@drawable/my_account_btn_solid"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_20"
+        android:textSize="@dimen/dimen_40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_account_bound_ll"

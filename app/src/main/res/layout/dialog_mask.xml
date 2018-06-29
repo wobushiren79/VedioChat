@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_272"
+    android:layout_height="@dimen/dimen_544dp"
     android:layout_gravity="bottom"
     android:background="#88535353"
     android:orientation="vertical">
@@ -12,7 +12,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/dialog_mask_vp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_216" />
+        android:layout_height="@dimen/dimen_432dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
         <RadioGroup
             android:id="@+id/dialog_mask_rg"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_54"
+            android:layout_height="@dimen/dimen_104dp"
             android:gravity="center"
             android:orientation="horizontal">
 

@@ -5,7 +5,7 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
           android:textColor="@color/base_gray"
-          android:textSize="@dimen/tz_16"
+          android:textSize="@dimen/dimen_32dp"
           android:gravity="center_vertical|center_horizontal"
           android:paddingStart="?android:attr/listPreferredItemPaddingStart"
           android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"

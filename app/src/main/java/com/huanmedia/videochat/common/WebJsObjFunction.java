@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.common;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Debug;
 import android.os.Handler;
@@ -38,6 +39,13 @@ public class WebJsObjFunction extends Object {
         });
     }
 
+    /**
+     * 关闭当前webactivity
+     */
+    @JavascriptInterface
+    public void exitWebActivity() {
+        ((Activity) mContext).finish();
+    }
 
     /**
      * 获取通用数据

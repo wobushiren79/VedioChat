@@ -17,9 +17,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chat_pople_rv_talked"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_272"
+        android:layout_height="@dimen/dimen_544dp"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/dp_14"
+        android:paddingBottom="@dimen/dimen_28dp"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/drawer_laout_rg_table"
         app:spanCount="2"

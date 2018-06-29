@@ -50,7 +50,7 @@
             android:layout_marginLeft="@dimen/dimen_4dp"
             android:gravity="center_vertical"
             android:textColor="@color/base_gray"
-            android:textSize="@dimen/tz_18"
+            android:textSize="@dimen/dimen_36dp"
             tools:text="钻石/分钟" />
     </LinearLayout>
 

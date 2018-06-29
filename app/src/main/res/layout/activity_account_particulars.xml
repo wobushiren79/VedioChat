@@ -26,10 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableEnd="@drawable/nav_btn_pulldown"
-            android:drawablePadding="@dimen/dp_4"
+            android:drawablePadding="@dimen/dimen_8dp"
             android:gravity="center_vertical"
             android:textColor="@color/white"
-            android:textSize="@dimen/tz_18"
+            android:textSize="@dimen/dimen_36dp"
             tools:listitem="@layout/sample_wheel_item"
             tools:text="可提现明细"/>
     </android.support.v7.widget.Toolbar>

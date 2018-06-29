@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/dialog_condition_rb_filter_text"
-            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_marginLeft="@dimen/dimen_8dp"
             android:layout_toRightOf="@+id/dialog_condition_rb_filter_text"
             android:text="(20钻石每次)"
             android:textSize="@dimen/dimen_28dp" />
@@ -148,8 +148,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/dialog_condition_tv_age"
-            android:layout_marginBottom="@dimen/dp_36"
-            android:layout_marginLeft="@dimen/dp_32"
+            android:layout_marginBottom="@dimen/dimen_72dp"
+            android:layout_marginLeft="@dimen/dimen_64dp"
             android:layout_toEndOf="@+id/dialog_condition_tv_age"
             android:layout_toRightOf="@+id/dialog_condition_tv_age"
             app:bsb_auto_adjust_section_mark="true"
@@ -173,8 +173,8 @@
             app:bsb_track_size="@dimen/dimen_10dp" />
         <!--app:isb_indicator_type="rounded_corners"-->
         <!--<com.warkiz.widget.IndicatorSeekBar-->
-        <!--android:layout_marginBottom="@dimen/dp_16"-->
-        <!--android:layout_marginTop="@dimen/dp_10"-->
+        <!--android:layout_marginBottom="@dimen/dimen_32dp"-->
+        <!--android:layout_marginTop="@dimen/dimen_20dp"-->
         <!--android:layout_toRightOf="@+id/dialog_condition_tv_age"-->
         <!--android:layout_toEndOf="@+id/dialog_condition_tv_age"-->
         <!--android:layout_alignTop="@+id/dialog_condition_tv_age"-->
@@ -201,15 +201,15 @@
     <Button
         android:id="@+id/dialog_condition_btn_confirm"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_52"
-        android:layout_marginBottom="@dimen/dp_22"
-        android:layout_marginEnd="@dimen/dp_22"
-        android:layout_marginStart="@dimen/dp_22"
+        android:layout_height="@dimen/dimen_104dp"
+        android:layout_marginBottom="@dimen/dimen_44dp"
+        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_marginStart="@dimen/dimen_44dp"
         android:layout_marginTop="@dimen/dimen_46dp"
         android:background="@drawable/base_btn_solid"
         android:text="匹配"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_20" />
+        android:textSize="@dimen/dimen_40dp" />
 
 
 </LinearLayout>

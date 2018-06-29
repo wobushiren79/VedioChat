@@ -5,5 +5,5 @@
     <corners android:radius="36dp"/>
     <gradient android:startColor="#33141414"
               android:endColor="#661f1f1f"/>
-    <padding android:top="@dimen/dp_2" android:bottom="@dimen/dp_2" android:left="@dimen/dp_8" android:right="@dimen/dp_8"/>
+    <padding android:top="@dimen/dimen_4dp" android:bottom="@dimen/dimen_4dp" android:left="@dimen/dimen_16dp" android:right="@dimen/dimen_16dp"/>
 </shape>

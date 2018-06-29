@@ -21,7 +21,7 @@
     <!--图片上面的阴影-->
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
+        android:layout_height="@dimen/dimen_120dp"
         android:background="@drawable/bg_discover_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/item_discover_grids_tv_name" />
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_20dp"
         android:layout_marginLeft="@dimen/dimen_55dp"
-        android:drawablePadding="@dimen/dp_4"
+        android:drawablePadding="@dimen/dimen_8dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/white"

@@ -37,27 +37,27 @@
         <item name="android:background">@drawable/base_selector_edittext</item>
         <item name="android:textCursorDrawable">@drawable/base_cursor_yellow</item>
         <item name="android:textColorHint">@color/base_hint</item>
-        <item name="android:textSize">@dimen/tz_18</item>
+        <item name="android:textSize">@dimen/dimen_36dp</item>
     </style>
 
     <style name="AppBaseTheme.CheckBox_Normal" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:button">@drawable/base_checkbox_selecter</item>
-        <item name="android:textSize">@dimen/tz_18</item>
+        <item name="android:textSize">@dimen/dimen_36dp</item>
         <item name="android:textColor">@color/base_gray</item>
     </style>
     <!--<style name="AppBaseTheme.RadioButton.WXPay" parent="Widget.AppCompat.CompoundButton.CheckBox">-->
     <!--<item name="android:button">@drawable/accound_bound_pay_radio_selecter</item>-->
-    <!--<item name="android:textSize">@dimen/tz_18</item>-->
+    <!--<item name="android:textSize">@dimen/dimen_36dp</item>-->
     <!--<item name="android:textColor">@color/base_gray</item>-->
     <!--</style>-->
     <!--<style name="AppBaseTheme.RadioButton.ALiPay" parent="Widget.AppCompat.CompoundButton.CheckBox">-->
     <!--<item name="android:button">@drawable/accound_bound_alipay_radio_selecter</item>-->
-    <!--<item name="android:textSize">@dimen/tz_18</item>-->
+    <!--<item name="android:textSize">@dimen/dimen_36dp</item>-->
     <!--<item name="android:textColor">@color/base_gray</item>-->
     <!--</style>-->
     <style name="AppBaseTheme.CheckBox.VideoCallAttention" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:button">@drawable/video_call_attention_checkbox_selecter</item>
-        <item name="android:textSize">@dimen/tz_18</item>
+        <item name="android:textSize">@dimen/dimen_36dp</item>
         <item name="android:textColor">@color/base_gray</item>
     </style>
 
@@ -197,15 +197,15 @@
     <style name="Chat_time_Style">
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:gravity">center_horizontal|center_vertical</item>
-        <item name="android:layout_marginBottom">@dimen/dp_8</item>
+        <item name="android:layout_marginBottom">@dimen/dimen_16dp</item>
         <item name="android:textColor">@color/base_gray</item>
-        <item name="android:textSize">@dimen/dp_12</item>
+        <item name="android:textSize">@dimen/dimen_24dp</item>
         <!--<item name="android:background">@drawable/background_message_chatitem_time</item>-->
     </style>
 
     <style name="Chat_content_RightStyle">
-        <item name="android:minWidth">@dimen/dp_32</item>
-        <item name="android:minHeight">@dimen/dp_32</item>
+        <item name="android:minWidth">@dimen/dimen_64dp</item>
+        <item name="android:minHeight">@dimen/dimen_64dp</item>
         <item name="android:textSize">@dimen/textsize_16sp</item>
         <item name="android:textColor">@color/base_black</item>
     </style>

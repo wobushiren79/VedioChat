@@ -88,7 +88,7 @@ public class MainHintDialog extends Dialog {
                 ivContent.setOnClickListener(view -> {
                     if (mJumpUrl != null && mJumpUrl.length() > 0) {
                         Navigator navigator = new Navigator();
-                        navigator.navtoWebActivity(DevUtils.scanForActivity(getContext()), mJumpUrl, null);
+                        navigator.navtoWebActivity(DevUtils.scanForActivity(getContext()), mJumpUrl, null,true);
                         this.cancel();
                     }
                 });

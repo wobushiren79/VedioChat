@@ -30,7 +30,7 @@
             app:tl_tab_padding="@dimen/dimen_30dp"
             app:tl_textSelectColor="@color/base_black"
             app:tl_textUnselectColor="@color/base_gray"
-            app:tl_textsize="@dimen/tz_18" />
+            app:tl_textsize="@dimen/dimen_36dp" />
     </FrameLayout>
 
     <TextView

@@ -179,8 +179,8 @@ public class OkhttpManager {
     @SuppressWarnings("ConstantConditions")
     private OkHttpClient certificateClient(Context context, int[] certificates) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
-        builder.readTimeout(10, TimeUnit.SECONDS);
-        builder.connectTimeout(9, TimeUnit.SECONDS);
+        builder.readTimeout(30, TimeUnit.SECONDS);
+        builder.connectTimeout(30, TimeUnit.SECONDS);
         TrustManagerFactory trustManagerFactory = null;
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
@@ -237,8 +237,8 @@ public class OkhttpManager {
     @SuppressWarnings("ConstantConditions")
     private OkHttpClient certificateClient(String[] certificates) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
-        builder.readTimeout(10, TimeUnit.SECONDS);
-        builder.connectTimeout(9, TimeUnit.SECONDS);
+        builder.readTimeout(30, TimeUnit.SECONDS);
+        builder.connectTimeout(30, TimeUnit.SECONDS);
         TrustManagerFactory trustManagerFactory = null;
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");

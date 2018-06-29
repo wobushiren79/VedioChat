@@ -10,7 +10,7 @@
         android:id="@+id/appBar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="@dimen/dp_0"
+        app:elevation="@dimen/dimen_0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,9 +33,9 @@
 
     <ImageView
         android:id="@+id/rmc_iv_bg"
-        android:layout_width="@dimen/dp_258"
-        android:layout_height="@dimen/dp_188"
-        android:layout_marginTop="@dimen/dp_50"
+        android:layout_width="@dimen/dimen_516dp"
+        android:layout_height="@dimen/dimen_376dp"
+        android:layout_marginTop="@dimen/dimen_100dp"
         android:src="@drawable/bg_renzhen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,10 +45,10 @@
         android:id="@+id/rmc_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dimen_32dp"
         android:text="成为红人主播"
         android:textColor="@color/base_black"
-        android:textSize="@dimen/tz_22"
+        android:textSize="@dimen/dimen_44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rmc_iv_bg" />
@@ -57,7 +57,7 @@
         android:id="@+id/rmc_tv_subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dimen_20dp"
         android:text="让你的时间为你和他人创造更多的价值"
         android:textColor="@color/base_gray"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,11 +70,11 @@
         android:layout_height="52dp"
         android:layout_marginEnd="22dp"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dimen_80dp"
         android:background="@drawable/base_btn_solid"
         android:text="开始认证"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_20"
+        android:textSize="@dimen/dimen_40dp"
         app:layout_constraintBottom_toTopOf="@+id/rmc_ll_protocol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,8 +84,8 @@
         android:id="@+id/rmc_ll_protocol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_32"
-        android:layout_marginTop="@dimen/dp_32"
+        android:layout_marginBottom="@dimen/dimen_64dp"
+        android:layout_marginTop="@dimen/dimen_64dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="认证代表你已同意"
-            android:textSize="@dimen/tz_14" />
+            android:textSize="@dimen/dimen_28dp" />
 
         <TextView
             android:id="@+id/rmc_tv_protocol_name"
@@ -107,6 +107,6 @@
             android:gravity="start|center_vertical"
             android:text="《萌面主播绿色直播承诺书》"
             android:textColor="@color/color_f64d99"
-            android:textSize="@dimen/tz_14" />
+            android:textSize="@dimen/dimen_28dp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/my_account_nav_bar"
-            app:elevation="@dimen/dp_0"
+            app:elevation="@dimen/dimen_0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -130,7 +130,7 @@
                             android:layout_height="wrap_content"
                             android:text="预约模式"
                             android:textColor="@color/base_black"
-                            android:textSize="@dimen/tz_16"
+                            android:textSize="@dimen/dimen_32dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:text="设置常在时段"
                             android:textColor="@color/base_black"
-                            android:textSize="@dimen/tz_16"
+                            android:textSize="@dimen/dimen_32dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -191,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:text="在线时间"
                             android:textColor="@color/base_black"
-                            android:textSize="@dimen/tz_16"
+                            android:textSize="@dimen/dimen_32dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -224,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:text="私人账号价格"
                             android:textColor="@color/base_black"
-                            android:textSize="@dimen/tz_16"
+                            android:textSize="@dimen/dimen_32dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:text="QQ账号"
                             android:textColor="@color/base_black"
-                            android:textSize="@dimen/tz_16"
+                            android:textSize="@dimen/dimen_32dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -288,7 +288,7 @@
                             android:layout_height="wrap_content"
                             android:text="微信"
                             android:textColor="@color/base_black"
-                            android:textSize="@dimen/tz_16"
+                            android:textSize="@dimen/dimen_32dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

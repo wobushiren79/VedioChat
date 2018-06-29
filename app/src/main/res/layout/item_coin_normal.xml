@@ -26,7 +26,7 @@
     <!--app:layout_constraintStart_toEndOf="@+id/item_coin_tv_price"-->
     <!--android:id="@+id/item_coin_tv_unit"-->
     <!--tools:text="钻石"-->
-    <!--android:textSize="@dimen/tz_12"-->
+    <!--android:textSize="@dimen/dimen_24dp"-->
     <!--android:textColor="@color/base_black"-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"/>-->

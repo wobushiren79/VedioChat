@@ -3,71 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_160"
+    android:layout_height="@dimen/dimen_320dp"
     android:layout_gravity="bottom|center"
-    android:layout_marginBottom="@dimen/dp_60"
-    android:paddingBottom="@dimen/dp_8"
+    android:layout_marginBottom="@dimen/dimen_120dp"
+    android:paddingBottom="@dimen/dimen_16dp"
     tools:background="#88888888"
     tools:parentTag="android.widget.RelativeLayout">
 
     <ImageView
         android:id="@+id/video_call_iv_beauty"
-        android:layout_width="@dimen/dp_36"
-        android:layout_height="@dimen/dp_36"
+        android:layout_width="@dimen/dimen_72dp"
+        android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_8"
-        android:layout_marginStart="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:layout_marginRight="@dimen/dimen_16dp"
+        android:layout_marginStart="@dimen/dimen_44dp"
         android:src="@drawable/btn_skincare" />
 
     <CheckBox
         android:id="@+id/video_call_cb_attention"
         style="@style/AppBaseTheme.CheckBox.VideoCallAttention"
-        android:layout_width="@dimen/dp_36"
-        android:layout_height="@dimen/dp_36"
+        android:layout_width="@dimen/dimen_72dp"
+        android:layout_height="@dimen/dimen_72dp"
         android:layout_above="@+id/video_call_fl_close"
         android:layout_alignEnd="@+id/video_call_fl_close"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp_60"
+        android:layout_marginBottom="@dimen/dimen_120dp"
         android:layout_marginEnd="-8dp" />
 
     <FrameLayout
         android:id="@+id/video_call_fl_close"
-        android:layout_width="@dimen/dp_36"
-        android:layout_height="@dimen/dp_36"
+        android:layout_width="@dimen/dimen_72dp"
+        android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/dp_22"
-        android:layout_marginRight="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
         android:background="@drawable/bg_round">
 
         <ImageView
             android:id="@+id/video_call_iv_close"
-            android:layout_width="@dimen/dp_28"
-            android:layout_height="@dimen/dp_28"
+            android:layout_width="@dimen/dimen_56dp"
+            android:layout_height="@dimen/dimen_56dp"
             android:layout_gravity="center"
             android:scaleType="centerInside"
             android:src="@drawable/video_calling_match_control_close_level" />
     </FrameLayout>
     <!--<View-->
     <!--android:id="@+id/video_call_v_placeholder"-->
-    <!--android:layout_width="@dimen/dp_70"-->
-    <!--android:layout_height="@dimen/dp_70"-->
+    <!--android:layout_width="@dimen/dimen_140dp"-->
+    <!--android:layout_height="@dimen/dimen_140dp"-->
     <!--android:layout_centerInParent="true"-->
-    <!--android:layout_marginEnd="@dimen/dp_30"-->
-    <!--android:layout_marginLeft="@dimen/dp_30"-->
-    <!--android:layout_marginRight="@dimen/dp_30"-->
-    <!--android:layout_marginStart="@dimen/dp_30"-->
+    <!--android:layout_marginEnd="@dimen/dimen_60dp"-->
+    <!--android:layout_marginLeft="@dimen/dimen_60dp"-->
+    <!--android:layout_marginRight="@dimen/dimen_60dp"-->
+    <!--android:layout_marginStart="@dimen/dimen_60dp"-->
     <!--android:src="@drawable/videocall_endcall_btn"-->
     <!--/>-->
 
     <ImageView
         android:id="@+id/video_call_iv_mask"
-        android:layout_width="@dimen/dp_36"
-        android:layout_height="@dimen/dp_36"
+        android:layout_width="@dimen/dimen_72dp"
+        android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:layout_marginRight="@dimen/dimen_16dp"
         android:layout_toEndOf="@+id/video_call_iv_beauty"
         android:layout_toRightOf="@+id/video_call_iv_beauty"
         android:src="@drawable/video_calling_match_control_mask_selecter" />
@@ -75,19 +75,19 @@
 
     <ImageView
         android:id="@+id/video_call_iv_gift"
-        android:layout_width="@dimen/dp_36"
-        android:layout_height="@dimen/dp_36"
+        android:layout_width="@dimen/dimen_72dp"
+        android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:layout_marginRight="@dimen/dimen_16dp"
         android:layout_toEndOf="@+id/video_call_iv_mask"
         android:layout_toRightOf="@+id/video_call_iv_mask"
         android:src="@drawable/btn_gift" />
 
     <ImageView
         android:id="@+id/video_call_iv_ta"
-        android:layout_width="@dimen/dp_36"
-        android:layout_height="@dimen/dp_36"
+        android:layout_width="@dimen/dimen_72dp"
+        android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/video_call_iv_gift"
         android:layout_toRightOf="@+id/video_call_iv_gift"

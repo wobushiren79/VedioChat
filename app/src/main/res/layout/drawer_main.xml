@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/dp_82"
-    android:layout_marginStart="@dimen/dp_82"
+    android:layout_marginLeft="@dimen/dimen_162dp"
+    android:layout_marginStart="@dimen/dimen_162dp"
     >
     <ScrollView
         android:layout_width="match_parent"
@@ -22,25 +22,25 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:scaleType="centerCrop"
                 android:id="@+id/drawer_laout_iv_header"
-                android:layout_width="@dimen/dp_68"
-                android:layout_height="@dimen/dp_68"
-                android:layout_marginStart="@dimen/dp_22"
-                android:layout_marginTop="@dimen/dp_54"
+                android:layout_width="@dimen/dimen_136dp"
+                android:layout_height="@dimen/dimen_136dp"
+                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_104dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="@dimen/dp_4"
+                app:riv_corner_radius="@dimen/dimen_8dp"
                 app:riv_border_color="@color/block_gray"
-                app:riv_border_width="@dimen/dp_1"
+                app:riv_border_width="@dimen/dimen_2dp"
                 android:src="@drawable/icon_headportrait"/>
 
             <TextView
                 android:id="@+id/main_drawer_tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_22"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="@dimen/tz_18"
+                android:textSize="@dimen/dimen_36dp"
                 app:layout_constraintStart_toEndOf="@+id/drawer_laout_iv_header"
                 app:layout_constraintTop_toTopOf="@+id/drawer_laout_iv_header"
                 tools:text="粉红的小仙女"/>
@@ -52,11 +52,11 @@
                 android:gravity="center"
                 android:id="@+id/main_drawer_tv_myCoin"
                 android:layout_width="wrap_content"
-                android:paddingStart="@dimen/dp_10"
-                android:paddingEnd="@dimen/dp_10"
-                android:layout_height="@dimen/dp_20"
-                android:layout_marginTop="@dimen/dp_8"
-                android:textSize="@dimen/tz_16"
+                android:paddingStart="@dimen/dimen_20dp"
+                android:paddingEnd="@dimen/dimen_20dp"
+                android:layout_height="@dimen/dimen_40dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:textSize="@dimen/dimen_32dp"
                 app:layout_constraintStart_toStartOf="@+id/main_drawer_tv_name"
                 app:layout_constraintTop_toBottomOf="@+id/main_drawer_tv_name"
                 tools:text="556"/>
@@ -64,22 +64,22 @@
             <TextView
                 android:id="@+id/main_drawer_tv_recharge"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_20"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_8"
+                android:layout_height="@dimen/dimen_40dp"
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
                 android:text="充值"
                 android:textColor="@color/base_blue"
-                android:textSize="@dimen/tz_16"
+                android:textSize="@dimen/dimen_32dp"
                 app:layout_constraintStart_toEndOf="@+id/main_drawer_tv_myCoin"
                 app:layout_constraintTop_toBottomOf="@+id/main_drawer_tv_name"/>
 
             <TextView
-                android:padding="@dimen/dp_4"
+                android:padding="@dimen/dimen_8dp"
                 android:id="@+id/main_drawer_tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dimen_48dp"
+                android:layout_marginTop="@dimen/dimen_32dp"
                 android:drawableEnd="@drawable/btn_inform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -88,7 +88,7 @@
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_134"
+                android:layout_marginTop="@dimen/dimen_268dp"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="138dp"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -105,15 +105,15 @@
                 <RadioGroup
                     android:id="@+id/drawer_laout_rg_table"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_40"
+                    android:layout_height="@dimen/dimen_80dp"
                     android:gravity="center_vertical|center_horizontal"
                     android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/main_drawer_chat_people"
-                        android:layout_width="@dimen/dp_104"
-                        android:layout_height="@dimen/dp_28"
-                        android:layout_marginEnd="@dimen/dp_30"
+                        android:layout_width="@dimen/dimen_208dp"
+                        android:layout_height="@dimen/dimen_56dp"
+                        android:layout_marginEnd="@dimen/dimen_60dp"
                         android:background="@drawable/main_drawer_stroke_gray_none_selecter"
                         android:button="@null"
                         android:checked="true"
@@ -124,8 +124,8 @@
                     <RadioButton
                         android:id="@+id/main_drawer_attention_people"
                         android:background="@drawable/main_drawer_stroke_gray_none_selecter"
-                        android:layout_width="@dimen/dp_104"
-                        android:layout_height="@dimen/dp_28"
+                        android:layout_width="@dimen/dimen_208dp"
+                        android:layout_height="@dimen/dimen_56dp"
                         android:button="@null"
                         android:gravity="center"
                         android:text="@string/attention_people"
@@ -135,15 +135,15 @@
                     android:id="@+id/main_drawer_fl_content"
                     app:layout_constraintTop_toBottomOf="@+id/drawer_laout_rg_table"
                     android:layout_width="match_parent"
-                    android:paddingBottom="@dimen/dp_14"
-                    android:layout_height="@dimen/dp_272"/>
+                    android:paddingBottom="@dimen/dimen_28dp"
+                    android:layout_height="@dimen/dimen_544dp"/>
                 <!--<android.support.v7.widget.RecyclerView-->
                 <!--android:id="@+id/drawer_laout_rl_talked"-->
                 <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/dp_272"-->
+                <!--android:layout_height="@dimen/dimen_544dp"-->
                 <!--android:layout_below="@+id/drawer_laout_rg_table"-->
                 <!--android:orientation="horizontal"-->
-                <!--android:paddingBottom="@dimen/dp_14"-->
+                <!--android:paddingBottom="@dimen/dimen_28dp"-->
                 <!--app:layoutManager="android.support.v7.widget.GridLayoutManager"-->
                 <!--app:layout_constraintTop_toBottomOf="@+id/drawer_laout_rg_table"-->
                 <!--app:spanCount="2"-->
@@ -160,17 +160,17 @@
                 <!--赚钱红人-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_100"
+                    android:layout_height="@dimen/dimen_200dp"
                     android:background="@drawable/base_item_select"
                     android:paddingEnd="0dp"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingStart="@dimen/dimen_44dp">
                     <ImageView
                         android:id="@+id/main_drawer_iv_readman"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
+                        android:layout_width="@dimen/dimen_48dp"
+                        android:layout_height="@dimen/dimen_48dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:layout_marginTop="@dimen/dp_22"
+                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:layout_marginTop="@dimen/dimen_44dp"
                         android:src="@drawable/icon_hongren"/>
 
                     <TextView
@@ -181,10 +181,10 @@
                         android:layout_toEndOf="@+id/main_drawer_iv_readman"
                         android:text="赚钱红人"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_18"/>
+                        android:textSize="@dimen/dimen_36dp"/>
 
                     <com.kyleduo.switchbutton.SwitchButton
-                        android:layout_marginTop="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dimen_24dp"
                         android:layout_alignParentEnd="true"
                         android:id="@+id/main_drawer_sb_rm"
                         style="@style/SwitchButtonStyleMD"
@@ -192,16 +192,16 @@
                         android:layout_height="wrap_content"
                         />
                     <RelativeLayout
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:paddingStart="@dimen/dp_4"
-                        android:paddingEnd="@dimen/dp_4"
+                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:paddingStart="@dimen/dimen_8dp"
+                        android:paddingEnd="@dimen/dimen_8dp"
                         android:gravity="center_vertical"
                         android:background="@drawable/main_drawer_bg_readman_solid"
                         android:id="@+id/main_drawer_rl_readman_modify"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_28"
+                        android:layout_height="@dimen/dimen_56dp"
                         android:layout_below="@+id/main_drawer_iv_readman"
-                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dimen_20dp"
                         android:layout_toEndOf="@+id/main_drawer_iv_readman">
 
                         <TextView
@@ -209,7 +209,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/base_gray"
-                            android:textSize="@dimen/tz_16"
+                            android:textSize="@dimen/dimen_32dp"
                             tools:text="10分钟/100钻石"/>
 
                         <TextView
@@ -218,12 +218,12 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:textColor="@color/drawer_main_btn_textcolor_blue_selecter"
-                            android:textSize="@dimen/tz_16"
+                            android:textSize="@dimen/dimen_32dp"
                             android:text="修改"/>
                     </RelativeLayout>
 
                     <View
-                        android:layout_marginEnd="@dimen/dp_22"
+                        android:layout_marginEnd="@dimen/dimen_44dp"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
@@ -236,18 +236,18 @@
                 <RelativeLayout
                     android:id="@+id/main_drawer_rl_account"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
+                    android:layout_height="@dimen/dimen_120dp"
                     android:background="@drawable/base_item_select"
-                    android:paddingEnd="@dimen/dp_22"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp">
 
                     <ImageView
                         android:id="@+id/main_drawer_iv_myAccount"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
+                        android:layout_width="@dimen/dimen_48dp"
+                        android:layout_height="@dimen/dimen_48dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:layout_marginTop="@dimen/dp_22"
+                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:layout_marginTop="@dimen/dimen_44dp"
                         android:src="@drawable/icon_zhanghu"/>
 
                     <TextView
@@ -258,7 +258,7 @@
                         android:layout_toEndOf="@+id/main_drawer_iv_myAccount"
                         android:text="我的账户"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_18"/>
+                        android:textSize="@dimen/dimen_36dp"/>
 
                     <TextView
                         android:id="@+id/main_drawer_tv_myMoney"
@@ -267,7 +267,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/main_drawer_tv_lable_myAccount"
                         android:textColor="@color/base_gray"
-                        android:textSize="@dimen/tz_16"
+                        android:textSize="@dimen/dimen_32dp"
                         tools:text="￥10000"/>
 
                     <View
@@ -281,18 +281,18 @@
                 <RelativeLayout
                     android:id="@+id/main_drawer_rl_setting"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
+                    android:layout_height="@dimen/dimen_120dp"
                     android:background="@drawable/base_item_select"
-                    android:paddingEnd="@dimen/dp_22"
-                    android:paddingStart="@dimen/dp_22">
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp">
 
                     <ImageView
                         android:id="@+id/main_drawer_iv_setting"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
+                        android:layout_width="@dimen/dimen_48dp"
+                        android:layout_height="@dimen/dimen_48dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:layout_marginTop="@dimen/dp_22"
+                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:layout_marginTop="@dimen/dimen_44dp"
                         android:src="@drawable/icon_shezhi"/>
 
                     <TextView
@@ -303,7 +303,7 @@
                         android:layout_toEndOf="@+id/main_drawer_iv_setting"
                         android:text="设置"
                         android:textColor="@color/base_black"
-                        android:textSize="@dimen/tz_18"/>
+                        android:textSize="@dimen/dimen_36dp"/>
                 </RelativeLayout>
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>

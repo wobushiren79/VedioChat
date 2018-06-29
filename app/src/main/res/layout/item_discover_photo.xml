@@ -8,9 +8,9 @@
     <ImageView
         android:id="@+id/item_discover_photo_iv_photo"
         tools:src="@drawable/bg"
-        android:layout_width="@dimen/dp_70"
+        android:layout_width="@dimen/dimen_140dp"
         tools:scaleType="centerCrop"
-        android:layout_height="@dimen/dp_70"/>
+        android:layout_height="@dimen/dimen_140dp"/>
 
     <TextView
         android:id="@+id/item_discover_photo_tv_count"

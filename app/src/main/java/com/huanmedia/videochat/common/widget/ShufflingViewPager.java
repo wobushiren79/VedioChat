@@ -113,7 +113,7 @@ public class ShufflingViewPager extends BaseLinearLayout implements IAdsShufflin
                     case 2:
                     case 3:
                         ((BaseActivity) getContext()).getNavigator().navtoWebActivity
-                                ((Activity) getContext(), itemData.getLinkurl(), null);
+                                ((Activity) getContext(), itemData.getLinkurl(), null,true);
                         break;
                 }
                 UMengUtils.AdsBanner(getContext(), itemData.getId() + "");

@@ -20,7 +20,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="@dimen/dimen_32dp"
             android:layout_marginTop="@dimen/dimen_32dp"
-            app:tl_divider_width="@dimen/dp_0"
+            app:tl_divider_width="@dimen/dimen_0dp"
             app:tl_iconVisible="false"
             app:tl_indicator_anim_enable="true"
             app:tl_indicator_color="@color/orange"

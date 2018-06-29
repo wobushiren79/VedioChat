@@ -50,12 +50,15 @@ EYArchitecture
     用例：
          function submitCommonInfoSuccess(data){};
 
-
 3.提交通用数据失败回调 submitCommonInfoFail(String data);
     返回值：
          data:提交失败返回数据
     用例：
          function submitCommonInfoFail(data){};
+
+4.退出当前网页 exitWebActivity();
+    用例：
+        VideoChat.exitWebActivity();
 
 ------------------------------------------------------------------------
 

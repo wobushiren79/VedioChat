@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_96"
+    android:layout_height="@dimen/dimen_192dp"
     android:background="@drawable/base_item_select"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:paddingRight="@dimen/dp_0"
-    android:paddingLeft="@dimen/dp_22">
+    android:paddingRight="@dimen/dimen_0dp"
+    android:paddingLeft="@dimen/dimen_44dp">
 
     <FrameLayout
         android:id="@+id/item_main_friend_fl_heard"
@@ -22,24 +22,24 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/item_main_friend_iv_heard"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_60"
+            android:layout_width="@dimen/dimen_120dp"
+            android:layout_height="@dimen/dimen_120dp"
             android:scaleType="centerCrop"
             app:riv_border_color="@color/base_gray"
-            app:riv_border_width="@dimen/dp_2"
+            app:riv_border_width="@dimen/dimen_4dp"
             app:riv_oval="true"/>
 
         <ImageView
             android:id="@+id/item_main_friend_iv_sex"
-            android:layout_width="@dimen/dp_14"
-            android:layout_height="@dimen/dp_14"
+            android:layout_width="@dimen/dimen_28dp"
+            android:layout_height="@dimen/dimen_28dp"
             android:layout_gravity="bottom|end"
             tools:src="@drawable/icon_focus_girl" />
 
         <ImageView
             android:id="@+id/item_main_friend_iv_flag"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
+            android:layout_width="@dimen/dimen_100dp"
+            android:layout_height="@dimen/dimen_100dp"
             android:layout_marginLeft="-12dp"
             android:layout_marginTop="-9dp"
             tools:src="@drawable/icon_pendant_girl" />
@@ -49,9 +49,9 @@
         android:id="@+id/item_main_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginLeft="@dimen/dimen_32dp"
         android:textColor="@color/base_black"
-        android:textSize="@dimen/tz_16"
+        android:textSize="@dimen/dimen_32dp"
         app:layout_constraintStart_toEndOf="@id/item_main_friend_fl_heard"
         app:layout_constraintTop_toTopOf="@+id/item_main_friend_fl_heard"
         tools:text="妖艳美眉" />
@@ -60,9 +60,9 @@
         android:id="@+id/item_main_tv_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dimen_8dp"
         android:textColor="@color/base_gray"
-        android:textSize="@dimen/tz_14"
+        android:textSize="@dimen/dimen_28dp"
         app:layout_constraintStart_toStartOf="@+id/item_main_tv_name"
         app:layout_constraintTop_toBottomOf="@+id/item_main_tv_name"
         tools:text="50km" />
@@ -71,9 +71,9 @@
         android:id="@+id/item_main_tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dimen_8dp"
         android:textColor="@color/base_gray"
-        android:textSize="@dimen/tz_12"
+        android:textSize="@dimen/dimen_24dp"
         app:layout_constraintStart_toStartOf="@+id/item_main_tv_name"
         app:layout_constraintTop_toBottomOf="@+id/item_main_tv_distance"
         tools:text="2017-01-02 2:15" />

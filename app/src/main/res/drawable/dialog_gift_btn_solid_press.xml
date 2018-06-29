@@ -4,7 +4,7 @@
 <size android:width="20dp" android:height="10dp"/>
     <stroke android:color="@color/color_f65aa0_30" android:width="1dp"/>
     <solid android:color="@color/color_f65aa0_30"/>
-    <corners android:bottomRightRadius="@dimen/dp_30" android:topRightRadius="@dimen/dp_30"/>
+    <corners android:bottomRightRadius="@dimen/dimen_60dp" android:topRightRadius="@dimen/dimen_60dp"/>
     <padding android:top="4dp"
              android:left="16dp"
              android:bottom="4dp"

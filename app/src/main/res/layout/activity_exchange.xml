@@ -95,7 +95,7 @@
             <com.huanmedia.videochat.common.widget.ClearEditText
                 android:id="@+id/exchange_et_money"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
+                android:layout_height="@dimen/dimen_80dp"
                 android:layout_marginEnd="@dimen/dimen_44dp"
                 android:layout_marginStart="@dimen/dimen_44dp"
                 android:layout_marginTop="@dimen/dimen_12dp"

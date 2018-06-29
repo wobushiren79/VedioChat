@@ -4,19 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/base_bg_white_round"
-    android:layout_marginStart="@dimen/dp_48"
-    android:layout_marginEnd="@dimen/dp_48"
+    android:layout_marginStart="@dimen/dimen_96dp"
+    android:layout_marginEnd="@dimen/dimen_96dp"
     android:layout_gravity="center_vertical"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_380">
+    android:layout_height="@dimen/dimen_760dp">
     <TextView
         android:id="@+id/dialog_report_tv_title"
         android:text="举报类型"
         android:textColor="@color/base_black"
-        android:textSize="@dimen/tz_18"
+        android:textSize="@dimen/dimen_36dp"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48"/>
+        android:layout_height="@dimen/dimen_96dp"/>
     <View
         app:layout_constraintTop_toBottomOf="@+id/dialog_report_tv_title"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        android:layout_width="0dp"
-       android:layout_height="@dimen/dp_48">
+       android:layout_height="@dimen/dimen_96dp">
        <Button
            android:background="@drawable/dialog_report_btn_bg_yellow"
            android:id="@+id/dialog_report_btn_cancle"

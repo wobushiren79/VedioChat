@@ -23,7 +23,7 @@
         <LinearLayout
             android:id="@+id/dialog_gift_ll_dot"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_24"
+            android:layout_height="@dimen/dimen_48dp"
             android:layout_alignParentBottom="true"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dimen_16dp"
             android:layout_toRightOf="@+id/dialog_gift_tv_icon"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_36dp"

@@ -2,18 +2,18 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_182"
+    android:layout_height="@dimen/dimen_364dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#66535353"
     xmlns:tools="http://schemas.android.com/tools">
     <TextView
         android:id="@+id/dialog_beauty_tv_title"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_16"
+        android:textSize="@dimen/dimen_32dp"
         tools:text="滤镜"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44"/>
+        android:layout_height="@dimen/dimen_88dp"/>
     <View
         app:layout_constraintTop_toBottomOf="@+id/dialog_beauty_tv_title"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="0.5dp"/>
     <android.support.v7.widget.RecyclerView
-        android:paddingRight="@dimen/dp_16"
+        android:paddingRight="@dimen/dimen_32dp"
         android:id="@+id/dialog_beauty_rv"
         app:layout_constraintTop_toBottomOf="@+id/dialog_beauty_v_line"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,15 +40,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_54">
+        android:layout_height="@dimen/dimen_104dp">
         <RadioGroup
-            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dimen_8dp"
             android:weightSum="5"
             android:id="@+id/dialog_beauty_rg"
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_54">
+            android:layout_height="@dimen/dimen_104dp">
             <RadioButton
                 android:id="@+id/dialog_beauty_rb_filter"
                 android:gravity="center_vertical"
@@ -58,7 +58,7 @@
                 android:button="@null"
                 android:textSize="0sp"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_34"/>
+                android:layout_height="@dimen/dimen_68dp"/>
             <RadioButton
                 android:id="@+id/dialog_beauty_rb_buffing"
                 android:gravity="center_vertical"
@@ -67,7 +67,7 @@
                 android:button="@null"
                 android:textSize="0sp"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_34"/>
+                android:layout_height="@dimen/dimen_68dp"/>
             <RadioButton
                 android:id="@+id/dialog_beauty_rb_whitening"
                 android:gravity="center_vertical"
@@ -76,7 +76,7 @@
                 android:button="@null"
                 android:textSize="0sp"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_34"/>
+                android:layout_height="@dimen/dimen_68dp"/>
             <RadioButton
                 android:id="@+id/dialog_beauty_rb_yad"
                 android:gravity="center_vertical"
@@ -85,7 +85,7 @@
                 android:button="@null"
                 android:textSize="0sp"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_34"/>
+                android:layout_height="@dimen/dimen_68dp"/>
             <RadioButton
                 android:id="@+id/dialog_beauty_rb_bgieye"
                 android:drawableTop="@drawable/beauty_rb_icon_bigeye"
@@ -94,7 +94,7 @@
                 android:gravity="center_vertical"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_34"/>
+                android:layout_height="@dimen/dimen_68dp"/>
 
         </RadioGroup>
     </FrameLayout>

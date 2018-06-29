@@ -10,7 +10,7 @@
         android:id="@+id/appBar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="@dimen/dp_0"
+        app:elevation="@dimen/dimen_0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -238,7 +238,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/dimen_32dp"
                         android:drawableRight="@drawable/icon_arrows"
-                        android:padding="@dimen/dp_8"
+                        android:padding="@dimen/dimen_16dp"
                         android:textColor="@color/base_gray"
                         android:textSize="@dimen/dimen_32dp" />
                 </RelativeLayout>

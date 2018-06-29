@@ -4,7 +4,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textColor="@color/base_black"
-          android:textSize="@dimen/tz_18"
+          android:textSize="@dimen/dimen_36dp"
           android:gravity="center_vertical"
           android:paddingStart="?android:attr/listPreferredItemPaddingStart"
           android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"

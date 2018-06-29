@@ -11,18 +11,18 @@
     <RelativeLayout
         android:id="@+id/video_call_rl_userinfo"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_172"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_12"
+        android:layout_height="@dimen/dimen_344dp"
+        android:layout_marginEnd="@dimen/dimen_20dp"
+        android:layout_marginStart="@dimen/dimen_20dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
         android:visibility="gone">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/video_call_iv_header"
-            android:layout_width="@dimen/dp_52"
-            android:layout_height="@dimen/dp_52"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
+            android:layout_width="@dimen/dimen_104dp"
+            android:layout_height="@dimen/dimen_104dp"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:layout_marginRight="@dimen/dimen_20dp"
             android:scaleType="centerCrop"
             app:riv_oval="true" />
 
@@ -33,7 +33,7 @@
             android:layout_toEndOf="@+id/video_call_iv_header"
             android:layout_toRightOf="@+id/video_call_iv_header"
             android:textColor="@color/white"
-            android:textSize="@dimen/tz_18"
+            android:textSize="@dimen/dimen_36dp"
             android:textStyle="bold"
             tools:drawableEnd="@drawable/bg_icon_woman_1"
             tools:text="分红小仙女" />
@@ -43,13 +43,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/video_call_tv_nickName"
-            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dimen_16dp"
             android:layout_toEndOf="@+id/video_call_iv_header"
             android:layout_toRightOf="@+id/video_call_iv_header"
-            android:drawablePadding="@dimen/dp_4"
+            android:drawablePadding="@dimen/dimen_8dp"
             android:drawableStart="@drawable/icon_coordinate"
             android:textColor="@color/white"
-            android:textSize="@dimen/tz_14"
+            android:textSize="@dimen/dimen_28dp"
             tools:text="26km" />
 
         <TextView
@@ -72,7 +72,7 @@
     <!--<com.airbnb.lottie.LottieAnimationView-->
     <!--android:visibility="gone"-->
     <!--android:layout_gravity="bottom|center_horizontal"-->
-    <!--android:layout_marginBottom="@dimen/dp_35"-->
+    <!--android:layout_marginBottom="@dimen/dimen_70dp"-->
     <!--android:id="@+id/video_call_lav_endCallanim"-->
     <!--android:layout_width="120dp"-->
     <!--android:layout_height="120dp"-->
@@ -100,8 +100,8 @@
         <!--android:visibility="gone"-->
         <!--android:scaleType="centerInside"-->
         <!--android:id="@+id/video_call_iv_endCallbtn"-->
-        <!--android:layout_width="@dimen/dp_70"-->
-        <!--android:layout_height="@dimen/dp_70"-->
+        <!--android:layout_width="@dimen/dimen_140dp"-->
+        <!--android:layout_height="@dimen/dimen_140dp"-->
         <!--android:background="@drawable/videocall_endcall_btn"-->
         <!--/>-->
     </RelativeLayout>
@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="@dimen/dp_88"
+        android:layout_marginBottom="@dimen/dimen_176dp"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_60dp"
         android:textStyle="bold" />
@@ -133,9 +133,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/video_call_rv_chatText"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_150"
+        android:layout_height="@dimen/dimen_300dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/dp_140"
+        android:layout_marginBottom="@dimen/dimen_280dp"
         android:overScrollMode="never"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:reverseLayout="true"
@@ -146,9 +146,9 @@
     <com.huanmedia.videochat.video.widget.CallButtomBtns
         android:id="@+id/video_call_cbb_controlBtns"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_160"
+        android:layout_height="@dimen/dimen_320dp"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="@dimen/dp_60" />
+        android:layout_marginBottom="@dimen/dimen_120dp" />
 
     <!--倒计时-->
     <LinearLayout

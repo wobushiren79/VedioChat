@@ -62,7 +62,7 @@
         android:maxLines="1"
         android:singleLine="true"
         android:textColorHint="@color/base_hint"
-        android:textSize="@dimen/tz_18"
+        android:textSize="@dimen/dimen_36dp"
         app:layout_constraintEnd_toEndOf="@+id/login_tv_smscode"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_et_phone" />
@@ -84,7 +84,7 @@
         android:gravity="center"
         android:text="获取验证码"
         android:textColor="@color/base_btn_textcolor_yellow_selecter"
-        android:textSize="@dimen/tz_16"
+        android:textSize="@dimen/dimen_32dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/login_et_smscode"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -131,7 +131,7 @@
         android:background="@drawable/base_btn_solid"
         android:text="注册并登录"
         android:textColor="@color/white"
-        android:textSize="@dimen/tz_20"
+        android:textSize="@dimen/dimen_40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_tv_errorhint_layout" />
@@ -146,7 +146,7 @@
         android:drawableRight="@drawable/icon_sarrows"
         android:text="先看看，暂不登录"
         android:textColor="@color/base_yellow"
-        android:textSize="@dimen/tz_14"
+        android:textSize="@dimen/dimen_28dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/login_tv_loginbtn"
         app:layout_constraintTop_toBottomOf="@+id/login_tv_loginbtn" />
@@ -168,7 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="登录即代表你同意"
-            android:textSize="@dimen/tz_14" />
+            android:textSize="@dimen/dimen_28dp" />
 
         <TextView
             android:id="@+id/login_tv_protocol"
@@ -177,6 +177,6 @@
             android:gravity="start|center_vertical"
             android:text="《萌面服务和隐私条款》"
             android:textColor="@color/color_f64d99"
-            android:textSize="@dimen/tz_14" />
+            android:textSize="@dimen/dimen_28dp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

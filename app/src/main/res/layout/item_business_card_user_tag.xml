@@ -14,10 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_44dp"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dimen_20dp"
         android:text="用户评价"
         android:textColor="@color/base_black"
-        android:textSize="@dimen/tz_16"
+        android:textSize="@dimen/dimen_32dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,10 +27,10 @@
         android:id="@+id/business_card_tgp_evaluate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_22"
+        android:layout_marginBottom="@dimen/dimen_20dp"
+        android:layout_marginEnd="@dimen/dimen_44dp"
         android:layout_marginStart="@dimen/dimen_44dp"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dimen_20dp"
         app:container_background_color="@color/transparent"
         app:container_border_color="@color/transparent"
         app:container_border_radius="0dp"
@@ -43,11 +43,11 @@
         app:tag_clickable="false"
         app:tag_corner_radius="10dp"
         app:tag_horizontal_padding="10dp"
-        app:tag_text_size="@dimen/tz_14"
+        app:tag_text_size="@dimen/dimen_28dp"
         app:tag_theme="random"
         app:tag_vertical_padding="2dp"
         app:vertical_interval="4dp"
-        tools:layout_height="@dimen/dp_22" />
+        tools:layout_height="@dimen/dimen_44dp" />
 
     <TextView
         android:id="@+id/tv_nodata"

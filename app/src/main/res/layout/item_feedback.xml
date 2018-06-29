@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:orientation="horizontal" android:layout_width="wrap_content"
-             android:layout_height="@dimen/dp_90"
+             android:layout_height="@dimen/dimen_180dp"
     >
     <ImageView
         android:scaleType="centerCrop"
         android:id="@+id/itme_opinion_iv"
         android:cropToPadding="true"
-        android:layout_width="@dimen/dp_90"
-        android:layout_height="@dimen/dp_90"
+        android:layout_width="@dimen/dimen_180dp"
+        android:layout_height="@dimen/dimen_180dp"
         android:padding="0.5dp"
         />
     <ImageView
         android:id="@+id/itme_opinion_iv_remove"
         android:layout_gravity="right"
-        android:layout_width="@dimen/dp_24"
-        android:layout_height="@dimen/dp_24"
+        android:layout_width="@dimen/dimen_48dp"
+        android:layout_height="@dimen/dimen_48dp"
         android:background="@drawable/bg_btn_cancel_nor"/>
 </FrameLayout>

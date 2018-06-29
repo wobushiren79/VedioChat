@@ -10,7 +10,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/my_wallet_cl_money"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100"
+        android:layout_height="@dimen/dimen_200dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,9 +30,9 @@
                 android:id="@+id/my_wallet_tv_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/dp_4"
+                android:layout_marginRight="@dimen/dimen_8dp"
                 android:textColor="@color/base_black"
-                android:textSize="@dimen/tz_38"
+                android:textSize="@dimen/dimen_76dp"
                 tools:text="100"/>
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/base_gray"
-                android:textSize="@dimen/tz_22"
+                android:textSize="@dimen/dimen_44dp"
                 tools:text="M币"/>
         </LinearLayout>
 
@@ -59,9 +59,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:minWidth="@dimen/dp_52"
+                android:minWidth="@dimen/dimen_104dp"
                 android:textColor="@color/base_blue"
-                android:textSize="@dimen/tz_16"
+                android:textSize="@dimen/dimen_32dp"
                 tools:text="兑换"/>
 
             <TextView
@@ -69,9 +69,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:minWidth="@dimen/dp_52"
+                android:minWidth="@dimen/dimen_104dp"
                 android:textColor="@color/base_blue"
-                android:textSize="@dimen/tz_16"
+                android:textSize="@dimen/dimen_32dp"
                 tools:text="提现"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
@@ -80,9 +80,9 @@
         android:id="@+id/my_wallet_cl_particulars"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dimen_24dp"
         android:background="@color/white"
-        android:paddingTop="@dimen/dp_14"
+        android:paddingTop="@dimen/dimen_28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,11 +96,11 @@
             android:layout_height="wrap_content"
             android:text="明细"
             android:textColor="@color/base_black"
-            android:textSize="@dimen/tz_16"
+            android:textSize="@dimen/dimen_32dp"
             android:textStyle="bold"/>
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dimen_28dp"
             android:id="@+id/my_wallet_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"

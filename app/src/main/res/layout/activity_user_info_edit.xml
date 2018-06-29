@@ -11,7 +11,7 @@
         android:id="@+id/appBar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="@dimen/dp_0"
+        app:elevation="@dimen/dimen_0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -58,7 +58,7 @@
                     android:layout_centerVertical="true"
                     android:text="头像"
                     android:textColor="@color/base_black"
-                    android:textSize="@dimen/tz_16" />
+                    android:textSize="@dimen/dimen_32dp" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/user_info_edit_iv_header"
@@ -109,7 +109,7 @@
                 <com.huanmedia.videochat.common.widget.NoFocusRecycleView
                     android:id="@+id/user_info_edit_rv_photos"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_68"
+                    android:layout_height="@dimen/dimen_136dp"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dimen_24dp"
                     android:layout_toLeftOf="@+id/user_info_edit_tv_photos_enter"
@@ -158,7 +158,7 @@
                 <com.huanmedia.videochat.common.widget.NoFocusRecycleView
                     android:id="@+id/user_info_edit_rv_video"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_68"
+                    android:layout_height="@dimen/dimen_136dp"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dimen_24dp"
                     android:layout_toLeftOf="@+id/user_info_edit_tv_video_enter"
@@ -294,9 +294,9 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="0dp"
-                        android:layout_marginRight="@dimen/dp_22"
+                        android:layout_marginRight="@dimen/dimen_44dp"
                         android:textColor="@color/base_gray"
-                        android:textSize="@dimen/tz_16"
+                        android:textSize="@dimen/dimen_32dp"
                         tools:text="18" />
 
 
@@ -311,7 +311,7 @@
                 <RelativeLayout
                     android:id="@+id/user_info_edit_base_rl_addr"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
+                    android:layout_height="@dimen/dimen_120dp"
                     android:background="@drawable/base_item_select"
                     android:paddingLeft="@dimen/dimen_44dp"
                     android:paddingRight="0dp">

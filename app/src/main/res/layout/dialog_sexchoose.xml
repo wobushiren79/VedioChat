@@ -14,7 +14,7 @@
         android:gravity="center"
         android:text="选择你的性别"
         android:textColor="@color/base_black"
-        android:textSize="@dimen/tz_18" />
+        android:textSize="@dimen/dimen_36dp" />
 
     <RadioGroup
         android:id="@+id/dialog_sex_radioGroup"
@@ -40,7 +40,7 @@
             android:layout_marginRight="@dimen/dimen_32dp"
             android:text="男"
             android:textColor="@color/base_gray"
-            android:textSize="@dimen/tz_18" />
+            android:textSize="@dimen/dimen_36dp" />
 
         <RadioButton
             android:id="@+id/dialog_radioWMan"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:text="女"
             android:textColor="@color/base_gray"
-            android:textSize="@dimen/tz_18" />
+            android:textSize="@dimen/dimen_36dp" />
 
     </RadioGroup>
 </LinearLayout>

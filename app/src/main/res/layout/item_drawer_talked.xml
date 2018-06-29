@@ -4,39 +4,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:paddingTop="@dimen/dp_14"
+    android:paddingTop="@dimen/dimen_28dp"
     android:layout_height="wrap_content">
 <FrameLayout
     android:id="@+id/item_chat_people_fm_toked_fl_header"
-    android:layout_marginStart="@dimen/dp_22"
-    android:layout_marginLeft="@dimen/dp_22"
+    android:layout_marginStart="@dimen/dimen_44dp"
+    android:layout_marginLeft="@dimen/dimen_44dp"
     app:layout_constraintStart_toStartOf="parent"
-    android:layout_width="@dimen/dp_88"
-    android:layout_height="@dimen/dp_88">
+    android:layout_width="@dimen/dimen_176dp"
+    android:layout_height="@dimen/dimen_176dp">
     <com.makeramen.roundedimageview.RoundedImageView
         android:scaleType="centerCrop"
-        app:riv_corner_radius="@dimen/dp_4"
+        app:riv_corner_radius="@dimen/dimen_8dp"
         app:riv_border_color="@color/block_gray"
-        app:riv_border_width="@dimen/dp_1"
+        app:riv_border_width="@dimen/dimen_2dp"
         android:id="@+id/item_chat_people_fm_toked_iv_header"
-        android:layout_width="@dimen/dp_88"
-        android:layout_height="@dimen/dp_88"
+        android:layout_width="@dimen/dimen_176dp"
+        android:layout_height="@dimen/dimen_176dp"
         android:src="@drawable/icon_headportrait"
       />
     <ImageView
         android:id="@+id/item_chat_people_fm_toked_iv_sex"
         android:scaleType="centerCrop"
         android:layout_gravity="bottom|end"
-        android:layout_width="@dimen/dp_14"
-        android:layout_height="@dimen/dp_14"
+        android:layout_width="@dimen/dimen_28dp"
+        android:layout_height="@dimen/dimen_28dp"
         tools:src="@drawable/icon_gender_man"/>
 </FrameLayout>
     <TextView
         android:id="@+id/item_chat_people_fm_toked_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8"
-        android:textSize="@dimen/tz_16"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:textSize="@dimen/dimen_32dp"
         android:textColor="@color/base_black"
         android:text="鹏鹏"
         app:layout_constraintEnd_toEndOf="parent"

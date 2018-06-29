@@ -120,8 +120,8 @@ public class MainPresenter extends Presenter<MainView> {
                 prmas.put("deviceid", Installation.id(getContext()));
                 prmas.put("os", 1 + "");
                 prmas.put("version", BuildConfig.VERSION_CODE + "");
-                prmas.put("longitude", "0");
-                prmas.put("latiude", "0");
+//                prmas.put("longitude", "0");
+//                prmas.put("latiude", "0");
                 prmas.put("channelid", BuildConfig.appChannel + "");
                 Location location = new LocationHandler().getLocation();
                 if (location != null) {
