@@ -77,10 +77,11 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
     private ListPopupWindow mListPopupWindow;
     private View mView;
 
-    private @GiftDialogStyle int dialogSytle;
+    private @GiftDialogStyle
+    int dialogSytle;
 
-    public GiftFragmentDialog(@GiftDialogStyle int dialogSytle){
-         this.dialogSytle=dialogSytle;
+    public GiftFragmentDialog(@GiftDialogStyle int dialogSytle) {
+        this.dialogSytle = dialogSytle;
     }
 
     public void setDatas(List<ArrayList<GiftEntity>> datas) {
@@ -96,8 +97,8 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        if (mView==null){
-            switch (dialogSytle){
+        if (mView == null) {
+            switch (dialogSytle) {
                 case GiftDialogStyle.Normal:
                     mView = inflater.inflate(R.layout.dialog_gift, container, false);
                     break;
@@ -106,9 +107,8 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
                     break;
             }
             initView(mView);
-        }
-        else {
-            ViewGroup viewGroup= (ViewGroup) mView.getParent();
+        } else {
+            ViewGroup viewGroup = (ViewGroup) mView.getParent();
             initGifts();
             viewGroup.removeView(mView);
         }
@@ -161,7 +161,7 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
     private void initGifts() {
         mFragments = new ArrayList<>();
         for (int i = 0; i < mDatas.size(); i++) {
-            GiftFragment fragment = GiftFragment.newInstance(mDatas.get(i), i,dialogSytle);
+            GiftFragment fragment = GiftFragment.newInstance(mDatas.get(i), i, dialogSytle);
             fragment.setGiftClickListener(this);
             fragment.setGiftFilter(mSelectFilter);
             mFragments.add(fragment);
@@ -188,8 +188,8 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
             case R.id.dialog_gift_btn_ok:
                 //确定
                 if (mGiftEventListener != null && mCurrentItem != null) {
-                        mCurrentItem.setPayCount(Integer.parseInt(mDialogGiftBtnCount.getText().toString()));
-                        mGiftEventListener.okBtn(mCurrentItem);
+                    mCurrentItem.setPayCount(Integer.parseInt(mDialogGiftBtnCount.getText().toString()));
+                    mGiftEventListener.okBtn(mCurrentItem);
                 }
                 break;
             case R.id.dialog_gift_tv_pay:
@@ -217,13 +217,13 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
                     new GiftCountMode("十全十美", 10),
                     new GiftCountMode("一心一意", 1)
             );
-        if (mListPopupWindow==null){
+        if (mListPopupWindow == null) {
             mListPopupWindow = new ListPopupWindow(getContext());
 //                        mListPopupWindow = new ListPopupWindow(getContext(),null,0);
             mListPopupWindow.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.bg_list_item));
             mListPopupWindow.setWidth(mDialogGiftBtnOk.getWidth() + mDialogGiftBtnCount.getWidth());
             mListPopupWindow.setHeight(ListPopupWindow.WRAP_CONTENT);
-            mAopAdapter = new PopAdapter(data,Integer.parseInt(mDialogGiftBtnCount.getText().toString()));
+            mAopAdapter = new PopAdapter(data, Integer.parseInt(mDialogGiftBtnCount.getText().toString()));
             mAopAdapter.setPopSelectListener((position, mode) -> {
                 mDialogGiftBtnCount.setText(mode.getCount() + "");
                 mListPopupWindow.dismiss();
@@ -231,7 +231,7 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
             mListPopupWindow.setAdapter(mAopAdapter);
             mListPopupWindow.setDropDownAlwaysVisible(false);
             mListPopupWindow.setForceIgnoreOutsideTouch(false);
-        }else {
+        } else {
             mAopAdapter.setPosDefault(Integer.parseInt(mDialogGiftBtnCount.getText().toString()));
         }
 
@@ -277,8 +277,8 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
     @Override
     public void onGiftClick(View view, GiftEntity entity) {
         this.mCurrentItem = entity;
-        if (entity!=null){
-            mDialogGiftBtnCount.setText(entity.getDefcount()+"");
+        if (entity != null) {
+            mDialogGiftBtnCount.setText(entity.getDefcount() + "");
         }
     }
 
@@ -303,7 +303,7 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
         void cancel();
     }
 
-    private static class PopAdapter extends BaseAdapter {
+    public static class PopAdapter extends BaseAdapter {
         private PopSelectListener mPopSelectListener;
 
         public void setPopSelectListener(PopSelectListener popSelectListener) {
@@ -311,26 +311,29 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
         }
 
         private final List<GiftCountMode> mModes;
-        SparseArray<GiftCountMode> mCurrentSelect= new SparseArray<>();
-        public PopAdapter(List<GiftCountMode> modes,int defcount) {
+        SparseArray<GiftCountMode> mCurrentSelect = new SparseArray<>();
+
+        public PopAdapter(List<GiftCountMode> modes, int defcount) {
             if (modes == null) modes = new ArrayList<>();
             this.mModes = modes;
             setPosDefault(defcount);//默认第三个188
         }
-        public void setPosDefault(int count){
-            if (mModes==null || mModes.size()==0)return;
+
+        public void setPosDefault(int count) {
+            if (mModes == null || mModes.size() == 0) return;
             boolean isChanges = false;
 
             for (int i = 0; i < mModes.size(); i++) {
-               if (mModes.get(i).getCount()==count){
-                   isChanges = true;
-                   changeSelect(i);
-               }
+                if (mModes.get(i).getCount() == count) {
+                    isChanges = true;
+                    changeSelect(i);
+                }
             }
-            if (!isChanges){
-                changeSelect(mModes.size()-1);
+            if (!isChanges) {
+                changeSelect(mModes.size() - 1);
             }
         }
+
         @Override
         public int getCount() {
             return mModes.size();
@@ -355,10 +358,10 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
                 rootView.setOnClickListener(v -> {
                     changeSelect(position);
                 });
-                if (mCurrentSelect.get(position)!=null){
-                    rootView.setBackgroundColor(ContextCompat.getColor(parent.getContext(),R.color.base_yellow_alpha));
-                }else {
-                    rootView.setBackground(ContextCompat.getDrawable(parent.getContext(),R.drawable.base_item_select));
+                if (mCurrentSelect.get(position) != null) {
+                    rootView.setBackgroundColor(ContextCompat.getColor(parent.getContext(), R.color.base_yellow_alpha));
+                } else {
+                    rootView.setBackground(ContextCompat.getDrawable(parent.getContext(), R.drawable.base_item_select));
                 }
 
                 TextView count = ViewFindUtils.hold(convertView, R.id.dialog_item_tv_count);
@@ -373,10 +376,10 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
         private void changeSelect(int position) {
             mCurrentSelect.clear();
             GiftCountMode item = getItem(position);
-            mCurrentSelect.put(position,item);
+            mCurrentSelect.put(position, item);
             notifyDataSetChanged();
-            if(mPopSelectListener!=null){
-                mPopSelectListener.select(position,getItem(position));
+            if (mPopSelectListener != null) {
+                mPopSelectListener.select(position, getItem(position));
             }
         }
     }
@@ -384,7 +387,7 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
-        if(mGiftEventListener!=null){
+        if (mGiftEventListener != null) {
             mGiftEventListener.cancel();
         }
     }
@@ -392,12 +395,12 @@ public class GiftFragmentDialog extends DialogFragment implements View.OnClickLi
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        if(mGiftEventListener!=null){
+        if (mGiftEventListener != null) {
             mGiftEventListener.cancel();
         }
     }
 
-    public  interface PopSelectListener{
-        void select(int position,GiftCountMode mode);
+    public interface PopSelectListener {
+        void select(int position, GiftCountMode mode);
     }
 }

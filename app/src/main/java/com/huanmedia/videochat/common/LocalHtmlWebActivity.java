@@ -66,18 +66,7 @@ public class LocalHtmlWebActivity extends BaseActivity {
     public void initView() {
         String url = getIntent().getStringExtra("url");
         mTitle = getIntent().getStringExtra("title");
-        if (!getIntent().getBooleanExtra("Authentication", false)) {
-            if (url != null)
-//                webView.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
-                webView.loadUrl(url);
-        } else {
-            if (url != null) {
-                HashMap<String, String> map = new HashMap<>();
-                map.put("Authentication", OkhttpManager.getAuthentication());
-                url += "?" + "sId=" + UserManager.getInstance().getCurrentUser().getToken();
-                webView.loadUrl(url, map);
-            }
-        }
+        checkUrl(webView, url);
         setToolBar();
 
         if (getSupportActionBar() != null && mTitle != null && mTitle.length() > 0) {
@@ -99,10 +88,13 @@ public class LocalHtmlWebActivity extends BaseActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return false;
+                checkUrl(view, url);
+                return true;
             }
+
         });
         webView.setWebChromeClient(new WebChromeClient() {
+
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (localhtmlWebProgressBar == null) return;
@@ -124,27 +116,42 @@ public class LocalHtmlWebActivity extends BaseActivity {
                 }
                 super.onReceivedTitle(view, title);
             }
+
+
         });
 
         //webView.loadUrl("file:///android_asset/index.html");
 //        webView.loadUrl("content://com.android.htmlfileprovider/sdcard/index.html");
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
-            webView.goBack();// 返回前一个页面
-            return true;
-        } else {
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
     private void setToolBar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        mToolbar.setNavigationOnClickListener(v -> {
+            if(webView.canGoBack()){
+                webView.goBack();// 返回前一个页面
+            }else{
+                finish();
+            }
+        });
     }
 
+    private void checkUrl(WebView webView, String url) {
+        if (!getIntent().getBooleanExtra("Authentication", false)) {
+            if (url != null)
+//                webView.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
+                webView.loadUrl(url);
+        } else {
+            if (url != null) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Authentication", OkhttpManager.getAuthentication());
+                if(url.contains("?")){
+                    url += "&" + "sId=" + UserManager.getInstance().getCurrentUser().getToken();
+                }else{
+                    url += "?" + "sId=" + UserManager.getInstance().getCurrentUser().getToken();
+                }
+                webView.loadUrl(url, map);
+            }
+        }
+    }
 }

@@ -63,7 +63,7 @@ public class WebJsObjFunction extends Object {
         if (!BuildConfig.DEBUG) {
             boolean isWhiteUrl = false;
             for (String whiteUrl : whiteList) {
-                if (whiteUrl.equals(url))
+                if (url.contains(whiteUrl))
                     isWhiteUrl = true;
             }
             if (!isWhiteUrl) {

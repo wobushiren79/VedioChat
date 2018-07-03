@@ -11,6 +11,7 @@ import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
+import com.huanmedia.videochat.mvp.entity.request.RewardRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShortVideoListRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
@@ -23,10 +24,13 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
+import com.huanmedia.videochat.mvp.entity.results.GiftListInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
+import com.huanmedia.videochat.repository.entity.GiftEntity;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -153,5 +157,16 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void shortVideoPraise(Context context, ShortVideoPraiseRequest params, HttpResponseHandler handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.shortVideoPraise(paramsMap), handler);
+    }
+
+    @Override
+    public void getGiftList(Context context, HttpResponseHandler<List<ArrayList<GiftEntity>>> handler) {
+        requestPost(context, mApiService.giftlist(), handler);
+    }
+
+    @Override
+    public void reward(Context context, RewardRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.reward(paramsMap), handler);
     }
 }

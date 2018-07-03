@@ -133,7 +133,7 @@ public interface RemoteApiService {
     @FormUrlEncoded
     Observable<DataResponse> chatCoinConsumption(@FieldMap Map<String, String> prams);
 
-    //用户消费金币扣取
+    //用户礼物列表
     @POST("/index/userext/giftlist")
     Observable<DataResponse<List<ArrayList<GiftEntity>>>> giftlist();
 
@@ -403,6 +403,10 @@ public interface RemoteApiService {
     @FormUrlEncoded
     Observable<DataResponse<Object>> shortVideoPraise(@FieldMap Map<String, Object> params);
 
+    //打赏
+    @POST("/index/userextv2/reward")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> reward(@FieldMap Map<String, Object> params);
 
     @Multipart
     @POST

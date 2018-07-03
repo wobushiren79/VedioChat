@@ -10,6 +10,7 @@ import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
+import com.huanmedia.videochat.mvp.entity.request.RewardRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShortVideoListRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
@@ -22,9 +23,12 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
+import com.huanmedia.videochat.mvp.entity.results.GiftListInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
+import com.huanmedia.videochat.repository.entity.GiftEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface MainManager {
@@ -189,4 +193,19 @@ public interface MainManager {
      */
     void shortVideoPraise(Context context, ShortVideoPraiseRequest params, HttpResponseHandler handler);
 
+    /**
+     * 礼物列表
+     *
+     * @param context
+     * @param handler
+     */
+    void getGiftList(Context context, HttpResponseHandler<List<ArrayList<GiftEntity>>> handler);
+
+    /**
+     * 奖励
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void reward(Context context, RewardRequest params, HttpResponseHandler handler);
 }

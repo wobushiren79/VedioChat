@@ -8,23 +8,20 @@
         android:layout_width="@dimen/dimen_700dp"
         android:layout_height="@dimen/dimen_700dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        android:src="@drawable/icon_back_light" />
+        android:layout_marginTop="@dimen/dimen_20dp" />
 
     <ImageView
         android:id="@+id/iv_back_debris"
         android:layout_width="@dimen/dimen_600dp"
         android:layout_height="@dimen/dimen_600dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/icon_back_debris" />
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/iv_content"
         android:layout_width="@dimen/dimen_500dp"
         android:layout_height="@dimen/dimen_500dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dimen_80dp"
-        android:src="@drawable/icon_coin" />
+        android:layout_marginTop="@dimen/dimen_80dp" />
 
     <TextView
         android:id="@+id/tv_content"

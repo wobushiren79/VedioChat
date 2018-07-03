@@ -25,14 +25,19 @@ import com.huanmedia.ilibray.utils.DevUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.utils.VideoChatUtils;
 import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
+import com.huanmedia.videochat.common.widget.dialog.GiftDialog;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
+import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoResults;
 import com.huanmedia.videochat.mvp.presenter.video.IShortVideoPraisePresenter;
 import com.huanmedia.videochat.mvp.presenter.video.ShortVideoPraisePresenterImpl;
 import com.huanmedia.videochat.mvp.view.video.IShortVideoPraiseView;
+import com.huanmedia.videochat.repository.entity.GiftEntity;
+import com.huanmedia.videochat.video.widget.GiftFragmentDialog;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.GSYMediaPlayerListener;
@@ -60,11 +65,11 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
     public void convert(BaseViewHolder baseViewHolder, ShortVideoResults shortVideoResults, int i) {
         RelativeLayout rlAnimLove = baseViewHolder.getView(R.id.rl_love);
         LinearLayout llLove = baseViewHolder.getView(R.id.ll_love);
-        LinearLayout llUserInfo = baseViewHolder.getView(R.id.ll_user_info);
         LinearLayout llUserInfoTag = baseViewHolder.getView(R.id.ll_user_tag);
         LinearLayout llAppointment = baseViewHolder.getView(R.id.ll_appointment);
-        LinearLayout addVideo=baseViewHolder.getView(R.id.ll_addvideo);
+        LinearLayout addVideo = baseViewHolder.getView(R.id.ll_addvideo);
         LinearLayout llCall = baseViewHolder.getView(R.id.ll_call);
+        LinearLayout llMoney = baseViewHolder.getView(R.id.ll_money);
         TextView tvUserLocation = baseViewHolder.getView(R.id.tv_user_location);
         TextView tvUserName = baseViewHolder.getView(R.id.tv_name);
         TextView tvDesc = baseViewHolder.getView(R.id.tv_desc);
@@ -77,12 +82,13 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         int accountId = shortVideoResults.getAccount_id();
         int accountStarCoin = shortVideoResults.getAccount_starcoin();
         int accountOnlineStatus = shortVideoResults.getAccount_onlinestatus();
+        int videoId = shortVideoResults.getId();
         int praiseNum = shortVideoResults.getPraise();
         int isReadMan = shortVideoResults.getAccount_isstarauth();
 
         //添加视频
-        addVideo.setOnClickListener(view->{
-            ((BaseActivity) mContext).getNavigator().navtoMediaUpLoad((Activity) mContext,null,false);
+        addVideo.setOnClickListener(view -> {
+            ((BaseActivity) mContext).getNavigator().navtoMediaUpLoad((Activity) mContext, null, false);
         });
 
         if (shortVideoResults.getAccount_id() == 0) {
@@ -129,7 +135,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         if (shortVideoResults.getIspraise() == 0) {
             Glide.with(mContext).load(R.drawable.icon_love_unclick).into(ivLove);
             llLove.setOnClickListener(view -> {
-                mShortVideoPraisePresenter.shortVideoPraise(shortVideoResults.getId());
+                mShortVideoPraisePresenter.shortVideoPraise(videoId);
                 mDatas.get(i).setIspraise(1);
                 mDatas.get(i).setPraise((praiseNum + 1));
                 tvLoveNum.setText(loveNumHandler(praiseNum + 1));
@@ -149,8 +155,13 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
             llAppointment.setVisibility(View.GONE);
             llCall.setVisibility(View.GONE);
         } else {
-            llAppointment.setVisibility(View.VISIBLE);
-            llCall.setVisibility(View.VISIBLE);
+            if (accountOnlineStatus == 1) {
+                llAppointment.setVisibility(View.GONE);
+                llCall.setVisibility(View.VISIBLE);
+            } else {
+                llAppointment.setVisibility(View.VISIBLE);
+                llCall.setVisibility(View.GONE);
+            }
         }
         llAppointment.setOnClickListener(view -> {
             ((BaseActivity) mContext).getNavigator().navtoAppointment((Activity) mContext, accountId);
@@ -166,6 +177,13 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
                     accountId);
         });
 
+        //打赏功能
+        llMoney.setOnClickListener(view -> {
+            GiftDialog giftDialog = new GiftDialog(mContext);
+            giftDialog.setUid(accountId);
+            giftDialog.setVideoId(videoId);
+            giftDialog.show();
+        });
         //设置用户标签
         llUserInfoTag.removeAllViews();
         if (shortVideoResults.getTags() != null && shortVideoResults.getTags().length() != 0) {
@@ -218,7 +236,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
             @Override
             public void onDoubleTap(MotionEvent e) {
                 if (shortVideoResults.getIspraise() == 0) {
-                    mShortVideoPraisePresenter.shortVideoPraise(shortVideoResults.getId());
+                    mShortVideoPraisePresenter.shortVideoPraise(videoId);
                     mDatas.get(i).setIspraise(1);
                     mDatas.get(i).setPraise((praiseNum + 1));
                     tvLoveNum.setText(loveNumHandler(praiseNum + 1));
@@ -234,7 +252,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         });
         if (i == mPlayPosition) {
             videoPlayer.startPlayLogic();
-            UMengUtils.ShortVideoPlay(mContext, shortVideoResults.getId());
+            UMengUtils.ShortVideoPlay(mContext, videoId);
         }
     }
 
@@ -258,6 +276,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
             return loveNum + "";
         }
     }
+
 
     /**
      * 点赞动画

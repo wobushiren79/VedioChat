@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clipChildren="false"
-    android:orientation="vertical">
+    android:background="@color/black_transparent_60"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dimen_22dp">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:text="选个礼物打赏给TA吧~"
+        android:textColor="@color/white" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_448dp"
-        android:background="@color/black_transparent_50"
-        android:clipChildren="false">
-        <!--礼物页面-->
-        <android.support.v4.view.ViewPager
-            android:id="@+id/dialog_gift_vp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/dialog_gift_ll_dot"
-            android:clipChildren="false" />
-        <!--指示器-->
-        <LinearLayout
-            android:id="@+id/dialog_gift_ll_dot"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_48dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_horizontal|center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone" />
-
-    </RelativeLayout>
+        android:layout_height="@dimen/dimen_400dp"
+        android:layout_marginTop="@dimen/dimen_22dp"></android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
         android:id="@+id/dialog_gift_fl_buttom"
@@ -47,6 +37,7 @@
             android:src="@drawable/tab_icon_jewel" />
 
         <TextView
+            android:text="0"
             android:id="@+id/dialog_gift_tv_coin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,8 +46,7 @@
             android:layout_marginLeft="@dimen/dimen_16dp"
             android:layout_toRightOf="@+id/dialog_gift_tv_icon"
             android:textColor="@color/white"
-            android:textSize="@dimen/dimen_36dp"
-            tools:text="0" />
+            android:textSize="@dimen/dimen_36dp" />
 
         <TextView
             android:id="@+id/dialog_gift_tv_pay"
@@ -72,6 +62,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:layout_marginRight="-1dp"
             android:id="@+id/dialog_gift_btn_count"
             android:layout_width="@dimen/dimen_156dp"
             android:layout_height="@dimen/dimen_56dp"

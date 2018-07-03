@@ -77,6 +77,10 @@ public class MainHintDialog extends Dialog {
                 ImageView ivBackLight = findViewById(R.id.iv_back_light);
                 TextView tvContent = findViewById(R.id.tv_content);
 
+                GlideApp.with(getContext()).load(R.drawable.icon_back_debris).into(ivBackDebris);
+                GlideApp.with(getContext()).load(R.drawable.icon_back_light).into(ivBackLight);
+                GlideApp.with(getContext()).load(R.drawable.icon_coin).into(ivContent);
+
                 tvContent.setText(mContentStr);
                 setBackLightAnim(ivBackLight);
                 setBackDebris(ivBackDebris);
@@ -88,7 +92,7 @@ public class MainHintDialog extends Dialog {
                 ivContent.setOnClickListener(view -> {
                     if (mJumpUrl != null && mJumpUrl.length() > 0) {
                         Navigator navigator = new Navigator();
-                        navigator.navtoWebActivity(DevUtils.scanForActivity(getContext()), mJumpUrl, null,true);
+                        navigator.navtoWebActivity(DevUtils.scanForActivity(getContext()), mJumpUrl, null, true);
                         this.cancel();
                     }
                 });

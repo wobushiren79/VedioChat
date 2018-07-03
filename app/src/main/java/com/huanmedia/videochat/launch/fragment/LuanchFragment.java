@@ -116,6 +116,8 @@ public class LuanchFragment extends BaseFragment implements IAdsLuanchView {
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        if (mLLLuanchAdsJump == null)
+                            return false;
                         mLLLuanchAdsJump.setVisibility(View.VISIBLE);
                         mLLLuanchAdsJump.setOnClickListener(view -> {
                             mLuanchAdsDis.dispose();
@@ -151,6 +153,8 @@ public class LuanchFragment extends BaseFragment implements IAdsLuanchView {
      * 开始功能
      */
     private void start() {
+        if (mIVAds == null)
+            return;
         mIVAds.setOnClickListener(null);
         if (showFirstGuide) {
             EventBus.getDefault().post(new Intent(EventBusAction.SCHEME_ACTION + "://" + EventBusAction.LUANCH_HOST + FirstGuideFragment.TAG));
