@@ -14,6 +14,7 @@ import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
+import com.huanmedia.videochat.mvp.entity.results.RewardResults;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
@@ -406,7 +407,7 @@ public interface RemoteApiService {
     //打赏
     @POST("/index/userextv2/reward")
     @FormUrlEncoded
-    Observable<DataResponse<Object>> reward(@FieldMap Map<String, Object> params);
+    Observable<DataResponse<RewardResults>> reward(@FieldMap Map<String, Object> params);
 
     @Multipart
     @POST

@@ -9,6 +9,7 @@ import android.webkit.WebView;
 
 import com.google.gson.Gson;
 import com.huanmedia.videochat.BuildConfig;
+import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
 
@@ -44,6 +45,17 @@ public class WebJsObjFunction extends Object {
      */
     @JavascriptInterface
     public void exitWebActivity() {
+        exitWebActivity(null);
+    }
+
+    @JavascriptInterface
+    public void exitWebActivity(String jumpType) {
+        if (jumpType == null) {
+
+        } else if (jumpType.equals("main_video")) {
+            //跳转主页视频
+            MainActivity.jumpFragmentPosition = 1;
+        }
         ((Activity) mContext).finish();
     }
 
@@ -55,8 +67,21 @@ public class WebJsObjFunction extends Object {
      */
     @JavascriptInterface
     public void submitCommonInfo(String url, String data) {
+        submitCommonInfo(url, data, "submitCommonInfoSuccess", "submitCommonInfoFail");
+    }
+
+    /**
+     * 获取通用数据
+     *
+     * @param url
+     * @param data
+     * @param callBackSuccessName
+     * @param callBackFailName
+     */
+    @JavascriptInterface
+    public void submitCommonInfo(String url, String data, String callBackSuccessName, String callBackFailName) {
         if (url == null || url.length() == 0) {
-            submitCommonInfoFail("没有请求地址");
+            submitCommonInfoFail("没有请求地址", callBackFailName);
             return;
         }
         //白名单验证
@@ -67,7 +92,7 @@ public class WebJsObjFunction extends Object {
                     isWhiteUrl = true;
             }
             if (!isWhiteUrl) {
-                submitCommonInfoFail("此版本未开放该接口功能，请升级最新的APP哟");
+                submitCommonInfoFail("此版本未开放该接口功能，请升级最新的APP哟", callBackFailName);
                 return;
             }
         }
@@ -76,34 +101,34 @@ public class WebJsObjFunction extends Object {
             Gson gson = new Gson();
             params = gson.fromJson(data, Object.class);
         } catch (Exception e) {
-            submitCommonInfoFail("参数格式错误");
+            submitCommonInfoFail("参数格式错误", callBackFailName);
             return;
         }
 
         MHttpManagerFactory.getMainManager().commonUrl(mContext, url, params, new HttpResponseHandler() {
             @Override
             public void onSuccess(Object result) {
-                submitCommonInfoSuccess(result);
+                submitCommonInfoSuccess(result, callBackSuccessName);
             }
 
             @Override
             public void onError(String message) {
-                submitCommonInfoFail(message);
+                submitCommonInfoFail(message, callBackFailName);
             }
         });
 
-    }
 
+    }
 
     /**
      * 提交通用数据成功
      *
      * @param data
      */
-    public void submitCommonInfoSuccess(Object data) {
+    public void submitCommonInfoSuccess(Object data, String name) {
         Gson gs = new Gson();
         String dataStr = gs.toJson(data);
-        setBaseData("submitCommonInfoSuccess", dataStr);
+        setBaseData(name, dataStr);
     }
 
     /**
@@ -111,7 +136,7 @@ public class WebJsObjFunction extends Object {
      *
      * @param data
      */
-    public void submitCommonInfoFail(String data) {
-        setBaseData("submitCommonInfoFail", data);
+    public void submitCommonInfoFail(String data, String name) {
+        setBaseData(name, data);
     }
 }

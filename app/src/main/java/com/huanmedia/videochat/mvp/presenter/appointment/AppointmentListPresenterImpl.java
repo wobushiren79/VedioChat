@@ -82,6 +82,8 @@ public class AppointmentListPresenterImpl extends BaseMVPPresenter<IAppointmentL
 
             @Override
             public void getDataFail(String msg) {
+                if (mMvpView.getPtrLayoutForNormal() == null)
+                    return;
                 mMvpView.getPtrLayoutForNormal().setRefreshComplete();
                 mMvpView.getAppointmentListForNormalFail(msg);
             }

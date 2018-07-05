@@ -84,13 +84,14 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
     private ArrayList<CustomTabEntity> mTabs;
     private Fragment[] mFragments;
-    private Disposable rxGetCOmmonTablayoutHight;
     private boolean autoLogin;
     private UpdateBuilder mUpdata;
     private HuaWeiPushHelper mHuaweiPushHelper;
     private MainPageFragmentAdapter mAdapter;
     private LocationService locationService;
     private IUploadUserDataPresenter uploadUserDataPresenter;
+
+    public static int jumpFragmentPosition = -1;
 
     public static Intent getCallingIntent(Context context, boolean autoLogin) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -103,11 +104,17 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
+
+//        getNavigator().navtoArtist(this,1);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (mMainVpPage != null && jumpFragmentPosition != -1 && jumpFragmentPosition < mFragments.length) {
+            mMainVpPage.setCurrentItem(jumpFragmentPosition);
+            jumpFragmentPosition = -1;
+        }
     }
 
     @Override
@@ -306,20 +313,13 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         });
 
         mMainCommonTablayout.setTabData(mTabs);
-        rxGetCOmmonTablayoutHight = RxCountDown.delay2(200).subscribe(integer ->
-        {
-            rxGetCOmmonTablayoutHight.dispose();
-        }, throwable -> {
-            rxGetCOmmonTablayoutHight.dispose();
-            throwable.printStackTrace();
-        });
-
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams
                 (ViewGroup.LayoutParams.MATCH_PARENT,
                         DisplayUtil.getDisplayHeight(MainActivity.this)
                                 - getResources().getDimensionPixelOffset(R.dimen.dimen_104dp));
         mMainVpPage.setLayoutParams(layoutParams);
+        mMainVpPage.setCurrentItem(1);
     }
 
     /**

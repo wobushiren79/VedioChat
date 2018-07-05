@@ -160,7 +160,7 @@ public class WebSocketManager {
 
 
     public void sendMessage(WMessage message) {
-        if (mWSocketClent.isOpen() && !mWSocketClent.isClosing()) {
+        if (mWSocketClent!=null&&mWSocketClent.isOpen() && !mWSocketClent.isClosing()) {
             //添加固定参数配置
             message.setFrom(UserManager.getInstance().getId() + "");
             message.setSid(UserManager.getInstance().getsId());

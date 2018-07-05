@@ -1,8 +1,12 @@
 package com.huanmedia.videochat.main2.fragment;
 
+import android.support.v4.content.ContextCompat;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.huanmedia.ilibray.utils.RxCountDown;
+import com.huanmedia.ilibray.utils.Spanny;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseFragment;
@@ -13,7 +17,17 @@ import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.presenter.video.IShortVideoListPresenter;
 import com.huanmedia.videochat.mvp.presenter.video.ShortVideoListPresenterImpl;
 import com.huanmedia.videochat.mvp.view.video.IShortVideoListView;
+import com.huanmedia.videochat.repository.entity.GiftEntity;
+import com.huanmedia.videochat.video.model.GiftLocalMode;
+import com.opensource.svgaplayer.SVGADrawable;
+import com.opensource.svgaplayer.SVGAImageView;
+import com.opensource.svgaplayer.SVGAParser;
+import com.opensource.svgaplayer.SVGAVideoEntity;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
+
+import org.dync.giftlibrary.GiftControl;
+import org.dync.giftlibrary.widget.CustormAnim;
+import org.dync.giftlibrary.widget.GiftModel;
 
 import butterknife.BindView;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -21,6 +35,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 public class VideoListFragment extends BaseFragment implements PtrLayout.PtrHandleCallBack, IShortVideoListView, VideoPtrLayout.PageCallBack {
     @BindView(R.id.ptr_layout)
     VideoPtrLayout mPtrLayout;
+
 
     private IShortVideoListPresenter mShortVideoListPresenter;
     private int mForce;//是否强制刷新
@@ -165,4 +180,6 @@ public class VideoListFragment extends BaseFragment implements PtrLayout.PtrHand
             mPtrLayout.setRefresh();
         }
     }
+
+
 }

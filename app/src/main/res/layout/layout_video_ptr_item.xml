@@ -133,14 +133,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_appointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dimen_30dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/iv_appointment"
@@ -162,14 +162,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dimen_30dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/iv_call"
@@ -189,6 +189,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/dimen_24dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_money"
             android:layout_width="wrap_content"
@@ -216,6 +217,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/dimen_24dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_addvideo"
             android:layout_width="wrap_content"
@@ -230,7 +232,7 @@
                 android:layout_width="@dimen/dimen_75dp"
                 android:layout_height="@dimen/dimen_75dp"
                 android:layout_gravity="center_horizontal"
-               android:src="@drawable/btn_add" />
+                android:src="@drawable/btn_add" />
 
             <TextView
                 android:id="@+id/tv_addvideo"
@@ -251,4 +253,31 @@
         android:id="@+id/rl_love"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></RelativeLayout>
+
+    <com.opensource.svgaplayer.SVGAImageView
+        android:id="@+id/iv_gift"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:autoPlay="false"
+        app:clearsAfterStop="true"
+        app:fillMode="Forward"
+        app:loopCount="1" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_gift"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/dimen_580dp"
+            android:layout_marginTop="@dimen/dimen_200dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical" />
+    </FrameLayout>
+
 </RelativeLayout>

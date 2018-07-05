@@ -3,6 +3,8 @@ package com.huanmedia.videochat.common.widget.video;
 import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.text.style.ForegroundColorSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.applecoffee.devtools.base.adapter.BaseViewHolder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.huanmedia.ilibray.utils.DevUtils;
+import com.huanmedia.ilibray.utils.Spanny;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
@@ -37,10 +40,19 @@ import com.huanmedia.videochat.mvp.presenter.video.IShortVideoPraisePresenter;
 import com.huanmedia.videochat.mvp.presenter.video.ShortVideoPraisePresenterImpl;
 import com.huanmedia.videochat.mvp.view.video.IShortVideoPraiseView;
 import com.huanmedia.videochat.repository.entity.GiftEntity;
+import com.huanmedia.videochat.video.model.GiftLocalMode;
 import com.huanmedia.videochat.video.widget.GiftFragmentDialog;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.opensource.svgaplayer.SVGADrawable;
+import com.opensource.svgaplayer.SVGAImageView;
+import com.opensource.svgaplayer.SVGAParser;
+import com.opensource.svgaplayer.SVGAVideoEntity;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.GSYMediaPlayerListener;
+
+import org.dync.giftlibrary.GiftControl;
+import org.dync.giftlibrary.widget.CustormAnim;
+import org.dync.giftlibrary.widget.GiftModel;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -53,13 +65,17 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
     private IShortVideoPraisePresenter mShortVideoPraisePresenter;
     private VideoPtrLayout mPtrLayout;
     private int mPlayPosition;
+    private SVGAParser mParser;
+
 
     public VideoPtrAdapter(Context context, VideoPtrLayout mPtrLayout) {
         super(context, R.layout.layout_video_ptr_item);
         this.mPtrLayout = mPtrLayout;
         mPlayPosition = 0;
+        mParser = new SVGAParser(mContext);
         mShortVideoPraisePresenter = new ShortVideoPraisePresenterImpl(this);
     }
+
 
     @Override
     public void convert(BaseViewHolder baseViewHolder, ShortVideoResults shortVideoResults, int i) {
@@ -76,10 +92,18 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         ImageView ivLove = baseViewHolder.getView(R.id.iv_love);
         RoundedImageView ivUserIcon = baseViewHolder.getView(R.id.iv_user_icon);
         TextView tvLoveNum = baseViewHolder.getView(R.id.iv_love_num);
+        LinearLayout llGift = baseViewHolder.getView(R.id.ll_gift);
+        SVGAImageView ivSvga = baseViewHolder.getView(R.id.iv_gift);
 
         rlAnimLove.removeAllViews();
+        llGift.removeAllViews();
+        GiftControl mGiftControl = new GiftControl(getContext());
+        mGiftControl.setGiftLayout(llGift, 3)
+                .setHideMode(false)
+                .setCustormAnim(new CustormAnim());//这里可以自定义礼物动画
 
         int accountId = shortVideoResults.getAccount_id();
+        String accountName = shortVideoResults.getAccount_nickname();
         int accountStarCoin = shortVideoResults.getAccount_starcoin();
         int accountOnlineStatus = shortVideoResults.getAccount_onlinestatus();
         int videoId = shortVideoResults.getId();
@@ -123,9 +147,8 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
             tvDesc.setText(shortVideoResults.getDescribe());
         }
         //设置用户姓名
-        if (shortVideoResults.getAccount_nickname() != null
-                && shortVideoResults.getAccount_nickname().length() > 0) {
-            tvUserName.setText(shortVideoResults.getAccount_nickname());
+        if (accountName != null && accountName.length() > 0) {
+            tvUserName.setText(accountName);
         } else {
             tvUserName.setText("萌友视频");
         }
@@ -180,8 +203,12 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         //打赏功能
         llMoney.setOnClickListener(view -> {
             GiftDialog giftDialog = new GiftDialog(mContext);
+            giftDialog.setOnRewardGiftListener(data -> {
+                showGift(data, ivSvga, llGift, i, mGiftControl);
+            });
             giftDialog.setUid(accountId);
             giftDialog.setVideoId(videoId);
+            giftDialog.setUName(accountName);
             giftDialog.show();
         });
         //设置用户标签
@@ -429,5 +456,52 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         this.mPlayPosition = playPosition;
     }
 
+    /**
+     * 展示礼物
+     *
+     * @param entity
+     */
+    public void showGift(GiftEntity entity, SVGAImageView ivSvga, LinearLayout llGift, int position, GiftControl mGiftControl) {
+        if (position == mPlayPosition) {
+            if (entity == null || entity.get_localMode() == null) return;
+            GiftLocalMode mode = entity.get_localMode();
+            if (entity.get_localMode().getType() == GiftLocalMode.GiftType.SVGA) {
+                mParser.parse(mode.getJsonAbsolute(), new SVGAParser.ParseCompletion() {
+                    @Override
+                    public void onComplete(SVGAVideoEntity svgaVideoEntity) {
+                        SVGADrawable drawable = new SVGADrawable(svgaVideoEntity);
+                        ivSvga.setImageDrawable(drawable);
+                        ivSvga.startAnimation();
+                    }
 
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+            } else {
+                String mDescFormat = "%s \n送出 %s";
+                GiftModel giftModel = new GiftModel();//如果是1对多的直播情况向不能在此创建对象
+                String path = "file:///android_asset/" + mode.getFistImageAbsolute();
+                String desc = String.format(mDescFormat, entity.getSendUserName(), entity.getName());
+                Spanny spanny = new Spanny(desc);
+                spanny.findAndSpan(entity.getSendUserName() + " ", () ->
+                        new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.base_yellow)));
+                spanny.findAndSpan(entity.getName(), () ->
+                        new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.base_yellow)));
+                giftModel
+                        .setDescription(spanny)
+                        .setGiftId(entity.getId() + "")
+                        .setGiftName(entity.getName())
+                        .setGiftCount(entity.getPayCount())
+                        .setGiftPic(path)
+                        .setSendUserId(entity.getSendUserId())
+                        .setSendUserName(entity.getSendUserName())
+                        .setSendGiftTime(System.currentTimeMillis());
+                mGiftControl.loadGift(giftModel);
+            }
+        } else {
+
+        }
+    }
 }

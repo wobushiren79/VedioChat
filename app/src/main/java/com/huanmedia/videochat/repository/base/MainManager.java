@@ -24,6 +24,7 @@ import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
 import com.huanmedia.videochat.mvp.entity.results.GiftListInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.RewardResults;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.entity.GiftEntity;
@@ -207,5 +208,5 @@ public interface MainManager {
      * @param params
      * @param handler
      */
-    void reward(Context context, RewardRequest params, HttpResponseHandler handler);
+    void reward(Context context, RewardRequest params, HttpResponseHandler<RewardResults> handler);
 }

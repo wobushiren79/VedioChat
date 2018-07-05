@@ -115,7 +115,8 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onPageSelected(int position) {
-        mTVPage.setText((position + 1) + "/" + mListVedioData.size());
+        if (mTVPage != null)
+            mTVPage.setText((position + 1) + "/" + mListVedioData.size());
     }
 }
 

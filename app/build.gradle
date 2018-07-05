@@ -44,7 +44,7 @@ def getAppChannelId() {
     //36.历趣开发者平台
     //37.移动应用安全版权服务平台
     //38.优亿平台
-    return "38"
+    return "0"
 }
 
 android {
@@ -55,8 +55,8 @@ android {
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         applicationId 'com.huanmedia.videochat'
-        versionCode 8
-        versionName '1.3.1'
+        versionCode 9
+        versionName '1.3.2'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         testApplicationId 'com.huanmedia.videochat.test'
         manifestPlaceholders = [

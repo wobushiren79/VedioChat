@@ -44,6 +44,15 @@ EYArchitecture
     用例：
          VideoChat.submitCommonInfo("/index/luckyh5/voidpraise","{key:1,uid:2}");
 
+1.1.提交通用数据 submitCommonInfo(String url, String data,String callbackSuccessName,String callbackFailName);
+    参数：
+         data:提交参数-json类型
+         url:需要提交的接口地址
+         callbackSuccessName:成功回调方法名
+         callbackFailName:失败回调方法名
+    用例：
+         VideoChat.submitCommonInfo("/index/luckyh5/voidpraise","{key:1,uid:2}","success","fail);
+
 2.提交通用数据成功回调 submitCommonInfoSuccess(String data);
     返回值：
          data:提交成功返回数据

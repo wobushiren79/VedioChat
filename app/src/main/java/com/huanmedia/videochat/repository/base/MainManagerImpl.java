@@ -25,6 +25,7 @@ import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
 import com.huanmedia.videochat.mvp.entity.results.GiftListInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.RewardResults;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.entity.GiftEntity;
@@ -165,7 +166,7 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     }
 
     @Override
-    public void reward(Context context, RewardRequest params, HttpResponseHandler handler) {
+    public void reward(Context context, RewardRequest params, HttpResponseHandler<RewardResults> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.reward(paramsMap), handler);
     }

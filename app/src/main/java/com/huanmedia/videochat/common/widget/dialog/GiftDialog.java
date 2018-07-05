@@ -23,6 +23,7 @@ import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.widget.dialog.adapter.GiftAdpater;
 import com.huanmedia.videochat.mvp.entity.results.RewardResults;
@@ -54,9 +55,11 @@ public class GiftDialog extends Dialog implements IGiftListInfoView, IRewardView
     private IGiftListInfoPresenter mGiftListPresenter;
     private IRewardPresenter mRewardPresenter;
     private GiftAdpater mAdapter;
+    private OnRewardGiftListener mListener;
 
     private int mVideoId;
     private int mUid;
+    private String mUName;
 
 
     public GiftDialog(@NonNull Context context) {
@@ -64,6 +67,11 @@ public class GiftDialog extends Dialog implements IGiftListInfoView, IRewardView
         mGiftListPresenter = new GiftListInfoPresenterImpl(this);
         mRewardPresenter = new RewardPresenterImpl(this);
         mTitleStr = "选个礼物打赏给TA吧~";
+    }
+
+
+    public void setOnRewardGiftListener(OnRewardGiftListener mListener) {
+        this.mListener = mListener;
     }
 
     /**
@@ -84,6 +92,14 @@ public class GiftDialog extends Dialog implements IGiftListInfoView, IRewardView
         mUid = uid;
     }
 
+    /**
+     * 设置用户名称
+     *
+     * @param uName
+     */
+    public void setUName(String uName) {
+        mUName = uName;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +171,11 @@ public class GiftDialog extends Dialog implements IGiftListInfoView, IRewardView
 
     @Override
     public int getRewardCoin() {
-        return mAdapter.getSelectGift().getCoin();
+        if (mAdapter.getSelectGift() == null)
+            return 0;
+        else
+            return mAdapter.getSelectGift().getCoin() * Integer.valueOf(mDialogGiftBtnCount.getText().toString());
+
     }
 
     @Override
@@ -165,7 +185,10 @@ public class GiftDialog extends Dialog implements IGiftListInfoView, IRewardView
 
     @Override
     public int getRewardGiftId() {
-        return mAdapter.getSelectGift().getId();
+        if (mAdapter.getSelectGift() == null)
+            return 0;
+        else
+            return mAdapter.getSelectGift().getId();
     }
 
     @Override
@@ -175,7 +198,16 @@ public class GiftDialog extends Dialog implements IGiftListInfoView, IRewardView
 
     @Override
     public void rewardSuccess(RewardResults results) {
-        showToast("打赏成功");
+        if (mListener != null) {
+            GiftEntity data = mAdapter.getSelectGift();
+            data.setReceiveUserId(mUid + "");
+            data.setReceiveUserName(mUName);
+            data.setSendUserId(UserManager.getInstance().getsId());
+            data.setSendUserName(UserManager.getInstance().getCurrentUser().getUserinfo().getNickname());
+            data.setPayCount(Integer.valueOf(mDialogGiftBtnCount.getText().toString()));
+            mListener.rewardSuccess(mAdapter.getSelectGift());
+        }
+//        showToast("打赏成功");
         this.cancel();
     }
 
@@ -214,6 +246,10 @@ public class GiftDialog extends Dialog implements IGiftListInfoView, IRewardView
      * 提交礼物
      */
     private void sumbitGift() {
+        if (mAdapter.getSelectGift() == null) {
+            showToast("还没有选择礼物哟~");
+            return;
+        }
         mRewardPresenter.videoReward();
     }
 
@@ -290,5 +326,11 @@ public class GiftDialog extends Dialog implements IGiftListInfoView, IRewardView
         setCoin();
     }
 
+    /**
+     * 奖励监听
+     */
+    public interface OnRewardGiftListener {
+        void rewardSuccess(GiftEntity giftEntity);
+    }
 
 }

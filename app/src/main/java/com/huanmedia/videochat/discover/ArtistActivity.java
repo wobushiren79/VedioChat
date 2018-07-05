@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,6 +31,8 @@ import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.common.adpater.AppBarStateChangeListener;
+import com.huanmedia.videochat.common.widget.CustomAppBarLayout;
 import com.huanmedia.videochat.discover.fragment.ArtistDynamicFragment;
 import com.huanmedia.videochat.discover.fragment.ArtistPhotosFragment;
 import com.huanmedia.videochat.discover.fragment.ArtistUserInfoFragment;
@@ -59,11 +62,16 @@ import io.reactivex.disposables.Disposable;
 import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.GlideUtils;
 
-public class ArtistActivity extends BaseActivity implements IBusinessCardInfoView, OnTabSelectListener, ViewPager.OnPageChangeListener {
+public class ArtistActivity extends BaseActivity
+        implements
+        IBusinessCardInfoView,
+        OnTabSelectListener,
+        ViewPager.OnPageChangeListener,
+        CustomAppBarLayout.CallBack {
 
 
     @BindView(R.id.appbar_layout)
-    AppBarLayout mAppBarLayout;
+    CustomAppBarLayout mAppBarLayout;
     @BindView(R.id.iv_user_back)
     ImageView mIVUserBack;
     @BindView(R.id.iv_more)
@@ -82,6 +90,8 @@ public class ArtistActivity extends BaseActivity implements IBusinessCardInfoVie
     TextView mTVTeamName;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
+    @BindView(R.id.ll_bt_layout)
+    LinearLayout mLLBTLayout;
 
     private int mUserId;
     private ArrayList<CustomTabEntity> mTabs;
@@ -116,6 +126,7 @@ public class ArtistActivity extends BaseActivity implements IBusinessCardInfoVie
                 DisplayUtil.getDisplayHeight(this) + getResources().getDimensionPixelOffset(R.dimen.dimen_68dp));
         mIVUserBack.setLayoutParams(ivUserBackLayoutParams);
 
+        mAppBarLayout.setCallBack(this);
         startMoreAnim(mIVMore);
     }
 
@@ -306,5 +317,21 @@ public class ArtistActivity extends BaseActivity implements IBusinessCardInfoVie
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+
+    @Override
+    public void onExpanded(AppBarLayout appBarLayout) {
+        mLLBTLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onCollapsed(AppBarLayout appBarLayout) {
+        mLLBTLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onIdle(AppBarLayout appBarLayout) {
+        mLLBTLayout.setVisibility(View.VISIBLE);
     }
 }
