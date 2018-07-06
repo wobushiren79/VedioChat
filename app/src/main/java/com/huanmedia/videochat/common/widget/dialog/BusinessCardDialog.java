@@ -118,11 +118,12 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
                 sexDrawable = getContext().getResources().getDrawable(R.drawable.icon_focus_girl);
                 break;
         }
-        sexDrawable.setBounds(
-                0,
-                0,
-                getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_30dp),
-                getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_30dp));
+        if (sexDrawable != null)
+            sexDrawable.setBounds(
+                    0,
+                    0,
+                    getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_30dp),
+                    getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_30dp));
 
         mTVName.setCompoundDrawables(
                 null,
@@ -262,13 +263,8 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
         if (view == mIVCancel) {
             this.cancel();
         } else if (view == mIVVideo) {
-            ArrayList<String> listData = new ArrayList<>();
-            for (VideoEntity itemData : mUserInfoData.getBase().getVoides()) {
-                if (itemData.getVoideurl() != null)
-                    listData.add(itemData.getVoideurl());
-            }
             Navigator navigator = new Navigator();
-            navigator.navtoMediaPlay(DevUtils.scanForActivity(getContext()), listData, 0);
+            navigator.navtoMediaPlay(DevUtils.scanForActivity(getContext()), (ArrayList<VideoEntity>) mUserInfoData.getBase().getVoides(), 0);
         }
     }
 }

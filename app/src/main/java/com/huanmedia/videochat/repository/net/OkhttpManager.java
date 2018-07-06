@@ -2,6 +2,7 @@ package com.huanmedia.videochat.repository.net;
 
 import android.content.Context;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 
 import com.huanmedia.ilibray.BuildConfig;
 import com.huanmedia.ilibray.utils.Installation;
@@ -269,9 +270,8 @@ public class OkhttpManager {
      */
     private OkHttpClient noCertificateClient(String pub_key) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
-        builder.readTimeout(10, TimeUnit.SECONDS);
-        builder.connectTimeout(9, TimeUnit.SECONDS);
-
+        builder.readTimeout(30, TimeUnit.SECONDS);
+        builder.connectTimeout(30, TimeUnit.SECONDS);
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -289,6 +289,8 @@ public class OkhttpManager {
         }
         return null;
     }
+
+
 
 
     private Object[] getSSLSocketFactory(String pub_key) throws Exception {

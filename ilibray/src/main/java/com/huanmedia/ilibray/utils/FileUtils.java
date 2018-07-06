@@ -46,10 +46,13 @@ public class FileUtils {
 
     /**
      * 保存bitmap到sd目录下
+     *
      * @param bitmap
      * @return
      */
     public static File saveBitMapToSDCard(Bitmap bitmap) {
+        if (bitmap == null)
+            return null;
         File file = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
         FileOutputStream out = null;
         try {

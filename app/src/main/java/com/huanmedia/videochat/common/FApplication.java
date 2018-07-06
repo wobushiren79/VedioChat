@@ -24,6 +24,9 @@ import com.huanmedia.videochat.common.service.update.OkhttpCheckWorker;
 import com.huanmedia.videochat.common.utils.CrashHandler;
 import com.huanmedia.videochat.common.utils.LocationHandler;
 import com.huanmedia.videochat.repository.net.HostManager;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.model.VideoOptionModel;
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
@@ -35,11 +38,13 @@ import org.litepal.LitePal;
 import org.lzh.framework.updatepluginlib.UpdateConfig;
 import org.lzh.framework.updatepluginlib.model.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
  * Created by ericYang on 2017/5/18.
@@ -84,8 +89,64 @@ public class FApplication extends Application {
         initUMeng();
         initMap();
         initBugly();
-
+        initVideo();
 //        Takt.stock(this).seat(Seat.TOP_RIGHT).color(Color.WHITE).play();
+    }
+
+    /**
+     * 初始化视频
+     */
+    private void initVideo() {
+        VideoOptionModel videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "rtsp_transport", "tcp");
+        List<VideoOptionModel> list = new ArrayList<>();
+        list.add(videoOptionModel);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "rtsp_flags", "prefer_tcp");
+        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "allowed_media_types", "video"); //根据媒体类型来配置
+//        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 10000);
+//        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "buffer_size", 0);
+//        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "infbuf", 1);  // 无限读
+//        list.add(videoOptionModel);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 100);
+        list.add(videoOptionModel);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 1024);
+        list.add(videoOptionModel);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "flush_packets", 1);
+        list.add(videoOptionModel);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "http-detect-range-support", 1);
+        list.add(videoOptionModel);
+
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 48);
+        list.add(videoOptionModel);
+
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "analyzeduration", 1);
+        list.add(videoOptionModel);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
+        list.add(videoOptionModel);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0);
+        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 100);
+//        list.add(videoOptionModel);
+
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
+//        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-auto-rotate", 1);
+//        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-handle-resolution-change", 1);
+//        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-hevc", 1);
+//        list.add(videoOptionModel);
+//        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "max-buffer-size", 100*1024);
+////        list.add(videoOptionModel);
+        videoOptionModel = new VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "min-frames", 100);
+        list.add(videoOptionModel);
+
+
+        GSYVideoManager.instance().setOptionModelList(list);
+//        GSYVideoManager.instance().setVideoType(this, GSYVideoType.IJKEXOPLAYER2);
     }
 
     /**

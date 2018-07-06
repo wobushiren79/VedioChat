@@ -3,6 +3,7 @@ package com.huanmedia.videochat.common.utils;
 import android.content.Context;
 
 import com.huanmedia.ilibray.utils.TimeUtils;
+import com.huanmedia.videochat.BuildConfig;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -82,6 +83,21 @@ public class UMengUtils {
         }
     }
 
+
+    /**
+     * 短视频播放
+     */
+    public static void ShortVideoPlay(Context context, int videoId) {
+        try {
+            String eventID = "video_play";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("video_id", videoId + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 友盟自定义事件
      *
@@ -91,6 +107,9 @@ public class UMengUtils {
      * @param du
      */
     public static void baseSendMsg(Context context, String eventID, Map<String, String> dataMap, int du) {
+        if (BuildConfig.DEBUG) {
+            return;
+        }
         MobclickAgent.onEventValue(context, eventID, dataMap, du);
     }
 

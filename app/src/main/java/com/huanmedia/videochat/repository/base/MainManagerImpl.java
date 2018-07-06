@@ -10,6 +10,8 @@ import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
+import com.huanmedia.videochat.mvp.entity.request.ShortVideoListRequest;
+import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
@@ -20,6 +22,7 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
+import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
@@ -125,5 +128,17 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void confirmAppointment(Context context, AppointmentRequest params, HttpResponseHandler handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.appointmentConfirm(paramsMap), handler, true);
+    }
+
+    @Override
+    public void shortVideoList(Context context, ShortVideoListRequest params, HttpResponseHandler<ShortVideoListResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.shortVideoList(paramsMap), handler);
+    }
+
+    @Override
+    public void shortVideoPraise(Context context, ShortVideoPraiseRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.shortVideoPraise(paramsMap), handler);
     }
 }

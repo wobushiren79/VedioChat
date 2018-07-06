@@ -224,12 +224,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
             videoRv.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    ArrayList<String> listUrl = new ArrayList<>();
-                    for (VideoEntity itemData : mHeaderVideoAdapter.getData()) {
-                        listUrl.add(itemData.getVoideurl());
-                    }
-                    mHeaderVideoAdapter.getData();
-                    ((BaseActivity) context).getNavigator().navtoMediaPlay((Activity) context, listUrl, position);
+                    ((BaseActivity) context).getNavigator().navtoMediaPlay((Activity) context, (ArrayList<VideoEntity>) mHeaderVideoAdapter.getData(), position);
                 }
             });
             videoRv.setAdapter(mHeaderVideoAdapter);

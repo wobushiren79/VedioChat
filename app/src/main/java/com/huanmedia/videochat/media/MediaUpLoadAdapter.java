@@ -159,21 +159,15 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
             @Override
             public void onClick(View v) {
                 if (videoEntity.getUploadStatus() == -1) {
-                    if (mDatas.size() > 6) {
-                        showToast("最多只能上传6个视频");
-                        return;
-                    }
+//                    if (mDatas.size() > 6) {
+//                        showToast("最多只能上传6个视频");
+//                        return;
+//                    }
                     openAlbum();
                 } else if (videoEntity.getUploadStatus() == 0) {
                     if (mItemType == 1) {
                         Navigator navigator = new Navigator();
-                        List<String> listData = new ArrayList<>();
-                        for (VideoEntity item : mDatas) {
-                            if (item.getVoideurl() == null)
-                                continue;
-                            listData.add(item.getVoideurl());
-                        }
-                        navigator.navtoMediaPlay((Activity) mContext, (ArrayList<String>) listData, i);
+                        navigator.navtoMediaPlay((Activity) mContext, (ArrayList<VideoEntity>) mDatas, i);
                     } else {
                         if (rbSelect.isChecked()) {
                             videoEntity.setIsSelect(0);
@@ -266,8 +260,8 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
         ((Activity) getContext()).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                List<String> images = new ArrayList<>();
-                images.add(mUpLoadVideoInfo.getImagePath());
+//                List<String> images = new ArrayList<>();
+//                images.add(mUpLoadVideoInfo.getImagePath());
                 mUserVideoDataPresenter.uploadUserVideoInfo();
             }
         });

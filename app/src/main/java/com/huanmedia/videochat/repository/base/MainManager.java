@@ -10,6 +10,8 @@ import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
+import com.huanmedia.videochat.mvp.entity.request.ShortVideoListRequest;
+import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
@@ -20,6 +22,7 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
+import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 
 import java.util.List;
@@ -157,4 +160,24 @@ public interface MainManager {
      * @param handler
      */
     void confirmAppointment(Context context, AppointmentRequest params, HttpResponseHandler handler);
+
+
+    /**
+     * 短视频列表
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void shortVideoList(Context context, ShortVideoListRequest params, HttpResponseHandler<ShortVideoListResults> handler);
+
+    /**
+     * 短视频列表
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void shortVideoPraise(Context context, ShortVideoPraiseRequest params, HttpResponseHandler handler);
+
 }

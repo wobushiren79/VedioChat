@@ -211,6 +211,13 @@ public class ShufflingViewPager extends BaseLinearLayout implements IAdsShufflin
                 //充值页
                 navigator.navtoCoinPay((Activity) getContext(), null);
                 break;
+            case "FeedBackPage":
+                //意见反馈
+                navigator.navtoFeedBack((Activity) getContext());
+            case "ReadManCertificate":
+                //红人认证
+                navigator.navtoReadMainCertificate((Activity) getContext());
+                break;
         }
     }
 

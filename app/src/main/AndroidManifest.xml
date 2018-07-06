@@ -90,6 +90,21 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
+            <intent-filter>
+                <!-- 协议部分配置 ,要在web配置相同的-->
+                <data
+                    android:host="start"
+                    android:scheme="videochat"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+
+
         </activity>
         <activity
             android:name=".test.TestActivity"

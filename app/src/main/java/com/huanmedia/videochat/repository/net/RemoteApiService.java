@@ -14,6 +14,7 @@ import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
+import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
@@ -386,6 +387,16 @@ public interface RemoteApiService {
     @FormUrlEncoded
     Observable<DataResponse<Object>> appointmentConfirm(@FieldMap Map<String, Object> params);
 
+    //短视频列表获取
+    @POST("/index/userextv2/indexvoidlist")
+    @FormUrlEncoded
+    Observable<DataResponse<ShortVideoListResults>> shortVideoList(@FieldMap Map<String, Object> params);
+
+    //短视频点赞
+    @POST("/index/userextv2/indexvoidpraise")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> shortVideoPraise(@FieldMap Map<String, Object> params);
+
 
     @Multipart
     @POST
@@ -402,7 +413,6 @@ public interface RemoteApiService {
             @QueryMap Map<String, String> parms,
             @PartMap() Map<String, RequestBody> partMap
     );
-
 
 
     /**

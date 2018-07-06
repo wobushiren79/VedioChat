@@ -106,7 +106,8 @@ public class WebSocketManager {
                     mHandler.post(() -> aroundError(ex));
                 }
             });
-            mWSocketClent.connect();
+            if (mWSocketClent != null)
+                mWSocketClent.connect();
         }
     }
 
@@ -136,7 +137,8 @@ public class WebSocketManager {
         Map<String, Object> map = new HashMap<>();
         map.put("uid", UserManager.getInstance().getId() + "");
         map.put("deviceid", Installation.id(FApplication.getApplication()));
-        map.put("token", UserManager.getInstance().getCurrentUser().getToken());
+        if (UserManager.getInstance().getCurrentUser().getToken() != null)
+            map.put("token", UserManager.getInstance().getCurrentUser().getToken());
         map.put("sysmsgmaxid", UserManager.getInstance().getSystemMsgMaxid());
         message.setBody(map);
         sendMessage(message);

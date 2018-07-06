@@ -116,7 +116,8 @@ public class FileHandlerPresenterImpl extends BaseMVPPresenter<IFileHandlerView,
                     bitmap = getVideoThumb(videoPath);
                 }
                 File file = FileUtils.saveBitMapToSDCard(bitmap);
-                videoInfoRequest.setImagePath(file.getPath());
+                if (file != null)
+                    videoInfoRequest.setImagePath(file.getPath());
                 videoInfoRequest.setBitmap(bitmap);
             }
             cursor.close();

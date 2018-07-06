@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/item_discover_grids" />
+        tools:listitem="@layout/item_discover_grids">
+    </android.support.v7.widget.RecyclerView>
 
 
 </com.liaoinstan.springview.widget.SpringView>

@@ -2,12 +2,14 @@ package com.huanmedia.videochat.main2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -16,6 +18,7 @@ import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.barlibrary.ImmersionBar;
+import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
@@ -35,6 +38,7 @@ import com.huanmedia.videochat.common.widget.AppointmentHintView;
 import com.huanmedia.videochat.common.widget.NoviceGuidanceView;
 import com.huanmedia.videochat.common.widget.dialog.MainHintDialog;
 import com.huanmedia.videochat.main2.datamodel.TabMode;
+import com.huanmedia.videochat.main2.fragment.VideoListFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.adapter.MainPageFragmentAdapter;
 import com.huanmedia.videochat.main2.fragment.FriendFragment;
@@ -182,9 +186,9 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                 if (action.getAction().equals(EventBusAction.ACTION_SYSTEM_MESSAGE)) {
                     msgCount = action.getIntExtra("msgCount", 0);
                     if (msgCount == 0) {
-                        mMainCommonTablayout.hideMsg(2);
+                        mMainCommonTablayout.hideMsg(3);
                     } else {
-                        mMainCommonTablayout.showDot(2);
+                        mMainCommonTablayout.showDot(3);
                     }
                 }
                 break;
@@ -227,13 +231,18 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         checkNewVersion();
         mTabs = new ArrayList<>();
         mTabs.add(new TabMode("约聊", R.drawable.tab_home_found_sel, R.drawable.tab_home_found_nor));
+        mTabs.add(new TabMode("视频", R.drawable.tab_home_video_sel, R.drawable.tab_home_video_nor));
         mTabs.add(new TabMode("萌友", R.drawable.tab_home_friend_sel, R.drawable.tab_home_friend_nor));
         mTabs.add(new TabMode("我", R.drawable.tab_home_my_sel, R.drawable.tab_home_my_nor));
 
-        mFragments = new Fragment[]{HomeFragment.newInstance(), FriendFragment.newInstance(), MyFragment.newInstance()};
+        mFragments = new Fragment[]{
+                HomeFragment.newInstance(),
+                VideoListFragment.newInstance(),
+                FriendFragment.newInstance(),
+                MyFragment.newInstance()};
         mAdapter = new MainPageFragmentAdapter(getSupportFragmentManager(), mFragments);
         mMainVpPage.setAdapter(mAdapter);
-        mMainVpPage.setOffscreenPageLimit(3);
+        mMainVpPage.setOffscreenPageLimit(4);
         mMainVpPage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -242,15 +251,35 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
             @Override
             public void onPageSelected(int position) {
+                RelativeLayout.LayoutParams layoutParams;
+                if (position == 1) {
+                    layoutParams = new RelativeLayout.LayoutParams
+                            (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    mMainCommonTablayout.setBackgroundResource(R.color.black_transparent_50);
+                    mMainCommonTablayout.setTextUnselectColor(Color.parseColor("#b4b4b4"));
+                    mMainCommonTablayout.setTextSelectColor(Color.parseColor("#ffffff"));
+                } else {
+                    layoutParams = new RelativeLayout.LayoutParams
+                            (ViewGroup.LayoutParams.MATCH_PARENT,
+                                    DisplayUtil.getDisplayHeight(MainActivity.this)
+                                            - getResources().getDimensionPixelOffset(R.dimen.dimen_104dp));
+                    mMainCommonTablayout.setBackgroundResource(R.color.white);
+                    mMainCommonTablayout.setTextUnselectColor(Color.parseColor("#D1D6E3"));
+                    mMainCommonTablayout.setTextSelectColor(Color.parseColor("#2c2c32"));
+                }
+                mMainVpPage.setLayoutParams(layoutParams);
                 mMainCommonTablayout.setCurrentTab(position);
                 switch (position) {
                     case 0:
                         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
                         break;
                     case 1:
-                        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FRIEND);
+                        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.VIDEO);
                         break;
                     case 2:
+                        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FRIEND);
+                        break;
+                    case 3:
                         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.MY);
                         break;
                 }
@@ -270,6 +299,9 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
             @Override
             public void onTabReselect(int position) {
+                if (mFragments[position] instanceof VideoListFragment) {
+                    ((VideoListFragment) mFragments[position]).refreshData();
+                }
             }
         });
 
@@ -281,6 +313,13 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
             rxGetCOmmonTablayoutHight.dispose();
             throwable.printStackTrace();
         });
+
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams
+                (ViewGroup.LayoutParams.MATCH_PARENT,
+                        DisplayUtil.getDisplayHeight(MainActivity.this)
+                                - getResources().getDimensionPixelOffset(R.dimen.dimen_104dp));
+        mMainVpPage.setLayoutParams(layoutParams);
     }
 
     /**
@@ -339,7 +378,20 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
             lp.height = (int) (getResources().getDimensionPixelOffset(R.dimen.dimen_104dp) * (offset));
             mMainCommonTablayout.setLayoutParams(lp);
         }
-
+        RelativeLayout.LayoutParams layoutParams;
+        if (offset == 0) {
+            layoutParams = new RelativeLayout.LayoutParams
+                    (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        } else if (offset == 1) {
+            layoutParams = new RelativeLayout.LayoutParams
+                    (ViewGroup.LayoutParams.MATCH_PARENT,
+                            DisplayUtil.getDisplayHeight(MainActivity.this)
+                                    - getResources().getDimensionPixelOffset(R.dimen.dimen_104dp));
+        } else {
+            layoutParams = new RelativeLayout.LayoutParams
+                    (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        }
+        mMainVpPage.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -411,5 +463,14 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     @Override
     public void showAppointmentHint(int coundDownTime, int fromId, int toId) {
         mHintView.startCountDown(coundDownTime, fromId, toId);
+    }
+
+    /**
+     * 获取当前fragment
+     *
+     * @return
+     */
+    public Fragment getCurrentFragment() {
+        return mFragments[mMainVpPage.getCurrentItem()];
     }
 }
