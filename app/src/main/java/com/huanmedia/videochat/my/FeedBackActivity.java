@@ -124,7 +124,7 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
         });
 
             maxChoose=5;
-            mOpinionPublishEt.setHint("请描述具体的违规行为并尽量附上图片证明(最多300个字符)");
+            mOpinionPublishEt.setHint("请描述具体的建议意见或违规行为……(最多300个字符)");
     }
 
     private void setSubmitEnable() {

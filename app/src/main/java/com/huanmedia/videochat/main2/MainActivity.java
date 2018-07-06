@@ -103,7 +103,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
 
 //        getNavigator().navtoArtist(this,1);
     }
