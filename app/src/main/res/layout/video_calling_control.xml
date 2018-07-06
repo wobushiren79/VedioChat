@@ -15,9 +15,8 @@
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/dimen_16dp"
         android:layout_marginRight="@dimen/dimen_16dp"
-        android:layout_marginStart="@dimen/dimen_44dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
         android:src="@drawable/btn_skincare" />
 
     <CheckBox
@@ -26,18 +25,17 @@
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_above="@+id/video_call_fl_close"
-        android:layout_alignEnd="@+id/video_call_fl_close"
+        android:layout_alignRight="@+id/video_call_fl_close"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dimen_120dp"
-        android:layout_marginEnd="-8dp" />
+        android:layout_marginRight="-8dp" />
 
     <FrameLayout
         android:id="@+id/video_call_fl_close"
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dimen_44dp"
         android:background="@drawable/bg_round">
 
@@ -54,10 +52,10 @@
     <!--android:layout_width="@dimen/dimen_140dp"-->
     <!--android:layout_height="@dimen/dimen_140dp"-->
     <!--android:layout_centerInParent="true"-->
-    <!--android:layout_marginEnd="@dimen/dimen_60dp"-->
+    <!--android:layout_marginRight="@dimen/dimen_60dp"-->
     <!--android:layout_marginLeft="@dimen/dimen_60dp"-->
     <!--android:layout_marginRight="@dimen/dimen_60dp"-->
-    <!--android:layout_marginStart="@dimen/dimen_60dp"-->
+    <!--android:layout_marginLeft="@dimen/dimen_60dp"-->
     <!--android:src="@drawable/videocall_endcall_btn"-->
     <!--/>-->
 
@@ -66,9 +64,7 @@
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/dimen_16dp"
         android:layout_marginRight="@dimen/dimen_16dp"
-        android:layout_toEndOf="@+id/video_call_iv_beauty"
         android:layout_toRightOf="@+id/video_call_iv_beauty"
         android:src="@drawable/video_calling_match_control_mask_selecter" />
     <!--android:src="@drawable/video_calling_match_control_wo_selecter"-->
@@ -78,9 +74,7 @@
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/dimen_16dp"
         android:layout_marginRight="@dimen/dimen_16dp"
-        android:layout_toEndOf="@+id/video_call_iv_mask"
         android:layout_toRightOf="@+id/video_call_iv_mask"
         android:src="@drawable/btn_gift" />
 
@@ -89,7 +83,6 @@
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/video_call_iv_gift"
         android:layout_toRightOf="@+id/video_call_iv_gift"
         android:src="@drawable/video_calling_match_control_jiemian_selecter" />
 

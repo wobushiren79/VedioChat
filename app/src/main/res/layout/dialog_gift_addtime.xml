@@ -60,7 +60,6 @@
         <TextView
             android:id="@+id/dialog_gift_tv_pay"
             android:layout_toRightOf="@+id/dialog_gift_tv_coin"
-            android:layout_toEndOf="@+id/dialog_gift_tv_coin"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dimen_48dp"
             android:textSize="@dimen/dimen_32dp"
@@ -78,13 +77,12 @@
             android:background="@drawable/dialog_gift_btn_stroke_yellow_line_selecter"
             android:textColor="@color/base_black"
             android:text="1"
-            android:drawableEnd="@drawable/nav_gift_dialog_count_select"
-            android:layout_marginEnd="-1dp"
+            android:drawableRight="@drawable/nav_gift_dialog_count_select"
+            android:layout_marginRight="-1dp"
             android:layout_width="@dimen/dimen_152dp"
             android:layout_height="@dimen/dimen_72dp"/>
         <Button
             android:id="@+id/dialog_gift_btn_ok"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/dialog_gift_submit_style"

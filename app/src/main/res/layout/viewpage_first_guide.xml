@@ -32,8 +32,8 @@
     <!--android:layout_width="match_parent"-->
     <!--android:gravity="center_vertical"-->
     <!--android:layout_marginLeft="@dimen/space_30"-->
-    <!--android:layout_marginStart="@dimen/space_30"-->
-    <!--android:layout_marginEnd="@dimen/space_30"-->
+    <!--android:layout_marginLeft="@dimen/space_30"-->
+    <!--android:layout_marginRight="@dimen/space_30"-->
     <!--android:layout_marginRight="@dimen/space_30"-->
     <!--android:layout_height="48dp">-->
     <!--<View-->
@@ -44,8 +44,8 @@
     <!--<TextView-->
     <!--android:id="@+id/page_first_guide_tv_hint"-->
     <!--android:layout_marginLeft="@dimen/space_8"-->
-    <!--android:layout_marginStart="@dimen/space_8"-->
-    <!--android:layout_marginEnd="@dimen/space_8"-->
+    <!--android:layout_marginLeft="@dimen/space_8"-->
+    <!--android:layout_marginRight="@dimen/space_8"-->
     <!--android:layout_marginRight="@dimen/space_8"-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
@@ -88,9 +88,9 @@
     <!--android:layout_centerHorizontal="true"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="@dimen/dimen_96dp"-->
-    <!--android:layout_marginStart="@dimen/dimen_44dp"-->
+    <!--android:layout_marginLeft="@dimen/dimen_44dp"-->
     <!--android:layout_marginBottom="@dimen/dimen_124dp"-->
-    <!--android:layout_marginEnd="@dimen/dimen_44dp"-->
+    <!--android:layout_marginRight="@dimen/dimen_44dp"-->
     <!--android:background="@drawable/guide_btn_solid"-->
     <!--/>-->
     <TextView

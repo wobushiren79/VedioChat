@@ -58,7 +58,7 @@
         android:id="@+id/wheel_btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dimen_96dp"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:background="@color/white"
         android:gravity="center"
         android:paddingLeft="@dimen/dimen_44dp"

@@ -39,8 +39,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dimen_44dp"
-        android:layout_marginStart="@dimen/dimen_44dp">
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginLeft="@dimen/dimen_44dp">
 
         <RadioButton
             android:id="@+id/dialog_condition_rb_filter"
@@ -89,7 +89,6 @@
             android:layout_height="@dimen/dimen_56dp"
             android:layout_alignTop="@+id/dialog_condition_tv_sex"
             android:layout_marginLeft="@dimen/dimen_64dp"
-            android:layout_toEndOf="@+id/dialog_condition_tv_sex"
             android:layout_toRightOf="@+id/dialog_condition_tv_sex"
             android:orientation="horizontal"
             android:weightSum="3">
@@ -150,7 +149,6 @@
             android:layout_alignTop="@+id/dialog_condition_tv_age"
             android:layout_marginBottom="@dimen/dimen_72dp"
             android:layout_marginLeft="@dimen/dimen_64dp"
-            android:layout_toEndOf="@+id/dialog_condition_tv_age"
             android:layout_toRightOf="@+id/dialog_condition_tv_age"
             app:bsb_auto_adjust_section_mark="true"
             app:bsb_bubble_color="@color/color_f64d99"
@@ -176,7 +174,7 @@
         <!--android:layout_marginBottom="@dimen/dimen_32dp"-->
         <!--android:layout_marginTop="@dimen/dimen_20dp"-->
         <!--android:layout_toRightOf="@+id/dialog_condition_tv_age"-->
-        <!--android:layout_toEndOf="@+id/dialog_condition_tv_age"-->
+        <!--android:layout_toRightOf="@+id/dialog_condition_tv_age"-->
         <!--android:layout_alignTop="@+id/dialog_condition_tv_age"-->
         <!--android:id="@+id/dialog_condition_seebar"-->
         <!--android:layout_width="match_parent"-->
@@ -203,8 +201,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_104dp"
         android:layout_marginBottom="@dimen/dimen_44dp"
-        android:layout_marginEnd="@dimen/dimen_44dp"
-        android:layout_marginStart="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
         android:layout_marginTop="@dimen/dimen_46dp"
         android:background="@drawable/base_btn_solid"
         android:text="匹配"

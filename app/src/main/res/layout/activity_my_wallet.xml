@@ -64,8 +64,8 @@
         <!--android:id="@+id/my_wallet_v_line1"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="0.5dp"-->
-        <!--android:layout_marginEnd="@dimen/dimen_44dp"-->
-        <!--android:layout_marginStart="@dimen/dimen_44dp"-->
+        <!--android:layout_marginRight="@dimen/dimen_44dp"-->
+        <!--android:layout_marginLeft="@dimen/dimen_44dp"-->
         <!--android:background="@drawable/divider_ll"-->
         <!--app:layout_constraintEnd_toEndOf="parent"-->
         <!--app:layout_constraintStart_toStartOf="parent"-->

@@ -12,8 +12,8 @@
         android:id="@+id/video_call_rl_userinfo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_344dp"
-        android:layout_marginEnd="@dimen/dimen_20dp"
-        android:layout_marginStart="@dimen/dimen_20dp"
+        android:layout_marginRight="@dimen/dimen_20dp"
+        android:layout_marginLeft="@dimen/dimen_20dp"
         android:layout_marginTop="@dimen/dimen_24dp"
         android:visibility="gone">
 
@@ -21,7 +21,6 @@
             android:id="@+id/video_call_iv_header"
             android:layout_width="@dimen/dimen_104dp"
             android:layout_height="@dimen/dimen_104dp"
-            android:layout_marginEnd="@dimen/dimen_20dp"
             android:layout_marginRight="@dimen/dimen_20dp"
             android:scaleType="centerCrop"
             app:riv_oval="true" />
@@ -30,12 +29,11 @@
             android:id="@+id/video_call_tv_nickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/video_call_iv_header"
             android:layout_toRightOf="@+id/video_call_iv_header"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_36dp"
             android:textStyle="bold"
-            tools:drawableEnd="@drawable/bg_icon_woman_1"
+            tools:drawableRight="@drawable/bg_icon_woman_1"
             tools:text="分红小仙女" />
 
         <TextView
@@ -44,10 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/video_call_tv_nickName"
             android:layout_marginTop="@dimen/dimen_16dp"
-            android:layout_toEndOf="@+id/video_call_iv_header"
             android:layout_toRightOf="@+id/video_call_iv_header"
             android:drawablePadding="@dimen/dimen_8dp"
-            android:drawableStart="@drawable/icon_coordinate"
+            android:drawableLeft="@drawable/icon_coordinate"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_28dp"
             tools:text="26km" />

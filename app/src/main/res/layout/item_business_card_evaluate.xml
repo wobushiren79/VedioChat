@@ -25,7 +25,7 @@
         android:minHeight="@dimen/dimen_76dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_12dp"
+        android:layout_marginLeft="@dimen/dimen_12dp"
         android:textSize="@dimen/dimen_28dp"
         android:lineSpacingMultiplier="1.2"
         tools:text="大帅哥:小伙子很会了聊天"

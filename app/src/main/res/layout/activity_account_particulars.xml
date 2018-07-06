@@ -25,7 +25,7 @@
             android:id="@+id/account_particulars_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableEnd="@drawable/nav_btn_pulldown"
+            android:drawableRight="@drawable/nav_btn_pulldown"
             android:drawablePadding="@dimen/dimen_8dp"
             android:gravity="center_vertical"
             android:textColor="@color/white"

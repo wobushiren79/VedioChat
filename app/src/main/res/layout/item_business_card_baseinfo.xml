@@ -36,7 +36,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/business_card_rv_photos"
-            tools:drawableStart="@drawable/icon_hot"
+            tools:drawableLeft="@drawable/icon_hot"
             tools:text="分红女郎" />
 
         <TextView
@@ -73,8 +73,8 @@
                 android:layout_width="@dimen/dimen_1dp"
                 android:layout_height="@dimen/dimen_24dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/dimen_8dp"
-                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:layout_marginLeft="@dimen/dimen_8dp"
                 android:background="@drawable/divider_ll" />
 
             <TextView
@@ -82,15 +82,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimen_24dp"
-                tools:drawableEnd="@drawable/bg_icon_woman_1"
+                tools:drawableRight="@drawable/bg_icon_woman_1"
                 tools:text="22 岁" />
 
             <View
                 android:layout_width="@dimen/dimen_1dp"
                 android:layout_height="@dimen/dimen_24dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/dimen_8dp"
-                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:layout_marginLeft="@dimen/dimen_8dp"
                 android:background="@drawable/divider_ll" />
 
             <TextView
@@ -105,8 +105,8 @@
                 android:layout_width="@dimen/dimen_1dp"
                 android:layout_height="@dimen/dimen_24dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/dimen_8dp"
-                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:layout_marginLeft="@dimen/dimen_8dp"
                 android:background="@drawable/divider_ll" />
 
             <TextView
@@ -133,8 +133,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/business_card_tv_nickName" />
         <!--<Button-->
-        <!--android:layout_marginStart="@dimen/dimen_44dp"-->
-        <!--android:layout_marginEnd="@dimen/dimen_44dp"-->
+        <!--android:layout_marginLeft="@dimen/dimen_44dp"-->
+        <!--android:layout_marginRight="@dimen/dimen_44dp"-->
         <!--android:paddingStart="@dimen/dimen_44dp"-->
         <!--android:paddingEnd="@dimen/dimen_44dp"-->
         <!--android:id="@+id/business_card_btn_calling"-->

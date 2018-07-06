@@ -20,22 +20,22 @@
         tools:text="提现到支付宝"/>
 
     <TextView
-        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
         android:id="@+id/item_accountparticulars_tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/dimen_24dp"
         android:textColor="@color/base_gray"
         android:textSize="@dimen/dimen_28dp"
         tools:text="2017-08-01"/>
 
     <TextView
-        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
         android:id="@+id/item_accountparticulars_tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/item_accountparticulars_tv_time"
         android:layout_marginBottom="8dp"
         android:textColor="@color/base_black"

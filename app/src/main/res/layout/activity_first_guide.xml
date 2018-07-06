@@ -25,7 +25,6 @@
             android:id="@+id/first_guide_dot0"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/first_gudie_dot_level" />
 
@@ -33,7 +32,6 @@
             android:id="@+id/first_guide_dot1"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/first_gudie_dot_level" />
 
@@ -41,7 +39,6 @@
             android:id="@+id/first_guide_dot2"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/first_gudie_dot_level" />
 

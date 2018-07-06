@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="@dimen/dimen_162dp"
-    android:layout_marginStart="@dimen/dimen_162dp"
     >
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +23,7 @@
                 android:id="@+id/drawer_laout_iv_header"
                 android:layout_width="@dimen/dimen_136dp"
                 android:layout_height="@dimen/dimen_136dp"
-                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginLeft="@dimen/dimen_44dp"
                 android:layout_marginTop="@dimen/dimen_104dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +36,7 @@
                 android:id="@+id/main_drawer_tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_44dp"
+                android:layout_marginLeft="@dimen/dimen_44dp"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/dimen_36dp"
@@ -46,7 +45,7 @@
                 tools:text="粉红的小仙女"/>
 
             <TextView
-                android:drawableStart="@drawable/tab_icon_wjewel"
+                android:drawableLeft="@drawable/tab_icon_wjewel"
                 android:background="@drawable/base_bg_round_solid"
                 android:textColor="@color/white"
                 android:gravity="center"
@@ -65,7 +64,7 @@
                 android:id="@+id/main_drawer_tv_recharge"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dimen_40dp"
-                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginLeft="@dimen/dimen_16dp"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:text="充值"
                 android:textColor="@color/base_blue"
@@ -78,9 +77,9 @@
                 android:id="@+id/main_drawer_tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dimen_48dp"
+                android:layout_marginRight="@dimen/dimen_48dp"
                 android:layout_marginTop="@dimen/dimen_32dp"
-                android:drawableEnd="@drawable/btn_inform"
+                android:drawableRight="@drawable/btn_inform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -113,7 +112,7 @@
                         android:id="@+id/main_drawer_chat_people"
                         android:layout_width="@dimen/dimen_208dp"
                         android:layout_height="@dimen/dimen_56dp"
-                        android:layout_marginEnd="@dimen/dimen_60dp"
+                        android:layout_marginRight="@dimen/dimen_60dp"
                         android:background="@drawable/main_drawer_stroke_gray_none_selecter"
                         android:button="@null"
                         android:checked="true"
@@ -169,7 +168,7 @@
                         android:layout_width="@dimen/dimen_48dp"
                         android:layout_height="@dimen/dimen_48dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:layout_marginRight="@dimen/dimen_44dp"
                         android:layout_marginTop="@dimen/dimen_44dp"
                         android:src="@drawable/icon_hongren"/>
 
@@ -178,21 +177,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/main_drawer_iv_readman"
-                        android:layout_toEndOf="@+id/main_drawer_iv_readman"
+                        android:layout_toRightOf="@+id/main_drawer_iv_readman"
                         android:text="赚钱红人"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/dimen_36dp"/>
 
                     <com.kyleduo.switchbutton.SwitchButton
                         android:layout_marginTop="@dimen/dimen_24dp"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:id="@+id/main_drawer_sb_rm"
                         style="@style/SwitchButtonStyleMD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
                     <RelativeLayout
-                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:layout_marginRight="@dimen/dimen_44dp"
                         android:paddingStart="@dimen/dimen_8dp"
                         android:paddingEnd="@dimen/dimen_8dp"
                         android:gravity="center_vertical"
@@ -202,7 +201,7 @@
                         android:layout_height="@dimen/dimen_56dp"
                         android:layout_below="@+id/main_drawer_iv_readman"
                         android:layout_marginTop="@dimen/dimen_20dp"
-                        android:layout_toEndOf="@+id/main_drawer_iv_readman">
+                        android:layout_toRightOf="@+id/main_drawer_iv_readman">
 
                         <TextView
                             android:id="@+id/main_drawer_tv_rm_charge"
@@ -216,18 +215,18 @@
                             android:id="@+id/main_drawer_tv_readmain_modify"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
                             android:textColor="@color/drawer_main_btn_textcolor_blue_selecter"
                             android:textSize="@dimen/dimen_32dp"
                             android:text="修改"/>
                     </RelativeLayout>
 
                     <View
-                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:layout_marginRight="@dimen/dimen_44dp"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignStart="@+id/main_drawer_rl_readman_modify"
+                        android:layout_alignLeft="@+id/main_drawer_rl_readman_modify"
                         android:background="@drawable/divider_ll"/>
                 </RelativeLayout>
 
@@ -246,7 +245,7 @@
                         android:layout_width="@dimen/dimen_48dp"
                         android:layout_height="@dimen/dimen_48dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:layout_marginRight="@dimen/dimen_44dp"
                         android:layout_marginTop="@dimen/dimen_44dp"
                         android:src="@drawable/icon_zhanghu"/>
 
@@ -255,7 +254,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/main_drawer_iv_myAccount"
-                        android:layout_toEndOf="@+id/main_drawer_iv_myAccount"
+                        android:layout_toRightOf="@+id/main_drawer_iv_myAccount"
                         android:text="我的账户"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/dimen_36dp"/>
@@ -264,7 +263,7 @@
                         android:id="@+id/main_drawer_tv_myMoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/main_drawer_tv_lable_myAccount"
                         android:textColor="@color/base_gray"
                         android:textSize="@dimen/dimen_32dp"
@@ -274,7 +273,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignStart="@+id/main_drawer_tv_lable_myAccount"
+                        android:layout_alignLeft="@+id/main_drawer_tv_lable_myAccount"
                         android:background="@drawable/divider_ll"/>
                 </RelativeLayout>
                 <!--设置-->
@@ -291,7 +290,7 @@
                         android:layout_width="@dimen/dimen_48dp"
                         android:layout_height="@dimen/dimen_48dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/dimen_44dp"
+                        android:layout_marginRight="@dimen/dimen_44dp"
                         android:layout_marginTop="@dimen/dimen_44dp"
                         android:src="@drawable/icon_shezhi"/>
 
@@ -300,7 +299,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/main_drawer_iv_setting"
-                        android:layout_toEndOf="@+id/main_drawer_iv_setting"
+                        android:layout_toRightOf="@+id/main_drawer_iv_setting"
                         android:text="设置"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/dimen_36dp"/>

@@ -44,7 +44,7 @@ def getAppChannelId() {
     //36.历趣开发者平台
     //37.移动应用安全版权服务平台
     //38.优亿平台
-    return "0"
+    return "38"
 }
 
 android {

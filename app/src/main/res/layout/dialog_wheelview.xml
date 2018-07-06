@@ -28,10 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/wheel_v_line"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:minHeight="48dp"
         android:orientation="horizontal">
 
@@ -48,7 +46,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"
             android:layout_weight="1"/>
 
         <kankan.wheel.widget.WheelView
@@ -57,7 +54,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"
             android:layout_weight="1"/>
     </LinearLayout>
 

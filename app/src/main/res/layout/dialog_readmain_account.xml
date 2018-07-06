@@ -41,7 +41,7 @@
         android:layout_width="@dimen/dimen_96dp"
         android:layout_height="@dimen/dimen_64dp"/>
     <TextView
-        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:layout_marginRight="@dimen/dimen_16dp"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_readmain_account_tv_ok"
         app:layout_constraintEnd_toStartOf="@+id/dialog_readmain_account_tv_ok"
         android:id="@+id/dialog_readmain_account_tv_cancle"

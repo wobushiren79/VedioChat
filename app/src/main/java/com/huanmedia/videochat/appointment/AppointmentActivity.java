@@ -377,7 +377,7 @@ public class AppointmentActivity
 
     @Override
     public void submitAppointmentFail(String msg) {
-        if (msg.contains("金币不足"))
+        if (msg.contains("砖石不足"))
             errorNoMoney();
         else
             showToast(msg);
