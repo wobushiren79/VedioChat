@@ -6,6 +6,9 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -18,6 +21,7 @@ import com.huanmedia.videochat.main2.weight.ConditionEntity.VideoType;
 import com.huanmedia.videochat.repository.entity.VideoChatEntity;
 
 import io.reactivex.disposables.Disposable;
+import mvp.data.store.DataKeeper;
 
 /**
  * Create by Administrator
@@ -34,6 +38,8 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
     //    private ImageView mIvMaskWo;
     private ImageView mIvMaskTa;
     private ImageView mIvAddTime;
+    private CheckBox mIvHint;
+    private ImageView mIvHintToast;
     private View mIvGift;
     private MatchListener mMatchListener;
     private RedmanListener mRedmanListener;
@@ -128,7 +134,10 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
             mCbAttention = findViewById(R.id.video_call_cb_attention);
             mIvBeauty = findViewById(R.id.video_call_iv_beauty);
             mIvAddTime = findViewById(R.id.video_call_iv_addtime);
+            mIvHint = findViewById(R.id.video_call_iv_hint_button);
+            mIvHintToast = findViewById(R.id.video_call_iv_hint_toast);
         }
+        mIvHint.setVisibility(VISIBLE);
         mCloseBtn.setVisibility(VISIBLE);
         mIvMask.setVisibility(VISIBLE);
         mIvMaskTa.setVisibility(VISIBLE);
@@ -150,6 +159,8 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                 mIvGift.setOnClickListener(this);
                 //添加时长提示
                 mIvAddTime.setOnClickListener(this);
+                //视频遮罩
+                mIvHint.setVisibility(GONE);
                 break;
             case VideoType.REDMAN:
                 mIvMaskTa.setVisibility(GONE);//红人不需要揭面
@@ -162,6 +173,9 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                 mIvGift.setOnClickListener(this);
                 //美颜
                 mIvBeauty.setOnClickListener(this);
+                //视频遮罩
+                mIvHint.setOnClickListener(this);
+                videoHintToast();
                 break;
             case VideoType.NONE://只有关闭按钮可用
                 mIvMaskTa.setVisibility(GONE);
@@ -170,8 +184,55 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                 mIvGift.setVisibility(GONE);
                 mIvMask.setVisibility(GONE);
                 mIvBeauty.setVisibility(GONE);
+                mIvHint.setVisibility(GONE);
                 break;
         }
+    }
+
+    private void videoHintToast() {
+        DataKeeper dataKeeper = new DataKeeper(getContext(), DataKeeper.DEFULTFILE);
+        boolean isFirst = dataKeeper.get("VideoHintShow", true);
+        if (isFirst) {
+            mIvHintToast.setVisibility(VISIBLE);
+            AnimationSet animatorSet = new AnimationSet(true);
+            ScaleAnimation scaleAnimation = new ScaleAnimation
+                    (1, 1.2f, 1, 1.2f,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            scaleAnimation.setRepeatCount(8);
+            scaleAnimation.setDuration(1000);
+            scaleAnimation.setRepeatMode(Animation.REVERSE);
+            animatorSet.addAnimation(scaleAnimation);
+            animatorSet.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mIvHintToast.setVisibility(GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            mIvHintToast.startAnimation(animatorSet);
+            dataKeeper.put("VideoHintShow", false);
+        } else {
+            mIvHintToast.setVisibility(GONE);
+        }
+
+    }
+
+    /**
+     * 设置视频开启按钮状态
+     *
+     * @param visibility
+     */
+    public void setVideoHintVisibility(int visibility) {
+        mIvHint.setVisibility(visibility);
     }
 
     public void showNumberCountDown() {
@@ -239,6 +300,9 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                     case R.id.video_call_fl_close:
                         mRedmanListener.close();
                         break;
+                    case R.id.video_call_iv_hint_button:
+                        mRedmanListener.onVideoHint();
+                        break;
                 }
                 break;
             case VideoType.NONE:
@@ -292,6 +356,8 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
         void onBeauty();
 
         void onMaskWo(View view);
+
+        void onVideoHint();
 
         void close();
     }

@@ -98,6 +98,11 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 //    ImageView mVideoCallIvBlurBig;
 //    @BindView(R.id.video_call_iv_blur_small)
 //    ImageView mVideoCallIvBlurSmall;
+
+    @BindView(R.id.video_hint_big)
+    ImageView mVideoHintBig;
+    @BindView(R.id.video_hint_small)
+    ImageView mVideoHintSmall;
     @BindView(R.id.calling_fl_video_big)
     FrameLayout mCallingFlVideoBig;
     @BindView(R.id.video_call_fl_calling)
@@ -198,6 +203,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     private boolean isCallSuccess;//判断是否连接成功过
     private boolean isConnection;//是否连接中
     private boolean isShowTimer;//是否展示倒计时
+    private boolean isHintVideo;//是否隐藏视频
     private int mRemoteVideoUid;
     private EvaluationDialog mEvaluationDialog;
     private VideoPreProcessing videoPreProcessing;
@@ -223,6 +229,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         super.onDestroy();
         if (mTimeDownSub != null)
             mTimeDownSub.dispose();
+
     }
 
 
@@ -429,6 +436,12 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 //            worker().getRtcEngine().setEnableSpeakerphone(true);
 //            worker().getRtcEngine().setSpeakerphoneVolume(50);//0-255
             worker().getRtcEngine().muteLocalVideoStream(false);
+//            if(getBasePresenter().getCondition().getVideoType()== VideoType.REDMAN
+//                    &&getBasePresenter().getCondition().getReadMainConfig().getRedManId()!=UserManager.getInstance().getId()){
+//                worker().getRtcEngine().muteLocalVideoStream(true);
+//            }else{
+//                worker().getRtcEngine().muteLocalVideoStream(false);
+//            }
         }//发送本地视频数据
 
 
@@ -522,9 +535,12 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
 
     private void optionalDestroy() {
-//        worker().getRtcEngine().disableAudio();//关闭声音
-        if (worker() != null) {
-            worker().getRtcEngine().muteLocalVideoStream(true);//不发送本地视频数据
+
+        if (worker() != null && worker().getRtcEngine() != null) {
+//            worker().getRtcEngine().disableAudio();//关闭声音
+            worker().getRtcEngine().disableVideo();
+//            worker().getRtcEngine().muteLocalVideoStream(true);//不发送本地视频数据
+            worker().getRtcEngine().stopPreview();
 //            worker().getRtcEngine().setEnableSpeakerphone(false);
         }
 //        setVolumeControlStream(mDefaultAutioVolume);
@@ -615,6 +631,14 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                 if (condition.getVideoType() == VideoType.REDMAN) {//红人模式扣费
                     if (!isShowTimer)
                         setTimeUp();
+                    //视频遮罩
+                    isHintVideo = true;
+                    if (condition.getReadMainConfig().getRedManId() == UserManager.getInstance().getId()||
+                            condition.getReadMainConfig().getRedManId() ==0 ) {
+                        mVideoHintBig.setVisibility(View.VISIBLE);
+                    } else {
+                        hintVideo(UserManager.getInstance().getId());
+                    }
                 } else {
                     if (!isShowTimer)
                         setTimeDown((getBasePresenter().getVideoChatEntity().getEndtime() - getBasePresenter().getVideoChatEntity().getBegintime()));
@@ -919,6 +943,33 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     }
 
     @Override
+    public void hintVideo(long uid) {
+        if (uid == -1) {
+            mVideoHintSmall.setVisibility(View.GONE);
+            mVideoHintBig.setVisibility(View.GONE);
+            return;
+        }
+        int videoTag = Integer.parseInt(mCallingFlVideoSmall.getTag().toString());
+        if (uid == UserManager.getInstance().getId()) {
+            if (videoTag == 0) {
+                mVideoHintSmall.setVisibility(View.VISIBLE);
+                mVideoHintBig.setVisibility(View.GONE);
+            } else {
+                mVideoHintSmall.setVisibility(View.GONE);
+                mVideoHintBig.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (videoTag == 0) {
+                mVideoHintBig.setVisibility(View.VISIBLE);
+                mVideoHintSmall.setVisibility(View.GONE);
+            } else {
+                mVideoHintSmall.setVisibility(View.VISIBLE);
+                mVideoHintBig.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    @Override
     public void chatMaskEnable(boolean enabled) {
         mVideoCallCbbControlBtns.setEnabledMask(enabled);//对方揭面后不可在点击面具
         getMaskDialog(false).setChooseEnable(enabled);
@@ -1013,8 +1064,10 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             if (getBasePresenter().getCondition().getReadMainConfig().getRedManId() != UserManager.getInstance().getId()
                     && getBasePresenter().getCondition().getReadMainConfig().getRedManId() != 0) {
                 mVideoCallCbbControlBtns.setShowAttention(View.VISIBLE);
+                mVideoCallCbbControlBtns.setVideoHintVisibility(View.VISIBLE);
             } else {
                 mVideoCallCbbControlBtns.setShowAttention(View.INVISIBLE);
+                mVideoCallCbbControlBtns.setVideoHintVisibility(View.GONE);
             }
 
             mVideoCallCbbControlBtns.setRedmanListener(new CallButtomBtns.RedmanListener() {
@@ -1043,6 +1096,19 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                 }
 
                 @Override
+                public void onVideoHint() {
+                    if (isHintVideo) {
+                        getBasePresenter().hintVideo(-1);
+                        hintVideo(-1);
+                    } else {
+                        getBasePresenter().hintVideo(UserManager.getInstance().getId());
+                        hintVideo(UserManager.getInstance().getId());
+                    }
+
+                    isHintVideo = !isHintVideo;
+                }
+
+                @Override
                 public void close() {
                     endCallBtn();
                 }
@@ -1063,6 +1129,11 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 
                 @Override
                 public void onMaskWo(View view) {
+                }
+
+                @Override
+                public void onVideoHint() {
+
                 }
 
                 @Override
@@ -1233,6 +1304,18 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             localVideo.setZOrderOnTop(true);
             localVideo.setZOrderMediaOverlay(true);
         }
+        if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN) {
+            if (mVideoHintBig.getVisibility() == View.VISIBLE || mVideoHintSmall.getVisibility() == View.VISIBLE) {
+                if (mVideoHintBig.getVisibility() == View.VISIBLE) {
+                    mVideoHintBig.setVisibility(View.GONE);
+                    mVideoHintSmall.setVisibility(View.VISIBLE);
+                } else {
+                    mVideoHintBig.setVisibility(View.VISIBLE);
+                    mVideoHintSmall.setVisibility(View.GONE);
+                }
+            }
+        }
+
     }
 
     private void endCallBtn() {
@@ -1296,6 +1379,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         mVideoCallLlTimeDown.setVisibility(View.GONE);
         mVideoCallCbbControlBtns.setAddTimeShow(View.GONE);
         mTimeText.setVisibility(View.GONE);
+        mVideoHintSmall.setVisibility(View.GONE);
         mTimeProgressView.setVisibility(View.GONE);
         if (mTimeDownSub != null && !mTimeDownSub.isDisposed()) {
             mTimeDownSub.dispose();

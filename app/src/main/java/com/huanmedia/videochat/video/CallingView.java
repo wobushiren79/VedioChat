@@ -66,6 +66,12 @@ interface CallingView extends LoadDataView {
     void addMaskOther();
 
     /**
+     * 隐藏指定人的视屏
+     * @param uid
+     */
+    void hintVideo(long uid);
+
+    /**
      * 是否可以启用揭面功能
      * @param enabled
      */

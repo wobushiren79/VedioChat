@@ -15,8 +15,8 @@
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="@dimen/dimen_16dp"
         android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_16dp"
         android:src="@drawable/btn_skincare" />
 
     <CheckBox
@@ -25,8 +25,8 @@
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_above="@+id/video_call_fl_close"
-        android:layout_alignRight="@+id/video_call_fl_close"
         android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/video_call_fl_close"
         android:layout_marginBottom="@dimen/dimen_120dp"
         android:layout_marginRight="-8dp" />
 
@@ -83,8 +83,20 @@
         android:layout_width="@dimen/dimen_72dp"
         android:layout_height="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/dimen_16dp"
         android:layout_toRightOf="@+id/video_call_iv_gift"
         android:src="@drawable/video_calling_match_control_jiemian_selecter" />
+
+
+    <CheckBox
+        android:id="@+id/video_call_iv_hint_button"
+        android:layout_width="@dimen/dimen_72dp"
+        android:layout_height="@dimen/dimen_72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/video_call_iv_ta"
+        android:background="@drawable/video_calling_hint_selecter"
+        android:button="@null"
+        android:checked="false" />
 
     <ImageView
         android:id="@+id/video_call_iv_addtime"
@@ -96,4 +108,17 @@
         android:layout_marginLeft="@dimen/dimen_36dp"
         android:src="@drawable/icon_add_time_pop"
         android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/video_call_iv_hint_toast"
+        android:layout_width="@dimen/dimen_150dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_above="@+id/video_call_iv_hint_button"
+        android:layout_alignLeft="@id/video_call_iv_gift"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:src="@drawable/icon_video_hint"
+        android:visibility="gone" />
+
+
 </merge>

@@ -179,7 +179,14 @@ public class CallingMessage implements WSonMessageListener {
                                 mPresenter.getView().addMaskOther();
                             }
                             break;
-
+                        case "HINT_VIDEO":
+                            if (mPresenter.isCurrentChat(contents)) {
+                                int hintid = 0;
+                                if (contents.get("hintid") != null)
+                                    hintid = Integer.valueOf(contents.get("hintid").toString());
+                                mPresenter.getView().hintVideo(hintid);
+                            }
+                            break;
                     }
                 }
                 break;

@@ -151,8 +151,8 @@ public class WebSocketManager {
     public void reConnection() {
         if (!UserManager.getInstance().islogin()) return;
         if (mWSocketClent == null) return;
-
-        mWSocketClent.close(1000);
+        if (mWSocketClent.isConnecting())
+            mWSocketClent.close(1000);
         mWSocketClent = null;
         //重新连接需要更新time参数和Sign参数
         connection(mConfig.newBulede().setParms(HostManager.defaultSocketPrams()).bulide());
@@ -160,7 +160,7 @@ public class WebSocketManager {
 
 
     public void sendMessage(WMessage message) {
-        if (mWSocketClent!=null&&mWSocketClent.isOpen() && !mWSocketClent.isClosing()) {
+        if (mWSocketClent != null && mWSocketClent.isOpen() && !mWSocketClent.isClosing()) {
             //添加固定参数配置
             message.setFrom(UserManager.getInstance().getId() + "");
             message.setSid(UserManager.getInstance().getsId());

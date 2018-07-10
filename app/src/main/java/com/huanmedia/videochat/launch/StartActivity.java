@@ -111,7 +111,9 @@ public class StartActivity extends BaseActivity {
                     return;
                 }
             }
-        super.onBackPressed();
+        if (!isFinishing()) {
+            super.onBackPressed();
+        }
     }
 
     @Override

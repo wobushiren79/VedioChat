@@ -371,6 +371,25 @@ public class CallingPresenter extends Presenter<CallingView> {
     }
 
     /**
+     * 隐藏指定人的视屏
+     * @param uid
+     */
+    public void hintVideo(long uid){
+        WMessage wMessage = new WMessage();
+        wMessage.setFrom(getVideoChatEntity().getTouid() + "");
+        wMessage.setTo(getVideoChatEntity().getFromuid() + "");
+        wMessage.setType("voideCommand");
+        Map<String, Object> map = new HashMap<>();
+        map.put("from", wMessage.getFrom());
+        map.put("to", wMessage.getTo());
+        map.put("callid", getVideoChatEntity().getCallid());
+        map.put("Commend", "HINT_VIDEO");
+        map.put("hintid", uid);
+        wMessage.setBody(map);
+        WebSocketManager.getInstance().sendMessage(wMessage);
+    }
+
+    /**
      * 揭面
      *
      * @param layerNumber 揭面层数，0全部，1，第一层  2第二层。。。。。
