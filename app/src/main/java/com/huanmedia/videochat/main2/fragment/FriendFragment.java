@@ -19,6 +19,9 @@ import com.huanmedia.videochat.common.BaseFragment;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.adapter.HomeFragmentAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 
 public class FriendFragment extends BaseFragment {
@@ -32,7 +35,7 @@ public class FriendFragment extends BaseFragment {
     @BindView(R.id.main_friend_vp)
     ViewPager mMainFriendVp;
     private MainInteractionListener mListener;
-    private Fragment[] mFragments;
+    private List<Fragment> mFragments;
     private OnTabSelectListener mOnTabSelectListener;
     private int mCurrentMainTabSelect;
 
@@ -116,13 +119,15 @@ public class FriendFragment extends BaseFragment {
     @Override
     protected void initData() {
         String[] titles;
+        mFragments = new ArrayList<>();
+        mFragments.add(ComeAcrossFriendFragment.newInstance());
         if (UserManager.getInstance().getCurrentUser().getUserinfo().getIsstarauth() == 1) {
             titles = new String[]{getString(R.string.calling_people), getString(R.string.tab_fans), getString(R.string.attention_people)};
-            mFragments = new Fragment[]{ComeAcrossFriendFragment.newInstance(), FansFragment.newInstance(), AttentionFragment.newInstance()};
+            mFragments.add(FansFragment.newInstance());
         } else {
             titles = new String[]{getString(R.string.calling_people), getString(R.string.attention_people)};
-            mFragments = new Fragment[]{ComeAcrossFriendFragment.newInstance(), AttentionFragment.newInstance()};
         }
+        mFragments.add(AttentionFragment.newInstance());
 
         HomeFragmentAdapter adapter = new HomeFragmentAdapter(getFragmentManager(), mFragments);
         mMainFriendVp.setOffscreenPageLimit(3);

@@ -167,7 +167,13 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
                 } else if (videoEntity.getUploadStatus() == 0) {
                     if (mItemType == 1) {
                         Navigator navigator = new Navigator();
-                        navigator.navtoMediaPlay((Activity) mContext, (ArrayList<VideoEntity>) mDatas, i);
+                        ArrayList<VideoEntity> listVideo = new ArrayList<>();
+                        for (VideoEntity item : mDatas) {
+                            if (item.getVoideurl() != null && item.getVoideurl().length() != 0) {
+                                listVideo.add(item);
+                            }
+                        }
+                        navigator.navtoMediaPlay((Activity) mContext, listVideo, i);
                     } else {
                         if (rbSelect.isChecked()) {
                             videoEntity.setIsSelect(0);

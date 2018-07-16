@@ -7,6 +7,7 @@ import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.mvp.entity.request.AdsLuanchRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
+import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
@@ -21,6 +22,8 @@ import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
+import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
@@ -170,4 +173,17 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.reward(paramsMap), handler);
     }
+
+    @Override
+    public void artistsGroupList(Context context, HttpResponseHandler<List<ArtistsGroupResults>> handler) {
+        requestPost(context, mApiService.artistsGroupList(), handler);
+    }
+
+    @Override
+    public void artistsGroupShow(Context context, ArtistsGroupShowRequest params, HttpResponseHandler<ArtistsGroupShowResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.artistsGroupShow(paramsMap), handler);
+    }
+
+
 }

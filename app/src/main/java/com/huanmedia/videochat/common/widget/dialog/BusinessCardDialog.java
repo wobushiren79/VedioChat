@@ -143,7 +143,7 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
                 addImageView(viewList, mUserInfoData.getBase().getPhpots().get(i).getPhoto_thumb());
             }
         }
-
+        addImageView(viewList, mUserInfoData.getBase().getUserphoto_thumb());
         mVPImage.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
@@ -185,8 +185,11 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
 
             }
         });
-        RadioButton firstRB = (RadioButton) mRGContent.getChildAt(0);
-        firstRB.setChecked(true);
+
+        if (mRGContent.getChildCount() != 0) {
+            RadioButton firstRB = (RadioButton) mRGContent.getChildAt(0);
+            firstRB.setChecked(true);
+        }
     }
 
     /**

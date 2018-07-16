@@ -68,6 +68,8 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     TextView mMyFmTvReadman;
     @BindView(R.id.my_fm_rl_readman)
     RelativeLayout mMyFmRlReadman;
+    @BindView(R.id.my_fm_tv_readman_hint)
+    TextView mMyFmTvReadmanHint;
     @BindView(R.id.my_fm_iv_trust)
     ImageView mMyFmIvTrust;
     @BindView(R.id.my_fm_tv_lable_trust)
@@ -241,8 +243,10 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
 
         if (userInfo.getIsstarauth() == 1 && userInfo.getStarbutton() == 1) {
             mMyFmRlTrust.setVisibility(View.VISIBLE);
+            mMyFmTvReadmanHint.setVisibility(View.GONE);
         } else {
             mMyFmRlTrust.setVisibility(View.GONE);
+            mMyFmTvReadmanHint.setVisibility(View.VISIBLE);
         }
 
 

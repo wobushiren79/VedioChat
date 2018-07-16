@@ -27,12 +27,16 @@ public class ShortVideoListPresenterImpl extends BaseMVPPresenter<IShortVideoLis
         mMvpModel.getShortVideoList(mMvpView.getContext(), params, new DataCallBack<ShortVideoListResults>() {
             @Override
             public void getDataSuccess(ShortVideoListResults data) {
+                if(mMvpView==null)
+                    return;
                 mMvpView.getShortVideoListSuccess(data);
                 mMvpView.getPtrLayoutForShortVideo().setListDataResults(data, data.getItems());
             }
 
             @Override
             public void getDataFail(String msg) {
+                if(mMvpView==null)
+                    return;
                 mMvpView.getPtrLayoutForShortVideo().setRefreshComplete();
                 mMvpView.getShortVideoListFail(msg);
             }

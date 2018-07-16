@@ -100,9 +100,9 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 //    ImageView mVideoCallIvBlurSmall;
 
     @BindView(R.id.video_hint_big)
-    ImageView mVideoHintBig;
+    LinearLayout mVideoHintBig;
     @BindView(R.id.video_hint_small)
-    ImageView mVideoHintSmall;
+    LinearLayout mVideoHintSmall;
     @BindView(R.id.calling_fl_video_big)
     FrameLayout mCallingFlVideoBig;
     @BindView(R.id.video_call_fl_calling)
@@ -403,8 +403,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).topMargin += DisplayUtil.getStatusBarHeight(context());
         ((FrameLayout.LayoutParams) mVideoCallRlUserinfo.getLayoutParams()).topMargin += DisplayUtil.getStatusBarHeight(context());
         //小屏与大屏幕的比例 5.8:1 4.56:1
-        ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).width = (int) (DisplayUtil.getDisplayWidth(context()) / 3.89f);
-        ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).height = (int) (DisplayUtil.getDisplayHeight(context()) / 4f);
+        ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).width = getResources().getDimensionPixelOffset(R.dimen.dimen_165dp);
+        ((FrameLayout.LayoutParams) mCallingFlVideoSmallLayout.getLayoutParams()).height = getResources().getDimensionPixelOffset(R.dimen.dimen_270dp);
         mAdapter = new ChatTextAdapter(R.layout.item_video_call_chat_text, null);
         mVideoCallRvChatText.setAdapter(mAdapter);
 
@@ -633,8 +633,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                         setTimeUp();
                     //视频遮罩
                     isHintVideo = true;
-                    if (condition.getReadMainConfig().getRedManId() == UserManager.getInstance().getId()||
-                            condition.getReadMainConfig().getRedManId() ==0 ) {
+                    if (condition.getReadMainConfig().getRedManId() == UserManager.getInstance().getId() ||
+                            condition.getReadMainConfig().getRedManId() == 0) {
                         mVideoHintBig.setVisibility(View.VISIBLE);
                     } else {
                         hintVideo(UserManager.getInstance().getId());

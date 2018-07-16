@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,6 +6,11 @@
     android:orientation="vertical"
     tools:context="com.huanmedia.videochat.main2.fragment.HomeFragment">
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_home_vp_mainpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_108dp" />
 
     <FrameLayout
         android:id="@+id/home_toolbar_fl"
@@ -30,16 +35,8 @@
             app:tl_tab_padding="@dimen/dimen_30dp"
             app:tl_textSelectColor="@color/base_black"
             app:tl_textUnselectColor="@color/base_gray"
-            app:tl_textsize="@dimen/dimen_36dp" />
+            app:tl_textsize="@dimen/dimen_32dp" />
     </FrameLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/main_home_vp_mainpage"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-</LinearLayout>
+
+</RelativeLayout>

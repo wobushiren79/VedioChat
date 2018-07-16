@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_20dp"
-        android:text="让你的时间为你和他人创造更多的价值"
+        android:text="完成认证 让您立即获得更多的粉丝和收入"
         android:textColor="@color/base_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

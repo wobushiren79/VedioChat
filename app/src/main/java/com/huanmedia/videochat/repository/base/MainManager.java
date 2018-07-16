@@ -6,6 +6,7 @@ import android.content.Context;
 import com.huanmedia.videochat.mvp.entity.request.AdsLuanchRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
+import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
@@ -20,6 +21,8 @@ import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
+import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
@@ -204,9 +207,28 @@ public interface MainManager {
 
     /**
      * 奖励
+     *
      * @param context
      * @param params
      * @param handler
      */
     void reward(Context context, RewardRequest params, HttpResponseHandler<RewardResults> handler);
+
+
+    /**
+     * 艺人组合列表
+     *
+     * @param context
+     * @param handler
+     */
+    void artistsGroupList(Context context, HttpResponseHandler<List<ArtistsGroupResults>> handler);
+
+    /**
+     * 艺人展示
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void artistsGroupShow(Context context, ArtistsGroupShowRequest params, HttpResponseHandler<ArtistsGroupShowResults> handler);
 }

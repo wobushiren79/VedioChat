@@ -10,6 +10,8 @@ import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
+import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -57,7 +59,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PartMap;
-import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -408,6 +409,15 @@ public interface RemoteApiService {
     @POST("/index/userextv2/reward")
     @FormUrlEncoded
     Observable<DataResponse<RewardResults>> reward(@FieldMap Map<String, Object> params);
+
+    //所有艺人组合信息
+    @POST("/index/userextv2/stuiolist")
+    Observable<DataResponse<List<ArtistsGroupResults>>> artistsGroupList();
+
+    //艺人组合展示
+    @POST("/index/userextv2/studioimgshow")
+    @FormUrlEncoded
+    Observable<DataResponse<ArtistsGroupShowResults>> artistsGroupShow(@FieldMap Map<String, Object> params);
 
     @Multipart
     @POST

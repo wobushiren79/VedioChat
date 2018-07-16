@@ -60,7 +60,7 @@ public class StartActivity extends BaseActivity {
         super.onResume();
         if (isPause) {
             isPause = false;
-            lunach(mCurrentFragmentIntent);
+            lunach(null);
         }
     }
 
@@ -71,6 +71,8 @@ public class StartActivity extends BaseActivity {
             return;
         }
         if (intent == null || (intent.getAction() != null && !Uri.parse(intent.getAction()).getScheme().equals(EventBusAction.SCHEME_ACTION)))
+            return;
+        if (getCurrentFragment().getTag().equals(Uri.parse(intent.getAction()).getPath()))
             return;
         switch (Uri.parse(intent.getAction()).getPath()) {
             case FirstGuideFragment.TAG:
