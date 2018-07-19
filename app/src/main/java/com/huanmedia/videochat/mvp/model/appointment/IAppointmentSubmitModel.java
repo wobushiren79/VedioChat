@@ -14,4 +14,13 @@ public interface IAppointmentSubmitModel {
      * @param callBack
      */
     void submit(Context context, AppointmentRequest params, DataCallBack callBack);
+
+    /**
+     * 提交红人预约 新版
+     *
+     * @param context
+     * @param params
+     * @param callBack
+     */
+    void submitOp(Context context, AppointmentRequest params, DataCallBack callBack);
 }

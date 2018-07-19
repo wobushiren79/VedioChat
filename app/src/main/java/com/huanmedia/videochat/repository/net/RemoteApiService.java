@@ -355,21 +355,27 @@ public interface RemoteApiService {
     @FormUrlEncoded
     Observable<DataResponse<List<AdsShufflingResults>>> ads(@FieldMap Map<String, Object> params);
 
-
     //首页广告数据
     @POST("/index/findtouristpage/bootad")
     Observable<DataResponse<AdsLuanchResults>> adsluanch();
-
 
     //预约红人数据
     @POST("/index/userextv2/appointmentPageData")
     @FormUrlEncoded
     Observable<DataResponse<AppointmentUserInfoResults>> appointmentPageData(@FieldMap Map<String, Object> params);
+    //红人预约 新版
+    @POST("/index/appointmentv2/appointmentPageData")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentUserInfoResults>> appointmentPageDataV2(@FieldMap Map<String, Object> params);
 
     //预约红人
     @POST("/index/userextv2/guestyuye")
     @FormUrlEncoded
     Observable<DataResponse<AppointmentUserInfoResults>> appointmentSubmit(@FieldMap Map<String, Object> params);
+    //预约红人 新版
+    @POST("/index/appointmentv2/guestyuye")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentUserInfoResults>> appointmentSubmitV2(@FieldMap Map<String, Object> params);
 
     //红人预约设置信息
     @POST("/index/userextv2/appointvipseeself")
@@ -418,6 +424,8 @@ public interface RemoteApiService {
     @POST("/index/userextv2/studioimgshow")
     @FormUrlEncoded
     Observable<DataResponse<ArtistsGroupShowResults>> artistsGroupShow(@FieldMap Map<String, Object> params);
+
+
 
     @Multipart
     @POST

@@ -184,7 +184,7 @@ public class AppointmentActivity
     }
 
     @Override
-    public void setAppointmentUserCharge(String charge) {
+    public void setAppointmentUserCharge(int charge) {
         mTVCharge.setVisibility(View.VISIBLE);
         mTVCharge.setText(charge + "钻/分钟");
     }
@@ -213,6 +213,21 @@ public class AppointmentActivity
             mRecyclerView.setLayoutParams(layoutParams);
             mAppointmentApdater.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void setValidAppointmentTime(int hours) {
+
+    }
+
+    @Override
+    public void setMinAppointmentCallTime(int min) {
+
+    }
+
+    @Override
+    public void setDefHintMsg(String msg) {
+
     }
 
 
@@ -419,5 +434,25 @@ public class AppointmentActivity
     @Override
     public String getAppointmentTime() {
         return mTVTimeSelectTime.getText().toString();
+    }
+
+    @Override
+    public int getAppointmentCallTime() {
+        return 0;
+    }
+
+    @Override
+    public int getAppointmentPrice() {
+        return 0;
+    }
+
+    @Override
+    public String getAppointmentMsg() {
+        return null;
+    }
+
+    @Override
+    public int getMinCallTime() {
+        return 0;
     }
 }

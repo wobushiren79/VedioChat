@@ -18,6 +18,7 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.ilibray.utils.DisplayUtil;
+import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseFragment;
@@ -117,7 +118,7 @@ public class HomeFragment extends BaseFragment implements MatchFragment.MatchInt
             public void onTabSelect(int position) {
                 if (mCurrentMainTabSelect != -1) {
                     TextView olderView = mMainHomeSlidingTableLayout.getTitleView(mCurrentMainTabSelect);
-                    olderView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.dimen_36dp));
+                    olderView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.dimen_32dp));
                     olderView.setTypeface(Typeface.DEFAULT);
                 }
                 TextView textView = mMainHomeSlidingTableLayout.getTitleView(position);
@@ -139,9 +140,8 @@ public class HomeFragment extends BaseFragment implements MatchFragment.MatchInt
             }
         };
         mMainHomeSlidingTableLayout.setCurrentTab(1);
-
         mArtistsGroupListPresenter = new ArtistsGroupListPresenterImpl(this);
-        mArtistsGroupListPresenter.getArtistsGroupList();
+//        mArtistsGroupListPresenter.getArtistsGroupList();
     }
 
 
@@ -154,7 +154,7 @@ public class HomeFragment extends BaseFragment implements MatchFragment.MatchInt
             mToolbar.setLayoutParams(lp);
             RelativeLayout.LayoutParams vplp = (RelativeLayout.LayoutParams) mMainHomeVpMainpage.getLayoutParams();
             vplp.setMargins(0,
-                    (int) (getResources().getDimensionPixelOffset(R.dimen.dimen_108dp) * positionOffset),
+                    (int) ((getResources().getDimensionPixelOffset(R.dimen.dimen_108dp)+DisplayUtil.getStatusBarHeight(getContext())) * positionOffset),
                     0,
                     0);
         }

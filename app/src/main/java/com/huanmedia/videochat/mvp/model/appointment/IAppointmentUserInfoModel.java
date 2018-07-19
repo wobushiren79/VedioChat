@@ -14,4 +14,13 @@ public interface IAppointmentUserInfoModel {
      * @param callBack
      */
     void getAppointmentUserInfo(Context context, AppointmentRequest params, DataCallBack callBack);
+
+    /**
+     * 获取预约红人信息 新版
+     *
+     * @param context
+     * @param params
+     * @param callBack
+     */
+    void getAppointmentUserInfoOp(Context context, AppointmentRequest params, DataCallBack callBack);
 }

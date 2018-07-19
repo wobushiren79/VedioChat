@@ -25,7 +25,7 @@ public class AdsLuanchPresenterImpl extends BaseMVPPresenter<IAdsLuanchView, Ads
             public void getDataSuccess(AdsLuanchResults data) {
                 mMvpView.getLuanchInfoAdsSuccess(data);
                 mMvpView.setLuanchImage(data.getImgurl());
-                if(!data.getJmpurl().equals("#")){
+                if (data.getJmpurl() != null && data.getJmpurl().length() != 0 && !data.getJmpurl().equals("#")) {
                     mMvpView.setJumpUrl(data.getJmpurl());
                 }
             }

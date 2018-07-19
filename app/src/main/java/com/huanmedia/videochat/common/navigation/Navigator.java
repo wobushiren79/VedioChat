@@ -21,6 +21,7 @@ import android.content.Intent;
 
 import com.huanmedia.videochat.appointment.AppointmentActivity;
 import com.huanmedia.videochat.appointment.AppointmentListActivity;
+import com.huanmedia.videochat.appointment.AppointmentOpActivity;
 import com.huanmedia.videochat.common.LocalHtmlWebActivity;
 import com.huanmedia.videochat.discover.ArtistActivity;
 import com.huanmedia.videochat.discover.BusinessCardAcitivty;
@@ -320,7 +321,7 @@ public class Navigator {
      * @param context
      */
     public void navtoAppointment(Activity context, int uid) {
-        context.startActivity(AppointmentActivity.getCallingIntent(context, uid));
+        context.startActivity(AppointmentOpActivity.getCallingIntent(context, uid));
     }
 
     /**
@@ -338,4 +339,5 @@ public class Navigator {
     public void navtoArtist(Activity context, int uid) {
         context.startActivity(ArtistActivity.getCallingIntent(context, uid));
     }
+
 }

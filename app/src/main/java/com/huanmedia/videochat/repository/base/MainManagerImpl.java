@@ -117,9 +117,21 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     }
 
     @Override
+    public void getAppointmentUserInfoOp(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentUserInfoResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentPageDataV2(paramsMap), handler, true);
+    }
+
+    @Override
     public void submitAppointment(Context context, AppointmentRequest params, HttpResponseHandler handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.appointmentSubmit(paramsMap), handler, true);
+    }
+
+    @Override
+    public void submitAppointmentOp(Context context, AppointmentRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentSubmitV2(paramsMap), handler, true);
     }
 
     @Override

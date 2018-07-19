@@ -37,7 +37,7 @@ public interface IAppointmentUserInfoView extends BaseMVPView {
      * 设置预约红人费用
      * @param charge
      */
-    void setAppointmentUserCharge(String charge);
+    void setAppointmentUserCharge(int charge);
 
     /**
      * 设置预约红人上线时间
@@ -57,4 +57,22 @@ public interface IAppointmentUserInfoView extends BaseMVPView {
      * @param listData
      */
     void setAppointmentListData(List<AppointmentDataResults> listData);
+
+    /**
+     * 预约有效时间
+     * @param hours
+     */
+    void setValidAppointmentTime(int hours);
+
+    /**
+     * 预约通话时间
+     * @param min
+     */
+    void setMinAppointmentCallTime(int min);
+
+
+    /**
+     * 设置默认提示信息
+     */
+    void setDefHintMsg(String msg);
 }

@@ -124,6 +124,15 @@ public interface MainManager {
     void getAppointmentUserInfo(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentUserInfoResults> handler);
 
     /**
+     * 获取预约红人数据 新版
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void getAppointmentUserInfoOp(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentUserInfoResults> handler);
+
+    /**
      * 提交预约红人数据
      *
      * @param context
@@ -131,6 +140,15 @@ public interface MainManager {
      * @param handler
      */
     void submitAppointment(Context context, AppointmentRequest params, HttpResponseHandler handler);
+
+    /**
+     * 提交预约红人数据 新版
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void submitAppointmentOp(Context context, AppointmentRequest params, HttpResponseHandler handler);
 
     /**
      * 获取预约设置

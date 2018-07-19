@@ -8,6 +8,34 @@ public class AppointmentRequest {
     private int aid;//要更新的预约的ID
     private int state;//1确信  -1取消
 
+    private int coins;//预约费用
+    private String msg;//预约留言
+    private int times;//预约时间 分钟数，最小10
+
+    public int getTimes() {
+        return times;
+    }
+
+    public void setTimes(int times) {
+        this.times = times;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     public int getAid() {
         return aid;
     }

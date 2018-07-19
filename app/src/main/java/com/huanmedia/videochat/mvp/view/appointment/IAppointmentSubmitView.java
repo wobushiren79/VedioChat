@@ -24,13 +24,44 @@ public interface IAppointmentSubmitView extends BaseMVPView {
 
     /**
      * 获取被预约日期
+     *
      * @return
      */
     String getAppointmentDate();
 
     /**
      * 获取被预约时间
+     *
      * @return
      */
     String getAppointmentTime();
+
+    /**
+     * 获取预约通讯时间
+     *
+     * @return
+     */
+    int getAppointmentCallTime();
+
+    /**
+     * 获取预约价格
+     *
+     * @return
+     */
+    int getAppointmentPrice();
+
+    /**
+     * 获取预约留言
+     *
+     * @return
+     */
+    String getAppointmentMsg();
+
+
+    /**
+     * 获取最小通话时间
+     *
+     * @return
+     */
+    int getMinCallTime();
 }

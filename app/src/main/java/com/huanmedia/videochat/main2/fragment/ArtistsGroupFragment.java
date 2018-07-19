@@ -11,6 +11,8 @@ import com.huanmedia.videochat.mvp.presenter.info.ArtistsGroupShowPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.info.IArtistsGroupShowPresenter;
 import com.huanmedia.videochat.mvp.view.info.IArtistsGroupShowView;
 
+import java.util.List;
+
 import butterknife.BindView;
 
 public class ArtistsGroupFragment extends BaseFragment implements IArtistsGroupShowView {
@@ -48,7 +50,7 @@ public class ArtistsGroupFragment extends BaseFragment implements IArtistsGroupS
 
     @Override
     public void getArtistsGroupShowDataSuccess(ArtistsGroupShowResults results) {
-
+        mShowLayout.setBaseData(results);
     }
 
     @Override
@@ -57,8 +59,18 @@ public class ArtistsGroupFragment extends BaseFragment implements IArtistsGroupS
     }
 
     @Override
+    public int getArtistsGroupId() {
+        return mGroupId;
+    }
+
+    @Override
     public void setArtistsGroupBackGround(String backGroundUrl) {
         mShowLayout.setBackGround(backGroundUrl);
+    }
+
+    @Override
+    public void setArtistsList(List<ArtistsGroupShowResults.Items> listData) {
+        mShowLayout.setArtistsList(listData);
     }
 
     @Override

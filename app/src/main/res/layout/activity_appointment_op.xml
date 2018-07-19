@@ -14,16 +14,16 @@
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar_layout"
-            android:elevation="@dimen/dimen_0dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/dimen_0dp">
 
 
             <android.support.design.widget.CollapsingToolbarLayout
-                android:elevation="@dimen/dimen_0dp"
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:elevation="@dimen/dimen_0dp"
                 app:contentScrim="?attr/colorPrimary">
 
 
@@ -153,7 +153,7 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:id="@+id/ll_select_day_layout"
+                    android:id="@+id/ll_appointment_valid_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -166,24 +166,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="日期"
+                        android:text="时间"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/dimen_32dp" />
 
                     <TextView
-                        android:id="@+id/tv_timeselect_day"
+                        android:id="@+id/tv_appointment_valid_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textColor="@color/base_gray"
                         android:textSize="@dimen/dimen_32dp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_32dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dimen_20dp"
-                        android:src="@drawable/btn_return_gray" />
                 </LinearLayout>
 
                 <TextView
@@ -205,30 +199,56 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="时间"
+                        android:text="时长"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/dimen_32dp" />
 
-                    <TextView
-                        android:id="@+id/tv_timeselect_min"
+                    <ImageView
+                        android:id="@+id/iv_number_remove"
+                        android:layout_width="@dimen/dimen_50dp"
+                        android:layout_height="@dimen/dimen_50dp"
+                        android:src="@drawable/btn_number_remove_style_1" />
+
+                    <EditText
+                        android:id="@+id/et_min_appointment_call_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="8012"
+                        android:layout_height="@dimen/dimen_50dp"
+                        android:layout_marginLeft="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:background="@drawable/base_bg_edit_round"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:maxEms="8"
+                        android:maxLength="10"
+                        android:minWidth="@dimen/dimen_120dp"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:paddingRight="@dimen/dimen_10dp"
+                        android:text="0"
                         android:textColor="@color/base_gray"
                         android:textSize="@dimen/dimen_32dp" />
 
                     <ImageView
+                        android:id="@+id/iv_number_add"
+                        android:layout_width="@dimen/dimen_50dp"
+                        android:layout_height="@dimen/dimen_50dp"
+                        android:src="@drawable/btn_number_add_style_1" />
+
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_32dp"
-                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dimen_20dp"
-                        android:src="@drawable/btn_return_gray" />
+                        android:text="分钟"
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/dimen_32dp" />
+
+
                 </LinearLayout>
 
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_1dp"
+                    android:layout_height="@dimen/dimen_20dp"
                     android:background="@color/color_eff1f7" />
 
                 <LinearLayout
@@ -243,18 +263,86 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dimen_30dp"
+                        android:text="留言"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp" />
+
+                    <EditText
+
+                        android:id="@+id/et_appointment_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="Hello，你好呀！"
+                        android:textSize="@dimen/dimen_32dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_20dp"
+                    android:background="@color/color_eff1f7" />
+
+                <LinearLayout
+                    android:id="@+id/ll_price_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dimen_30dp"
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="@dimen/dimen_44dp"
+                    android:paddingTop="@dimen/dimen_30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="预约押金"
+                        android:text="时间"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/dimen_32dp" />
 
                     <TextView
-                        android:id="@+id/tv_deposit"
+                        android:id="@+id/tv_price_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textColor="@color/base_gray"
                         android:textSize="@dimen/dimen_32dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1dp"
+                    android:background="@color/color_eff1f7" />
+
+                <LinearLayout
+                    android:id="@+id/ll_price_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dimen_30dp"
+                    android:paddingLeft="@dimen/dimen_44dp"
+                    android:paddingRight="@dimen/dimen_44dp"
+                    android:paddingTop="@dimen/dimen_30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="合计"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp" />
+
+                    <TextView
+                        android:id="@+id/tv_price_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/base_gray"
+                        android:textSize="@dimen/dimen_32dp" />
+
                 </LinearLayout>
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
@@ -304,10 +392,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dimen_172dp"
+                    android:lineSpacingExtra="@dimen/dimen_16dp"
+                    android:paddingBottom="@dimen/dimen_250dp"
                     android:paddingLeft="@dimen/dimen_44dp"
                     android:paddingRight="@dimen/dimen_44dp"
-                    android:lineSpacingExtra="@dimen/dimen_16dp"
                     android:paddingTop="@dimen/dimen_24dp"
                     android:text="@string/appointment_warring"
                     android:textColor="@color/base_gray"
@@ -318,8 +406,8 @@
 
     <TextView
         android:id="@+id/tv_submit"
-        android:layout_width="@dimen/dimen_600dp"
-        android:layout_height="@dimen/dimen_140dp"
+        android:layout_width="@dimen/dimen_650dp"
+        android:layout_height="@dimen/dimen_150dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/dimen_44dp"

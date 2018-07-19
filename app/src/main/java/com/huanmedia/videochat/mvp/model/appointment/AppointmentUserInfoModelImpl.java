@@ -25,4 +25,19 @@ public class AppointmentUserInfoModelImpl extends BaseMVPModel implements IAppoi
             }
         });
     }
+
+    @Override
+    public void getAppointmentUserInfoOp(Context context, AppointmentRequest params, DataCallBack callBack) {
+        MHttpManagerFactory.getMainManager().getAppointmentUserInfoOp(context, params, new HttpResponseHandler<AppointmentUserInfoResults>() {
+            @Override
+            public void onSuccess(AppointmentUserInfoResults result) {
+                callBack.getDataSuccess(result);
+            }
+
+            @Override
+            public void onError(String message) {
+                callBack.getDataFail(message);
+            }
+        });
+    }
 }

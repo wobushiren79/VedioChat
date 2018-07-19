@@ -24,4 +24,19 @@ public class AppointmentSubmitModelImpl extends BaseMVPModel implements IAppoint
             }
         });
     }
+
+    @Override
+    public void submitOp(Context context, AppointmentRequest params, DataCallBack callBack) {
+        MHttpManagerFactory.getMainManager().submitAppointmentOp(context, params, new HttpResponseHandler<AppointmentUserInfoResults>() {
+            @Override
+            public void onSuccess(AppointmentUserInfoResults result) {
+                callBack.getDataSuccess(result);
+            }
+
+            @Override
+            public void onError(String message) {
+                callBack.getDataFail(message);
+            }
+        });
+    }
 }

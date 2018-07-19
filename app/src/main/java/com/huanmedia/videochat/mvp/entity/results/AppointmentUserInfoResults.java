@@ -2,11 +2,39 @@ package com.huanmedia.videochat.mvp.entity.results;
 
 import java.util.List;
 
-public class AppointmentUserInfoResults {
+public class    AppointmentUserInfoResults {
     private Base base;
     private List<AppointmentDataResults> list;
     private int coin;
     private int timeinterval;//时间跨度
+    private int effectiveHour;//预约时间
+    private int minMinute;//最小分钟
+    private String defaultmsg;//最小分钟
+
+
+    public String getDefaultmsg() {
+        return defaultmsg;
+    }
+
+    public void setDefaultmsg(String defaultmsg) {
+        this.defaultmsg = defaultmsg;
+    }
+
+    public int getEffectiveHour() {
+        return effectiveHour;
+    }
+
+    public void setEffectiveHour(int effectiveHour) {
+        this.effectiveHour = effectiveHour;
+    }
+
+    public int getMinMinute() {
+        return minMinute;
+    }
+
+    public void setMinMinute(int minMinute) {
+        this.minMinute = minMinute;
+    }
 
     public int getTimeinterval() {
         return timeinterval;
