@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.huanmedia.videochat.mvp.base.BaseMVPModel;
 import com.huanmedia.videochat.mvp.base.DataCallBack;
+import com.huanmedia.videochat.mvp.entity.request.AppointmentListOpRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentListOpResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
@@ -43,4 +45,21 @@ public class AppointmentListModelImpl extends BaseMVPModel implements IAppointme
         });
     }
 
+    @Override
+    public void getAppointmentListOp(Context context, AppointmentListOpRequest params, DataCallBack callBack) {
+        MHttpManagerFactory.getMainManager().getAppointmentListOp(context, params, new HttpResponseHandler<AppointmentListOpResults>() {
+            @Override
+            public void onSuccess(AppointmentListOpResults result) {
+                callBack.getDataSuccess(result);
+            }
+
+            @Override
+            public void onError(String message) {
+
+                callBack.getDataFail(message);
+
+
+            }
+        });
+    }
 }

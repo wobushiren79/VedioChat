@@ -14,30 +14,25 @@ public class AppointmentConfirmPresenterImpl extends BaseMVPPresenter<IAppointme
 
     @Override
     public void confirmAppointment(int aid) {
-        if (mMvpView.getContext() == null)
-            return;
-        if (aid == 0) {
-            mMvpView.showToast("没有预约ID");
-            return;
-        }
-        AppointmentRequest params = new AppointmentRequest();
-        params.setState(1);
-        params.setAid(aid);
-        mMvpModel.confirmAppointment(mMvpView.getContext(), params, new DataCallBack() {
-            @Override
-            public void getDataSuccess(Object data) {
-                mMvpView.confirmAppointmentSuccess(aid);
-            }
-
-            @Override
-            public void getDataFail(String msg) {
-                mMvpView.confirmAppointmentFail(msg);
-            }
-        });
+        start(aid, 1);
     }
 
     @Override
     public void cancelAppointment(int aid) {
+        start(aid, -1);
+    }
+
+    @Override
+    public void confirmAppointmentOp(int aid) {
+        startOp(aid, 1);
+    }
+
+    @Override
+    public void cancelAppointmentOp(int aid) {
+        startOp(aid, -1);
+    }
+
+    private void start(int aid, int submitType) {
         if (mMvpView.getContext() == null)
             return;
         if (aid == 0) {
@@ -45,7 +40,7 @@ public class AppointmentConfirmPresenterImpl extends BaseMVPPresenter<IAppointme
             return;
         }
         AppointmentRequest params = new AppointmentRequest();
-        params.setState(-1);
+        params.setState(submitType);
         params.setAid(aid);
         mMvpModel.confirmAppointment(mMvpView.getContext(), params, new DataCallBack() {
             @Override
@@ -56,6 +51,39 @@ public class AppointmentConfirmPresenterImpl extends BaseMVPPresenter<IAppointme
             @Override
             public void getDataFail(String msg) {
                 mMvpView.cancelAppointmentFail(msg);
+            }
+        });
+    }
+
+    private void startOp(int aid, int submitType) {
+        if (mMvpView.getContext() == null)
+            return;
+        if (aid == 0) {
+            mMvpView.showToast("没有预约ID");
+            return;
+        }
+        AppointmentRequest params = new AppointmentRequest();
+        params.setState(submitType);
+        params.setAid(aid);
+        mMvpModel.confirmAppointmentOp(mMvpView.getContext(), params, new DataCallBack() {
+            @Override
+            public void getDataSuccess(Object data) {
+                if (submitType == 1) {
+                    mMvpView.confirmAppointmentSuccess(aid);
+                } else if (submitType == -1) {
+                    mMvpView.cancelAppointmentSuccess(aid);
+                }
+
+            }
+
+            @Override
+            public void getDataFail(String msg) {
+                if (submitType == 1) {
+                    mMvpView.confirmAppointmentFail(msg);
+                } else if (submitType == -1) {
+                    mMvpView.cancelAppointmentFail(msg);
+                }
+
             }
         });
     }

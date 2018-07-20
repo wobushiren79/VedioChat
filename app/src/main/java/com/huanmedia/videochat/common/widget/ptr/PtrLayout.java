@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.applecoffee.devtools.base.adapter.BaseRCAdapter;
+import com.applecoffee.devtools.base.adapter.IBaseRCAdapter;
 import com.applecoffee.devtools.custom.layout.ptr.PtrRecyclerView;
 import com.huanmedia.videochat.mvp.entity.results.ListDataResults;
 
@@ -40,7 +41,6 @@ public class PtrLayout<T> extends PtrRecyclerView {
     @Override
     protected void initView() {
         super.initView();
-
         setHeadLoadLayout(new PtrHeadLoadLayout(getContext()));
         setFootLoadLayout(new PtrHeadLoadLayout(getContext()));
         setNoDataLayout(new PtrNoDataLayout(getContext()));
@@ -78,7 +78,7 @@ public class PtrLayout<T> extends PtrRecyclerView {
 
     public void setListDataResults(ListDataResults listDataResults, List<T> listData) {
         this.listDataResults = listDataResults;
-        BaseRCAdapter adapter = (BaseRCAdapter) getAdapter();
+        IBaseRCAdapter adapter = (IBaseRCAdapter) getAdapter();
         if (listDataResults.getPage() == 1 && listDataResults.getTotal() == 0) {
             // 第一页没有数据
             adapter.setData(listData);

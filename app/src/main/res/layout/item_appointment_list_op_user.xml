@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_10dp"
+    android:layout_marginLeft="@dimen/dimen_22dp"
+    android:layout_marginRight="@dimen/dimen_22dp"
+    android:layout_marginTop="@dimen/dimen_10dp"
+    android:background="@drawable/base_bg_white_round_24"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/dimen_40dp"
+    android:paddingLeft="@dimen/dimen_22dp"
+    android:paddingRight="@dimen/dimen_22dp"
+    android:paddingTop="@dimen/dimen_40dp">
+
+    <FrameLayout
+        android:id="@+id/fl_heard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_heard"
+            android:layout_width="@dimen/dimen_130dp"
+            android:layout_height="@dimen/dimen_130dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_headportrait"
+            app:riv_border_color="@color/base_gray"
+            app:riv_border_width="@dimen/dimen_4dp"
+            app:riv_oval="true" />
+
+        <ImageView
+            android:id="@+id/iv_sex"
+            android:layout_width="@dimen/dimen_28dp"
+            android:layout_height="@dimen/dimen_28dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/icon_focus_girl" />
+
+        <ImageView
+            android:id="@+id/iv_flag"
+            android:layout_width="@dimen/dimen_100dp"
+            android:layout_height="@dimen/dimen_100dp"
+            android:layout_marginLeft="-12dp"
+            android:layout_marginTop="-9dp"
+            android:src="@drawable/icon_pendant_girl" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_40dp"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:layout_toRightOf="@+id/fl_heard"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tv_name"
+        android:layout_marginLeft="@dimen/dimen_20dp"
+        android:layout_toRightOf="@id/tv_name"
+        android:background="@drawable/base_bg_round_theme"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/dimen_1dp"
+        android:paddingLeft="@dimen/dimen_22dp"
+        android:paddingRight="@dimen/dimen_22dp"
+        android:paddingTop="@dimen/dimen_1dp"
+        android:text="未确认"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_20dp" />
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginLeft="@dimen/dimen_40dp"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:layout_toRightOf="@+id/fl_heard"
+        android:ellipsize="end"
+        android:lines="1"
+        android:maxLines="1"
+        android:maxWidth="@dimen/dimen_350dp"
+        android:text="[系统预约信息]"
+        android:textColor="@color/base_gray"
+        android:textSize="@dimen/dimen_30dp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_name"
+        android:layout_alignParentRight="true"
+        android:text="07-15"
+        android:textColor="@color/base_gray"
+        android:textSize="@dimen/dimen_28dp" />
+
+    <TextView
+        android:id="@+id/tv_msg_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_msg"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/base_bg_round_theme"
+        android:paddingLeft="@dimen/dimen_10dp"
+        android:paddingRight="@dimen/dimen_10dp"
+        android:text="02"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_24dp" />
+</RelativeLayout>

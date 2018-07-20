@@ -15,6 +15,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.appointment.fragment.AppointmentListOpFragment;
 import com.huanmedia.videochat.common.BaseFragment;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.adapter.HomeFragmentAdapter;
@@ -121,20 +122,27 @@ public class FriendFragment extends BaseFragment {
         String[] titles;
         mFragments = new ArrayList<>();
         mFragments.add(ComeAcrossFriendFragment.newInstance());
+        mFragments.add(AppointmentListOpFragment.newInstance());
         if (UserManager.getInstance().getCurrentUser().getUserinfo().getIsstarauth() == 1) {
-            titles = new String[]{getString(R.string.calling_people), getString(R.string.tab_fans), getString(R.string.attention_people)};
+            titles = new String[]{
+                    getString(R.string.calling_people),
+                    getString(R.string.tab_appointment),
+                    getString(R.string.tab_fans),
+                    getString(R.string.attention_people)};
             mFragments.add(FansFragment.newInstance());
         } else {
-            titles = new String[]{getString(R.string.calling_people), getString(R.string.attention_people)};
+            titles = new String[]{
+                    getString(R.string.calling_people),
+                    getString(R.string.tab_appointment),
+                    getString(R.string.attention_people)};
         }
         mFragments.add(AttentionFragment.newInstance());
 
         HomeFragmentAdapter adapter = new HomeFragmentAdapter(getFragmentManager(), mFragments);
         mMainFriendVp.setOffscreenPageLimit(3);
         mMainFriendVp.setAdapter(adapter);
-
-
         mMainFriendSlidingTabLayout.setViewPager(mMainFriendVp, titles);
+
         mOnTabSelectListener.onTabSelect(0);
     }
 

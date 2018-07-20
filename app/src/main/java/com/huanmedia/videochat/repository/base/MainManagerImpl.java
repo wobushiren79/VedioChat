@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.internal.LinkedTreeMap;
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.mvp.entity.request.AdsLuanchRequest;
+import com.huanmedia.videochat.mvp.entity.request.AppointmentListOpRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
@@ -19,6 +20,7 @@ import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentListOpResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
@@ -158,9 +160,21 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     }
 
     @Override
+    public void getAppointmentListOp(Context context, AppointmentListOpRequest params, HttpResponseHandler<AppointmentListOpResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentListDataOp(paramsMap), handler);
+    }
+
+    @Override
     public void confirmAppointment(Context context, AppointmentRequest params, HttpResponseHandler handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.appointmentConfirm(paramsMap), handler, true);
+    }
+
+    @Override
+    public void confirmAppointmentOp(Context context, AppointmentRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.appointmentConfirmOp(paramsMap), handler, true);
     }
 
     @Override

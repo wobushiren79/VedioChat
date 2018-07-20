@@ -7,6 +7,7 @@ import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentListOpResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
@@ -390,16 +391,24 @@ public interface RemoteApiService {
     @POST("/index/userextv2/vipappointlist")
     @FormUrlEncoded
     Observable<DataResponse<AppointmentListResults>> appointmentListDataForReadMan(@FieldMap Map<String, Object> params);
-
     //普通预约数据列表
     @POST("/index/userextv2/guestappointlist")
     @FormUrlEncoded
     Observable<DataResponse<AppointmentListResults>> appointmentListDataForNormal(@FieldMap Map<String, Object> params);
+    //预约数据列表 新版
+    @POST("/index/appointmentv2/myappointlist")
+    @FormUrlEncoded
+    Observable<DataResponse<AppointmentListOpResults>> appointmentListDataOp(@FieldMap Map<String, Object> params);
+
 
     //确认预约
     @POST("/index/userextv2/startconfigcancell")
     @FormUrlEncoded
     Observable<DataResponse<Object>> appointmentConfirm(@FieldMap Map<String, Object> params);
+    //确认预约 新版
+    @POST("/index/appointmentv2/startconfigcancell")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> appointmentConfirmOp(@FieldMap Map<String, Object> params);
 
     //短视频列表获取
     @POST("/index/userextv2/indexvoidlist")

@@ -1,14 +1,19 @@
 package com.huanmedia.videochat.repository.base;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -37,7 +42,7 @@ public class BaseManagerImpl {
                 mHintDialog = new HintDialog(context, HintDialog.HintType.LOADING);
                 mHintDialog.show();
                 mHintDialog.setCanceledOnTouchOutside(false);
-                mHintDialog.setTitleText("加载中。。。");
+                mHintDialog.setTitleText("加载中...");
             }
         }
 
@@ -74,12 +79,27 @@ public class BaseManagerImpl {
      * @throws IllegalAccessException
      */
     public static Map<String, Object> objectToMap(Object obj) {
+        String paramsJson = "";
+        try {
+            Gson gson = new Gson();
+            paramsJson = gson.toJson(obj);
+        } catch (Exception e) {
+
+        } finally {
+            Log.v("Post_Params", "paramsJson:" + paramsJson);
+        }
         Map<String, Object> map = new HashMap<>();
         if (obj == null)
             return map;
+        List<Field> fieldList = new ArrayList<>() ;
         Class<?> clazz = obj.getClass();
-        System.out.println(clazz);
-        for (Field field : clazz.getDeclaredFields()) {
+        //当父类为null的时候说明到达了最上层的父类(Object类).
+        while (clazz != null) {
+            fieldList.addAll(Arrays.asList(clazz .getDeclaredFields()));
+            //得到父类,然后赋给自己
+            clazz = clazz.getSuperclass();
+        }
+        for (Field field : fieldList) {
             field.setAccessible(true);
             String fieldName = field.getName();
             Object value = null;

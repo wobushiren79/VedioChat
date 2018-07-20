@@ -45,11 +45,13 @@
     <color name="gray_8D999E">#8D999E</color>
     <color name="gray_34383B">#34383B</color>
     <color name="gray_666666">#666666</color>
+    <color name="gray_6666ff">#6666ff</color>
     <color name="gray_DAE2E5">#DAE2E5</color>
     <color name="gray_B7C8CF">#B7C8CF</color>
     <color name="gray_8D8D8D">#8D8D8D</color>
     <color name="gray_c8c8c8">#c8c8c8</color>
     <color name="color_b8b8b8">#b8b8b8</color>
+    <color name="color_46a1ff">#46a1ff</color>
 
     <color name="red_FE2E2E">#FE2E2E</color>
     <color name="green_33E670">#33E670</color>
