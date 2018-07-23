@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/dimen_40dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+
+    <FrameLayout
+        android:id="@+id/fl_heard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_50dp"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_heard"
+            android:layout_width="@dimen/dimen_130dp"
+            android:layout_height="@dimen/dimen_130dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_headportrait"
+            app:riv_border_color="@color/base_gray"
+            app:riv_border_width="@dimen/dimen_4dp"
+            app:riv_oval="true" />
+
+        <ImageView
+            android:id="@+id/iv_sex"
+            android:layout_width="@dimen/dimen_28dp"
+            android:layout_height="@dimen/dimen_28dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/icon_focus_girl" />
+
+        <ImageView
+            android:id="@+id/iv_flag"
+            android:layout_width="@dimen/dimen_100dp"
+            android:layout_height="@dimen/dimen_100dp"
+            android:layout_marginLeft="-12dp"
+            android:layout_marginTop="-9dp"
+            android:src="@drawable/icon_pendant_girl" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fl_heard"
+        android:layout_marginLeft="@dimen/dimen_30dp"
+        android:layout_toRightOf="@+id/fl_heard"
+        android:maxWidth="@dimen/dimen_220dp"
+        android:text="未知"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/dimen_30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_pay_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:text="已支付"
+        android:textColor="@color/base_gray"
+        android:textSize="@dimen/dimen_24dp" />
+
+    <TextView
+        android:id="@+id/tv_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_pay_title"
+        android:layout_marginLeft="@dimen/dimen_12dp"
+        android:layout_toRightOf="@+id/tv_pay_title"
+        android:text="0钻"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/dimen_24dp" />
+
+    <TextView
+        android:id="@+id/tv_order_time_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_below="@+id/tv_pay_title"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:text="订单确认时间"
+        android:textColor="@color/base_gray"
+        android:textSize="@dimen/dimen_24dp" />
+
+    <TextView
+        android:id="@+id/tv_order_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_order_time_title"
+        android:layout_marginLeft="@dimen/dimen_12dp"
+        android:layout_toRightOf="@+id/tv_order_time_title"
+        android:text="0000.00.00-0000.00.00"
+        android:textColor="@color/base_black"
+        android:textSize="@dimen/dimen_24dp" />
+
+    <TextView
+        android:id="@+id/tv_communication_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_below="@+id/tv_order_time_title"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:text="查看红人微信以及QQ号 "
+
+        android:textColor="@color/base_gray"
+        android:textSize="@dimen/dimen_24dp" />
+
+    <TextView
+        android:id="@+id/tv_communication_click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_communication_title"
+        android:layout_toRightOf="@+id/tv_communication_title"
+        android:text="点击查看"
+        android:textColor="@color/color_46a1ff"
+        android:textSize="@dimen/dimen_24dp" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_bt_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_22dp"
+        android:layout_marginTop="@dimen/dimen_45dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_back_money"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48dp"
+            android:layout_marginRight="@dimen/dimen_20dp"
+            android:background="@drawable/base_bg_round_theme_5"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimen_26dp"
+            android:paddingRight="@dimen/dimen_26dp"
+            android:text="退 款"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/dimen_28dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_cancel_order"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48dp"
+            android:layout_marginRight="@dimen/dimen_20dp"
+            android:background="@drawable/base_bg_round_theme_5"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimen_26dp"
+            android:paddingRight="@dimen/dimen_26dp"
+            android:text="取 消"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/dimen_28dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_confirm_order"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48dp"
+            android:layout_marginRight="@dimen/dimen_20dp"
+            android:background="@drawable/base_bg_round_theme_4"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimen_26dp"
+            android:paddingRight="@dimen/dimen_26dp"
+            android:text="确 认"
+            android:textColor="@color/color_f65aa0"
+            android:textSize="@dimen/dimen_28dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_complete_order"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_48dp"
+            android:background="@drawable/base_bg_round_theme_4"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimen_26dp"
+            android:paddingRight="@dimen/dimen_26dp"
+            android:text="完 成"
+            android:textColor="@color/color_f65aa0"
+            android:textSize="@dimen/dimen_28dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <com.huanmedia.videochat.common.widget.StatusChangeLayout
+        android:id="@+id/status_change_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_communication_title"
+
+        android:layout_marginTop="@dimen/dimen_35dp"></com.huanmedia.videochat.common.widget.StatusChangeLayout>
+</RelativeLayout>

@@ -1,7 +1,22 @@
 package com.huanmedia.videochat.mvp.entity.results;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 public class AppointmentDataOpResults {
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface OrderStatus {
+        int NoConfirm = 0;//待确认
+        int ReadManConfirm = 1;//红人确认
+        int Complete = 2;//完成
+        int ReadManCancel = -1;//红人取消订单
+        int SelfCancel = -2;//自己取消订单
+        int OverTime = -3;//超时
+    }
+
     private int aid;
+    private int account_id;
+    private int account_vipid;
     private int from;
     private int to;
     private int paycoins;
@@ -15,6 +30,7 @@ public class AppointmentDataOpResults {
     private int sex;
     private int isstart;
     private int status;
+    private int astatus;
     private int ytime;//预约时长
     //    查看订单所属状态列表
     //            订单状态
@@ -24,6 +40,31 @@ public class AppointmentDataOpResults {
     //-3超时未确认
     //1红人确认
     //2已完成
+
+
+    public int getAstatus() {
+        return astatus;
+    }
+
+    public void setAstatus(int astatus) {
+        this.astatus = astatus;
+    }
+
+    public int getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
+    }
+
+    public int getAccount_vipid() {
+        return account_vipid;
+    }
+
+    public void setAccount_vipid(int account_vipid) {
+        this.account_vipid = account_vipid;
+    }
 
     public int getYtime() {
         return ytime;

@@ -11,6 +11,7 @@ public interface IAppointmentConfirmView extends BaseMVPView {
 
     /**
      * 确认预约单失败
+     *
      * @param msg
      */
     void confirmAppointmentFail(String msg);
@@ -22,7 +23,20 @@ public interface IAppointmentConfirmView extends BaseMVPView {
 
     /**
      * 取消预约单失败
+     *
      * @param msg
      */
     void cancelAppointmentFail(String msg);
+
+    /**
+     * 完成订单成功
+     * @param aid
+     */
+    void completeAppointmentSuccess(int aid);
+
+    /**
+     * 完成订单失败
+     * @param msg
+     */
+    void completeAppointmentFail(String msg);
 }

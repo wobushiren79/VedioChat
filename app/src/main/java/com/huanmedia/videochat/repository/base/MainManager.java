@@ -19,6 +19,7 @@ import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentDetailResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListOpResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
@@ -215,6 +216,23 @@ public interface MainManager {
      * @param handler
      */
     void confirmAppointmentOp(Context context, AppointmentRequest params, HttpResponseHandler handler);
+
+    /**
+     * 预约单详情
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void getAppointmentDetail(Context context, AppointmentRequest params, HttpResponseHandler<AppointmentDetailResults> handler);
+
+    /**
+     * 完成预约单
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void completeAppointment(Context context, AppointmentRequest params, HttpResponseHandler handler);
 
     /**
      * 短视频列表

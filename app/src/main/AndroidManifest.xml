@@ -362,7 +362,7 @@
         <activity
             android:name=".discover.ArtistActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.baidu.location.f"
@@ -372,7 +372,8 @@
         <activity
             android:name=".appointment.AppointmentOpActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".chat.ChatActivity"></activity>
     </application>
 
 </manifest>

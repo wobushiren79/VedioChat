@@ -22,6 +22,8 @@ import android.content.Intent;
 import com.huanmedia.videochat.appointment.AppointmentActivity;
 import com.huanmedia.videochat.appointment.AppointmentListActivity;
 import com.huanmedia.videochat.appointment.AppointmentOpActivity;
+import com.huanmedia.videochat.chat.ChatActivity;
+import com.huanmedia.videochat.chat.bean.ChatIntentBean;
 import com.huanmedia.videochat.common.LocalHtmlWebActivity;
 import com.huanmedia.videochat.discover.ArtistActivity;
 import com.huanmedia.videochat.discover.BusinessCardAcitivty;
@@ -332,6 +334,16 @@ public class Navigator {
     public void navtoAppointmentList(Activity context, int tabPosition) {
         context.startActivity(AppointmentListActivity.getCallingIntent(context, tabPosition));
     }
+
+    /**
+     * 聊天界面
+     *
+     * @param context
+     */
+    public void navtoChat(Activity context, ChatIntentBean intentBean) {
+        context.startActivity(ChatActivity.getCallingIntent(context, intentBean));
+    }
+
 
     /**
      * 艺人主界面

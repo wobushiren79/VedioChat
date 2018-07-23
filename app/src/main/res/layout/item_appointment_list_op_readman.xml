@@ -104,7 +104,7 @@
         android:background="@drawable/base_bg_round_theme_2"
         android:paddingLeft="@dimen/dimen_32dp"
         android:paddingRight="@dimen/dimen_32dp"
-        android:text="金额 100钻石"
+        android:text="金额未知"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_24dp" />
 
@@ -120,10 +120,11 @@
         android:visibility="gone" />
 
     <TextView
+
         android:id="@+id/tv_take_order"
-        android:layout_width="@dimen/dimen_80dp"
-        android:layout_height="@dimen/dimen_80dp"
+        android:layout_width="@dimen/dimen_85dp"
+        android:layout_height="@dimen/dimen_85dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/dimen_105dp"
+        android:layout_marginTop="@dimen/dimen_110dp"
         android:background="@drawable/btn_take_style_1" />
 </RelativeLayout>

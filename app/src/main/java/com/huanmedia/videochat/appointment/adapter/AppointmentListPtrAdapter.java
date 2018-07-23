@@ -195,6 +195,16 @@ public class AppointmentListPtrAdapter extends BaseRCAdapter<AppointmentListResu
     }
 
     @Override
+    public void completeAppointmentSuccess(int aid) {
+
+    }
+
+    @Override
+    public void completeAppointmentFail(String msg) {
+
+    }
+
+    @Override
     public Context getContext() {
         return mContext;
     }

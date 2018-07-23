@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.appointment.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,6 +16,9 @@ import com.applecoffee.devtools.base.adapter.BaseViewHolder;
 import com.huanmedia.ilibray.utils.TimeUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.chat.ChatActivity;
+import com.huanmedia.videochat.chat.bean.ChatIntentBean;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataOpResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentConfirmPresenterImpl;
@@ -102,6 +106,13 @@ public class AppointmentListOpAdapter
         tvConfirm.setOnClickListener(view -> {
             mConfirmPresenter.confirmAppointmentOp(itemData.getAid());
         });
+        //详情
+        baseViewHolder.itemView.setOnClickListener(view -> {
+            ChatIntentBean intentBean = new ChatIntentBean();
+            intentBean.setChatType(ChatIntentBean.ChatType.Appointment);
+            intentBean.setOrderId(itemData.getAid());
+            ((BaseActivity) mContext).getNavigator().navtoChat((Activity) mContext, intentBean);
+        });
     }
 
     /**
@@ -139,6 +150,13 @@ public class AppointmentListOpAdapter
         tvStatus.setText(itemData.getStatusStr());
         //设置时间
         tvTime.setText(TimeUtils.millis2String(itemData.getCtime() * 1000, new SimpleDateFormat("MM-dd")));
+        //详情
+        baseViewHolder.itemView.setOnClickListener(view -> {
+            ChatIntentBean intentBean = new ChatIntentBean();
+            intentBean.setChatType(ChatIntentBean.ChatType.Appointment);
+            intentBean.setOrderId(itemData.getAid());
+            ((BaseActivity) mContext).getNavigator().navtoChat((Activity) mContext, intentBean);
+        });
     }
 
 
@@ -188,6 +206,16 @@ public class AppointmentListOpAdapter
 
     @Override
     public void cancelAppointmentFail(String msg) {
+
+    }
+
+    @Override
+    public void completeAppointmentSuccess(int aid) {
+
+    }
+
+    @Override
+    public void completeAppointmentFail(String msg) {
 
     }
 

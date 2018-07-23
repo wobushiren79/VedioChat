@@ -40,5 +40,20 @@ public class AppointmentConfirmModelImpl extends BaseMVPModel implements IAppoin
         });
     }
 
+    @Override
+    public void completeAppointment(Context context, AppointmentRequest params, DataCallBack callBack) {
+        MHttpManagerFactory.getMainManager().completeAppointment(context, params, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(Object result) {
+                callBack.getDataSuccess(result);
+            }
+
+            @Override
+            public void onError(String message) {
+                callBack.getDataFail(message);
+            }
+        });
+    }
+
 
 }

@@ -1263,7 +1263,6 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
     private void showContactDialog() {
         CheckContactDialog dialog = new CheckContactDialog(this);
         dialog.setReadManId(getBasePresenter().getCondition().getReadMainConfig().getRedManId());
-
         dialog.show();
     }
 

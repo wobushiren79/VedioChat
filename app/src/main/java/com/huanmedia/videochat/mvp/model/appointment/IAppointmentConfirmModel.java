@@ -21,4 +21,12 @@ public interface IAppointmentConfirmModel {
      * @param callBack
      */
     void confirmAppointmentOp(Context context, AppointmentRequest params, DataCallBack callBack);
+
+    /**
+     * 预约确认或取消 新版
+     * @param context
+     * @param params
+     * @param callBack
+     */
+    void completeAppointment(Context context, AppointmentRequest params, DataCallBack callBack);
 }

@@ -32,6 +32,29 @@ public class AppointmentConfirmPresenterImpl extends BaseMVPPresenter<IAppointme
         startOp(aid, -1);
     }
 
+    @Override
+    public void completeAppointment(int aid) {
+        if (mMvpView.getContext() == null)
+            return;
+        if (aid == 0) {
+            mMvpView.showToast("没有预约ID");
+            return;
+        }
+        AppointmentRequest params = new AppointmentRequest();
+        params.setAid(aid);
+        mMvpModel.completeAppointment(mMvpView.getContext(), params, new DataCallBack() {
+            @Override
+            public void getDataSuccess(Object data) {
+                mMvpView.completeAppointmentSuccess(aid);
+            }
+
+            @Override
+            public void getDataFail(String msg) {
+                mMvpView.completeAppointmentFail(msg);
+            }
+        });
+    }
+
     private void start(int aid, int submitType) {
         if (mMvpView.getContext() == null)
             return;

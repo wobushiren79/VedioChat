@@ -86,16 +86,18 @@ public class BaseManagerImpl {
         } catch (Exception e) {
 
         } finally {
+            Log.v("Post_Params", "--------------------Post  Params--------------------");
             Log.v("Post_Params", "paramsJson:" + paramsJson);
+            Log.v("Post_Params", "----------------------------------------------------");
         }
         Map<String, Object> map = new HashMap<>();
         if (obj == null)
             return map;
-        List<Field> fieldList = new ArrayList<>() ;
+        List<Field> fieldList = new ArrayList<>();
         Class<?> clazz = obj.getClass();
         //当父类为null的时候说明到达了最上层的父类(Object类).
         while (clazz != null) {
-            fieldList.addAll(Arrays.asList(clazz .getDeclaredFields()));
+            fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
             //得到父类,然后赋给自己
             clazz = clazz.getSuperclass();
         }

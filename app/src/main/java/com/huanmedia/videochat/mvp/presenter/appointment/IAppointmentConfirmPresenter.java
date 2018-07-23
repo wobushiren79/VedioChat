@@ -20,4 +20,10 @@ public interface IAppointmentConfirmPresenter {
      * 取消预约 新版
      */
     void cancelAppointmentOp(int aid);
+
+    /**
+     * 完成预约
+     * @param aid
+     */
+    void completeAppointment(int aid);
 }
