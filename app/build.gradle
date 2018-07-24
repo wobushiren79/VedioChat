@@ -262,7 +262,7 @@ dependencies {
     implementation 'com.umeng.sdk:analytics:latest.integration'
     implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
-    implementation 'com.github.wobushiren79:DevTools:version_0.292'
+    implementation 'com.github.wobushiren79:DevTools:version_0.293'
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
 
     implementation 'com.shuyu:gsyVideoPlayer-java:5.0.0-beta'

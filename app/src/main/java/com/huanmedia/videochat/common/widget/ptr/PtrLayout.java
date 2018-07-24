@@ -14,6 +14,7 @@ import com.huanmedia.videochat.mvp.entity.results.ListDataResults;
 
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
@@ -53,6 +54,14 @@ public class PtrLayout<T> extends PtrRecyclerView {
         super.initData();
         resetPage();
         setPtrHandle2(new CustomHandle());
+    }
+
+    public void disablePtr() {
+        setPtrHandle2(null);
+    }
+
+    public void enabledOnePtr() {
+        setPtrHandle(new CustomHandleOne());
     }
 
     public int getPage() {
@@ -111,6 +120,16 @@ public class PtrLayout<T> extends PtrRecyclerView {
                 callBack.onLoadMoreBegin(frame);
         }
 
+        @Override
+        public void onRefreshBegin(PtrFrameLayout frame) {
+            resetPage();
+            setHasDataVisibility(View.GONE);
+            if (callBack != null)
+                callBack.onRefreshBegin(frame);
+        }
+    }
+
+    public class CustomHandleOne extends PtrDefaultHandler {
         @Override
         public void onRefreshBegin(PtrFrameLayout frame) {
             resetPage();

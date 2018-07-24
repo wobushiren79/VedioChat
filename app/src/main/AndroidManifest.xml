@@ -373,7 +373,11 @@
             android:name=".appointment.AppointmentOpActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".chat.ChatActivity"></activity>
+        <activity
+            android:name=".chat.ChatActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

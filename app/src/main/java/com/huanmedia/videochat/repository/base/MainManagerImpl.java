@@ -2,7 +2,6 @@ package com.huanmedia.videochat.repository.base;
 
 import android.content.Context;
 
-import com.google.gson.internal.LinkedTreeMap;
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.mvp.entity.request.AdsLuanchRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentListOpRequest;
@@ -10,6 +9,8 @@ import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
+import com.huanmedia.videochat.mvp.entity.request.ChatListRequest;
+import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
@@ -28,9 +29,9 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
-import com.huanmedia.videochat.mvp.entity.results.GiftListInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.RewardResults;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
@@ -222,6 +223,12 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void artistsGroupShow(Context context, ArtistsGroupShowRequest params, HttpResponseHandler<ArtistsGroupShowResults> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.artistsGroupShow(paramsMap), handler);
+    }
+
+    @Override
+    public void getChatList(Context context, ChatListRequest params, HttpResponseHandler<ChatListResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.chatList(paramsMap), handler);
     }
 
 

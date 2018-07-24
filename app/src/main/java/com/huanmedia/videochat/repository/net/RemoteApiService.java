@@ -15,6 +15,7 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
@@ -450,6 +451,11 @@ public interface RemoteApiService {
     @FormUrlEncoded
     Observable<DataResponse<ArtistsGroupShowResults>> artistsGroupShow(@FieldMap Map<String, Object> params);
 
+    //聊天列表查询
+    @POST("/index/userext/messagelist")
+    @FormUrlEncoded
+    Observable<DataResponse<ChatListResults>> chatList(@FieldMap Map<String, Object> params);
+
 
     @Multipart
     @POST
@@ -460,13 +466,22 @@ public interface RemoteApiService {
     );
 
     @Multipart
-    @POST
+    @POST("/index/userextv2/ossvoidupload")
     Observable<DataResponse<UserVideoDataResults>> uploadViedoData(
-            @Url() String url,
             @QueryMap Map<String, String> parms,
             @PartMap() Map<String, RequestBody> partMap
     );
 
+    @Multipart
+    @POST("/index/userext/submitmessage")
+    Observable<DataResponse<Object>> chatSend(
+            @QueryMap Map<String, Object> parms,
+            @PartMap() Map<String, RequestBody> partMap
+    );
+
+    @POST("/index/userext/submitmessage")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> chatSend(@FieldMap Map<String, Object> parms);
 
     /**
      * 创建一个API服务

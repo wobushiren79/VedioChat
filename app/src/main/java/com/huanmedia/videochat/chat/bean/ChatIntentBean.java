@@ -12,7 +12,15 @@ public class ChatIntentBean implements Serializable {
 
     private int chatType;//聊天类型
     private int orderId;//订单ID
+    private int chatUserId;//聊天对象ID
 
+    public int getChatUserId() {
+        return chatUserId;
+    }
+
+    public void setChatUserId(int chatUserId) {
+        this.chatUserId = chatUserId;
+    }
 
     public int getOrderId() {
         return orderId;

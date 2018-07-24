@@ -3,7 +3,7 @@ package com.huanmedia.videochat.mvp.entity.results;
 public class AppointmentDetailResults {
     private UserInfo ouinfo;
     private UserInfo myifno;
-    private AppointmentDataOpResults detail;
+    private AppointmentDataOpResults.OrderInfo detail;
 
 
     public UserInfo getOuinfo() {
@@ -22,11 +22,11 @@ public class AppointmentDetailResults {
         this.myifno = myifno;
     }
 
-    public AppointmentDataOpResults getDetail() {
+    public AppointmentDataOpResults.OrderInfo getDetail() {
         return detail;
     }
 
-    public void setDetail(AppointmentDataOpResults detail) {
+    public void setDetail(AppointmentDataOpResults.OrderInfo detail) {
         this.detail = detail;
     }
 

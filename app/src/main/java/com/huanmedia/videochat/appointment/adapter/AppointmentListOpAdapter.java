@@ -78,24 +78,25 @@ public class AppointmentListOpAdapter
 
         TextView tvStatus = baseViewHolder.getView(R.id.tv_status);
         TextView tvConfirm = baseViewHolder.getView(R.id.tv_take_order);
-
+        if (itemData == null || itemData.getUinfo() == null || itemData.getAppinfo() == null || itemData.getMsg() == null)
+            return;
         //设置头像
-        GlideUtils.getInstance().loadBitmapNoAnim(getContext(), itemData.getUserphoto_thumb(), ivHead);
+        GlideUtils.getInstance().loadBitmapNoAnim(getContext(), itemData.getUinfo().getUserphoto_thumb(), ivHead);
         //设置性别相关
-        if (itemData.getSex() == 1) {
+        if (itemData.getUinfo().getSex() == 1) {
             ivSex.setImageResource(R.drawable.icon_focus_boy);
         } else {
             ivSex.setImageResource(R.drawable.icon_focus_girl);
         }
         //设置金额
-        tvPrice.setText("金额" + itemData.getPaycoins() + "钻石");
+        tvPrice.setText("金额" + itemData.getAppinfo().getPaycoins() + "钻石");
         //设置通话时长
-        tvCallTime.setText(itemData.getYtime() + "分钟");
+        tvCallTime.setText(itemData.getAppinfo().getYtime() + "分钟");
         //设置时间
-        tvTime.setText("下单时间 " + TimeUtils.millis2String(itemData.getCtime() * 1000, new SimpleDateFormat("MM-dd HH:mm")));
+        tvTime.setText("下单时间 " + TimeUtils.millis2String(itemData.getAppinfo().getCtime() * 1000, new SimpleDateFormat("MM-dd HH:mm")));
         //设置状态相关
-        tvStatus.setText(itemData.getStatusStr());
-        if (itemData.getStatus() == 0) {
+        tvStatus.setText(itemData.getAppinfo().getStatusStr());
+        if (itemData.getAppinfo().getStatus() == 0) {
             tvStatus.setVisibility(View.GONE);
             tvConfirm.setVisibility(View.VISIBLE);
         } else {
@@ -104,13 +105,14 @@ public class AppointmentListOpAdapter
         }
         //确认订单
         tvConfirm.setOnClickListener(view -> {
-            mConfirmPresenter.confirmAppointmentOp(itemData.getAid());
+            mConfirmPresenter.confirmAppointmentOp(itemData.getAppinfo().getAid());
         });
         //详情
         baseViewHolder.itemView.setOnClickListener(view -> {
             ChatIntentBean intentBean = new ChatIntentBean();
             intentBean.setChatType(ChatIntentBean.ChatType.Appointment);
-            intentBean.setOrderId(itemData.getAid());
+            intentBean.setOrderId(itemData.getAppinfo().getAid());
+            intentBean.setChatUserId(itemData.getAppinfo().getFrom());
             ((BaseActivity) mContext).getNavigator().navtoChat((Activity) mContext, intentBean);
         });
     }
@@ -128,11 +130,14 @@ public class AppointmentListOpAdapter
         TextView tvName = baseViewHolder.getView(R.id.tv_name);
         TextView tvStatus = baseViewHolder.getView(R.id.tv_status);
         TextView tvTime = baseViewHolder.getView(R.id.tv_time);
-
+        TextView tvMsg = baseViewHolder.getView(R.id.tv_msg);
+        TextView tvMsgNumber = baseViewHolder.getView(R.id.tv_msg_number);
+        if (itemData == null || itemData.getUinfo() == null || itemData.getAppinfo() == null || itemData.getMsg() == null)
+            return;
         //设置头像
-        GlideUtils.getInstance().loadBitmapNoAnim(getContext(), itemData.getUserphoto_thumb(), ivHead);
+        GlideUtils.getInstance().loadBitmapNoAnim(getContext(), itemData.getUinfo().getUserphoto_thumb(), ivHead);
         //设置性别相关
-        if (itemData.getSex() == 1) {
+        if (itemData.getUinfo().getSex() == 1) {
             ivSex.setImageResource(R.drawable.icon_focus_boy);
             ivFlag.setImageResource(R.drawable.icon_pendant_boy);
         } else {
@@ -140,23 +145,36 @@ public class AppointmentListOpAdapter
             ivFlag.setImageResource(R.drawable.icon_pendant_girl);
         }
         //设置头像
-        tvName.setText(itemData.getNickname());
+        tvName.setText(itemData.getUinfo().getNickname());
         //设置状态相关
-        if (itemData.getStatus() == 0) {
+        if (itemData.getAppinfo().getStatus() == 0) {
             tvStatus.setBackgroundResource(R.drawable.base_bg_round_theme_2);
         } else {
             tvStatus.setBackgroundResource(R.drawable.base_bg_round_theme);
         }
-        tvStatus.setText(itemData.getStatusStr());
+        tvStatus.setText(itemData.getAppinfo().getStatusStr());
         //设置时间
-        tvTime.setText(TimeUtils.millis2String(itemData.getCtime() * 1000, new SimpleDateFormat("MM-dd")));
+        tvTime.setText(TimeUtils.millis2String(itemData.getAppinfo().getCtime() * 1000, new SimpleDateFormat("MM-dd")));
         //详情
         baseViewHolder.itemView.setOnClickListener(view -> {
             ChatIntentBean intentBean = new ChatIntentBean();
             intentBean.setChatType(ChatIntentBean.ChatType.Appointment);
-            intentBean.setOrderId(itemData.getAid());
+            intentBean.setOrderId(itemData.getAppinfo().getAid());
+            intentBean.setChatUserId(itemData.getAppinfo().getTo());
             ((BaseActivity) mContext).getNavigator().navtoChat((Activity) mContext, intentBean);
         });
+        //设置聊天信息
+        if (itemData.getMsg().getLast() != null && itemData.getMsg().getLast().getMsg() != null)
+            tvMsg.setText(itemData.getMsg().getLast().getMsg());
+        else
+            tvMsg.setText("");
+        if (itemData.getMsg().getNoreadcount() != 0) {
+            tvMsgNumber.setVisibility(View.VISIBLE);
+            tvMsgNumber.setText(itemData.getMsg().getNoreadcount() + "");
+        } else {
+            tvMsgNumber.setVisibility(View.GONE);
+            tvMsgNumber.setText("");
+        }
     }
 
 
@@ -172,9 +190,9 @@ public class AppointmentListOpAdapter
     @Override
     public int setItemType(int position) {
         AppointmentDataOpResults itemData = mDatas.get(position);
-        if (itemData.getFrom() == 0)
+        if (itemData.getAppinfo().getFrom() == 0)
             return TimeType;
-        if (itemData.getFrom() == UserManager.getInstance().getId()) {
+        if (itemData.getAppinfo().getFrom() == UserManager.getInstance().getId()) {
             return UserType;
         } else {
             return ReadManType;
@@ -184,8 +202,8 @@ public class AppointmentListOpAdapter
     @Override
     public void confirmAppointmentSuccess(int aid) {
         for (int i = 0; i < mDatas.size(); i++) {
-            if (mDatas.get(i).getAid() == aid) {
-                mDatas.get(i).setStatus(1);
+            if (mDatas.get(i).getAppinfo().getAid() == aid) {
+                mDatas.get(i).getAppinfo().setStatus(1);
                 TextView tvConfirm = mLayoutManager.findViewByPosition(i).findViewById(R.id.tv_take_order);
                 startConfirmAnim(i, tvConfirm);
                 break;

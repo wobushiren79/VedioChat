@@ -18,6 +18,7 @@
 
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
@@ -26,23 +27,73 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:elevation="@dimen/dimen_0dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="@dimen/dimen_0dp">
 
             <RelativeLayout
                 android:id="@+id/rl_head"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></RelativeLayout>
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways"></RelativeLayout>
         </android.support.design.widget.AppBarLayout>
 
 
-        <com.huanmedia.videochat.common.widget.ptr.PtrLayout
+        <com.huanmedia.videochat.chat.view.ChatPtrLayout
+            android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        </com.huanmedia.videochat.common.widget.ptr.PtrLayout>
-
+            android:layout_marginBottom="@dimen/dimen_100dp"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"></com.huanmedia.videochat.chat.view.ChatPtrLayout>
 
     </android.support.design.widget.CoordinatorLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1dp"
+        android:layout_above="@+id/ll_send"
+        android:background="@color/color_e8ebf1" />
+
+    <LinearLayout
+        android:id="@+id/ll_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_44dp"
+        android:paddingRight="@dimen/dimen_44dp">
+
+        <EditText
+            android:id="@+id/et_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请您输入聊天内容..."
+            android:imeOptions="actionSend"
+            android:maxLines="5"
+            android:paddingBottom="@dimen/dimen_30dp"
+            android:paddingTop="@dimen/dimen_30dp"
+            android:textSize="@dimen/dimen_30dp" />
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="@dimen/dimen_110dp"
+            android:layout_height="@dimen/dimen_55dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:layout_marginRight="@dimen/dimen_10dp"
+            android:background="@drawable/btn_chat_send" />
+
+        <TextView
+            android:id="@+id/tv_video"
+            android:layout_width="@dimen/dimen_55dp"
+            android:layout_height="@dimen/dimen_55dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:background="@drawable/btn_chat_video" />
+    </LinearLayout>
 </RelativeLayout>

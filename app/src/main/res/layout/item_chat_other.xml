@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_heard"
+        android:layout_width="@dimen/dimen_80dp"
+        android:layout_height="@dimen/dimen_80dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_28dp"
+        android:src="@drawable/icon_headportrait"
+        app:riv_oval="true" />
+
+    <ImageView
+        android:layout_width="@dimen/dimen_20dp"
+        android:layout_height="@dimen/dimen_20dp"
+        android:layout_marginLeft="@dimen/dimen_12dp"
+        android:layout_marginTop="@dimen/dimen_60dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_chat_other_mark" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/base_bg_round_theme_6"
+            android:padding="@dimen/dimen_20dp"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/dimen_28dp" />
+
+        <TextView
+            android:id="@+id/tv_hasread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/dimen_6dp"
+            android:text=""
+            android:textSize="@dimen/dimen_22dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
@@ -43,5 +44,12 @@ public interface FileManager {
      * @param handler
      */
     void userVideoUpLoad(Context context, UserVideoDataRequest params, HttpResponseHandler<UserVideoDataResults> handler);
-
+    /**
+     * 发送聊天信息
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void chatSend(Context context, ChatSendRequest params, HttpResponseHandler handler);
 }

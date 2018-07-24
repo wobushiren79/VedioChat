@@ -7,6 +7,7 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.manager.ResourceManager;
+import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
@@ -70,30 +71,43 @@ public class FileManagerImpl extends BaseManagerImpl implements FileManager {
         HashMap<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bindfilename", params.getBindfilename());
         paramsMap.put("fullname", params.getFullname());
-        upImages(context, "index/userextv2/ossvoidupload", paramsMap, params.getImg(), handler);
+        HashMap<String, RequestBody> fileMap = upImages(params.getImg(), handler);
+        requestPost(context, mApiService.uploadViedoData( paramsMap, fileMap), handler);
+    }
+
+    @Override
+    public void chatSend(Context context, ChatSendRequest params, HttpResponseHandler handler) {
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("message", params.getMessage());
+        paramsMap.put("msgtype", params.getMstype());
+        paramsMap.put("touid", params.getTouid());
+        paramsMap.put("virid", params.getVirid());
+        HashMap<String, RequestBody> fileMap = upImages(params.getImg(), handler);
+        if (fileMap == null || fileMap.size() == 0) {
+            requestPost(context, mApiService.chatSend(paramsMap), handler);
+        } else {
+            requestPost(context, mApiService.chatSend(paramsMap, fileMap), handler);
+        }
     }
 
 
     /**
      * 上传图片
      *
-     * @param context
-     * @param url
-     * @param params
      * @param images
      * @param handler
      */
-    private void upImages(Context context, String url, HashMap<String, String> params, List<String> images, HttpResponseHandler handler) {
+    private HashMap<String, RequestBody> upImages(List<String> images, HttpResponseHandler handler) {
         HashMap<String, RequestBody> fileMap = new HashMap<>();
-        if (Check.isEmpty(images)) return;
+        if (Check.isEmpty(images))
+            return fileMap;
         for (int i = 0; i < images.size(); i++) {
             File file = new File(images.get(i));
             String fileName = UUID.randomUUID().toString();
             RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             fileMap.put("img[" + i + "]\"; filename=\"" + fileName + ".png", fileBody);
         }
-
-        requestPost(context, mApiService.uploadViedoData(url, params, fileMap), handler);
+        return fileMap;
     }
 
 }
