@@ -18,6 +18,7 @@ import com.huanmedia.ilibray.utils.Installation;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.cipher.Base64Cipher;
 import com.huanmedia.videochat.BuildConfig;
+import com.huanmedia.videochat.appointment.AppointmentHistoryListActivity;
 import com.huanmedia.videochat.appointment.AppointmentListActivity;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.FApplication;
@@ -327,10 +328,10 @@ public class MainPresenter extends Presenter<MainView> {
                             break;
                         case "cancel":
                         case "appointconfirm":
-                            sysNotice(message, AppointmentListActivity.class);
+                            sysNotice(message, AppointmentHistoryListActivity.class);
                             break;
                         case "hasnewappoint":
-                            systemMsg(message, AppointmentListActivity.class);
+                            systemMsg(message, AppointmentHistoryListActivity.class);
                             break;
                         case "timeget":
                             String contentStr;

@@ -4,6 +4,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class AppointmentDataOpResults {
+    //订单状态
     @Retention(RetentionPolicy.SOURCE)
     public @interface OrderStatus {
         int NoConfirm = 0;//待确认
@@ -12,6 +13,14 @@ public class AppointmentDataOpResults {
         int ReadManCancel = -1;//红人取消订单
         int SelfCancel = -2;//自己取消订单
         int OverTime = -3;//超时
+    }
+
+    //投诉状态
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ComplainStatus {
+        int NoComplain = 0;//未投诉
+        int InComplain = 1;//投诉
+        int CompleteComplain = 2;//完成投诉
     }
 
     private OrderInfo appinfo;
@@ -117,6 +126,7 @@ public class AppointmentDataOpResults {
         private long datetime;
         private int status;
         private int astatus;
+        private int complaintflag;
         private int ytime;//预约时长
         //    查看订单所属状态列表
         //            订单状态
@@ -127,6 +137,14 @@ public class AppointmentDataOpResults {
         //1红人确认
         //2已完成
 
+
+        public int getComplaintflag() {
+            return complaintflag;
+        }
+
+        public void setComplaintflag(int complaintflag) {
+            this.complaintflag = complaintflag;
+        }
 
         public int getAstatus() {
             return astatus;

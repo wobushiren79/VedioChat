@@ -1,5 +1,7 @@
 package com.huanmedia.videochat.mvp.entity.results;
 
+import android.support.annotation.NonNull;
+
 import com.huanmedia.videochat.repository.entity.UserEntity;
 
 import java.util.List;
@@ -72,7 +74,7 @@ public class ChatListResults {
         }
     }
 
-    public static class Item {
+    public static class Item implements Comparable<Item> {
         private int id;
         private int account_id;
         private int toaccount_id;
@@ -82,7 +84,7 @@ public class ChatListResults {
         private String virid;
         private String imgs;
         private int handle_id;
-        private int handle_type;
+        private int handle_type;//处理类型 0：未处理(未阅读) 1.已回复(已阅读) 2.忽略
         private String handle_text;
         private long handle_time;
 
@@ -180,6 +182,11 @@ public class ChatListResults {
 
         public void setHandle_time(long handle_time) {
             this.handle_time = handle_time;
+        }
+
+        @Override
+        public int compareTo(@NonNull Item item) {
+            return (int)(this.getCreatetime() - item.getCreatetime());
         }
     }
 }

@@ -9,6 +9,7 @@ import com.huanmedia.videochat.common.FApplication;
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
 import com.huanmedia.videochat.repository.aliyun.AliyunHandler;
@@ -76,7 +77,7 @@ public class FileManagerImpl extends BaseManagerImpl implements FileManager {
     }
 
     @Override
-    public void chatSend(Context context, ChatSendRequest params, HttpResponseHandler handler) {
+    public void chatSend(Context context, ChatSendRequest params, HttpResponseHandler<ChatSendResults> handler) {
         HashMap<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("message", params.getMessage());
         paramsMap.put("msgtype", params.getMstype());

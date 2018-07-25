@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.huanmedia.videochat.appointment.AppointmentActivity;
+import com.huanmedia.videochat.appointment.AppointmentHistoryListActivity;
 import com.huanmedia.videochat.appointment.AppointmentListActivity;
 import com.huanmedia.videochat.appointment.AppointmentOpActivity;
 import com.huanmedia.videochat.chat.ChatActivity;
@@ -45,6 +46,7 @@ import com.huanmedia.videochat.my.RedMianAuthActivity;
 import com.huanmedia.videochat.my.SettingActivity;
 import com.huanmedia.videochat.my.TrustValueActivity;
 import com.huanmedia.videochat.my.UserInfoEditActivity;
+import com.huanmedia.videochat.my.bean.FeedBackIntentBean;
 import com.huanmedia.videochat.pay.AccountBoundActivity;
 import com.huanmedia.videochat.pay.AccountParticularsActivity;
 import com.huanmedia.videochat.pay.CoinPayActivity;
@@ -205,7 +207,13 @@ public class Navigator {
      * @param activity
      */
     public void navtoFeedBack(Activity activity) {
-        activity.startActivity(FeedBackActivity.getCallingIntent(activity));
+        FeedBackIntentBean intentBean = new FeedBackIntentBean();
+        intentBean.setFeedBackType(FeedBackIntentBean.FeedBackType.FeedBack);
+        activity.startActivity(FeedBackActivity.getCallingIntent(activity, intentBean));
+    }
+
+    public void navtoFeedBack(Activity activity, FeedBackIntentBean intentBean) {
+        activity.startActivity(FeedBackActivity.getCallingIntent(activity, intentBean));
     }
 
     /**
@@ -333,6 +341,10 @@ public class Navigator {
      */
     public void navtoAppointmentList(Activity context, int tabPosition) {
         context.startActivity(AppointmentListActivity.getCallingIntent(context, tabPosition));
+    }
+
+    public void navtoAppointmentHistoryList(Activity context) {
+        context.startActivity(AppointmentHistoryListActivity.getCallingIntent(context));
     }
 
     /**

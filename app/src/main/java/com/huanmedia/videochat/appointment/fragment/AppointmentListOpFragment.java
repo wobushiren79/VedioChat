@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.appointment.fragment;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -31,6 +32,7 @@ public class AppointmentListOpFragment extends BaseFragment implements IAppointm
     private AppointmentListOpAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private IAppointmentListPresenter mListPresenter;
+    public static boolean Is_Refresh_Data = false;
 
     @Override
     protected int getLayoutId() {
@@ -40,6 +42,15 @@ public class AppointmentListOpFragment extends BaseFragment implements IAppointm
     public static AppointmentListOpFragment newInstance() {
         AppointmentListOpFragment fragment = new AppointmentListOpFragment();
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPtrLayout != null && Is_Refresh_Data == true) {
+            Is_Refresh_Data = false;
+            mPtrLayout.setRefresh();
+        }
     }
 
     @Override
@@ -53,6 +64,7 @@ public class AppointmentListOpFragment extends BaseFragment implements IAppointm
         mAdapter = new AppointmentListOpAdapter(getContext(), mLayoutManager);
         mPtrLayout.setAdapter(mAdapter);
         mPtrLayout.setLayoutManager(mLayoutManager);
+        mPtrLayout.getRecyclerView().setItemAnimator(new DefaultItemAnimator());
         mPtrLayout.setCallBack(this);
         mListPresenter = new AppointmentListPresenterImpl(this);
         RxCountDown.delay2(500).subscribe(integer -> {

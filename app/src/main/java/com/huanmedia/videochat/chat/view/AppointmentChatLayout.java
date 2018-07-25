@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.chat.view;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.google.gson.internal.LinkedTreeMap;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BaseLinearLayout;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.StatusChangeLayout;
@@ -22,6 +24,7 @@ import com.huanmedia.videochat.mvp.presenter.appointment.IAppointmentConfirmPres
 import com.huanmedia.videochat.mvp.presenter.appointment.IAppointmentDetailPresenter;
 import com.huanmedia.videochat.mvp.view.appointment.IAppointmentConfirmView;
 import com.huanmedia.videochat.mvp.view.appointment.IAppointmentDetailView;
+import com.huanmedia.videochat.my.bean.FeedBackIntentBean;
 
 import java.util.Map;
 
@@ -44,6 +47,7 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
     private StatusChangeLayout mStatusLayout;
 
     private int mOrderId;
+    private int mChatUserId;
     private IAppointmentDetailPresenter mDetailPresenter;
     private IAppointmentConfirmPresenter mConfirmPresenter;
     private CallBack mCallBack;
@@ -96,6 +100,12 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
         mDetailPresenter.getAppointmentDetails();
     }
 
+    /**
+     * 设置对方Id
+     */
+    public void setChatUserId(int chatUserId) {
+        mChatUserId = chatUserId;
+    }
 
     //------------------订单详情相关-------------------------
     @Override
@@ -164,56 +174,67 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
     }
 
     @Override
-    public void setOrderStatus(int status) {
+    public void setOrderStatus(int orderStatus, int complainStatus) {
         Map<Integer, String> statusMap = new LinkedTreeMap<>();
         statusMap.put(0, "待确认");
         statusMap.put(1, "进行中");
         statusMap.put(2, "已完成");
         mStatusLayout.setStatusMap(statusMap);
-        mStatusLayout.setStatus(status);
-
-        switch (status) {
-            case AppointmentDataOpResults.OrderStatus.NoConfirm:
-                mTVBackMoney.setVisibility(GONE);
-                mTVCompleteOrder.setVisibility(GONE);
-                if (mDetailPresenter.getAcceptUserId() == UserManager.getInstance().getId()) {
-                    mTVCancelOrder.setVisibility(VISIBLE);
-                    mTVConfirmOrder.setVisibility(VISIBLE);
-                } else {
-                    mTVCancelOrder.setVisibility(GONE);
-                    mTVConfirmOrder.setVisibility(GONE);
-                }
-                break;
-            case AppointmentDataOpResults.OrderStatus.ReadManConfirm:
-                mTVCancelOrder.setVisibility(GONE);
-                mTVConfirmOrder.setVisibility(GONE);
-                if (mDetailPresenter.getAcceptUserId() == UserManager.getInstance().getId()) {
+        mStatusLayout.setStatus(orderStatus);
+        if (complainStatus == AppointmentDataOpResults.ComplainStatus.NoComplain) {
+            switch (orderStatus) {
+                case AppointmentDataOpResults.OrderStatus.NoConfirm:
                     mTVBackMoney.setVisibility(GONE);
                     mTVCompleteOrder.setVisibility(GONE);
-                } else {
-                    mTVBackMoney.setVisibility(VISIBLE);
-                    mTVCompleteOrder.setVisibility(VISIBLE);
-                }
-                break;
-            case AppointmentDataOpResults.OrderStatus.Complete:
-                mTVCancelOrder.setVisibility(GONE);
-                mTVConfirmOrder.setVisibility(GONE);
-                mTVCompleteOrder.setVisibility(GONE);
-                if (mDetailPresenter.getAcceptUserId() == UserManager.getInstance().getId()) {
+                    if (mDetailPresenter.getAcceptUserId() == UserManager.getInstance().getId()) {
+                        mTVCancelOrder.setVisibility(VISIBLE);
+                        mTVConfirmOrder.setVisibility(VISIBLE);
+                    } else {
+                        mTVCancelOrder.setVisibility(GONE);
+                        mTVConfirmOrder.setVisibility(GONE);
+                    }
+                    break;
+                case AppointmentDataOpResults.OrderStatus.ReadManConfirm:
+                    mTVCancelOrder.setVisibility(GONE);
+                    mTVConfirmOrder.setVisibility(GONE);
+                    if (mDetailPresenter.getAcceptUserId() == UserManager.getInstance().getId()) {
+                        mTVBackMoney.setVisibility(GONE);
+                        mTVCompleteOrder.setVisibility(GONE);
+                    } else {
+                        mTVBackMoney.setVisibility(VISIBLE);
+                        mTVCompleteOrder.setVisibility(VISIBLE);
+                    }
+                    break;
+                case AppointmentDataOpResults.OrderStatus.Complete:
+                    mTVCancelOrder.setVisibility(GONE);
+                    mTVConfirmOrder.setVisibility(GONE);
+                    mTVCompleteOrder.setVisibility(GONE);
+                    if (mDetailPresenter.getAcceptUserId() == UserManager.getInstance().getId()) {
+                        mTVBackMoney.setVisibility(GONE);
+                    } else {
+                        mTVBackMoney.setVisibility(VISIBLE);
+                    }
+                    break;
+                default:
+                    mTVCancelOrder.setVisibility(GONE);
+                    mTVConfirmOrder.setVisibility(GONE);
+                    mTVCompleteOrder.setVisibility(GONE);
                     mTVBackMoney.setVisibility(GONE);
-                } else {
-                    mTVBackMoney.setVisibility(VISIBLE);
-                }
-                break;
-            default:
-                mTVCancelOrder.setVisibility(GONE);
-                mTVConfirmOrder.setVisibility(GONE);
-                mTVCompleteOrder.setVisibility(GONE);
-                mTVBackMoney.setVisibility(GONE);
-                mTVBackMoney.setVisibility(GONE);
-                mStatusLayout.setVisibility(GONE);
-                break;
+                    mTVBackMoney.setVisibility(GONE);
+                    mStatusLayout.setVisibility(GONE);
+                    break;
+            }
+        } else {
+            mTVCancelOrder.setVisibility(GONE);
+            mTVConfirmOrder.setVisibility(GONE);
+            mTVCompleteOrder.setVisibility(GONE);
+            mTVBackMoney.setVisibility(GONE);
+            mTVBackMoney.setVisibility(GONE);
+            mStatusLayout.setVisibility(GONE);
         }
+
+        if (mCallBack != null)
+            mCallBack.onStatusChange(orderStatus, complainStatus);
     }
 
     @Override
@@ -343,6 +364,17 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
         cancelDialog.show();
     }
 
+    /**
+     * 预约投诉
+     */
+    private void appointmentComplainClick() {
+        FeedBackIntentBean intentBean = new FeedBackIntentBean();
+        intentBean.setFeedBackType(FeedBackIntentBean.FeedBackType.AppointmentComplain);
+        intentBean.setOrderId(mOrderId);
+        intentBean.setToUid(mChatUserId);
+        ((BaseActivity) getContext()).getNavigator().navtoFeedBack((Activity) getContext(), intentBean);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -350,6 +382,7 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
                 communicationClick();
                 break;
             case R.id.tv_back_money:
+                appointmentComplainClick();
                 break;
             case R.id.tv_cancel_order:
                 cancelClick();
@@ -366,7 +399,8 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
     //--------------确认，取消，完成订单--------------
     @Override
     public void confirmAppointmentSuccess(int aid) {
-        setOrderStatus(AppointmentDataOpResults.OrderStatus.ReadManConfirm);
+        setOrderStatus(AppointmentDataOpResults.OrderStatus.ReadManConfirm,
+                AppointmentDataOpResults.ComplainStatus.NoComplain);
     }
 
     @Override
@@ -376,7 +410,8 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
 
     @Override
     public void cancelAppointmentSuccess(int aid) {
-        setOrderStatus(AppointmentDataOpResults.OrderStatus.ReadManCancel);
+        setOrderStatus(AppointmentDataOpResults.OrderStatus.ReadManCancel,
+                AppointmentDataOpResults.ComplainStatus.NoComplain);
     }
 
     @Override
@@ -386,7 +421,8 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
 
     @Override
     public void completeAppointmentSuccess(int aid) {
-        setOrderStatus(AppointmentDataOpResults.OrderStatus.Complete);
+        setOrderStatus(AppointmentDataOpResults.OrderStatus.Complete,
+                AppointmentDataOpResults.ComplainStatus.NoComplain);
     }
 
     @Override
@@ -398,5 +434,7 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
         void getDetailsSuccess(AppointmentDetailResults results);
 
         void getDetailsFail(String msg);
+
+        void onStatusChange(int orderStatus, int complainStatus);
     }
 }

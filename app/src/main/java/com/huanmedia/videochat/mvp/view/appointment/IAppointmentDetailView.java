@@ -76,6 +76,7 @@ public interface IAppointmentDetailView extends BaseMVPView {
 
     /**
      * 设置订单持续时间
+     *
      * @param startTime
      * @param endTime
      */
@@ -83,7 +84,9 @@ public interface IAppointmentDetailView extends BaseMVPView {
 
     /**
      * 设置订单状态
-     * @param status
+     *
+     * @param orderStatus
+     * @param complainStatus
      */
-    void setOrderStatus(int status);
+    void setOrderStatus(int orderStatus, int complainStatus);
 }

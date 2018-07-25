@@ -8,6 +8,7 @@
 
 
     <LinearLayout
+        android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_44dp"
@@ -15,6 +16,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_gravity="right"
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,11 +38,11 @@
     </LinearLayout>
 
     <ImageView
-        android:scaleType="fitXY"
-        android:layout_width="@dimen/dimen_20dp"
-        android:layout_height="@dimen/dimen_20dp"
+        android:layout_width="@dimen/dimen_10dp"
+        android:layout_height="@dimen/dimen_15dp"
         android:layout_marginRight="@dimen/dimen_12dp"
         android:layout_marginTop="@dimen/dimen_60dp"
+        android:scaleType="fitXY"
         android:src="@drawable/icon_chat_self_mark" />
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -49,6 +51,7 @@
         android:layout_height="@dimen/dimen_80dp"
         android:layout_marginRight="@dimen/dimen_44dp"
         android:layout_marginTop="@dimen/dimen_28dp"
+        android:scaleType="fitXY"
         android:src="@drawable/icon_headportrait"
         app:riv_oval="true" />
 </LinearLayout>

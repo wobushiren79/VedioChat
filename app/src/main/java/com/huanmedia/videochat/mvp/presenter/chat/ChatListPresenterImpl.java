@@ -7,6 +7,8 @@ import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.model.chat.ChatModelImpl;
 import com.huanmedia.videochat.mvp.view.chat.IChatListView;
 
+import java.util.Collections;
+
 public class ChatListPresenterImpl extends BaseMVPPresenter<IChatListView, ChatModelImpl> implements IChatListPresenter {
 
 
@@ -14,14 +16,12 @@ public class ChatListPresenterImpl extends BaseMVPPresenter<IChatListView, ChatM
         super(mMvpView, ChatModelImpl.class);
     }
 
+    private boolean isRefreshNewData = false;
+
     @Override
     public void getHistoryChatList(int msgId) {
         if (mMvpView.getContext() == null)
             return;
-        if (msgId == 0) {
-            mMvpView.showToast("没有信息ID");
-            return;
-        }
         if (mMvpView.getChatUserId() == 0) {
             mMvpView.showToast("没有聊天对象ID");
             return;
@@ -29,12 +29,22 @@ public class ChatListPresenterImpl extends BaseMVPPresenter<IChatListView, ChatM
         ChatListRequest params = new ChatListRequest();
         params.setMsgtype(2);
         params.setOuid(mMvpView.getChatUserId());
-        params.setOldid(msgId);
+        if (msgId != 0) {
+            params.setOldid(msgId);
+        }
         mMvpModel.getChatList(mMvpView.getContext(), params, new DataCallBack<ChatListResults>() {
 
             @Override
             public void getDataSuccess(ChatListResults data) {
                 mMvpView.getChatListSuccess(data);
+                if (data.getMyinfo() != null)
+                    mMvpView.setSelfData(data.getMyinfo());
+                if (data.getUinfo() != null)
+                    mMvpView.setOtherData(data.getUinfo());
+                if (data.getItems() != null) {
+                    Collections.sort(data.getItems());
+                    mMvpView.setHistoryChatListData(data.getItems());
+                }
             }
 
             @Override
@@ -47,36 +57,45 @@ public class ChatListPresenterImpl extends BaseMVPPresenter<IChatListView, ChatM
     }
 
     @Override
-    public void getNewChatList(int chatId) {
-
-    }
-
-    @Override
-    public void getDefChatList() {
+    public void getNewChatList(int msgId) {
         if (mMvpView.getContext() == null)
             return;
         if (mMvpView.getChatUserId() == 0) {
             mMvpView.showToast("没有聊天对象ID");
             return;
         }
+        if (isRefreshNewData)
+            return;
+        isRefreshNewData = true;
         ChatListRequest params = new ChatListRequest();
         params.setMsgtype(2);
         params.setOuid(mMvpView.getChatUserId());
+        if (msgId != 0) {
+            params.setNewid(msgId);
+        }
         mMvpModel.getChatList(mMvpView.getContext(), params, new DataCallBack<ChatListResults>() {
 
             @Override
             public void getDataSuccess(ChatListResults data) {
                 mMvpView.getChatListSuccess(data);
-                if (data.getItems() != null)
-                    mMvpView.setDefChatListData(data.getItems());
+                if (data.getMyinfo() != null)
+                    mMvpView.setSelfData(data.getMyinfo());
+                if (data.getUinfo() != null)
+                    mMvpView.setOtherData(data.getUinfo());
+                if (data.getItems() != null) {
+                    Collections.sort(data.getItems());
+                    mMvpView.setNewChatListData(data.getItems());
+                }
+                isRefreshNewData = false;
             }
 
             @Override
             public void getDataFail(String msg) {
                 mMvpView.getChatListFail(msg);
+                isRefreshNewData = false;
             }
 
         });
-
     }
+
 }

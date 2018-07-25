@@ -23,4 +23,13 @@ public interface IChatModel {
      * @param callBack
      */
     void chatSend(Context context, ChatSendRequest params, DataCallBack callBack);
+
+
+    /**
+     * 预约投诉
+     * @param context
+     * @param aid
+     * @param callBack
+     */
+    void appointmentComplain(Context context,int aid,DataCallBack callBack);
 }

@@ -47,7 +47,7 @@ public class AppointmentDetailPresenterImpl extends BaseMVPPresenter<IAppointmen
                     String startTime = TimeUtils.longToStr(data.getDetail().getBegintime() * 1000, "yyyy.MM.dd");
                     String endTime = TimeUtils.longToStr(data.getDetail().getEndtime() * 1000, "yyyy.MM.dd");
                     mMvpView.setOrderTime(startTime, endTime);
-                    mMvpView.setOrderStatus(data.getDetail().getAstatus());
+                    mMvpView.setOrderStatus(data.getDetail().getAstatus(), data.getDetail().getComplaintflag());
                 }
 
                 if (data.getMyifno() != null) {

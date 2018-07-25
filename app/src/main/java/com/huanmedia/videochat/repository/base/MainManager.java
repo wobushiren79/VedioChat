@@ -10,6 +10,7 @@ import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatListRequest;
+import com.huanmedia.videochat.mvp.entity.request.ChatReadRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
@@ -297,7 +298,22 @@ public interface MainManager {
      * @param params
      * @param handler
      */
-    void getChatList(Context context, ChatListRequest params, HttpResponseHandler<ChatListResults> handler);
+    void getChatList(Context context, ChatListRequest params, HttpResponseHandler<ChatListResults> handler, boolean hasDialog);
 
+    /**
+     * 阅读消息
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void readChat(Context context, ChatReadRequest params, HttpResponseHandler handler);
 
+    /**
+     * 预约投诉
+     * @param context
+     * @param aid
+     * @param handler
+     */
+    void appointmentComplain(Context context, int aid, HttpResponseHandler handler);
 }

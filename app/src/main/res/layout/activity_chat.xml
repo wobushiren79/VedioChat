@@ -42,7 +42,7 @@
             android:id="@+id/ptr_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dimen_100dp"
+            android:layout_marginBottom="@dimen/dimen_120dp"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"></com.huanmedia.videochat.chat.view.ChatPtrLayout>
 
@@ -63,7 +63,8 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dimen_44dp"
-        android:paddingRight="@dimen/dimen_44dp">
+        android:paddingRight="@dimen/dimen_44dp"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/et_msg"

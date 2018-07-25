@@ -15,9 +15,4 @@ public interface IChatListPresenter {
     void getNewChatList(int msgId);
 
 
-    /**
-     * 获取出事聊天记录
-     */
-    void getDefChatList();
-
 }

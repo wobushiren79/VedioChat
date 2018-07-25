@@ -95,7 +95,12 @@ public class AppointmentListOpAdapter
         //设置时间
         tvTime.setText("下单时间 " + TimeUtils.millis2String(itemData.getAppinfo().getCtime() * 1000, new SimpleDateFormat("MM-dd HH:mm")));
         //设置状态相关
-        tvStatus.setText(itemData.getAppinfo().getStatusStr());
+        if(itemData.getAppinfo().getComplaintflag()==0){
+            tvStatus.setText(itemData.getAppinfo().getStatusStr());
+        }else{
+            tvStatus.setText("申诉中");
+        }
+
         if (itemData.getAppinfo().getStatus() == 0) {
             tvStatus.setVisibility(View.GONE);
             tvConfirm.setVisibility(View.VISIBLE);
@@ -144,7 +149,7 @@ public class AppointmentListOpAdapter
             ivSex.setImageResource(R.drawable.icon_focus_girl);
             ivFlag.setImageResource(R.drawable.icon_pendant_girl);
         }
-        //设置头像
+        //设置姓名
         tvName.setText(itemData.getUinfo().getNickname());
         //设置状态相关
         if (itemData.getAppinfo().getStatus() == 0) {
@@ -152,7 +157,11 @@ public class AppointmentListOpAdapter
         } else {
             tvStatus.setBackgroundResource(R.drawable.base_bg_round_theme);
         }
-        tvStatus.setText(itemData.getAppinfo().getStatusStr());
+        if(itemData.getAppinfo().getComplaintflag()==0){
+            tvStatus.setText(itemData.getAppinfo().getStatusStr());
+        }else{
+            tvStatus.setText("申诉中");
+        }
         //设置时间
         tvTime.setText(TimeUtils.millis2String(itemData.getAppinfo().getCtime() * 1000, new SimpleDateFormat("MM-dd")));
         //详情
@@ -209,7 +218,6 @@ public class AppointmentListOpAdapter
                 break;
             }
         }
-
     }
 
     @Override

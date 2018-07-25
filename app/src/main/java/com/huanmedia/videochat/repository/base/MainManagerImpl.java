@@ -10,6 +10,7 @@ import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatListRequest;
+import com.huanmedia.videochat.mvp.entity.request.ChatReadRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
@@ -226,9 +227,20 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     }
 
     @Override
-    public void getChatList(Context context, ChatListRequest params, HttpResponseHandler<ChatListResults> handler) {
+    public void getChatList(Context context, ChatListRequest params, HttpResponseHandler<ChatListResults> handler, boolean hasDialog) {
         Map<String, Object> paramsMap = objectToMap(params);
-        requestPost(context, mApiService.chatList(paramsMap), handler);
+        requestPost(context, mApiService.chatList(paramsMap), handler, hasDialog);
+    }
+
+    @Override
+    public void readChat(Context context, ChatReadRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.readChat(paramsMap), handler);
+    }
+
+    @Override
+    public void appointmentComplain(Context context, int aid, HttpResponseHandler handler) {
+        requestPost(context, mApiService.appointmentComplain(aid), handler);
     }
 
 

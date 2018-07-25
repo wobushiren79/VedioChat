@@ -23,14 +23,21 @@ import com.huanmedia.hmalbumlib.HM_StartAlbum;
 import com.huanmedia.hmalbumlib.extar.HM_ImgData;
 import com.huanmedia.ilibray.utils.DisplayUtil;
 import com.huanmedia.ilibray.utils.RxCountDown;
+import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.recycledecoration.RecyclerViewItemDecoration;
 import com.huanmedia.ilibray.utils.recycledecoration.RecyclerViewSpaceItemDecoration;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BaseMVPActivity;
 import com.huanmedia.videochat.common.utils.DoubleClickUtils;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
+import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
+import com.huanmedia.videochat.mvp.presenter.chat.ChatSendPresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.chat.IChatSendPresenter;
+import com.huanmedia.videochat.mvp.view.chat.IChatSendView;
 import com.huanmedia.videochat.my.adapter.FeedbackAdapter;
+import com.huanmedia.videochat.my.bean.FeedBackIntentBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +45,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import mvp.data.store.FilePathManager;
+import mvp.view.LoadDataView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> implements FeedBackView , EasyPermissions.PermissionCallbacks{
+public class FeedBackActivity extends BaseActivity
+        implements EasyPermissions.PermissionCallbacks, IChatSendView, LoadDataView {
     private static final int REQUEST_CAMERA_WRITE_READ_PERM = 1;//权限标识符
     private final int REQUEST_CODE_IMAGES = 2;//相册请求码
     @BindView(R.id.toolbar)
@@ -67,16 +76,21 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
     private int maxChoose;
     private FeedbackAdapter mAadapter;
     private int mEtSize;
+    private IChatSendPresenter mSendPresenter;
+    private FeedBackIntentBean mIntentBean;
 
-    public static Intent getCallingIntent(Context context) {
+    public static Intent getCallingIntent(Context context, FeedBackIntentBean intentBean) {
         Intent intent = new Intent(context, FeedBackActivity.class);
+        intent.putExtra("IntentBean", intentBean);
         return intent;
     }
+
 
     @Override
     protected View getTitlebarView() {
         return mToolbar;
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_feedback;
@@ -86,6 +100,7 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     protected void initView() {
         initToolbar();
@@ -98,7 +113,7 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
 
             @Override
             public void plusClick() {
-               openAlbumWithCheck();
+                openAlbumWithCheck();
             }
         });
         mOpinionPublishRv.setAdapter(mAadapter);
@@ -110,10 +125,12 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
         mAadapter.setAddShow(false);
         mOpinionPublishEt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -123,12 +140,34 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
             }
         });
 
-            maxChoose=5;
-            mOpinionPublishEt.setHint("请描述具体的建议意见或违规行为……(最多300个字符)");
+        maxChoose = 5;
+        mOpinionPublishEt.setHint("请描述具体的建议意见或违规行为……(最多300个字符)");
+
+    }
+
+
+    @Override
+    protected void initData() {
+        super.initData();
+        mSendPresenter = new ChatSendPresenterImpl(this);
+        mIntentBean = (FeedBackIntentBean) getIntent().getSerializableExtra("IntentBean");
+
+        if (mIntentBean == null)
+            return;
+        String title = "";
+        switch (mIntentBean.getFeedBackType()) {
+            case FeedBackIntentBean.FeedBackType.FeedBack:
+                title = "意见反馈";
+                break;
+            case FeedBackIntentBean.FeedBackType.AppointmentComplain:
+                title = "预约投诉";
+                break;
+        }
+        mToolbar.setTitle(title);
     }
 
     private void setSubmitEnable() {
-        if (mEtSize > 0 || mAadapter.getData().size()>0) {//设置提交按钮必须在字数大于10的情况下可编辑
+        if (mEtSize > 0 || mAadapter.getData().size() > 0) {//设置提交按钮必须在字数大于10的情况下可编辑
             mOpinionPublishBtnPuhlish.setEnabled(true);
         } else {
             mOpinionPublishBtnPuhlish.setEnabled(false);
@@ -140,10 +179,12 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
+
     @Override
     protected ImmersionBar defaultBarConfig() {
         return super.defaultBarConfig().statusBarDarkFont(true);
     }
+
     @Override
     public void showLoading(String msg) {
         if (mLoadingDialog == null) {
@@ -174,7 +215,7 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
 
     @Override
     public void showError(int flag, String message) {
-        if (message.equals("反馈已收到，我们会尽快处理回复")){
+        if (message.equals("反馈已收到，我们会尽快处理回复")) {
             RxCountDown.delay(2).subscribe(
                     integer -> finish()
             );
@@ -200,15 +241,20 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
     public Context context() {
         return this;
     }
-    @OnClick({R.id.opinion_publish_tv_count, R.id.opinion_publish_btn_puhlish,R.id.opinion_publish_iv_image})
+
+    @OnClick({R.id.opinion_publish_tv_count, R.id.opinion_publish_btn_puhlish, R.id.opinion_publish_iv_image})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.opinion_publish_btn_puhlish://发送按钮
-                FeedbackAdapter adapter = (FeedbackAdapter) mOpinionPublishRv.getAdapter();
-                getBasePresenter().opinionFeedBack(mOpinionPublishEt.getText().toString(), adapter.getData());
+                if (mIntentBean != null)
+                    if (mIntentBean.getFeedBackType() == FeedBackIntentBean.FeedBackType.FeedBack) {
+                        mSendPresenter.feedBackSend();
+                    } else if (mIntentBean.getFeedBackType() == FeedBackIntentBean.FeedBackType.AppointmentComplain) {
+                        mSendPresenter.appointmentComplain(mIntentBean.getOrderId(), mIntentBean.getToUid());
+                    }
                 break;
             case R.id.opinion_publish_iv_image:
-                   openAlbumWithCheck();
+                openAlbumWithCheck();
                 break;
         }
     }
@@ -217,12 +263,12 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
     @SuppressLint("DefaultLocale")
     @AfterPermissionGranted(REQUEST_CAMERA_WRITE_READ_PERM)
     private void openAlbumWithCheck() {
-        if (DoubleClickUtils.isFastDoubleClick())return;
+        if (DoubleClickUtils.isFastDoubleClick()) return;
         String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(context(), perms)) {
             int choosSize = maxChoose - mAadapter.getData().size();
             if (choosSize == 0) {
-                showHint(HintDialog.HintType.WARN, String.format("最多上传%d张照片",maxChoose));
+                showHint(HintDialog.HintType.WARN, String.format("最多上传%d张照片", maxChoose));
                 return;
             }
             new HM_StartAlbum
@@ -281,4 +327,44 @@ public class FeedBackActivity extends BaseMVPActivity<FeedBackPresenter> impleme
         }
     }
 
+    //-------------------发送信息-------------------------
+    @Override
+    public void chatSendSuccess(ChatSendResults results) {
+        showToast("反馈已收到，我们会尽快处理回复");
+        RxCountDown.delay(2).subscribe(integer -> {
+                    if (!isFinishing())
+                        finish();
+                }
+        );
+    }
+
+    @Override
+    public void chatSendFail(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public String getChatSendMsg() {
+        return mOpinionPublishEt.getText().toString();
+    }
+
+    @Override
+    public List<String> getChatSengImages() {
+        List<String> listData = new ArrayList<>();
+        FeedbackAdapter adapter = (FeedbackAdapter) mOpinionPublishRv.getAdapter();
+        for (int i = 0; i < adapter.getData().size(); i++) {
+            listData.add(adapter.getData().get(i).getImage());
+        }
+        return listData;
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void showToast(String toast) {
+        ToastUtils.showToastShortInCenter(this, toast);
+    }
 }

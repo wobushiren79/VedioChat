@@ -3,36 +3,56 @@ package com.huanmedia.videochat.chat;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.appointment.fragment.AppointmentListOpFragment;
 import com.huanmedia.videochat.chat.adapter.ChatAdpater;
 import com.huanmedia.videochat.chat.bean.ChatIntentBean;
 import com.huanmedia.videochat.chat.view.AppointmentChatLayout;
 import com.huanmedia.videochat.chat.view.ChatPtrLayout;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.adpater.AppBarStateChangeListener;
+import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.service.socket.WebSocketManager;
 import com.huanmedia.videochat.common.widget.ptr.PtrLayout;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentDataOpResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDetailResults;
+import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
+import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
 import com.huanmedia.videochat.mvp.presenter.chat.ChatSendPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.chat.IChatSendPresenter;
 import com.huanmedia.videochat.mvp.view.chat.IChatSendView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ChatActivity extends BaseActivity implements IChatSendView, TextView.OnEditorActionListener, SwipeRefreshLayout.OnRefreshListener {
+public class ChatActivity
+        extends BaseActivity
+        implements
+        IChatSendView,
+        TextView.OnEditorActionListener,
+        View.OnClickListener,
+        AppointmentChatLayout.CallBack,
+        ChatMessage.CallBack {
+
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -48,9 +68,27 @@ public class ChatActivity extends BaseActivity implements IChatSendView, TextVie
     TextView mTVSend;
     @BindView(R.id.tv_video)
     TextView mTVVideo;
+    @BindView(R.id.ll_send)
+    LinearLayout mLLSend;
 
     private ChatIntentBean mInfoBean;
     private IChatSendPresenter mSendPresenter;
+    private ChatMessage mChatMessageListener;
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initHeardLayout();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mChatMessageListener != null)
+            WebSocketManager.getInstance().removeListener(mChatMessageListener);
+        AppointmentListOpFragment.Is_Refresh_Data = true;
+        super.onDestroy();
+    }
 
     public static Intent getCallingIntent(Context context, ChatIntentBean intentBean) {
         Intent intent = new Intent(context, ChatActivity.class);
@@ -92,11 +130,24 @@ public class ChatActivity extends BaseActivity implements IChatSendView, TextVie
 
     @Override
     protected void initData() {
-        mSendPresenter = new ChatSendPresenterImpl(this);
         mInfoBean = (ChatIntentBean) getIntent().getSerializableExtra("IntentInfo");
+        mSendPresenter = new ChatSendPresenterImpl(this);
+        mChatMessageListener = new ChatMessage();
+        mChatMessageListener.setCallBack(this);
+        WebSocketManager.getInstance().addMessageListener(mChatMessageListener);
         if (mInfoBean == null)
             return;
         mPtrLayout.setChatUserId(mInfoBean.getChatUserId());
+        //initHeardLayout();
+    }
+
+    /**
+     * 初始化头部布局
+     */
+    private void initHeardLayout() {
+        if (mInfoBean == null)
+            return;
+        mRLHead.removeAllViews();
         switch (mInfoBean.getChatType()) {
             case ChatIntentBean.ChatType.Appointment:
                 setAppointmentLayout();
@@ -110,25 +161,20 @@ public class ChatActivity extends BaseActivity implements IChatSendView, TextVie
     private void setAppointmentLayout() {
         AppointmentChatLayout layout = new AppointmentChatLayout(this);
         layout.setOrderId(mInfoBean.getOrderId());
-        layout.setCallBack(new AppointmentChatLayout.CallBack() {
-            @Override
-            public void getDetailsSuccess(AppointmentDetailResults results) {
-                if (results != null && results.getOuinfo() != null)
-                    mToolbar.setTitle(results.getOuinfo().getNickname());
-            }
-
-            @Override
-            public void getDetailsFail(String msg) {
-
-            }
-        });
+        layout.setChatUserId(mInfoBean.getChatUserId());
+        layout.setCallBack(this);
         mRLHead.addView(layout);
     }
 
     //-------------聊天发送-------------
     @Override
-    public void chatSendSuccess() {
+    public void chatSendSuccess(ChatSendResults results) {
         mETMsg.setText("");
+        //发送刷新通知
+        if (mInfoBean != null)
+            mChatMessageListener.msgRefreshData(mInfoBean.getChatUserId());
+        //刷新当前数据
+        mPtrLayout.getNewChatData();
     }
 
     @Override
@@ -142,6 +188,11 @@ public class ChatActivity extends BaseActivity implements IChatSendView, TextVie
     }
 
     @Override
+    public List<String> getChatSengImages() {
+        return null;
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -150,9 +201,10 @@ public class ChatActivity extends BaseActivity implements IChatSendView, TextVie
     public void showToast(String toast) {
         ToastUtils.showToastShortInCenter(this, toast);
     }
+
     //------------私有方法---------------
 
-    @OnClick({R.id.tv_send, R.id.tv_video})
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_send:
@@ -183,12 +235,60 @@ public class ChatActivity extends BaseActivity implements IChatSendView, TextVie
         return true;
     }
 
+    //--------------预约详情布局回调-------------------------
     @Override
-    public void onRefresh() {
+    public void getDetailsSuccess(AppointmentDetailResults results) {
+        if (results != null && results.getOuinfo() != null)
+            mToolbar.setTitle(results.getOuinfo().getNickname());
+    }
+
+    @Override
+    public void getDetailsFail(String msg) {
 
     }
 
+    @Override
+    public void onStatusChange(int orderStatus, int complainStatus) {
+        CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams
+                (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        if (complainStatus == AppointmentDataOpResults.ComplainStatus.NoComplain) {
+            switch (orderStatus) {
+                case AppointmentDataOpResults.OrderStatus.NoConfirm:
+                    mTVVideo.setBackgroundResource(R.drawable.btn_chat_video_style_2);
+                    mLLSend.setVisibility(View.VISIBLE);
+                    mTVVideo.setOnClickListener(null);
+                    mTVSend.setOnClickListener(this);
+                    layoutParams.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_120dp);
+                    break;
+                case AppointmentDataOpResults.OrderStatus.ReadManConfirm:
+                    mTVVideo.setBackgroundResource(R.drawable.btn_chat_video);
+                    mLLSend.setVisibility(View.VISIBLE);
+                    mTVVideo.setOnClickListener(this);
+                    mTVSend.setOnClickListener(this);
+                    layoutParams.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_120dp);
+                    break;
+                default:
+                    mLLSend.setVisibility(View.GONE);
+                    layoutParams.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_12dp);
+                    break;
+            }
+        } else {
+            layoutParams.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_12dp);
+            mPtrLayout.setLayoutParams(layoutParams);
+            mLLSend.setVisibility(View.GONE);
+        }
+    }
 
+    //------------websocket操作------------------
+    @Override
+    public void websocketRefreshData() {
+        mPtrLayout.setAllMsgRead();
+        mPtrLayout.getNewChatData();
+    }
+
+
+    //------------------------滑动监听
     public class ChatAppBarChange extends AppBarStateChangeListener {
 
         @Override

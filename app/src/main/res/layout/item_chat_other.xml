@@ -9,14 +9,15 @@
         android:id="@+id/iv_heard"
         android:layout_width="@dimen/dimen_80dp"
         android:layout_height="@dimen/dimen_80dp"
+        android:scaleType="fitXY"
         android:layout_marginLeft="@dimen/dimen_44dp"
         android:layout_marginTop="@dimen/dimen_28dp"
         android:src="@drawable/icon_headportrait"
         app:riv_oval="true" />
 
     <ImageView
-        android:layout_width="@dimen/dimen_20dp"
-        android:layout_height="@dimen/dimen_20dp"
+        android:layout_width="@dimen/dimen_10dp"
+        android:layout_height="@dimen/dimen_15dp"
         android:layout_marginLeft="@dimen/dimen_12dp"
         android:layout_marginTop="@dimen/dimen_60dp"
         android:scaleType="fitXY"

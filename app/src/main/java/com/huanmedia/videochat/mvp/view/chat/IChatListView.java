@@ -2,6 +2,7 @@ package com.huanmedia.videochat.mvp.view.chat;
 
 import com.huanmedia.videochat.mvp.base.BaseMVPView;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
+import com.huanmedia.videochat.mvp.entity.results.UserInfoResults;
 
 import java.util.List;
 
@@ -41,10 +42,15 @@ public interface IChatListView extends BaseMVPView {
      */
     void setHistoryChatListData(List<ChatListResults.Item> listData);
 
+
+
     /**
-     * 设置默认聊天数据
-     *
-     * @param listData
+     * 设置自己的数据
      */
-    void setDefChatListData(List<ChatListResults.Item> listData);
+    void setSelfData(UserInfoResults results);
+
+    /**
+     * 设置其他人的数据
+     */
+    void setOtherData(UserInfoResults results);
 }
