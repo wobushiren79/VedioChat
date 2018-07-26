@@ -696,6 +696,9 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                 && condition.getReadMainConfig().getRedManId() != UserManager.getInstance().getId()) {//红人模式扣费
             getBasePresenter().chatCoinConsumption(Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid()), 4, 0);
         }
+        if (condition.getVideoType() == VideoType.APPOINTMENT && condition.getRequestType() == ConditionEntity.RequestType.PERSON) {
+            getBasePresenter().chatCoinConsumption(Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid()), 4, 0);
+        }
         if (condition.getVideoType() == VideoType.MATCH) {
             if (condition.getMatchConfig().getRequestType() == ConditionEntity.RequestType.SELF) {//直聊扣费
                 getBasePresenter().chatCoinConsumption(Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid()), 9, 0);
