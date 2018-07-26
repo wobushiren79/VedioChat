@@ -229,7 +229,6 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         super.onDestroy();
         if (mTimeDownSub != null)
             mTimeDownSub.dispose();
-
     }
 
 
@@ -302,7 +301,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                             }
                         }));
 
-            } else {
+            } else if (conditionEntigy.getVideoType() == VideoType.MATCH) {
                 if (conditionEntigy.getMatchConfig().getRequestType() == ConditionEntity.RequestType.PERSON) {
                     //对方拨打电话
                     getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATERECEIVE);//超时计时器
@@ -321,15 +320,21 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                     getBasePresenter().chatDefault(conditionEntigy.getMatchConfig().getMask());
                     startCallAnim();
                 } else {
-                    //默认匹配的时候要显示自己的视频端
-//                    if (getBasePresenter().getCondition().getMatchConfig().getMask()!=0){
-//                        mVideoCallIvBlurSmall.setVisibility(View.VISIBLE);
-//                     GlideUtils.getInstance().loadContextBitmap(context(), MaskHandler.
-//                                getSkinModes().get(getBasePresenter().getCondition().getMatchConfig().getMask())
-//                                .background, mVideoCallIvBlurSmall, 0, 0, false);
-//                    }
                     startCallAnim();
                     getBasePresenter().beginSearch();
+                }
+            } else if (conditionEntigy.getVideoType() == VideoType.APPOINTMENT) {
+                if (conditionEntigy.getRequestType() == ConditionEntity.RequestType.SELF) {
+                    getBasePresenter().chatAppointment();
+                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATECALL);//超时计时器
+                    startCallAnim();
+                } else if (conditionEntigy.getRequestType() == ConditionEntity.RequestType.PERSON) {
+                    VideoChatEntity mvideoConfig = conditionEntigy.getAppointmentConfig().getVideoChatConfig();
+                    mvideoConfig.set_location_VideoType(conditionEntigy.getVideoType());
+                    getBasePresenter().setVideoChatEntity(mvideoConfig);
+                    setCallingUserData(mvideoConfig);
+                    getBasePresenter().callTimerStart(CallingPresenter.TIMER_CREATERECEIVE);//超时计时器
+                    mVideoCallIvAnswer.setVisibility(View.VISIBLE);
                 }
             }
         } else {
@@ -635,6 +640,17 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                     isHintVideo = true;
                     if (condition.getReadMainConfig().getRedManId() == UserManager.getInstance().getId() ||
                             condition.getReadMainConfig().getRedManId() == 0) {
+                        mVideoHintBig.setVisibility(View.VISIBLE);
+                    } else {
+                        hintVideo(UserManager.getInstance().getId());
+                    }
+                } else if (condition.getVideoType() == VideoType.APPOINTMENT) {
+                    if (!isShowTimer)
+                        setTimeUp();
+                    //视频遮罩
+                    isHintVideo = true;
+                    if (condition.getAppointmentConfig().getAcceptUserID() == UserManager.getInstance().getId() ||
+                            condition.getAppointmentConfig().getAcceptUserID() == 0) {
                         mVideoHintBig.setVisibility(View.VISIBLE);
                     } else {
                         hintVideo(UserManager.getInstance().getId());
@@ -1060,15 +1076,27 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                     endCallBtn();
                 }
             });
-        } else if (type == VideoType.REDMAN) {
-            if (getBasePresenter().getCondition().getReadMainConfig().getRedManId() != UserManager.getInstance().getId()
-                    && getBasePresenter().getCondition().getReadMainConfig().getRedManId() != 0) {
-                mVideoCallCbbControlBtns.setShowAttention(View.VISIBLE);
-                mVideoCallCbbControlBtns.setVideoHintVisibility(View.VISIBLE);
-            } else {
-                mVideoCallCbbControlBtns.setShowAttention(View.INVISIBLE);
-                mVideoCallCbbControlBtns.setVideoHintVisibility(View.GONE);
+        } else if (type == VideoType.REDMAN || type == VideoType.APPOINTMENT) {
+            if (type == VideoType.REDMAN) {
+                if (getBasePresenter().getCondition().getReadMainConfig().getRedManId() != UserManager.getInstance().getId()
+                        && getBasePresenter().getCondition().getReadMainConfig().getRedManId() != 0) {
+                    mVideoCallCbbControlBtns.setShowAttention(View.VISIBLE);
+                    mVideoCallCbbControlBtns.setVideoHintVisibility(View.VISIBLE);
+                } else {
+                    mVideoCallCbbControlBtns.setShowAttention(View.INVISIBLE);
+                    mVideoCallCbbControlBtns.setVideoHintVisibility(View.GONE);
+                }
+            } else if (type == VideoType.APPOINTMENT) {
+                if (getBasePresenter().getCondition().getAppointmentConfig().getAcceptUserID() != UserManager.getInstance().getId()
+                        && getBasePresenter().getCondition().getAppointmentConfig().getAcceptUserID() != 0) {
+                    mVideoCallCbbControlBtns.setShowAttention(View.VISIBLE);
+                    mVideoCallCbbControlBtns.setVideoHintVisibility(View.VISIBLE);
+                } else {
+                    mVideoCallCbbControlBtns.setShowAttention(View.INVISIBLE);
+                    mVideoCallCbbControlBtns.setVideoHintVisibility(View.GONE);
+                }
             }
+
 
             mVideoCallCbbControlBtns.setRedmanListener(new CallButtomBtns.RedmanListener() {
                 @Override
@@ -1303,7 +1331,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             localVideo.setZOrderOnTop(true);
             localVideo.setZOrderMediaOverlay(true);
         }
-        if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN) {
+        if (getBasePresenter().getCondition().getVideoType() == VideoType.REDMAN
+                || getBasePresenter().getCondition().getVideoType() == VideoType.APPOINTMENT) {
             if (mVideoHintBig.getVisibility() == View.VISIBLE || mVideoHintSmall.getVisibility() == View.VISIBLE) {
                 if (mVideoHintBig.getVisibility() == View.VISIBLE) {
                     mVideoHintBig.setVisibility(View.GONE);

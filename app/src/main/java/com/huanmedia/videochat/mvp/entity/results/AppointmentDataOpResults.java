@@ -73,10 +73,20 @@ public class AppointmentDataOpResults {
     }
 
     public static class UserInfo {
+        private int uid;
         private String nickname;
         private String userphoto_thumb;
         private int sex;
         private int isstart;
+
+
+        public int getUid() {
+            return uid;
+        }
+
+        public void setUid(int uid) {
+            this.uid = uid;
+        }
 
         public String getNickname() {
             return nickname;
@@ -112,7 +122,7 @@ public class AppointmentDataOpResults {
     }
 
     public static class OrderInfo {
-
+        private int id;
         private int aid;
         private int account_id;
         private int account_vipid;
@@ -137,6 +147,14 @@ public class AppointmentDataOpResults {
         //1红人确认
         //2已完成
 
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public int getComplaintflag() {
             return complaintflag;

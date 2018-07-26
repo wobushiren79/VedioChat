@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.chat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
@@ -30,6 +31,7 @@ import com.huanmedia.videochat.common.adpater.AppBarStateChangeListener;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.service.socket.WebSocketManager;
 import com.huanmedia.videochat.common.widget.ptr.PtrLayout;
+import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataOpResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDetailResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
@@ -37,6 +39,7 @@ import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
 import com.huanmedia.videochat.mvp.presenter.chat.ChatSendPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.chat.IChatSendPresenter;
 import com.huanmedia.videochat.mvp.view.chat.IChatSendView;
+import com.huanmedia.videochat.repository.entity.VideoChatEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +78,7 @@ public class ChatActivity
     private IChatSendPresenter mSendPresenter;
     private ChatMessage mChatMessageListener;
 
+    private AppointmentDetailResults mAppointmentInfo;
 
     @Override
     protected void onResume() {
@@ -111,7 +115,7 @@ public class ChatActivity
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        mToolbar.setNavigationOnClickListener(v -> finish());
 
     }
 
@@ -211,7 +215,27 @@ public class ChatActivity
                 sendChat();
                 break;
             case R.id.tv_video:
+                startVideo();
                 break;
+        }
+    }
+
+    /**
+     * 开始聊天
+     */
+    private void startVideo() {
+        if (mInfoBean.getChatType() == ChatIntentBean.ChatType.Appointment && mAppointmentInfo != null) {
+            ConditionEntity condition = new ConditionEntity();
+            condition.setVideoType(ConditionEntity.VideoType.APPOINTMENT);
+            condition.setRequestType(ConditionEntity.RequestType.SELF);
+            condition.getAppointmentConfig().setInitiateUserId(mAppointmentInfo.getDetail().getAccount_id());
+            condition.getAppointmentConfig().setAcceptUserID(mAppointmentInfo.getDetail().getAccount_vipid());
+            condition.getAppointmentConfig().setOrderId(mAppointmentInfo.getDetail().getId());
+            VideoChatEntity videoChatEntity = new VideoChatEntity();
+            videoChatEntity.setTouid(mInfoBean.getChatUserId());
+            videoChatEntity.setFromuid((int) UserManager.getInstance().getId());
+            condition.getAppointmentConfig().setVideoChatConfig(videoChatEntity);
+            getNavigator().navtoCalling((Activity) getContext(), condition, "连接中...; ");
         }
     }
 
@@ -238,6 +262,7 @@ public class ChatActivity
     //--------------预约详情布局回调-------------------------
     @Override
     public void getDetailsSuccess(AppointmentDetailResults results) {
+        mAppointmentInfo = results;
         if (results != null && results.getOuinfo() != null)
             mToolbar.setTitle(results.getOuinfo().getNickname());
     }
@@ -275,9 +300,9 @@ public class ChatActivity
             }
         } else {
             layoutParams.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_12dp);
-            mPtrLayout.setLayoutParams(layoutParams);
             mLLSend.setVisibility(View.GONE);
         }
+        mPtrLayout.setLayoutParams(layoutParams);
     }
 
     //------------websocket操作------------------

@@ -17,18 +17,20 @@ import java.lang.annotation.RetentionPolicy;
 public class ConditionEntity implements Parcelable {
     @VideoType
     private int videoType;// 1 匹配 2 红人
+    @RequestType
+    private int requestType;
+
     private int needCloseFU = 1;//0不需要关闭，1需要关闭
-    private ReadMainConfig mReadMainConfig=new ReadMainConfig();
-    private MatchConfig mMatchConfig=new MatchConfig();
+    private ReadMainConfig mReadMainConfig = new ReadMainConfig();
+    private MatchConfig mMatchConfig = new MatchConfig();
+    private AppointmentConfig mAppointmentConfig = new AppointmentConfig();
 
 
-    @IntDef({ConditionTtype.FILTER,ConditionTtype.ALL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ConditionTtype {
         int FILTER = 2, ALL = 1;
     }
 
-    @IntDef({RequestType.MATCH,RequestType.SELF,RequestType.PERSON})
     @Retention(RetentionPolicy.SOURCE)
     public @interface RequestType {
         /**
@@ -44,10 +46,19 @@ public class ConditionEntity implements Parcelable {
          */
         int PERSON = 1;
     }
-    @IntDef({VideoType.MATCH,VideoType.REDMAN,VideoType.NONE})
+
     @Retention(RetentionPolicy.SOURCE)
     public @interface VideoType {
-        int MATCH = 1, REDMAN = 2, NONE = 3;
+        int MATCH = 1, REDMAN = 2, NONE = 0, APPOINTMENT = 3;
+    }
+
+    @RequestType
+    public int getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(@RequestType int requestType) {
+        this.requestType = requestType;
     }
 
     public @VideoType
@@ -71,9 +82,19 @@ public class ConditionEntity implements Parcelable {
         return mReadMainConfig;
     }
 
+
     public void setReadMainConfig(ReadMainConfig readMainConfig) {
         mReadMainConfig = readMainConfig;
     }
+
+    public AppointmentConfig getAppointmentConfig() {
+        return mAppointmentConfig;
+    }
+
+    public void setAppointmentConfig(AppointmentConfig mAppointmentConfig) {
+        this.mAppointmentConfig = mAppointmentConfig;
+    }
+
     public int getNeedCloseFU() {
         return needCloseFU;
     }
@@ -81,8 +102,10 @@ public class ConditionEntity implements Parcelable {
     public void setNeedCloseFU(int needCloseFU) {
         this.needCloseFU = needCloseFU;
     }
+
     public ConditionEntity() {
     }
+
     @Override
     public int describeContents() {
         return 0;
@@ -91,16 +114,20 @@ public class ConditionEntity implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.videoType);
+        dest.writeInt(this.requestType);
         dest.writeInt(this.needCloseFU);
         dest.writeParcelable(this.mReadMainConfig, flags);
         dest.writeParcelable(this.mMatchConfig, flags);
+        dest.writeParcelable(this.mAppointmentConfig, flags);
     }
 
     protected ConditionEntity(Parcel in) {
         this.videoType = in.readInt();
+        this.requestType = in.readInt();
         this.needCloseFU = in.readInt();
         this.mReadMainConfig = in.readParcelable(ReadMainConfig.class.getClassLoader());
         this.mMatchConfig = in.readParcelable(MatchConfig.class.getClassLoader());
+        this.mAppointmentConfig = in.readParcelable(AppointmentConfig.class.getClassLoader());
     }
 
     public static final Creator<ConditionEntity> CREATOR = new Creator<ConditionEntity>() {

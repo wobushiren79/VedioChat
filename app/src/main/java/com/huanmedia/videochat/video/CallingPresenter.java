@@ -230,6 +230,44 @@ public class CallingPresenter extends Presenter<CallingView> {
     }
 
     /**
+     * 预约聊天
+     */
+    public void chatAppointment() {
+        Map<String, String> map = new HashMap<>();
+        map.put("touid", mCondition.getAppointmentConfig().getVideoChatConfig().getTouid() + "");//对方ID
+        map.put("startUid", mCondition.getAppointmentConfig().getVideoChatConfig().getFromuid() + "");//对方ID
+        map.put("extDataString", mCondition.getAppointmentConfig().getAcceptUserID() + "");//被预约方ID
+        map.put("chattype", "APPOINTV2");// 会话类型
+        map.put("is1v1search", "0");//是否是匹配模式（匹配模式会自动创建会话，需要传入0）
+        map.put("appointv2id", mCondition.getAppointmentConfig().getOrderId() + "");//是否是匹配模式（匹配模式会自动创建会话，需要传入0）
+        addDisposable(mRepository.chatBegininfo(map).subscribe(
+                videoChatEntity -> {
+                    this.mVideoChatEntity = videoChatEntity;
+                    this.mVideoChatEntity.set_location_VideoType(mCondition.getVideoType());
+                    getView().chatOpenSuccess(mVideoChatEntity);
+                }
+                , throwable -> {
+                    if (!isNullView()) {
+                        if (throwable instanceof ApiException) {
+                            if (((ApiException) throwable).getErrorCode() == -8409) {
+                                getView().showError(-1, throwable.getMessage());
+                            } else {
+                                getView().showError(((ApiException) throwable).getErrorCode(), throwable.getMessage());
+                                addDisposable(RxCountDown.delay(2).subscribe(//匹配成功后等待3秒执行连接
+                                        integer -> {
+                                            ((Activity) getContext()).finish();
+                                        }
+                                ));
+                            }
+                        } else {
+                            getView().showError(0, getGeneralErrorStr(throwable));
+                        }
+                    }
+                }
+        ));
+    }
+
+    /**
      * 开启会话（直聊）
      */
     public void chatDefault(int mask) {
@@ -372,9 +410,10 @@ public class CallingPresenter extends Presenter<CallingView> {
 
     /**
      * 隐藏指定人的视屏
+     *
      * @param uid
      */
-    public void hintVideo(long uid){
+    public void hintVideo(long uid) {
         WMessage wMessage = new WMessage();
         wMessage.setFrom(getVideoChatEntity().getTouid() + "");
         wMessage.setTo(getVideoChatEntity().getFromuid() + "");
@@ -523,7 +562,7 @@ public class CallingPresenter extends Presenter<CallingView> {
      * @param callid  会话ID
      * @param endtype 挂断类型：1对方挂断 0正常挂断
      */
-    void chatEnd(int callid, int endtype) {
+    void chatEnd(String callid, int endtype) {
         Map<String, String> map = new HashMap<>();
         map.put("callid", callid + "");//对方ID
         map.put("endtype", String.valueOf(endtype));

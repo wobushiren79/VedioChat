@@ -19,6 +19,8 @@ import com.huanmedia.videochat.appointment.AppointmentHistoryListActivity;
 import com.huanmedia.videochat.chat.bean.ChatIntentBean;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataOpResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentConfirmPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.appointment.IAppointmentConfirmPresenter;
@@ -152,16 +154,17 @@ public class AppointmentHistoryListAdapter extends BaseRCAdapter<AppointmentData
             ((BaseActivity) mContext).getNavigator().navtoChat((Activity) mContext, intentBean);
         });
         //头像点击
-//        ivHead.setOnClickListener(view -> {
-//            if (itemData.getUinfo().getIsstart() == 1) {
-//                ((BaseActivity)getContext()).getNavigator().navDiscoverInfo(getContext(), itemData.getUid(), 0, BusinessCardFragment.ShowType.ReadMan);
-//            } else {
-//                BusinessCardDialog dialog = new BusinessCardDialog(getContext());
-//                dialog.setUid(itemData.getUid());
-//                dialog.setDistance("0");
-//                dialog.show();
-//            }
-//        });
+        ivHead.setOnClickListener(view -> {
+            if (itemData.getUinfo().getIsstart() == 1) {
+                ((BaseActivity) getContext()).getNavigator().navDiscoverInfo
+                        ((Activity) getContext(), itemData.getUinfo().getUid(), "0", BusinessCardFragment.ShowType.ReadMan);
+            } else {
+                BusinessCardDialog dialog = new BusinessCardDialog(getContext());
+                dialog.setUid(itemData.getUinfo().getUid());
+                dialog.setDistance("0");
+                dialog.show();
+            }
+        });
     }
 
     //------------------接单拒单-------------------------

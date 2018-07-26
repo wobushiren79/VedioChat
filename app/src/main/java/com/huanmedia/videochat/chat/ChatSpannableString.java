@@ -1,22 +1,26 @@
 package com.huanmedia.videochat.chat;
 
+import android.content.Context;
 import android.text.SpannableString;
+import android.text.style.ImageSpan;
 
 import com.google.gson.internal.LinkedTreeMap;
+import com.huanmedia.ilibray.utils.Spanny;
 import com.huanmedia.videochat.R;
 
 import java.util.Map;
 
-public class ChatSpannableString extends SpannableString {
+public class ChatSpannableString extends Spanny {
 
-    private Map<String, Integer> EmoticonList = new LinkedTreeMap<>();
+    private Context mContext;
 
-    public ChatSpannableString(CharSequence source) {
+    public ChatSpannableString(Context context, CharSequence source) {
         super(source);
+        this.mContext = context;
         initEmoticon();
     }
 
     private void initEmoticon() {
-        EmoticonList.put("<ex_test>", R.mipmap.ic_launcher);
+        this.findAndSpan("[测试]", () -> new ImageSpan(mContext, R.mipmap.ic_launcher));
     }
 }

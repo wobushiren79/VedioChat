@@ -293,6 +293,22 @@ public class MainPresenter extends Presenter<MainView> {
                     } else {
                         chatEnd(Integer.parseInt(mVideoChatEntity.getCallid()), 1);
                     }
+                } else if (message.getType().equals("beginAPPOINTV2chatnotice")) {
+                    VideoChatEntity mVideoChatEntity = mGson.fromJson(mGson.toJson(message.getBody()), VideoChatEntity.class);
+                    if (CallingActivity.getmCallingState() == CallingActivity.CallingType.LEISURE) {//红人
+                        ConditionEntity condition = new ConditionEntity();
+                        condition.setVideoType(ConditionEntity.VideoType.APPOINTMENT);
+                        condition.setRequestType(ConditionEntity.RequestType.PERSON);
+                        condition.getAppointmentConfig().setVideoChatConfig(mVideoChatEntity);
+                        condition.getAppointmentConfig().setAcceptUserID(Integer.valueOf(mVideoChatEntity.getExtDataString()));
+                        if (hasMatchFragment) {
+                            condition.setNeedCloseFU(0);
+                        }
+                        ResourceManager.getInstance().getNavigator().navtoCalling((Activity) getContext(), condition, mVideoChatEntity.getTouidinfo().getNickname() + "\n向你发起视频聊天，是否接受?");
+                        NotificationHandler.sendNotification(mVideoChatEntity);
+                    } else {
+                        chatEnd(Integer.parseInt(mVideoChatEntity.getCallid()), 1);
+                    }
                 } else if (message.getType().equals("NOTICE")) {//通知消息
                     switch (message.getStype()) {
                         case "SYSTEMNOTICE"://系统通知

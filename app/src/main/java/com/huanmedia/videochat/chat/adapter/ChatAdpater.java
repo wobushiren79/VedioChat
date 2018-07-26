@@ -89,7 +89,7 @@ public class ChatAdpater extends BaseRCMultiAdatper<ChatListResults.Item> {
             tvHasRead.setText("");
         }
         if (itemData.getMsg() != null) {
-            ChatSpannableString spannableString = new ChatSpannableString(itemData.getMsg());
+            ChatSpannableString spannableString = new ChatSpannableString(getContext(),itemData.getMsg());
             tvContent.setText(spannableString);
         }
 

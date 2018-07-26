@@ -163,6 +163,7 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                 mIvHint.setVisibility(GONE);
                 break;
             case VideoType.REDMAN:
+            case VideoType.APPOINTMENT:
                 mIvMaskTa.setVisibility(GONE);//红人不需要揭面
                 //面具
                 mIvMask.setOnClickListener(this);
@@ -286,6 +287,7 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
 
                 break;
             case VideoType.REDMAN:
+            case VideoType.APPOINTMENT:
                 if (mRedmanListener == null) break;
                 switch (v.getId()) {
                     case R.id.video_call_iv_mask:
@@ -325,6 +327,7 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                 }
                 break;
             case VideoType.REDMAN:
+            case VideoType.APPOINTMENT:
                 if (mRedmanListener != null) {
                     mRedmanListener.onAttention(isChecked);
                 }

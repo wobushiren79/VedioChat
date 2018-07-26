@@ -53,7 +53,17 @@ public class VideoChatEntity implements Parcelable {
     private int chatcoin;
     private String channelName;
     private int favorited;
+    private String extDataString;
     private TouidinfoEntity touidinfo;
+
+
+    public String getExtDataString() {
+        return extDataString;
+    }
+
+    public void setExtDataString(String extDataString) {
+        this.extDataString = extDataString;
+    }
 
     public int getFavorited() {
         return favorited;
@@ -361,6 +371,7 @@ public class VideoChatEntity implements Parcelable {
         sb.append(", chatcoin=").append(chatcoin);
         sb.append(", channelName='").append(channelName).append('\'');
         sb.append(", touidinfo=").append(touidinfo);
+        sb.append(", extDataString=").append(extDataString);
         sb.append('}');
         return sb.toString();
     }
@@ -385,6 +396,7 @@ public class VideoChatEntity implements Parcelable {
         dest.writeString(this.callid);
         dest.writeInt(this.chatcoin);
         dest.writeString(this.channelName);
+        dest.writeString(this.extDataString);
         dest.writeInt(this.favorited);
         dest.writeParcelable(this.touidinfo, flags);
     }
@@ -403,6 +415,7 @@ public class VideoChatEntity implements Parcelable {
         this.callid = in.readString();
         this.chatcoin = in.readInt();
         this.channelName = in.readString();
+        this.extDataString = in.readString();
         this.favorited = in.readInt();
         this.touidinfo = in.readParcelable(TouidinfoEntity.class.getClassLoader());
     }

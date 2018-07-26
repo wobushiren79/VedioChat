@@ -206,15 +206,6 @@ public class AppointmentChatLayout extends BaseLinearLayout implements IAppointm
                     }
                     break;
                 case AppointmentDataOpResults.OrderStatus.Complete:
-                    mTVCancelOrder.setVisibility(GONE);
-                    mTVConfirmOrder.setVisibility(GONE);
-                    mTVCompleteOrder.setVisibility(GONE);
-                    if (mDetailPresenter.getAcceptUserId() == UserManager.getInstance().getId()) {
-                        mTVBackMoney.setVisibility(GONE);
-                    } else {
-                        mTVBackMoney.setVisibility(VISIBLE);
-                    }
-                    break;
                 default:
                     mTVCancelOrder.setVisibility(GONE);
                     mTVConfirmOrder.setVisibility(GONE);
