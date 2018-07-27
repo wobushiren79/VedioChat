@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.huanmedia.ilibray.utils.RxCountDown;
@@ -21,6 +22,7 @@ import com.huanmedia.videochat.mvp.presenter.chat.IChatReadPresenter;
 import com.huanmedia.videochat.mvp.view.chat.IChatListView;
 import com.huanmedia.videochat.mvp.view.chat.IChatReadView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -38,8 +40,6 @@ public class ChatPtrLayout extends PtrLayout implements IChatListView, IChatRead
 
     public ChatPtrLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initView();
-        initData();
     }
 
     @Override
@@ -60,9 +60,14 @@ public class ChatPtrLayout extends PtrLayout implements IChatListView, IChatRead
         this.disablePtr();
         this.enabledOnePtr();
 
-        RxCountDown.delay2(500).subscribe(integer -> {
-            getNewChatData();
-        });
+        List<ChatListResults.Item> listFirst = new ArrayList<>();
+        ChatListResults.Item titleHint = new ChatListResults.Item
+                (ChatAdpater.HintNormalType, "留言时请使用文明用语，色情 辱骂等违规内容会被封号！");
+        ChatListResults.Item warningHint = new ChatListResults.Item
+                (ChatAdpater.HintReportType, "被骚扰了？<font color='#46a1ff'>快速举报</font>！");
+        listFirst.add(titleHint);
+        listFirst.add(warningHint);
+        mChatAdapter.addData(listFirst);
     }
 
     /**
@@ -72,6 +77,8 @@ public class ChatPtrLayout extends PtrLayout implements IChatListView, IChatRead
      */
     public void setChatUserId(int chatUserId) {
         mChatUserId = chatUserId;
+        mChatAdapter.setChatUserId(chatUserId);
+        getNewChatData();
     }
 
     /**
@@ -83,7 +90,6 @@ public class ChatPtrLayout extends PtrLayout implements IChatListView, IChatRead
         } else {
             mListPresenter.getNewChatList(mChatAdapter.getData().get(mChatAdapter.getData().size() - 1).getId());
         }
-
     }
 
     /**
@@ -125,7 +131,7 @@ public class ChatPtrLayout extends PtrLayout implements IChatListView, IChatRead
     @Override
     public void setNewChatListData(List<ChatListResults.Item> listData) {
         mChatAdapter.addData(listData);
-        getRecyclerView().smoothScrollToPosition(mChatAdapter.getData().size() - 1);
+        getRecyclerView().smoothScrollToPosition(mChatAdapter.getRealData().size() - 1);
         mReadPresenter.readAllMsg(mChatUserId);
     }
 

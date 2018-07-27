@@ -121,7 +121,11 @@ public class AppointmentHistoryListAdapter extends BaseRCAdapter<AppointmentData
                 tvTitle.append("订单执行中~");
                 break;
             case AppointmentDataOpResults.OrderStatus.Complete:
-                tvTitle.append("订单已结束，已收到" + itemData.getAppinfo().getPaycoins() + "钻~");
+                if (itemData.getAppinfo().getFrom() == UserManager.getInstance().getId()) {
+                    tvTitle.append("订单已结束~");
+                } else {
+                    tvTitle.append("订单已结束，已收到" + itemData.getAppinfo().getPaycoins() + "钻~");
+                }
                 break;
             case AppointmentDataOpResults.OrderStatus.ReadManCancel:
             case AppointmentDataOpResults.OrderStatus.SelfCancel:
@@ -150,7 +154,7 @@ public class AppointmentHistoryListAdapter extends BaseRCAdapter<AppointmentData
             ChatIntentBean intentBean = new ChatIntentBean();
             intentBean.setChatType(ChatIntentBean.ChatType.Appointment);
             intentBean.setOrderId(itemData.getAppinfo().getAid());
-            intentBean.setChatUserId(itemData.getAppinfo().getTo());
+            intentBean.setChatUserId(itemData.getUinfo().getUid());
             ((BaseActivity) mContext).getNavigator().navtoChat((Activity) mContext, intentBean);
         });
         //头像点击

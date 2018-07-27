@@ -67,9 +67,7 @@ public class AppointmentListOpFragment extends BaseFragment implements IAppointm
         mPtrLayout.getRecyclerView().setItemAnimator(new DefaultItemAnimator());
         mPtrLayout.setCallBack(this);
         mListPresenter = new AppointmentListPresenterImpl(this);
-        RxCountDown.delay2(500).subscribe(integer -> {
-            mPtrLayout.setRefresh();
-        });
+        mListPresenter.getAppointmentListOp();
     }
 
     @Override

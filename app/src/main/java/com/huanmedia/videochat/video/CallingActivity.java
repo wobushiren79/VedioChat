@@ -460,6 +460,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             localVideoStarting = true;
             EventBus.getDefault().post(new Intent(EventBusAction.ACTION_MAINOPENCAMERA));
             SurfaceView surfaceV = RtcEngine.CreateRendererView(FApplication.getApplication());
+            if (rtcEngine() == null)
+                return;
             rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
             mUidsList.put((int) UserManager.getInstance().getId(), surfaceV);
             mCallingFlVideoSmall.addView(surfaceV);
@@ -621,6 +623,8 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
             mUidsList.put(mRemoteVideoUid, surfaceV);
 //            boolean useDefaultLayout = mLayoutType == LAYOUT_TYPE_DEFAULT && mUidsList.size() != 2;
+            if (rtcEngine() == null)
+                return;
             rtcEngine().setupRemoteVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, mRemoteVideoUid));
             if (Integer.parseInt(mCallingFlVideoSmall.getTag().toString()) == 0) {
                 mCallingFlVideoBig.addView(surfaceV);
@@ -697,7 +701,9 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
             getBasePresenter().chatCoinConsumption(Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid()), 4, 0);
         }
         if (condition.getVideoType() == VideoType.APPOINTMENT && condition.getRequestType() == ConditionEntity.RequestType.PERSON) {
-            getBasePresenter().chatCoinConsumption(Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid()), 4, 0);
+            getBasePresenter().chatCoinConsumption
+                    (Integer.parseInt(getBasePresenter().getVideoChatEntity().getCallid()),
+                            4, getBasePresenter().getCondition().getAppointmentConfig().getOrderId());
         }
         if (condition.getVideoType() == VideoType.MATCH) {
             if (condition.getMatchConfig().getRequestType() == ConditionEntity.RequestType.SELF) {//直聊扣费

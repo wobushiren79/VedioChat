@@ -43,6 +43,15 @@ public class DiscoverEntity implements Parcelable {
     int favorited;
     private int starbutton;
     private int yuyueflag;
+    private int hasappoint;
+
+    public int getHasappoint() {
+        return hasappoint;
+    }
+
+    public void setHasappoint(int hasappoint) {
+        this.hasappoint = hasappoint;
+    }
 
     public int getYuyueflag() {
         return yuyueflag;

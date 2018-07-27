@@ -212,12 +212,12 @@ public class AppointmentDataOpResults {
             this.from = from;
         }
 
-        public int getTo() {
-            return to;
-        }
-
         public void setTo(int to) {
             this.to = to;
+        }
+
+        public int getTo() {
+            return to;
         }
 
         public int getPaycoins() {

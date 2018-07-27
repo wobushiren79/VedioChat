@@ -60,6 +60,8 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     LinearLayout mBTLayout;
     @BindView(R.id.business_card_iv_calling)
     ImageView mBusinessCardIvCalling;
+    @BindView(R.id.business_card_iv_appointment_video)
+    ImageView mBusinessCardIvAppointmentVideo;
     @BindView(R.id.business_card_iv_appointment)
     ImageView mBusinessCardIvAppointment;
     private BusinessCardAdapter mAdapter;
@@ -167,6 +169,15 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
             mBTLayout.setVisibility(View.GONE);
         } else {
             mBTLayout.setVisibility(View.VISIBLE);
+            if (businessCard.getExt() != null
+                    && businessCard.getExt().getAppoint() != null
+                    && businessCard.getExt().getAppoint().getHasappoint() == 1) {
+                mBusinessCardIvAppointment.setVisibility(View.GONE);
+                mBusinessCardIvAppointmentVideo.setVisibility(View.VISIBLE);
+            } else {
+                mBusinessCardIvAppointment.setVisibility(View.VISIBLE);
+                mBusinessCardIvAppointmentVideo.setVisibility(View.GONE);
+            }
         }
         if (businessCard.getBase().getAppointmentFlag() == 0) {
             mBusinessCardIvAppointment.setVisibility(View.GONE);
@@ -224,11 +235,22 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     }
 
     @SuppressLint("DefaultLocale")
-    @OnClick({R.id.business_card_iv_calling, R.id.business_card_iv_appointment})
+    @OnClick({R.id.business_card_iv_calling, R.id.business_card_iv_appointment, R.id.business_card_iv_appointment_video})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.business_card_iv_appointment:
                 getNavigator().navtoAppointment((Activity) getContext(), mUid);
+                break;
+            case R.id.business_card_iv_appointment_video:
+                if (mData != null && mData.getExt() != null && mData.getExt().getAppoint() != null)
+                    VideoChatUtils.StartAppointmentCall(
+                            (BaseActivity) getActivity(),
+                            (int) UserManager.getInstance().getId(),
+                            mUid,
+                            mData.getExt().getAppoint().getAppointid(),
+                            mUid,
+                            (int) UserManager.getInstance().getId()
+                    );
                 break;
             case R.id.business_card_iv_calling:
                 if (!UserManager.getInstance().islogin()) {

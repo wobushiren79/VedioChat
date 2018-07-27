@@ -25,14 +25,22 @@
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"/>-->
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_bt_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="@dimen/dimen_44dp"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_behavior="com.huanmedia.videochat.discover.weight.BusinessBottomBarBehavior">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/business_card_iv_appointment_video"
+            android:layout_width="@dimen/dimen_272dp"
+            android:layout_height="@dimen/dimen_152dp"
+            android:layout_marginLeft="@dimen/dimen_60dp"
+            android:layout_marginRight="@dimen/dimen_30dp"
+            android:src="@drawable/btn_information_appointment_video" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/business_card_iv_appointment"

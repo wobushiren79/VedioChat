@@ -125,10 +125,8 @@ public class AppointmentHistoryListActivity extends BaseActivity implements IApp
         mPtrLayout.setAdapter(mAdapter);
         mPtrLayout.getRecyclerView().setItemAnimator(new DefaultItemAnimator());
         mPtrLayout.setLayoutManager(layoutManager);
-        RxCountDown.delay2(500).subscribe(integer -> {
-            mPtrLayout.setRefresh();
-            mCurrentDate = getDefDay();
-        });
+        mListPresenter.getAppointmentListOp();
+        mCurrentDate = getDefDay();
     }
 
     //--------------------列表处理----------------------------------

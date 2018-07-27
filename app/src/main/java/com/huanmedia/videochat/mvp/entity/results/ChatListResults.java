@@ -88,6 +88,11 @@ public class ChatListResults {
         private String handle_text;
         private long handle_time;
 
+        public Item(int id, String msg) {
+            this.id = id;
+            this.msg = msg;
+        }
+
         public int getId() {
             return id;
         }

@@ -16,6 +16,7 @@ public class BusinessCardEntity implements Serializable {
     private BusinessCardUserTags tags;//好评数量
     private UserEvaluateEntity evaluates;//好评数量
     private BaseInfo base;//好评数量
+    private Ext ext;
 
     public BaseInfo getBase() {
         return base;
@@ -41,6 +42,46 @@ public class BusinessCardEntity implements Serializable {
         this.evaluates = evaluates;
     }
 
+    public Ext getExt() {
+        return ext;
+    }
+
+    public void setExt(Ext ext) {
+        this.ext = ext;
+    }
+
+    public static class Ext {
+        private Appoint appoint;
+
+        public Appoint getAppoint() {
+            return appoint;
+        }
+
+        public void setAppoint(Appoint appoint) {
+            this.appoint = appoint;
+        }
+    }
+
+    public static class Appoint {
+        private int hasappoint;//我是否与地方存在进行中的预约单
+        private int appointid;
+
+        public int getHasappoint() {
+            return hasappoint;
+        }
+
+        public void setHasappoint(int hasappoint) {
+            this.hasappoint = hasappoint;
+        }
+
+        public int getAppointid() {
+            return appointid;
+        }
+
+        public void setAppointid(int appointid) {
+            this.appointid = appointid;
+        }
+    }
 
     public static class BaseInfo extends BusinessMultiItem implements Serializable {
         /**

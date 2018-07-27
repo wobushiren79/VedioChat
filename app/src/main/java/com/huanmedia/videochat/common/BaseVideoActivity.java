@@ -138,7 +138,9 @@ public abstract class BaseVideoActivity<P extends Presenter> extends BaseActivit
     }
 
     protected RtcEngine rtcEngine() {
-        return worker().getRtcEngine();
+        if (worker() != null)
+            return worker().getRtcEngine();
+        return null;
     }
 
     protected final WorkerThread worker() {

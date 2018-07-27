@@ -121,8 +121,6 @@ public class MainPresenter extends Presenter<MainView> {
                 prmas.put("deviceid", Installation.id(getContext()));
                 prmas.put("os", 1 + "");
                 prmas.put("version", BuildConfig.VERSION_CODE + "");
-//                prmas.put("longitude", "0");
-//                prmas.put("latiude", "0");
                 prmas.put("channelid", BuildConfig.appChannel + "");
                 Location location = new LocationHandler().getLocation();
                 if (location != null) {
@@ -297,10 +295,14 @@ public class MainPresenter extends Presenter<MainView> {
                     VideoChatEntity mVideoChatEntity = mGson.fromJson(mGson.toJson(message.getBody()), VideoChatEntity.class);
                     if (CallingActivity.getmCallingState() == CallingActivity.CallingType.LEISURE) {//红人
                         ConditionEntity condition = new ConditionEntity();
+                        String[] extData = mVideoChatEntity.getExtDataString().split(",");
                         condition.setVideoType(ConditionEntity.VideoType.APPOINTMENT);
                         condition.setRequestType(ConditionEntity.RequestType.PERSON);
                         condition.getAppointmentConfig().setVideoChatConfig(mVideoChatEntity);
-                        condition.getAppointmentConfig().setAcceptUserID(Integer.valueOf(mVideoChatEntity.getExtDataString()));
+                        if (extData != null && extData.length >= 2) {
+                            condition.getAppointmentConfig().setAcceptUserID(Integer.valueOf(extData[0]));
+                            condition.getAppointmentConfig().setOrderId(Integer.valueOf(extData[1]));
+                        }
                         if (hasMatchFragment) {
                             condition.setNeedCloseFU(0);
                         }

@@ -236,7 +236,7 @@ public class CallingPresenter extends Presenter<CallingView> {
         Map<String, String> map = new HashMap<>();
         map.put("touid", mCondition.getAppointmentConfig().getVideoChatConfig().getTouid() + "");//对方ID
         map.put("startUid", mCondition.getAppointmentConfig().getVideoChatConfig().getFromuid() + "");//对方ID
-        map.put("extDataString", mCondition.getAppointmentConfig().getAcceptUserID() + "");//被预约方ID
+        map.put("extDataString", mCondition.getAppointmentConfig().getAcceptUserID() + "," + mCondition.getAppointmentConfig().getOrderId());//被预约方ID
         map.put("chattype", "APPOINTV2");// 会话类型
         map.put("is1v1search", "0");//是否是匹配模式（匹配模式会自动创建会话，需要传入0）
         map.put("appointv2id", mCondition.getAppointmentConfig().getOrderId() + "");//是否是匹配模式（匹配模式会自动创建会话，需要传入0）

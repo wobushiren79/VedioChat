@@ -123,14 +123,22 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
 //                            TimeUtils.getFriendlyTimeSpanByFrom(item.getLogintime() * 1000L
 //                                    , item.getSystemtime() * 1000L));
                     llStatus.setBackgroundResource(R.drawable.base_bg_round_theme);
-                    helper.setText(R.id.item_discover_grids_tv_status, "可预约");
+                    if (item.getHasappoint() == 0) {
+                        helper.setText(R.id.item_discover_grids_tv_status, "可预约");
+                    } else {
+                        helper.setText(R.id.item_discover_grids_tv_status, "已预约");
+                    }
                 } else if (item.getOnlinestatus() == 1) {
                     helper.setText(R.id.item_discover_grids_tv_status, "在线");
                 } else if (item.getOnlinestatus() == 2) {
                     helper.setText(R.id.item_discover_grids_tv_status, "忙碌");
                 } else {
                     llStatus.setBackgroundResource(R.drawable.base_bg_round_theme);
-                    helper.setText(R.id.item_discover_grids_tv_status, "可预约");
+                    if (item.getHasappoint() == 0) {
+                        helper.setText(R.id.item_discover_grids_tv_status, "可预约");
+                    } else {
+                        helper.setText(R.id.item_discover_grids_tv_status, "已预约");
+                    }
                 }
                 ImageView imageView = helper.getView(R.id.item_discover_grids_iv_status);
                 if (item.getOnlinestatus() == 0) {

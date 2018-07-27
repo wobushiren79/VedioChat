@@ -92,9 +92,7 @@ public class MonitorActivity extends BaseActivity implements ITalkRoomListView {
         };
         mListView.setAdapter(adapter);
         talkRoomListPresenter = new TalkRoomListPresenterImpl(this);
-        RxCountDown.delay2(500).subscribe(integer -> {
-            talkRoomListPresenter.getTalkRoomList();
-        });
+        talkRoomListPresenter.getTalkRoomList();
     }
 
 

@@ -30,6 +30,7 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.adpater.AppBarStateChangeListener;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.service.socket.WebSocketManager;
+import com.huanmedia.videochat.common.utils.VideoChatUtils;
 import com.huanmedia.videochat.common.widget.ptr.PtrLayout;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataOpResults;
@@ -225,19 +226,16 @@ public class ChatActivity
      */
     private void startVideo() {
         if (mInfoBean.getChatType() == ChatIntentBean.ChatType.Appointment && mAppointmentInfo != null) {
-            ConditionEntity condition = new ConditionEntity();
-            condition.setVideoType(ConditionEntity.VideoType.APPOINTMENT);
-            condition.setRequestType(ConditionEntity.RequestType.SELF);
-            condition.getAppointmentConfig().setInitiateUserId(mAppointmentInfo.getDetail().getAccount_id());
-            condition.getAppointmentConfig().setAcceptUserID(mAppointmentInfo.getDetail().getAccount_vipid());
-            condition.getAppointmentConfig().setOrderId(mAppointmentInfo.getDetail().getId());
-            VideoChatEntity videoChatEntity = new VideoChatEntity();
-            videoChatEntity.setTouid(mInfoBean.getChatUserId());
-            videoChatEntity.setFromuid((int) UserManager.getInstance().getId());
-            condition.getAppointmentConfig().setVideoChatConfig(videoChatEntity);
-            getNavigator().navtoCalling((Activity) getContext(), condition, "连接中...; ");
+            VideoChatUtils.StartAppointmentCall(
+                    this,
+                    mAppointmentInfo.getDetail().getAccount_id(),
+                    mAppointmentInfo.getDetail().getAccount_vipid(),
+                    mAppointmentInfo.getDetail().getId(),
+                    mInfoBean.getChatUserId(),
+                    (int) UserManager.getInstance().getId());
         }
     }
+
 
     /**
      * 发送聊天

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 
+
 /**
  * Create by Administrator
  * time: 2017/12/8.
