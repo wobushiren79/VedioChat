@@ -44,6 +44,7 @@ import com.huanmedia.videochat.main2.weight.MatchConfig;
 import com.huanmedia.videochat.repository.datasouce.impl.MainRepostiory;
 import com.huanmedia.videochat.repository.entity.AppointmentEntity;
 import com.huanmedia.videochat.repository.entity.CoinEntity;
+import com.huanmedia.videochat.repository.entity.MessageEntity;
 import com.huanmedia.videochat.repository.entity.SMsgEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.huanmedia.videochat.repository.entity.VideoChatEntity;
@@ -334,6 +335,12 @@ public class MainPresenter extends Presenter<MainView> {
                             ToastUtils.showToastShort(getContext(), "您已被封号");
                             UserManager.getInstance().outLogin(null);
                             UserManager.getInstance().exit();
+                            break;
+                        case "ChatMessageCount"://踢下线
+                            MessageEntity data = mGson.fromJson(mGson.toJson(message.getBody()), MessageEntity.class);
+                            Intent intent = new Intent(EventBusAction.ACTION_CHAT_MESSAGE_APPOINTMENT);
+                            intent.putExtra("msgCount", data.getCount());
+                            EventBus.getDefault().post(intent);
                             break;
                         default:
                             break;

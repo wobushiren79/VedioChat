@@ -42,6 +42,10 @@ public class EventBusAction {
      */
     public final static String ACTION_SYSTEM_MESSAGE =EventBusAction.SCHEME_ACTION+"://"+EventBusAction.LUANCH_HOST+"/upSystemMessageCount";
     /**
+     * 聊天消息(预约)
+     */
+    public final static String ACTION_CHAT_MESSAGE_APPOINTMENT =EventBusAction.SCHEME_ACTION+"://"+EventBusAction.LUANCH_HOST+"/upChatMessageCountAppointment";
+    /**
      * 金币更变
      */
     public final static String ACTION_COIN_CHANGED= EventBusAction.SCHEME_ACTION+"://"+EventBusAction.LUANCH_HOST+"/coin_changed";

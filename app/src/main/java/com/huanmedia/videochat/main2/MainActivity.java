@@ -186,16 +186,23 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainAction(Intent action) {
         if (action == null || action.getAction() == null) return;
+        int msgCount = 0;
         switch (action.getAction()) {
             case EventBusAction.ACTION_SYSTEM_MESSAGE://系统消息更新
-                int msgCount = 0;
-                if (action.getAction().equals(EventBusAction.ACTION_SYSTEM_MESSAGE)) {
-                    msgCount = action.getIntExtra("msgCount", 0);
-                    if (msgCount == 0) {
-                        mMainCommonTablayout.hideMsg(3);
-                    } else {
-                        mMainCommonTablayout.showDot(3);
-                    }
+                msgCount = action.getIntExtra("msgCount", 0);
+                if (msgCount == 0) {
+                    mMainCommonTablayout.hideMsg(3);
+                } else {
+                    mMainCommonTablayout.showDot(3);
+                }
+
+                break;
+            case EventBusAction.ACTION_CHAT_MESSAGE_APPOINTMENT://系统消息更新
+                msgCount = action.getIntExtra("msgCount", 0);
+                if (msgCount == 0) {
+                    mMainCommonTablayout.hideMsg(2);
+                } else {
+                    mMainCommonTablayout.showDot(2);
                 }
                 break;
             case EventBusAction.ACTION_USERINFO_UPDATE://用户数据更改主动更新
@@ -318,7 +325,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                         DisplayUtil.getDisplayHeight(MainActivity.this)
                                 - getResources().getDimensionPixelOffset(R.dimen.dimen_104dp));
         mMainVpPage.setLayoutParams(layoutParams);
-        mMainVpPage.setCurrentItem(1);
+        mMainVpPage.setCurrentItem(0);
     }
 
     /**

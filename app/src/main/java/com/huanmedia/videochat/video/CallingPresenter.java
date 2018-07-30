@@ -134,7 +134,7 @@ public class CallingPresenter extends Presenter<CallingView> {
      */
     void chatCoinConsumption(GiftEntity gift, int callid, int type, int typevalue) {
 
-        if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() == 0 && typevalue > 0) {
+        if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() == 0 && typevalue > 0&&type!=4) {
             getView().showBalanceDeficiency();
             return;
         }

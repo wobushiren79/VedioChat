@@ -11,6 +11,7 @@
     <include layout="@layout/video_calling_content" />
 
     <FrameLayout
+
         android:id="@+id/calling_fl_video_big"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -19,15 +20,27 @@
         android:id="@+id/video_hint_big"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
+        android:background="@drawable/back_mask"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <ImageView
             android:layout_width="@dimen/dimen_200dp"
             android:layout_height="@dimen/dimen_200dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dimen_120dp"
             android:src="@drawable/icon_video_disable" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_22dp"
+            android:autoLink="all"
+            android:text="对方因为害羞已关闭了摄像头"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_32dp" />
+
     </LinearLayout>
 
 
@@ -83,8 +96,9 @@
             android:id="@+id/video_hint_small"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black"
+            android:background="@drawable/back_mask"
             android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <ImageView
@@ -92,6 +106,7 @@
                 android:layout_height="@dimen/dimen_80dp"
                 android:layout_gravity="center"
                 android:src="@drawable/icon_video_disable" />
+
         </LinearLayout>
 
         <com.huanmedia.videochat.video.widget.TimerTextView

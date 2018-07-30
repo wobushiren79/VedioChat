@@ -280,7 +280,9 @@ public class ChatActivity
                 case AppointmentDataOpResults.OrderStatus.NoConfirm:
                     mTVVideo.setBackgroundResource(R.drawable.btn_chat_video_style_2);
                     mLLSend.setVisibility(View.VISIBLE);
-                    mTVVideo.setOnClickListener(null);
+                    mTVVideo.setOnClickListener(view -> {
+                        showToast("对方还没有确认预约哟~");
+                    });
                     mTVSend.setOnClickListener(this);
                     layoutParams.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_120dp);
                     break;
@@ -293,6 +295,9 @@ public class ChatActivity
                     break;
                 default:
                     mLLSend.setVisibility(View.GONE);
+                    mTVVideo.setOnClickListener(view -> {
+                        showToast("当前状态不能发起视频哟~");
+                    });
                     layoutParams.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_12dp);
                     break;
             }
