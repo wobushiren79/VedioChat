@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -107,12 +110,25 @@ public class CoinPayActivity extends BaseMVPActivity<CoinPayPresenter> implement
                 .thickness(DisplayUtil.dip2px(context(), 0.5f))
                 .create();
         mCoinPayRvNormal.addItemDecoration(mCurrentItemDecoration);
-
+        mCoinPayRvNormal.setLayoutManager(new LinearLayoutManager(this));
+        mCoinPayRvNormal.setNestedScrollingEnabled(true);
         mCoinPayTvMyCoin.setText(currentCoin);
         mAdapter = new BaseQuickAdapter<PayCoinTypeMode, BaseViewHolder>(
                 R.layout.item_coin_normal) {
             @Override
             protected void convert(BaseViewHolder helper, PayCoinTypeMode item) {
+                ImageView ivRecharge = helper.getView(R.id.iv_recharge);
+                TextView tvCoinTag = helper.getView(R.id.item_coin_tv_tag);
+                Button btCoinPrice = helper.getView(R.id.item_coin_btn_price);
+                if (item.getCoin() == 300||item.getCoin() == 3000) {
+                    ivRecharge.setImageResource(R.drawable.icon_recharge_petals_style_2);
+                    tvCoinTag.setBackgroundResource(R.drawable.coin_pay_bg_round_tag_yellow);
+                    btCoinPrice.setBackgroundResource(R.drawable.coin_pay_item_select_yellow);
+                } else {
+                    ivRecharge.setImageResource(R.drawable.icon_recharge_petals);
+                    tvCoinTag.setBackgroundResource(R.drawable.coin_pay_bg_round_tag_solid);
+                    btCoinPrice.setBackgroundResource(R.drawable.coin_pay_item_select);
+                }
                 String unit = "钻石";
                 Spanny spanny = new Spanny(Check.checkReplace(item.getName()));
                 spanny.findAndSpan(unit, () -> new ForegroundColorSpan(ContextCompat.getColor(context(), R.color.base_gray)));

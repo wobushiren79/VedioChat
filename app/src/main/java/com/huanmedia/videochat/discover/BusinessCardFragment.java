@@ -171,7 +171,8 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
             mBTLayout.setVisibility(View.VISIBLE);
             if (businessCard.getExt() != null
                     && businessCard.getExt().getAppoint() != null
-                    && businessCard.getExt().getAppoint().getHasappoint() == 1) {
+                    && businessCard.getExt().getAppoint().getHasappoint() == 1
+                    && businessCard.getExt().getAppoint().getComplaintflag() == 0) {
                 mBusinessCardIvAppointment.setVisibility(View.GONE);
                 mBusinessCardIvAppointmentVideo.setVisibility(View.VISIBLE);
             } else {

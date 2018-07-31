@@ -74,6 +74,6 @@
 
     <string name="media_upload_adpater_item_add">视频</string>
 
-    <string name="appointment_warring">萌面提醒您:本次押金由萌面进行第三方担保，完成预约时间内视频聊天或预约时间对方未发起聊天，押金将自动退回，若因您个人原因爽约，押金退回50%。</string>
+    <string name="appointment_warring">萌面提示：本次预约费用在红人接单后的48小时后自动打款给红人，如中途有任何问题可申请客服介入，成功申诉则将退回所有预约费用。</string>
     <string name="tab_appointment">预约</string>
 </resources>

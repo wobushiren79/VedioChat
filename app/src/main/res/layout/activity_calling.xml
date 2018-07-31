@@ -8,10 +8,8 @@
     android:background="@drawable/video_calling_bg_solid"
     tools:context="com.huanmedia.videochat.video.CallingActivity">
 
-    <include layout="@layout/video_calling_content" />
 
     <FrameLayout
-
         android:id="@+id/calling_fl_video_big"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -29,20 +27,19 @@
             android:layout_width="@dimen/dimen_200dp"
             android:layout_height="@dimen/dimen_200dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/dimen_120dp"
+            android:layout_marginBottom="@dimen/dimen_240dp"
             android:src="@drawable/icon_video_disable" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_22dp"
             android:autoLink="all"
             android:text="对方因为害羞已关闭了摄像头"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_32dp" />
-
     </LinearLayout>
 
+    <include layout="@layout/video_calling_content" />
 
     <FrameLayout
         android:id="@+id/calling_fl_video_small_layout"
@@ -118,25 +115,6 @@
             android:visibility="gone" />
     </FrameLayout>
 
-
-    <!--<FrameLayout-->
-    <!--android:id="@+id/calling_fl_video_small_content"-->
-    <!--android:layout_gravity="end"-->
-    <!--android:layout_marginRight="@dimen/dimen_20dp"-->
-    <!--android:layout_marginTop="@dimen/dimen_24dp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content">-->
-    <!---->
-    <!--&lt;!&ndash;自己蒙面&ndash;&gt;-->
-    <!--<ImageView-->
-    <!--android:layout_gravity="end"-->
-    <!--android:visibility="gone"-->
-    <!--android:id="@+id/video_call_iv_blur_small"-->
-    <!--android:layout_width="@dimen/dimen_180dp"-->
-    <!--android:layout_height="@dimen/dimen_320dp"-->
-    <!--android:scaleType="centerCrop"-->
-    <!--/>-->
-    <!--</FrameLayout>-->
     <com.opensource.svgaplayer.SVGAImageView
         android:id="@+id/video_call_lav"
         android:layout_width="match_parent"

@@ -65,6 +65,15 @@ public class BusinessCardEntity implements Serializable {
     public static class Appoint {
         private int hasappoint;//我是否与地方存在进行中的预约单
         private int appointid;
+        private int complaintflag;
+
+        public int getComplaintflag() {
+            return complaintflag;
+        }
+
+        public void setComplaintflag(int complaintflag) {
+            this.complaintflag = complaintflag;
+        }
 
         public int getHasappoint() {
             return hasappoint;

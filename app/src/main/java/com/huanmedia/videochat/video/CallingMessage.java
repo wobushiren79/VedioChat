@@ -95,6 +95,11 @@ public class CallingMessage implements WSonMessageListener {
                             // 如果是匹配状态需要重新进入匹配 如果是通话状态需要直接挂断
                             if (mPresenter.getCondition().getVideoType() == ConditionEntity.VideoType.MATCH && mPresenter.getCondition().getMatchConfig().getMatchType() == MatchConfig.MatchType.DEF) {
                                 mPresenter.getView().doLeaveChannel();
+                            } else if (mPresenter.getCondition().getVideoType() == ConditionEntity.VideoType.APPOINTMENT) {
+                                //如果是预约 显示挂断提示
+                                chatStr = "对方已挂断";
+                                mPresenter.getView().showError(0, chatStr);
+                                mPresenter.getView().endCall();
                             } else {
                                 mPresenter.getView().endCall();
                             }

@@ -85,13 +85,13 @@ public class ChatActivity
     protected void onResume() {
         super.onResume();
         initHeardLayout();
+        AppointmentListOpFragment.Is_Refresh_Data = true;
     }
 
     @Override
     protected void onDestroy() {
         if (mChatMessageListener != null)
             WebSocketManager.getInstance().removeListener(mChatMessageListener);
-        AppointmentListOpFragment.Is_Refresh_Data = true;
         super.onDestroy();
     }
 
@@ -226,16 +226,23 @@ public class ChatActivity
      */
     private void startVideo() {
         if (mInfoBean.getChatType() == ChatIntentBean.ChatType.Appointment && mAppointmentInfo != null) {
-            VideoChatUtils.StartAppointmentCall(
-                    this,
-                    mAppointmentInfo.getDetail().getAccount_id(),
-                    mAppointmentInfo.getDetail().getAccount_vipid(),
-                    mAppointmentInfo.getDetail().getId(),
-                    mInfoBean.getChatUserId(),
-                    (int) UserManager.getInstance().getId());
+            if (mAppointmentInfo.getDetail().getAstatus() == AppointmentDataOpResults.OrderStatus.NoConfirm) {
+                if (mAppointmentInfo.getDetail().getAccount_id() == mAppointmentInfo.getMyifno().getUid()) {
+                    showToast("对方还没有确认预约哟~");
+                }else{
+                    showToast("您还没有确认预约哟~");
+                }
+            } else if (mAppointmentInfo.getDetail().getAstatus() == AppointmentDataOpResults.OrderStatus.ReadManConfirm) {
+                VideoChatUtils.StartAppointmentCall(
+                        this,
+                        mAppointmentInfo.getDetail().getAccount_id(),
+                        mAppointmentInfo.getDetail().getAccount_vipid(),
+                        mAppointmentInfo.getDetail().getId(),
+                        mInfoBean.getChatUserId(),
+                        (int) UserManager.getInstance().getId());
+            }
         }
     }
-
 
     /**
      * 发送聊天
@@ -280,9 +287,7 @@ public class ChatActivity
                 case AppointmentDataOpResults.OrderStatus.NoConfirm:
                     mTVVideo.setBackgroundResource(R.drawable.btn_chat_video_style_2);
                     mLLSend.setVisibility(View.VISIBLE);
-                    mTVVideo.setOnClickListener(view -> {
-                        showToast("对方还没有确认预约哟~");
-                    });
+                    mTVVideo.setOnClickListener(this);
                     mTVSend.setOnClickListener(this);
                     layoutParams.bottomMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_120dp);
                     break;

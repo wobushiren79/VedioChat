@@ -35,16 +35,15 @@
             tools:text="(接受后可获得10钻)" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/video_call_tv_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_44dp"
             android:text="10秒后即将开始..."
             android:textColor="@color/white"
-            android:textSize="@dimen/dimen_36dp" />
+            android:textSize="@dimen/dimen_36dp"
+            android:visibility="gone" />
     </LinearLayout>
-
 
 
     <com.huanmedia.videochat.video.widget.RippleBackground
@@ -91,28 +90,4 @@
         android:textSize="@dimen/dimen_28dp"
         android:visibility="gone"
         tools:text="26km" />
-    <!--<com.opensource.svgaplayer.SVGAImageView-->
-    <!--android:visibility="gone"-->
-    <!--app:loopCount="0"-->
-    <!--app:fillMode="Forward"-->
-    <!--app:clearsAfterStop="true"-->
-    <!--android:id="@+id/video_call_svg_anim"-->
-    <!--android:layout_gravity="bottom"-->
-    <!--android:layout_marginBottom="@dimen/dimen_100dp"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="180dp"/>-->
-
-    <!--<com.airbnb.lottie.LottieAnimationView-->
-    <!--android:id="@+id/video_call_lav_anim"-->
-    <!--android:layout_width="@dimen/dimen_200dp"-->
-    <!--android:layout_height="@dimen/dimen_160dp"-->
-    <!--android:layout_gravity="start|bottom"-->
-    <!--android:layout_marginBottom="@dimen/dimen_200dp"-->
-    <!--android:layout_marginLeft="@dimen/dimen_60dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:scaleType="centerInside"-->
-    <!--app:lottie_autoPlay="true"-->
-    <!--app:lottie_fileName="videoCall/data.json"-->
-    <!--app:lottie_imageAssetsFolder="videoCall"-->
-    <!--app:lottie_loop="true"/>-->
 </LinearLayout>

@@ -894,7 +894,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                 });
                 mEvaluationDialog.show();
             }
-        } else {
+        }else {
             if (mHintDialog != null && mHintDialog.isShowing()) {
                 RxCountDown.delay(3).subscribe(
                         integer -> {

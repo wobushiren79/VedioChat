@@ -8,12 +8,16 @@
     android:clipChildren="false"
     tools:showIn="@layout/activity_calling">
     <!--用户头像性别昵称等信息-->
+
+
+
+
     <RelativeLayout
         android:id="@+id/video_call_rl_userinfo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_344dp"
-        android:layout_marginRight="@dimen/dimen_20dp"
         android:layout_marginLeft="@dimen/dimen_20dp"
+        android:layout_marginRight="@dimen/dimen_20dp"
         android:layout_marginTop="@dimen/dimen_24dp"
         android:visibility="gone">
 
@@ -43,8 +47,8 @@
             android:layout_below="@id/video_call_tv_nickName"
             android:layout_marginTop="@dimen/dimen_16dp"
             android:layout_toRightOf="@+id/video_call_iv_header"
-            android:drawablePadding="@dimen/dimen_8dp"
             android:drawableLeft="@drawable/icon_coordinate"
+            android:drawablePadding="@dimen/dimen_8dp"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_28dp"
             tools:text="26km" />
@@ -65,18 +69,6 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <!--波纹动画-->
-    <!--<com.airbnb.lottie.LottieAnimationView-->
-    <!--android:visibility="gone"-->
-    <!--android:layout_gravity="bottom|center_horizontal"-->
-    <!--android:layout_marginBottom="@dimen/dimen_70dp"-->
-    <!--android:id="@+id/video_call_lav_endCallanim"-->
-    <!--android:layout_width="120dp"-->
-    <!--android:layout_height="120dp"-->
-    <!--android:scaleType="centerInside"-->
-    <!--app:lottie_autoPlay="false"-->
-    <!--app:lottie_fileName="loading/ripple.json"-->
-    <!--app:lottie_loop="true"/>-->
     <!--底部按钮-->
     <RelativeLayout
         android:id="@+id/video_call_rl_callBtns"
@@ -93,14 +85,6 @@
             android:layout_centerInParent="true"
             android:src="@drawable/videocall_answer_btn"
             android:visibility="gone" />
-        <!--<Button-->
-        <!--android:visibility="gone"-->
-        <!--android:scaleType="centerInside"-->
-        <!--android:id="@+id/video_call_iv_endCallbtn"-->
-        <!--android:layout_width="@dimen/dimen_140dp"-->
-        <!--android:layout_height="@dimen/dimen_140dp"-->
-        <!--android:background="@drawable/videocall_endcall_btn"-->
-        <!--/>-->
     </RelativeLayout>
 
 
