@@ -99,6 +99,123 @@ public class UMengUtils {
     }
 
     /**
+     * 预约进入按钮
+     *
+     * @param context
+     * @param readmanId
+     */
+    public static void AppointmentIn(Context context, int readmanId) {
+        try {
+            String eventID = "appointment_in";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("user_id", UserManager.getInstance().getId() + "");
+            dataMap.put("readman_id", readmanId + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 预约发起视频
+     *
+     * @param context
+     * @param toid
+     * @param inType  0个人信息界面拨打 1聊天界面拨打
+     */
+    public static void AppointmentVideo(Context context, int toid, int inType) {
+        try {
+            String eventID = "appointment_video";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("from_id", UserManager.getInstance().getId() + "");
+            dataMap.put("to_id", toid + "");
+            dataMap.put("in_type", inType + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 预约进入按钮
+     *
+     * @param context
+     * @param readmanId
+     */
+    public static void AppointmentSubmit(Context context, int readmanId) {
+        try {
+            String eventID = "appointment_submit";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("user_id", UserManager.getInstance().getId() + "");
+            dataMap.put("readman_id", readmanId + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 通用广告点击统计
+     *
+     * @param context
+     * @param clickType 0 取消  1点击进入
+     */
+    public static void CommonCoinAds(Context context, int clickType, String jumpUrl) {
+        try {
+            String eventID = "common_coin_ads";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("user_id", UserManager.getInstance().getId() + "");
+            dataMap.put("jump_url", jumpUrl + "");
+            dataMap.put("click_type", clickType + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 跳转APP页面统计
+     *
+     * @param context
+     * @param jumpType  0 充值頁 1，意见反馈 2 红人认证
+     * @param jumpStart 0.網頁
+     */
+    public static void JumpActivity(Context context, int jumpType, int jumpStart) {
+        try {
+            String eventID = "jump_activty";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("user_id", UserManager.getInstance().getId() + "");
+            dataMap.put("jump_type", jumpType + "");
+            dataMap.put("jump_start", jumpStart + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 按钮点击统计
+     *
+     * @param context
+     * @param buttonType 1,编辑资料 2红人模式 3开始认证
+     */
+    public static void ButtonClick(Context context, int buttonType) {
+        try {
+            String eventID = "button_click";
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("user_id", UserManager.getInstance().getId() + "");
+            dataMap.put("button_type", buttonType + "");
+            baseSendMsg(context, eventID, dataMap, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 友盟自定义事件
      *
      * @param context

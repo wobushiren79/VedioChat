@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPFragment;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.repository.net.HostManager;
 
@@ -141,10 +142,11 @@ public class ReadMainCertificateFragment extends BaseMVPFragment<ReadMainCertifi
         return getContext();
     }
 
-    @OnClick({R.id.rmc_btn_start,R.id.rmc_tv_protocol_name})
+    @OnClick({R.id.rmc_btn_start, R.id.rmc_tv_protocol_name})
     public void onClickView(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rmc_btn_start:
+                UMengUtils.ButtonClick(getContext(), 3);
                 getBasePresenter().checkCompleteness();
                 break;
             case R.id.rmc_tv_protocol_name:

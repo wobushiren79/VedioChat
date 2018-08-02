@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.huanmedia.ilibray.utils.AndroidUtil;
 import com.huanmedia.ilibray.utils.AppValidationMgr;
 import com.huanmedia.ilibray.utils.Installation;
 import com.huanmedia.ilibray.utils.RxCountDown;
@@ -72,6 +73,12 @@ public class LoginPresenter extends Presenter<LoginView> {
                 prams.put("os", 1 + "");
                 prams.put("deviceid", Installation.id(getContext()));
                 prams.put("channelid", BuildConfig.appChannel + "");
+                String ipAddressIn = AndroidUtil.getIPAddressIn(getContext());
+                String ssid = AndroidUtil.getSSID(getContext());
+                if (ipAddressIn != null)
+                    prams.put("wifiip", ipAddressIn + "");
+                if (ssid != null)
+                    prams.put("wifiname", ssid + "");
                 Location location = mLocationHandler.getLocation();
                 if (location != null) {
                     prams.put("longitude", location.getLongitude() + "");

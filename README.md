@@ -69,6 +69,13 @@ EYArchitecture
     用例：
         VideoChat.exitWebActivity();
 
+5.跳转到指定网页 jumpActivity(String activityStr);
+    用例：
+        VideoChat.jumpActivity("RechargePage");
+        RechargePage:充值页
+        FeedBackPage:意见反馈
+        ReadManCertificate:红人认证
+
 ------------------------------------------------------------------------
 
 Author

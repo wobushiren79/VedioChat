@@ -30,6 +30,7 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.adpater.AppBarStateChangeListener;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.service.socket.WebSocketManager;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.utils.VideoChatUtils;
 import com.huanmedia.videochat.common.widget.ptr.PtrLayout;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
@@ -233,6 +234,7 @@ public class ChatActivity
                     showToast("您还没有确认预约哟~");
                 }
             } else if (mAppointmentInfo.getDetail().getAstatus() == AppointmentDataOpResults.OrderStatus.ReadManConfirm) {
+                UMengUtils.AppointmentVideo(getContext(), mInfoBean.getChatUserId(), 1);
                 VideoChatUtils.StartAppointmentCall(
                         this,
                         mAppointmentInfo.getDetail().getAccount_id(),

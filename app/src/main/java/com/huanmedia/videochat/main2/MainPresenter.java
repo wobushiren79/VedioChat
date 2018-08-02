@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.huanmedia.ilibray.utils.AndroidUtil;
 import com.huanmedia.ilibray.utils.GsonUtils;
 import com.huanmedia.ilibray.utils.Installation;
 import com.huanmedia.ilibray.utils.ToastUtils;
@@ -123,6 +124,12 @@ public class MainPresenter extends Presenter<MainView> {
                 prmas.put("os", 1 + "");
                 prmas.put("version", BuildConfig.VERSION_CODE + "");
                 prmas.put("channelid", BuildConfig.appChannel + "");
+                String ipAddressIn = AndroidUtil.getIPAddressIn(getContext());
+                String ssid = AndroidUtil.getSSID(getContext());
+                if (ipAddressIn != null)
+                    prmas.put("wifiip", ipAddressIn + "");
+                if (ssid != null)
+                    prmas.put("wifiname", ssid + "");
                 Location location = new LocationHandler().getLocation();
                 if (location != null) {
                     prmas.put("longitude", location.getLongitude() + "");

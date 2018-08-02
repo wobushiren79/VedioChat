@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.huanmedia.ilibray.utils.DevUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.navigation.Navigator;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -95,11 +96,13 @@ public class MainHintDialog extends Dialog {
                         navigator.navtoWebActivity(DevUtils.scanForActivity(getContext()), mJumpUrl, null, true);
                         this.cancel();
                     }
+                    UMengUtils.CommonCoinAds(getContext(), 1, mJumpUrl + "");
                 });
                 break;
         }
 
         ivCancel.setOnClickListener(view -> {
+            UMengUtils.CommonCoinAds(getContext(), 0, mJumpUrl + "");
             this.cancel();
         });
     }

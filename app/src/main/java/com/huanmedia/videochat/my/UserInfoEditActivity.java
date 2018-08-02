@@ -30,6 +30,7 @@ import com.huanmedia.videochat.common.BaseMVPActivity;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.utils.DoubleClickUtils;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
@@ -428,7 +429,7 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
                 openAlbum();
                 break;
             case R.id.user_info_edit_ll_video:
-                getNavigator().navtoMediaUpLoad(this, (ArrayList<VideoEntity>) mVideosAdapter.getData(),true);
+                getNavigator().navtoMediaUpLoad(this, (ArrayList<VideoEntity>) mVideosAdapter.getData(), true);
                 break;
         }
     }

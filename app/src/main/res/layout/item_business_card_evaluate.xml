@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    android:paddingStart="@dimen/dimen_44dp"
-    android:paddingEnd="@dimen/dimen_44dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/base_item_select"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/base_item_select"
     android:minHeight="@dimen/dimen_100dp"
-    android:layout_height="wrap_content">
+    android:paddingEnd="@dimen/dimen_44dp"
+    android:paddingStart="@dimen/dimen_44dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/dimen_12dp"
         android:id="@+id/ibc_rv_header"
         android:layout_width="@dimen/dimen_76dp"
         android:layout_height="@dimen/dimen_76dp"
+        android:layout_marginBottom="@dimen/dimen_12dp"
+        android:layout_marginTop="@dimen/dimen_12dp"
         android:scaleType="centerCrop"
-        app:riv_oval="true"
-        tools:src="@drawable/bg"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_oval="true" />
+
     <TextView
         android:id="@+id/ibc_tv_nameAndContent"
-        android:gravity="center_vertical"
-        android:minHeight="@dimen/dimen_76dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_12dp"
-        android:textSize="@dimen/dimen_28dp"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:layout_toRightOf="@+id/ibc_rv_header"
+        android:gravity="center_vertical"
         android:lineSpacingMultiplier="1.2"
-        tools:text="大帅哥:小伙子很会了聊天"
+        android:minHeight="@dimen/dimen_76dp"
         android:textColor="@color/base_gray"
-        app:layout_constraintStart_toEndOf="@+id/ibc_rv_header"
-        app:layout_constraintTop_toTopOf="@+id/ibc_rv_header"/>
+        android:textSize="@dimen/dimen_28dp"
+        tools:text="大帅哥:小伙子很会了聊天" />
+
     <View
-        app:layout_constraintBottom_toBottomOf="parent"
+
         android:layout_width="match_parent"
-        android:background="@drawable/divider_ll"
-        android:layout_height="0.5dp"/>
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="@dimen/dimen_1dp"
+        android:layout_below="@+id/ibc_rv_header"
+        android:background="@drawable/divider_ll" />
+</RelativeLayout>

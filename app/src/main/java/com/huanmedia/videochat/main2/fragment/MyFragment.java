@@ -272,6 +272,7 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
                 getNavigator().navtoMyWallet(getActivity());
                 break;
             case R.id.my_fm_rl_readman://红人模式
+                UMengUtils.ButtonClick(getContext(), 2);
                 getNavigator().navtoReadMainCertificate(getActivity());
                 break;
             case R.id.my_fm_rl_trust://信任值
@@ -292,6 +293,7 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
             case R.id.my_fm_iv_header://头像大图
                 break;
             case R.id.my_fm_tv_btn_data_editor:
+                UMengUtils.ButtonClick(getContext(), 1);
                 getNavigator().navtoUserInfoEdit(getActivity(), false, null);
                 break;
             case R.id.my_fm_rl_appointment:

@@ -23,6 +23,7 @@ import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.appointment.adapter.AppointmentListAdapter;
 import com.huanmedia.videochat.common.BaseActivity;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDataResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentSubmitPresenterImpl;
@@ -247,6 +248,7 @@ public class AppointmentOpActivity extends BaseActivity implements IAppointmentU
                 break;
             case R.id.tv_submit:
                 mSubmitPresenter.submitAppointmentOp();
+                UMengUtils.AppointmentSubmit(getContext(),mUid);
                 break;
         }
     }

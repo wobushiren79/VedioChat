@@ -9,6 +9,8 @@ import android.webkit.WebView;
 
 import com.google.gson.Gson;
 import com.huanmedia.videochat.BuildConfig;
+import com.huanmedia.videochat.common.navigation.Navigator;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
@@ -46,6 +48,32 @@ public class WebJsObjFunction extends Object {
     @JavascriptInterface
     public void exitWebActivity() {
         exitWebActivity(null);
+    }
+
+
+    /**
+     * 跳转相应界面
+     */
+    @JavascriptInterface
+    public void jumpActivity(String activityName) {
+        Navigator navigator = new Navigator();
+        switch (activityName) {
+            case "RechargePage":
+                //充值页
+                UMengUtils.JumpActivity(mContext,0,0);
+                navigator.navtoCoinPay((Activity)mContext, null);
+                break;
+            case "FeedBackPage":
+                //意见反馈
+                UMengUtils.JumpActivity(mContext,1,0);
+                navigator.navtoFeedBack((Activity)mContext);
+                break;
+            case "ReadManCertificate":
+                //红人认证
+                UMengUtils.JumpActivity(mContext,2,0);
+                navigator.navtoReadMainCertificate((Activity) mContext);
+                break;
+        }
     }
 
     @JavascriptInterface

@@ -20,6 +20,7 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.SimpleLoadMoreView;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.utils.VideoChatUtils;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
@@ -240,9 +241,11 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.business_card_iv_appointment:
+                UMengUtils.AppointmentIn(getContext(), mUid);
                 getNavigator().navtoAppointment((Activity) getContext(), mUid);
                 break;
             case R.id.business_card_iv_appointment_video:
+                UMengUtils.AppointmentVideo(getContext(), mUid, 0);
                 if (mData != null && mData.getExt() != null && mData.getExt().getAppoint() != null)
                     VideoChatUtils.StartAppointmentCall(
                             (BaseActivity) getActivity(),
