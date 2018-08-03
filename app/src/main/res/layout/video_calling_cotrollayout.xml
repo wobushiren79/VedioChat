@@ -10,8 +10,6 @@
     <!--用户头像性别昵称等信息-->
 
 
-
-
     <RelativeLayout
         android:id="@+id/video_call_rl_userinfo"
         android:layout_width="match_parent"
@@ -127,9 +125,9 @@
     <com.huanmedia.videochat.video.widget.CallButtomBtns
         android:id="@+id/video_call_cbb_controlBtns"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_320dp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="@dimen/dimen_120dp" />
+        android:layout_height="@dimen/dimen_400dp"
+        android:layout_marginBottom="@dimen/dimen_60dp"
+        android:layout_gravity="bottom|center" />
 
     <!--倒计时-->
     <LinearLayout

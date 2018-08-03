@@ -14,30 +14,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/video_hint_big"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/back_mask"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
         <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/video_hint_big_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/video_hint_big_icon"
             android:layout_width="@dimen/dimen_200dp"
             android:layout_height="@dimen/dimen_200dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/dimen_240dp"
-            android:src="@drawable/icon_video_disable" />
+            android:layout_marginBottom="@dimen/dimen_140dp"
+            android:layout_marginTop="@dimen/dimen_400dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/video_hint_big_icon"
+            android:layout_centerHorizontal="true"
             android:autoLink="all"
             android:text="对方因为害羞已关闭了摄像头"
             android:textColor="@color/white"
             android:textSize="@dimen/dimen_32dp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <include layout="@layout/video_calling_content" />
 
@@ -67,7 +76,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
                 <TextView
                     android:id="@+id/calling_tv_small_calling"
                     android:layout_width="0dp"
@@ -77,10 +85,6 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/dimen_32dp"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="匹配中..." />
 
             </android.support.constraint.ConstraintLayout>
@@ -89,22 +93,28 @@
         </FrameLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/video_hint_small"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/back_mask"
+            android:layout_margin="@dimen/dimen_7dp"
             android:gravity="center"
-            android:orientation="vertical"
             android:visibility="gone">
 
             <ImageView
+                android:scaleType="fitXY"
+                android:id="@+id/video_hint_small_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/video_hint_small_icon"
                 android:layout_width="@dimen/dimen_80dp"
                 android:layout_height="@dimen/dimen_80dp"
-                android:layout_gravity="center"
-                android:src="@drawable/icon_video_disable" />
+                android:layout_centerInParent="true"
+                android:layout_gravity="center" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <com.huanmedia.videochat.video.widget.TimerTextView
             android:id="@+id/view_time"

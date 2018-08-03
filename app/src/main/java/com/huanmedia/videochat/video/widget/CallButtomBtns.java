@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.videochat.R;
@@ -22,6 +24,7 @@ import com.huanmedia.videochat.repository.entity.VideoChatEntity;
 
 import io.reactivex.disposables.Disposable;
 import mvp.data.store.DataKeeper;
+import mvp.data.store.glide.GlideUtils;
 
 /**
  * Create by Administrator
@@ -40,6 +43,7 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
     private ImageView mIvAddTime;
     private CheckBox mIvHint;
     private ImageView mIvHintToast;
+    private TextView mTVRemind;
     private View mIvGift;
     private MatchListener mMatchListener;
     private RedmanListener mRedmanListener;
@@ -136,6 +140,9 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
             mIvAddTime = findViewById(R.id.video_call_iv_addtime);
             mIvHint = findViewById(R.id.video_call_iv_hint_button);
             mIvHintToast = findViewById(R.id.video_call_iv_hint_toast);
+            mTVRemind = findViewById(R.id.tv_remind);
+
+            GlideUtils.getInstance().loadBitmapNoAnim(getContext(), R.drawable.btn_skincare, mIvBeauty);
         }
         mIvHint.setVisibility(VISIBLE);
         mCloseBtn.setVisibility(VISIBLE);
@@ -145,7 +152,7 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
         mIvBeauty.setVisibility(VISIBLE);
         mCbAttention.setVisibility(VISIBLE);
         mIvBeauty.setVisibility(VISIBLE);
-
+        mTVRemind.setVisibility(INVISIBLE);
         mCloseBtn.setOnClickListener(this);
         switch (mType) {
             case VideoType.MATCH:
@@ -188,6 +195,16 @@ public class CallButtomBtns extends RelativeLayout implements View.OnClickListen
                 mIvHint.setVisibility(GONE);
                 break;
         }
+    }
+
+    /**
+     * 设置提示文字
+     */
+    public void setRemindText(String text) {
+        if (mTVRemind.getVisibility() == INVISIBLE)
+            mTVRemind.setVisibility(VISIBLE);
+        if (!text.equals(mTVRemind.getText().toString()))
+            mTVRemind.setText(text);
     }
 
     private void videoHintToast() {

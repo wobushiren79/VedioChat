@@ -66,11 +66,11 @@ public class WorkerThread extends Thread {
                     break;
                 case ACTION_WORKER_CONFIG_ENGINE:
                     Object[] configData = (Object[]) msg.obj;
-                    mWorkerThread.configEngine((int) configData[0], (String) configData[1], (String) configData[2]);
+                    mWorkerThread.configEngine((Integer) configData[0], (String) configData[1], (String) configData[2]);
                     break;
                 case ACTION_WORKER_PREVIEW:
                     Object[] previewData = (Object[]) msg.obj;
-                    mWorkerThread.preview((boolean) previewData[0], (SurfaceView) previewData[1], (int) previewData[2]);
+                    mWorkerThread.preview((Boolean) previewData[0], (SurfaceView) previewData[1], (Integer) previewData[2]);
                     break;
             }
         }
@@ -183,7 +183,11 @@ public class WorkerThread extends Thread {
             mWorkerHandler.sendMessage(envelop);
             return;
         }
-
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ensureRtcEngineReadyLock();
         if (start) {
             mRtcEngine.setupLocalVideo(new VideoCanvas(view, VideoCanvas.RENDER_MODE_HIDDEN, uid));

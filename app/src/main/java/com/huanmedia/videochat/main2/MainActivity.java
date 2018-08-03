@@ -326,6 +326,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                                 - getResources().getDimensionPixelOffset(R.dimen.dimen_104dp));
         mMainVpPage.setLayoutParams(layoutParams);
         mMainVpPage.setCurrentItem(0);
+        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
     }
 
     /**

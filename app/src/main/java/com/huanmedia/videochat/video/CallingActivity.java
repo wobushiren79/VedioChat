@@ -100,9 +100,18 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
 //    ImageView mVideoCallIvBlurSmall;
 
     @BindView(R.id.video_hint_big)
-    LinearLayout mVideoHintBig;
+    RelativeLayout mVideoHintBig;
+    @BindView(R.id.video_hint_big_back)
+    ImageView mIVHintBigBack;
+    @BindView(R.id.video_hint_big_icon)
+    ImageView mIVHintBigIcon;
     @BindView(R.id.video_hint_small)
-    LinearLayout mVideoHintSmall;
+    RelativeLayout mVideoHintSmall;
+    @BindView(R.id.video_hint_small_back)
+    ImageView mIVHintSmallBack;
+    @BindView(R.id.video_hint_small_icon)
+    ImageView mIVHintSmallIcon;
+
     @BindView(R.id.calling_fl_video_big)
     FrameLayout mCallingFlVideoBig;
     @BindView(R.id.video_call_fl_calling)
@@ -413,6 +422,10 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         mAdapter = new ChatTextAdapter(R.layout.item_video_call_chat_text, null);
         mVideoCallRvChatText.setAdapter(mAdapter);
 
+        GlideUtils.getInstance().loadBitmapNoAnim(this, R.drawable.icon_video_disable, mIVHintBigIcon);
+        GlideUtils.getInstance().loadContextBitmap(this, R.drawable.back_mask, mIVHintBigBack, R.color.base_black, R.color.base_black, false);
+        GlideUtils.getInstance().loadBitmapNoAnim(this, R.drawable.icon_video_disable, mIVHintSmallIcon);
+        GlideUtils.getInstance().loadContextBitmap(this, R.drawable.back_mask, mIVHintSmallBack, R.color.base_black, R.color.base_black, false);
     }
 
     @Override
@@ -894,7 +907,7 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
                 });
                 mEvaluationDialog.show();
             }
-        }else {
+        } else {
             if (mHintDialog != null && mHintDialog.isShowing()) {
                 RxCountDown.delay(3).subscribe(
                         integer -> {
@@ -1443,6 +1456,24 @@ public class CallingActivity extends BaseVideoActivity<CallingPresenter> impleme
         mTimeDownSub = RxCountDown.interval(1).subscribe(totalTime -> {
             String time = TimeUtils.millisToMinStr((int) (totalTime * 1000));
             mTimeText.setTimeUpText(time);
+            if (getBasePresenter().getCondition().getVideoType() == VideoType.APPOINTMENT) {
+                String minStr = time.substring(0, 2);
+                Integer minInt = Integer.valueOf(minStr);
+                boolean isAcceptUser = (getBasePresenter().getCondition().getAppointmentConfig().getAcceptUserID() == UserManager.getInstance().getId() ? true : false);
+                int lessTime = getBasePresenter().getVideoChatEntity().getAppointlesstime();
+                if (minInt >= lessTime) {
+                    if (isAcceptUser)
+                        mVideoCallCbbControlBtns.setRemindText("你的预约通话已完成，对方确认后或预约时间结束后，款项即会打入你的账户。");
+                    else
+                        mVideoCallCbbControlBtns.setRemindText("你的预约通话已完成，如果感到满意，可以再次下单哦O(∩_∩)O");
+
+                } else if (minInt >= lessTime - 1 && minInt < lessTime) {
+                    if (isAcceptUser)
+                        mVideoCallCbbControlBtns.setRemindText("你的预约通话即将完成，可以鼓励对方赠送礼物或者再次下单哦。");
+                    else
+                        mVideoCallCbbControlBtns.setRemindText("你的预约通话即将完成，可以给对方赠送礼物增加好感哦。");
+                }
+            }
         });
     }
 

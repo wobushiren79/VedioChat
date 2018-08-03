@@ -1,125 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?><!--匹配模式————————底部按钮-->
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dimen_320dp"
-    android:layout_gravity="bottom|center"
-    android:layout_marginBottom="@dimen/dimen_120dp"
-    android:paddingBottom="@dimen/dimen_16dp"
-    tools:background="#88888888"
-    tools:parentTag="android.widget.RelativeLayout">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/video_call_iv_beauty"
-        android:layout_width="@dimen/dimen_72dp"
-        android:layout_height="@dimen/dimen_72dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dimen_44dp"
-        android:layout_marginRight="@dimen/dimen_16dp"
-        android:src="@drawable/btn_skincare" />
-
-    <CheckBox
-        android:id="@+id/video_call_cb_attention"
-        style="@style/AppBaseTheme.CheckBox.VideoCallAttention"
-        android:layout_width="@dimen/dimen_72dp"
-        android:layout_height="@dimen/dimen_72dp"
-        android:layout_above="@+id/video_call_fl_close"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/video_call_fl_close"
-        android:layout_marginBottom="@dimen/dimen_120dp"
-        android:layout_marginRight="-8dp" />
-
-    <FrameLayout
-        android:id="@+id/video_call_fl_close"
-        android:layout_width="@dimen/dimen_72dp"
-        android:layout_height="@dimen/dimen_72dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/dimen_44dp"
-        android:background="@drawable/bg_round">
+    <RelativeLayout
+        android:id="@+id/rl_bt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_320dp"
+        android:paddingBottom="@dimen/dimen_16dp"
+        tools:background="#88888888">
 
         <ImageView
-            android:id="@+id/video_call_iv_close"
-            android:layout_width="@dimen/dimen_56dp"
-            android:layout_height="@dimen/dimen_56dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:src="@drawable/video_calling_match_control_close_level" />
-    </FrameLayout>
-    <!--<View-->
-    <!--android:id="@+id/video_call_v_placeholder"-->
-    <!--android:layout_width="@dimen/dimen_140dp"-->
-    <!--android:layout_height="@dimen/dimen_140dp"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:layout_marginRight="@dimen/dimen_60dp"-->
-    <!--android:layout_marginLeft="@dimen/dimen_60dp"-->
-    <!--android:layout_marginRight="@dimen/dimen_60dp"-->
-    <!--android:layout_marginLeft="@dimen/dimen_60dp"-->
-    <!--android:src="@drawable/videocall_endcall_btn"-->
-    <!--/>-->
+            android:id="@+id/video_call_iv_beauty"
+            android:layout_width="@dimen/dimen_72dp"
+            android:layout_height="@dimen/dimen_72dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dimen_44dp"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:src="@drawable/btn_skincare" />
 
-    <ImageView
-        android:id="@+id/video_call_iv_mask"
-        android:layout_width="@dimen/dimen_72dp"
-        android:layout_height="@dimen/dimen_72dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="@dimen/dimen_16dp"
-        android:layout_toRightOf="@+id/video_call_iv_beauty"
-        android:src="@drawable/video_calling_match_control_mask_selecter" />
-    <!--android:src="@drawable/video_calling_match_control_wo_selecter"-->
+        <CheckBox
+            android:id="@+id/video_call_cb_attention"
+            style="@style/AppBaseTheme.CheckBox.VideoCallAttention"
+            android:layout_width="@dimen/dimen_72dp"
+            android:layout_height="@dimen/dimen_72dp"
+            android:layout_above="@+id/video_call_fl_close"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/video_call_fl_close"
+            android:layout_marginBottom="@dimen/dimen_120dp"
+            android:layout_marginRight="-8dp" />
 
-    <ImageView
-        android:id="@+id/video_call_iv_gift"
-        android:layout_width="@dimen/dimen_72dp"
-        android:layout_height="@dimen/dimen_72dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="@dimen/dimen_16dp"
-        android:layout_toRightOf="@+id/video_call_iv_mask"
-        android:src="@drawable/btn_gift" />
+        <FrameLayout
+            android:id="@+id/video_call_fl_close"
+            android:layout_width="@dimen/dimen_72dp"
+            android:layout_height="@dimen/dimen_72dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimen_44dp"
+            android:background="@drawable/bg_round">
 
-    <ImageView
-        android:id="@+id/video_call_iv_ta"
-        android:layout_width="@dimen/dimen_72dp"
-        android:layout_height="@dimen/dimen_72dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="@dimen/dimen_16dp"
-        android:layout_toRightOf="@+id/video_call_iv_gift"
-        android:src="@drawable/video_calling_match_control_jiemian_selecter" />
+            <ImageView
+                android:id="@+id/video_call_iv_close"
+                android:layout_width="@dimen/dimen_56dp"
+                android:layout_height="@dimen/dimen_56dp"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@drawable/video_calling_match_control_close_level" />
+        </FrameLayout>
+        <!--<View-->
+        <!--android:id="@+id/video_call_v_placeholder"-->
+        <!--android:layout_width="@dimen/dimen_140dp"-->
+        <!--android:layout_height="@dimen/dimen_140dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_marginRight="@dimen/dimen_60dp"-->
+        <!--android:layout_marginLeft="@dimen/dimen_60dp"-->
+        <!--android:layout_marginRight="@dimen/dimen_60dp"-->
+        <!--android:layout_marginLeft="@dimen/dimen_60dp"-->
+        <!--android:src="@drawable/videocall_endcall_btn"-->
+        <!--/>-->
 
+        <ImageView
+            android:id="@+id/video_call_iv_mask"
+            android:layout_width="@dimen/dimen_72dp"
+            android:layout_height="@dimen/dimen_72dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:layout_toRightOf="@+id/video_call_iv_beauty"
+            android:src="@drawable/video_calling_match_control_mask_selecter" />
+        <!--android:src="@drawable/video_calling_match_control_wo_selecter"-->
 
-    <CheckBox
-        android:layout_marginBottom="@dimen/dimen_10dp"
-        android:id="@+id/video_call_iv_hint_button"
-        android:layout_width="@dimen/dimen_120dp"
-        android:layout_height="@dimen/dimen_50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/video_call_iv_ta"
-        android:background="@drawable/video_calling_hint_selecter"
-        android:button="@null"
-        android:checked="false" />
+        <ImageView
+            android:id="@+id/video_call_iv_gift"
+            android:layout_width="@dimen/dimen_72dp"
+            android:layout_height="@dimen/dimen_72dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:layout_toRightOf="@+id/video_call_iv_mask"
+            android:src="@drawable/btn_gift" />
 
-    <ImageView
-        android:id="@+id/video_call_iv_addtime"
-        android:layout_width="@dimen/dimen_200dp"
-        android:layout_height="@dimen/dimen_150dp"
-        android:layout_above="@+id/video_call_iv_gift"
-        android:layout_alignLeft="@id/video_call_iv_mask"
-        android:layout_alignRight="@id/video_call_iv_ta"
-        android:layout_marginLeft="@dimen/dimen_36dp"
-        android:src="@drawable/icon_add_time_pop"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/video_call_iv_hint_toast"
-        android:layout_width="@dimen/dimen_150dp"
-        android:layout_height="@dimen/dimen_70dp"
-        android:layout_above="@+id/video_call_iv_hint_button"
-        android:layout_alignLeft="@id/video_call_iv_gift"
-        android:layout_marginBottom="@dimen/dimen_10dp"
-        android:layout_marginLeft="@dimen/dimen_44dp"
-        android:src="@drawable/icon_video_hint"
-        android:visibility="gone" />
+        <ImageView
+            android:id="@+id/video_call_iv_ta"
+            android:layout_width="@dimen/dimen_72dp"
+            android:layout_height="@dimen/dimen_72dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:layout_toRightOf="@+id/video_call_iv_gift"
+            android:src="@drawable/video_calling_match_control_jiemian_selecter" />
 
 
-</merge>
+        <CheckBox
+            android:id="@+id/video_call_iv_hint_button"
+            android:layout_width="@dimen/dimen_120dp"
+            android:layout_height="@dimen/dimen_50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:layout_toRightOf="@+id/video_call_iv_ta"
+            android:background="@drawable/video_calling_hint_selecter"
+            android:button="@null"
+            android:checked="false" />
+
+        <ImageView
+            android:id="@+id/video_call_iv_addtime"
+            android:layout_width="@dimen/dimen_200dp"
+            android:layout_height="@dimen/dimen_150dp"
+            android:layout_above="@+id/video_call_iv_gift"
+            android:layout_alignLeft="@id/video_call_iv_mask"
+            android:layout_alignRight="@id/video_call_iv_ta"
+            android:layout_marginLeft="@dimen/dimen_36dp"
+            android:src="@drawable/icon_add_time_pop"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/video_call_iv_hint_toast"
+            android:layout_width="@dimen/dimen_150dp"
+            android:layout_height="@dimen/dimen_70dp"
+            android:layout_above="@+id/video_call_iv_hint_button"
+            android:layout_alignLeft="@id/video_call_iv_gift"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:layout_marginLeft="@dimen/dimen_44dp"
+            android:src="@drawable/icon_video_hint"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+    <com.huanmedia.videochat.common.widget.MarqueTextView
+        android:id="@+id/tv_remind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_bt"
+        android:background="@color/color_f65aa0_70"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen_8dp"
+        android:paddingTop="@dimen/dimen_8dp"
+        android:paddingLeft="@dimen/dimen_22dp"
+        android:paddingRight="@dimen/dimen_22dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_26dp" />
+</RelativeLayout>

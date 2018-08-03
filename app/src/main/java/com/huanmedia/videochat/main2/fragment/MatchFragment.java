@@ -104,9 +104,13 @@ public class MatchFragment extends BaseVideoFragment<MatchPresenter> implements 
             isResetPreVeiw = false;
             worker().preview(true, surfaceV, 0);
         }
-        enableProcess();
+         enableProcess();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

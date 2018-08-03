@@ -55,8 +55,16 @@ public class VideoChatEntity implements Parcelable {
     private String channelName;
     private int favorited;
     private String extDataString;
+    private int appointlesstime;
     private TouidinfoEntity touidinfo;
 
+    public int getAppointlesstime() {
+        return appointlesstime;
+    }
+
+    public void setAppointlesstime(int appointlesstime) {
+        this.appointlesstime = appointlesstime;
+    }
 
     public String getExtDataString() {
         return extDataString;
@@ -370,6 +378,7 @@ public class VideoChatEntity implements Parcelable {
         sb.append(", issearch=").append(issearch);
         sb.append(", callid='").append(callid).append('\'');
         sb.append(", chatcoin=").append(chatcoin);
+        sb.append(", appointlesstime=").append(appointlesstime);
         sb.append(", channelName='").append(channelName).append('\'');
         sb.append(", touidinfo=").append(touidinfo);
         sb.append(", extDataString=").append(extDataString);
@@ -396,6 +405,7 @@ public class VideoChatEntity implements Parcelable {
         dest.writeInt(this.issearch);
         dest.writeString(this.callid);
         dest.writeInt(this.chatcoin);
+        dest.writeInt(this.appointlesstime);
         dest.writeString(this.channelName);
         dest.writeString(this.extDataString);
         dest.writeInt(this.favorited);
@@ -415,6 +425,7 @@ public class VideoChatEntity implements Parcelable {
         this.issearch = in.readInt();
         this.callid = in.readString();
         this.chatcoin = in.readInt();
+        this.appointlesstime = in.readInt();
         this.channelName = in.readString();
         this.extDataString = in.readString();
         this.favorited = in.readInt();

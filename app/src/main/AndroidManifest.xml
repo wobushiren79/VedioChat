@@ -41,6 +41,7 @@
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <!-- <uses-sdk tools:overrideLibrary="jp.wasabeef.takt"/> -->
     <application
+        android:largeHeap="true"
         android:name=".common.FApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon_logo"
@@ -176,7 +177,7 @@
 
 
         <!-- 个推 -->
-        <!-- <service android:name=".common.service.DemoIntentService"/> -->
+        <!-- <service android:name=".common.service.DemoIntentServiceIntentService"/> -->
         <!-- <service -->
         <!-- android:name=".common.service.notifserver.DemoPushService" -->
         <!-- android:exported="true" -->
