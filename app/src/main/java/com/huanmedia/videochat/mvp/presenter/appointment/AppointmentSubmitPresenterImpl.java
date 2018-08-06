@@ -98,6 +98,8 @@ public class AppointmentSubmitPresenterImpl extends BaseMVPPresenter<IAppointmen
 
             @Override
             public void getDataFail(String msg) {
+                if(msg==null)
+                    return;
                 if (msg.contains("砖石不足"))
                     errorNoMoney();
                 else
