@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/dimen_4dp"
         android:minHeight="@dimen/dimen_172dp"
         android:minWidth="@dimen/dimen_176dp"
         android:scaleType="centerCrop"

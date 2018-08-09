@@ -16,6 +16,12 @@ public interface IUploadUserDataView extends BaseMVPView {
     String getLng();
 
     /**
+     * 获取详细地址
+     * @return
+     */
+    String getAddress();
+
+    /**
      * 上传用户数据成功
      */
     void uploadUserDataSuccess();

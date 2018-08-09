@@ -16,6 +16,7 @@ public abstract class BaseMVPActivity<P extends Presenter> extends BaseActivity 
     protected void onCreate(Bundle savedInstanceState) {
         setPresenter();
         super.onCreate(savedInstanceState);
+
     }
 
     public P getBasePresenter() {

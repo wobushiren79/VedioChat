@@ -17,26 +17,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.flyco.tablayout.CommonTabLayout
-            android:id="@+id/main_commonTablayout"
+        <!--<com.flyco.tablayout.CommonTabLayout-->
+        <!--android:id="@+id/main_commonTablayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dimen_104dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_gravity="center_horizontal|bottom"-->
+        <!--android:background="@color/white"-->
+        <!--android:paddingBottom="@dimen/dimen_4dp"-->
+        <!--android:paddingTop="@dimen/dimen_8dp"-->
+        <!--app:tl_divider_width="@dimen/dimen_0dp"-->
+        <!--app:tl_iconHeight="@dimen/dimen_55dp"-->
+        <!--app:tl_iconVisible="true"-->
+        <!--app:tl_iconWidth="@dimen/dimen_55dp"-->
+        <!--app:tl_indicator_anim_enable="false"-->
+        <!--app:tl_indicator_bounce_enable="false"-->
+        <!--app:tl_indicator_height="@dimen/dimen_0dp"-->
+        <!--app:tl_indicator_width="@dimen/dimen_0dp"-->
+        <!--app:tl_textSelectColor="@color/base_black"-->
+        <!--app:tl_textUnselectColor="@color/base_hint"-->
+        <!--app:tl_textsize="@dimen/dimen_24dp" />-->
+
+        <com.huanmedia.videochat.common.widget.tablayout.TabSwitchView
+            android:id="@+id/tab_switch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_104dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal|bottom"
-            android:background="@color/white"
-            android:paddingBottom="@dimen/dimen_4dp"
-            android:paddingTop="@dimen/dimen_8dp"
-            app:tl_divider_width="@dimen/dimen_0dp"
-            app:tl_iconHeight="@dimen/dimen_55dp"
-            app:tl_iconVisible="true"
-            app:tl_iconWidth="@dimen/dimen_55dp"
-            app:tl_indicator_anim_enable="false"
-            app:tl_indicator_bounce_enable="false"
-            app:tl_indicator_height="@dimen/dimen_0dp"
-            app:tl_indicator_width="@dimen/dimen_0dp"
-            app:tl_textSelectColor="@color/base_black"
-            app:tl_textUnselectColor="@color/base_hint"
-            app:tl_textsize="@dimen/dimen_24dp" />
+            android:background="@color/white"></com.huanmedia.videochat.common.widget.tablayout.TabSwitchView>
+        w
+
     </RelativeLayout>
 
     <com.huanmedia.videochat.common.widget.AppointmentHintView

@@ -41,11 +41,11 @@
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <!-- <uses-sdk tools:overrideLibrary="jp.wasabeef.takt"/> -->
     <application
-        android:largeHeap="true"
         android:name=".common.FApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon_logo"
         android:label="@string/_AppName"
+        android:largeHeap="true"
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme.Default"
@@ -87,9 +87,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.Launch">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
 
@@ -108,13 +108,12 @@
             android:name=".test.TestActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/AppBaseTheme.Default">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <!-- 相册 -->
         <activity

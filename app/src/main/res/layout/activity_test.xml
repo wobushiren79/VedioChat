@@ -4,13 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
+    android:gravity="bottom"
     android:orientation="vertical"
     tools:context=".test.TestActivity">
 
-    <com.huanmedia.videochat.common.widget.video.VideoPtrLayout
-        android:id="@+id/ptr_layout"
+    <Button
+        android:id="@+id/bt_test_1"
+        android:text="99"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/bt_test_2"
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.huanmedia.videochat.common.widget.tablayout.TabSwitchView
+        android:id="@+id/tab_switch_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.huanmedia.videochat.common.widget.video.VideoPtrLayout>
+        android:layout_height="@dimen/dimen_120dp"
+        android:background="@color/red_FE2E2E"></com.huanmedia.videochat.common.widget.tablayout.TabSwitchView>
 </LinearLayout>

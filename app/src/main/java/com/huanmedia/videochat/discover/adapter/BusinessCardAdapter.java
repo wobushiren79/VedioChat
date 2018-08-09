@@ -192,6 +192,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                             .into(iv);
                 }
             };
+            photoRv.addItemDecoration(mCurrentItemDecoration);
             photoRv.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -203,6 +204,8 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
             });
             photoRv.setAdapter(mHeaderPhotosAdapter);
             //-----------------------------------------------------------------------------
+
+
             mHeaderVideoAdapter = new BaseQuickAdapter<VideoEntity, BaseViewHolder>(R.layout.item_discoverinfo_video) {
                 protected View getItemView(@LayoutRes int layoutResId, ViewGroup parent) {
                     View rootview = mLayoutInflater.inflate(layoutResId, parent, false);
@@ -227,6 +230,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                     ((BaseActivity) context).getNavigator().navtoMediaPlay((Activity) context, (ArrayList<VideoEntity>) mHeaderVideoAdapter.getData(), position);
                 }
             });
+            videoRv.addItemDecoration(mCurrentItemDecoration);
             videoRv.setAdapter(mHeaderVideoAdapter);
         }
     }

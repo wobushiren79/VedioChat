@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
@@ -37,6 +38,8 @@ import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.widget.AppointmentHintView;
 import com.huanmedia.videochat.common.widget.NoviceGuidanceView;
 import com.huanmedia.videochat.common.widget.dialog.MainHintDialog;
+import com.huanmedia.videochat.common.widget.tablayout.TabSwitchBean;
+import com.huanmedia.videochat.common.widget.tablayout.TabSwitchView;
 import com.huanmedia.videochat.main2.datamodel.TabMode;
 import com.huanmedia.videochat.main2.fragment.VideoListFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
@@ -75,14 +78,16 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
     @BindView(R.id.main_vp_page)
     NoScrollViewPager mMainVpPage;
-    @BindView(R.id.main_commonTablayout)
-    CommonTabLayout mMainCommonTablayout;
+    //    @BindView(R.id.main_commonTablayout)
+//    CommonTabLayout mMainCommonTablayout;
+    @BindView(R.id.tab_switch)
+    TabSwitchView mTabSwitchView;
     @BindView(R.id.view_noviceguidance)
     NoviceGuidanceView mGuidanceView;
     @BindView(R.id.appointment_hint_view)
     AppointmentHintView mHintView;
 
-    private ArrayList<CustomTabEntity> mTabs;
+    private ArrayList<TabSwitchBean> mTabs;
     private Fragment[] mFragments;
     private boolean autoLogin;
     private UpdateBuilder mUpdata;
@@ -190,20 +195,12 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         switch (action.getAction()) {
             case EventBusAction.ACTION_SYSTEM_MESSAGE://系统消息更新
                 msgCount = action.getIntExtra("msgCount", 0);
-                if (msgCount == 0) {
-                    mMainCommonTablayout.hideMsg(3);
-                } else {
-                    mMainCommonTablayout.showDot(3);
-                }
+                mTabSwitchView.showMsgNumber(3, msgCount);
 
                 break;
             case EventBusAction.ACTION_CHAT_MESSAGE_APPOINTMENT://系统消息更新
                 msgCount = action.getIntExtra("msgCount", 0);
-                if (msgCount == 0) {
-                    mMainCommonTablayout.hideMsg(2);
-                } else {
-                    mMainCommonTablayout.showDot(2);
-                }
+                mTabSwitchView.showMsgNumber(2, msgCount);
                 break;
             case EventBusAction.ACTION_USERINFO_UPDATE://用户数据更改主动更新
                 getBasePresenter().upUserData();
@@ -243,10 +240,10 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     protected void initView() {
         checkNewVersion();
         mTabs = new ArrayList<>();
-        mTabs.add(new TabMode("约聊", R.drawable.tab_home_found_sel, R.drawable.tab_home_found_nor));
-        mTabs.add(new TabMode("视频", R.drawable.tab_home_video_sel, R.drawable.tab_home_video_nor));
-        mTabs.add(new TabMode("萌友", R.drawable.tab_home_friend_sel, R.drawable.tab_home_friend_nor));
-        mTabs.add(new TabMode("我", R.drawable.tab_home_my_sel, R.drawable.tab_home_my_nor));
+        mTabs.add(new TabSwitchBean("约聊", R.drawable.tab_home_found_sel, R.drawable.tab_home_found_nor));
+        mTabs.add(new TabSwitchBean("视频", R.drawable.tab_home_video_sel, R.drawable.tab_home_video_nor));
+        mTabs.add(new TabSwitchBean("萌友", R.drawable.tab_home_friend_sel, R.drawable.tab_home_friend_nor));
+        mTabs.add(new TabSwitchBean("我", R.drawable.tab_home_my_sel, R.drawable.tab_home_my_nor));
 
         mFragments = new Fragment[]{
                 HomeFragment.newInstance(),
@@ -268,20 +265,20 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                 if (position == 1) {
                     layoutParams = new RelativeLayout.LayoutParams
                             (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    mMainCommonTablayout.setBackgroundResource(R.color.black_transparent_50);
-                    mMainCommonTablayout.setTextUnselectColor(Color.parseColor("#b4b4b4"));
-                    mMainCommonTablayout.setTextSelectColor(Color.parseColor("#ffffff"));
+                    mTabSwitchView.setBackgroundResource(R.color.black_transparent_50);
+                    //mMainCommonTablayout.setTextUnselectColor(Color.parseColor("#b4b4b4"));
+                    //mMainCommonTablayout.setTextSelectColor(Color.parseColor("#ffffff"));
                 } else {
                     layoutParams = new RelativeLayout.LayoutParams
                             (ViewGroup.LayoutParams.MATCH_PARENT,
                                     DisplayUtil.getDisplayHeight(MainActivity.this)
                                             - getResources().getDimensionPixelOffset(R.dimen.dimen_104dp));
-                    mMainCommonTablayout.setBackgroundResource(R.color.white);
-                    mMainCommonTablayout.setTextUnselectColor(Color.parseColor("#D1D6E3"));
-                    mMainCommonTablayout.setTextSelectColor(Color.parseColor("#2c2c32"));
+                    mTabSwitchView.setBackgroundResource(R.color.white);
+                    // mMainCommonTablayout.setTextUnselectColor(Color.parseColor("#D1D6E3"));
+                    // mMainCommonTablayout.setTextSelectColor(Color.parseColor("#2c2c32"));
                 }
                 mMainVpPage.setLayoutParams(layoutParams);
-                mMainCommonTablayout.setCurrentTab(position);
+                mTabSwitchView.setCurrentTab(position);
                 switch (position) {
                     case 0:
                         mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.FIND);
@@ -304,21 +301,21 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
             }
         });
-        mMainCommonTablayout.setOnTabSelectListener(new OnTabSelectListener() {
+        mTabSwitchView.setCallBack(new TabSwitchView.CallBack() {
             @Override
-            public void onTabSelect(int position) {
-                mMainVpPage.setCurrentItem(position, true);
+            public void onItemClick(View view, TabSwitchBean data) {
+                mMainVpPage.setCurrentItem(data.getPosition(), true);
             }
 
             @Override
-            public void onTabReselect(int position) {
-                if (mFragments[position] instanceof VideoListFragment) {
-                    ((VideoListFragment) mFragments[position]).refreshData();
+            public void onItemDoubleClick(View view, TabSwitchBean data) {
+                if (mFragments[data.getPosition()] instanceof VideoListFragment) {
+                    ((VideoListFragment) mFragments[data.getPosition()]).refreshData();
                 }
             }
         });
 
-        mMainCommonTablayout.setTabData(mTabs);
+        mTabSwitchView.setTabData(mTabs);
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams
                 (ViewGroup.LayoutParams.MATCH_PARENT,
@@ -379,11 +376,11 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     @Override
     public void onPageChange(float offset) {
         //首页页面滑动
-        ViewGroup.LayoutParams lp = mMainCommonTablayout.getLayoutParams();
+        ViewGroup.LayoutParams lp = mTabSwitchView.getLayoutParams();
         boolean change = (int) (getResources().getDimensionPixelOffset(R.dimen.dimen_104dp) * (offset)) != lp.height;
         if (change) {
             lp.height = (int) (getResources().getDimensionPixelOffset(R.dimen.dimen_104dp) * (offset));
-            mMainCommonTablayout.setLayoutParams(lp);
+            mTabSwitchView.setLayoutParams(lp);
         }
         RelativeLayout.LayoutParams layoutParams;
         if (offset == 0) {
@@ -445,6 +442,19 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         if (Constants.UserLocation != null)
             return String.valueOf(Constants.UserLocation.getLongitude());
         else
+            return null;
+    }
+
+    @Override
+    public String getAddress() {
+        if (Constants.UserLocation != null) {
+            String address = Constants.UserLocation.getCountry() + "|"
+                    + Constants.UserLocation.getProvince() + "|"
+                    + Constants.UserLocation.getCity() + "|"
+                    + Constants.UserLocation.getStreet()
+                    + Constants.UserLocation.getStreetNumber();
+            return address;
+        } else
             return null;
     }
 
