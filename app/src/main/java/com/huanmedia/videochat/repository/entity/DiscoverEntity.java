@@ -44,6 +44,15 @@ public class DiscoverEntity implements Parcelable {
     private int starbutton;
     private int yuyueflag;
     private int hasappoint;
+    private AddressInfoEntity addressinfo;
+
+    public AddressInfoEntity getAddressinfo() {
+        return addressinfo;
+    }
+
+    public void setAddressinfo(AddressInfoEntity addressinfo) {
+        this.addressinfo = addressinfo;
+    }
 
     public int getHasappoint() {
         return hasappoint;

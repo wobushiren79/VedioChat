@@ -18,14 +18,14 @@ public class UploadUserDataPresenterImpl extends BaseMVPPresenter<IUploadUserDat
         String lat = mMvpView.getLat();
         String lng = mMvpView.getLng();
         String address = mMvpView.getAddress();
-        if (lat == null || lng == null) {
+        if (lat == null || lng == null||address==null) {
             mMvpView.showToast("获取经纬度失败");
             return;
         }
         UploadUserDataRequest params = new UploadUserDataRequest();
         params.setLat(lat);
         params.setLng(lng);
-        params.setAddress(address);
+        params.setAddressinfo(address);
         mMvpModel.submitEvaluation(mMvpView.getContext(), params, new DataCallBack() {
             @Override
             public void getDataSuccess(Object data) {

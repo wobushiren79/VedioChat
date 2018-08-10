@@ -15,6 +15,8 @@ import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
 
+import java.util.ArrayList;
+
 public class WebJsObjFunction extends Object {
 
     private WebView mWebView;
@@ -72,6 +74,14 @@ public class WebJsObjFunction extends Object {
                 //红人认证
                 UMengUtils.JumpActivity(mContext,2,0);
                 navigator.navtoReadMainCertificate((Activity) mContext);
+                break;
+            case "VideoUpdate":
+                //视频上传
+                navigator.navtoMediaUpLoad((Activity) mContext, null, false);
+                break;
+            case "PhotoUpdate":
+                //照片上传
+                navigator.navtoPhotos((Activity) mContext,new ArrayList<>());
                 break;
         }
     }

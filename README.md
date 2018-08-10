@@ -75,6 +75,8 @@ EYArchitecture
         RechargePage:充值页
         FeedBackPage:意见反馈
         ReadManCertificate:红人认证
+        VideoUpdate: 视频上传
+        PhotoUpdate: 照片上传
 
 ------------------------------------------------------------------------
 

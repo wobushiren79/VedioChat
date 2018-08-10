@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -102,7 +104,7 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
                 //item_discover_grids_iv_photo
                 BaseViewHolder viewHolder = super.onCreateDefViewHolder(parent, viewType);
                 GridLayoutManager lm = (GridLayoutManager) mDiscoverFmRv.getLayoutManager();
-                ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams)
+                RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)
                         viewHolder.getView(R.id.item_discover_grids_iv_photo).getLayoutParams();
                 int width = DisplayUtil.getDisplayWidth(context()) / lm.getSpanCount();
                 lp.height = (width / 5) * 6;
@@ -117,26 +119,30 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
                 helper.setText(R.id.item_discover_grids_tv_name, item.getNickname())
                         .setText(R.id.item_discover_grids_tv_charge, String.format("%d钻/分钟", item.getStarcoin()))
                         .setText(R.id.item_discover_grids_tv_distance, Check.checkReplace(item.getDistance(), "未知"));
-                llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid);
+//                llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid);
                 if (item.getOnlinestatus() == 0) {
 //                    helper.setText(R.id.item_discover_grids_tv_status,
 //                            TimeUtils.getFriendlyTimeSpanByFrom(item.getLogintime() * 1000L
 //                                    , item.getSystemtime() * 1000L));
-                    llStatus.setBackgroundResource(R.drawable.base_bg_round_theme);
                     if (item.getHasappoint() == 0) {
+                        llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid_2);
                         helper.setText(R.id.item_discover_grids_tv_status, "可预约");
                     } else {
+                        llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid_4);
                         helper.setText(R.id.item_discover_grids_tv_status, "已预约");
                     }
                 } else if (item.getOnlinestatus() == 1) {
+                    llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid);
                     helper.setText(R.id.item_discover_grids_tv_status, "在线");
                 } else if (item.getOnlinestatus() == 2) {
+                    llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid_3);
                     helper.setText(R.id.item_discover_grids_tv_status, "忙碌");
                 } else {
-                    llStatus.setBackgroundResource(R.drawable.base_bg_round_theme);
                     if (item.getHasappoint() == 0) {
+                        llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid_2);
                         helper.setText(R.id.item_discover_grids_tv_status, "可预约");
                     } else {
+                        llStatus.setBackgroundResource(R.drawable.bg_item_discover_round_solid_4);
                         helper.setText(R.id.item_discover_grids_tv_status, "已预约");
                     }
                 }
@@ -151,6 +157,12 @@ public class DiscoverFragment extends BaseMVPFragment<DiscoverPresenter> impleme
                 if (item.getPhotos() != null && item.getPhotos().size() > 0) {
                     url = item.getPhotos().get(0).getPhoto();
                 }
+                //设置年级和地址
+                TextView tvAge = helper.getView(R.id.item_discover_grids_tv_age);
+                tvAge.setText(item.getAge() + "岁");
+                TextView tvAddress = helper.getView(R.id.item_discover_grids_tv_address);
+                if (item.getAddressinfo() != null && item.getAddressinfo().getCity() != null)
+                    tvAddress.setText(item.getAddressinfo().getCity());
                 GlideUtils.getInstance().loadBitmapNoAnim(DiscoverFragment.this, Check.checkReplace(url, item.getUserphoto_thumb()), helper.getView(R.id.item_discover_grids_iv_photo));
             }
         };

@@ -447,7 +447,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
     @Override
     public String getAddress() {
-        if (Constants.UserLocation != null) {
+        if (Constants.UserLocation != null||Constants.UserLocation.getCountry()!=null) {
             String address = Constants.UserLocation.getCountry() + "|"
                     + Constants.UserLocation.getProvince() + "|"
                     + Constants.UserLocation.getCity() + "|"

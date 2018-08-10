@@ -3,14 +3,14 @@ package com.huanmedia.videochat.mvp.entity.request;
 public class UploadUserDataRequest {
     private String lat;//纬度
     private String lng;//经度
-    private String address;//地址
+    private String addressinfo;//地址
 
-    public String getAddress() {
-        return address;
+    public String getAddressinfo() {
+        return addressinfo;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressinfo(String addressinfo) {
+        this.addressinfo = addressinfo;
     }
 
     public String getLat() {
