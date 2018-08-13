@@ -205,7 +205,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
             case EventBusAction.ACTION_CHAT_MESSAGE_APPOINTMENT://系统消息更新
                 msgCount = action.getIntExtra("msgCount", 0);
                 FriendFragment fragment = (FriendFragment) mFragments[2];
-                fragment.showMsg(1);
+                fragment.showMsg(1,msgCount);
                 mTabSwitchView.showMsgNumber(2, msgCount);
                 break;
             case EventBusAction.ACTION_USERINFO_UPDATE://用户数据更改主动更新

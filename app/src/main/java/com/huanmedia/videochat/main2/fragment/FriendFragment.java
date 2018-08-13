@@ -73,13 +73,13 @@ public class FriendFragment extends BaseFragment {
         mHomeToolbarFl.getLayoutParams().height += DisplayUtil.getStatusBarHeight(getContext());
     }
 
-    public void showMsg(int position) {
+    public void showMsg(int position, int msgNum) {
         if (position == 1)
-            mAppointmentMsgNumber = position;
+            mAppointmentMsgNumber = msgNum;
         if (mMainFriendSlidingTabLayout == null)
             return;
         try {
-            if (position > 0)
+            if (msgNum > 0)
                 mMainFriendSlidingTabLayout.showDot(position);
             else
                 mMainFriendSlidingTabLayout.hideMsg(position);
@@ -91,7 +91,7 @@ public class FriendFragment extends BaseFragment {
     @Override
     protected void onVisible() {
         super.onVisible();
-        showMsg(mAppointmentMsgNumber);
+        showMsg(1, mAppointmentMsgNumber);
     }
 
     @Override
