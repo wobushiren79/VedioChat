@@ -14,6 +14,16 @@ public class ShortVideoPraisePresenterImpl extends BaseMVPPresenter<IShortVideoP
 
     @Override
     public void shortVideoPraise(int videoId) {
+        shortVideoHandler(videoId, 1);
+    }
+
+    @Override
+    public void shortVideoCancelPraise(int videoId) {
+        shortVideoHandler(videoId, 0);
+    }
+
+
+    private void shortVideoHandler(int videoId, int flag) {
         if (mMvpView.getContext() == null)
             return;
         if (videoId == 0) {
@@ -21,15 +31,25 @@ public class ShortVideoPraisePresenterImpl extends BaseMVPPresenter<IShortVideoP
         }
         ShortVideoPraiseRequest params = new ShortVideoPraiseRequest();
         params.setId(videoId);
+        params.setFlag(flag);
         mMvpModel.shortVideoPraise(mMvpView.getContext(), params, new DataCallBack() {
             @Override
             public void getDataSuccess(Object data) {
-                mMvpView.shortVideoPraiseSuccess();
+                if (flag == 1) {
+                    mMvpView.shortVideoPraiseSuccess();
+                } else {
+                    mMvpView.shortVideoCancelPraiseSuccess();
+                }
             }
 
             @Override
             public void getDataFail(String msg) {
-                mMvpView.shortVideoPraiseFail(msg);
+                if (flag == 1) {
+                    mMvpView.shortVideoPraiseFail(msg);
+                } else {
+                    mMvpView.shortVideoCanelPraiseFail(msg);
+                }
+
             }
         });
     }

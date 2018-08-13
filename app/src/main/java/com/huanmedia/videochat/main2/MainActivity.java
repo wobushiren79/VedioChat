@@ -117,6 +117,10 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
         super.onResume();
         if (mMainVpPage != null && jumpFragmentPosition != -1 && jumpFragmentPosition < mFragments.length) {
             mMainVpPage.setCurrentItem(jumpFragmentPosition);
+            if (jumpFragmentPosition == 0) {
+                HomeFragment homeFragment = (HomeFragment) mFragments[jumpFragmentPosition];
+                homeFragment.setCurrentItem(0);
+            }
             jumpFragmentPosition = -1;
         }
     }
@@ -200,6 +204,8 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                 break;
             case EventBusAction.ACTION_CHAT_MESSAGE_APPOINTMENT://系统消息更新
                 msgCount = action.getIntExtra("msgCount", 0);
+                FriendFragment fragment = (FriendFragment) mFragments[2];
+                fragment.showMsg(1);
                 mTabSwitchView.showMsgNumber(2, msgCount);
                 break;
             case EventBusAction.ACTION_USERINFO_UPDATE://用户数据更改主动更新
@@ -266,16 +272,16 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                     layoutParams = new RelativeLayout.LayoutParams
                             (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                     mTabSwitchView.setBackgroundResource(R.color.black_transparent_50);
-                    //mMainCommonTablayout.setTextUnselectColor(Color.parseColor("#b4b4b4"));
-                    //mMainCommonTablayout.setTextSelectColor(Color.parseColor("#ffffff"));
+                    mTabSwitchView.setTextUnselectColor(R.color.header_border_gray);
+                    mTabSwitchView.setTextSelectColor(R.color.ksw_md_solid_disable);
                 } else {
                     layoutParams = new RelativeLayout.LayoutParams
                             (ViewGroup.LayoutParams.MATCH_PARENT,
                                     DisplayUtil.getDisplayHeight(MainActivity.this)
                                             - getResources().getDimensionPixelOffset(R.dimen.dimen_104dp));
                     mTabSwitchView.setBackgroundResource(R.color.white);
-                    // mMainCommonTablayout.setTextUnselectColor(Color.parseColor("#D1D6E3"));
-                    // mMainCommonTablayout.setTextSelectColor(Color.parseColor("#2c2c32"));
+                    mTabSwitchView.setTextUnselectColor(R.color.base_hint);
+                    mTabSwitchView.setTextSelectColor(R.color.base_black);
                 }
                 mMainVpPage.setLayoutParams(layoutParams);
                 mTabSwitchView.setCurrentTab(position);
@@ -447,7 +453,7 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
 
     @Override
     public String getAddress() {
-        if (Constants.UserLocation != null||Constants.UserLocation.getCountry()!=null) {
+        if (Constants.UserLocation != null || Constants.UserLocation.getCountry() != null) {
             String address = Constants.UserLocation.getCountry() + "|"
                     + Constants.UserLocation.getProvince() + "|"
                     + Constants.UserLocation.getCity() + "|"

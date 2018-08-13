@@ -203,6 +203,30 @@ public class TabSwitchView extends BaseLinearLayout {
         mMsgAnim.start();
     }
 
+    /**
+     * 设置文字未选中颜色
+     *
+     * @param textUnselectColor
+     */
+    public void setTextUnselectColor(int textUnselectColor) {
+        for (TabSwitchItemView itemView : listTabItem) {
+            itemView.getItemData().setTabTextUnCheckColor(textUnselectColor);
+            itemView.initData();
+        }
+    }
+
+    /**
+     * 设置文字选中颜色
+     *
+     * @param textSelectColor
+     */
+    public void setTextSelectColor(int textSelectColor) {
+        for (TabSwitchItemView itemView : listTabItem) {
+            itemView.getItemData().setTabTextUnCheckColor(textSelectColor);
+            itemView.initData();
+        }
+    }
+
 
     public interface CallBack {
         void onItemClick(View view, TabSwitchBean data);

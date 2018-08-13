@@ -157,21 +157,30 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
         //设置点赞
         if (shortVideoResults.getIspraise() == 0) {
             Glide.with(mContext).load(R.drawable.icon_love_unclick).into(ivLove);
-            llLove.setOnClickListener(view -> {
-                mShortVideoPraisePresenter.shortVideoPraise(videoId);
-                mDatas.get(i).setIspraise(1);
-                mDatas.get(i).setPraise((praiseNum + 1));
-                tvLoveNum.setText(loveNumHandler(praiseNum + 1));
-                Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
-                startLoveAnim(ivLove);
-            });
         } else {
             Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
-            llLove.setOnClickListener(view -> {
+        }
+
+        llLove.setOnClickListener(view -> {
+            if (shortVideoResults.getIspraise() == 0) {
+                mShortVideoPraisePresenter.shortVideoPraise(videoId);
+                mDatas.get(i).setIspraise(1);
+                mDatas.get(i).setPraise(shortVideoResults.getPraise() + 1);
+                tvLoveNum.setText(loveNumHandler(shortVideoResults.getPraise()));
                 Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
                 startLoveAnim(ivLove);
-            });
-        }
+            } else {
+                mShortVideoPraisePresenter.shortVideoCancelPraise(videoId);
+                mDatas.get(i).setIspraise(0);
+                if (shortVideoResults.getPraise() - 1 >= 0)
+                    mDatas.get(i).setPraise(shortVideoResults.getPraise() - 1);
+                tvLoveNum.setText(loveNumHandler(shortVideoResults.getPraise()));
+                Glide.with(mContext).load(R.drawable.icon_love_unclick).into(ivLove);
+                // startLoveAnim(ivLove);
+            }
+
+        });
+
         tvLoveNum.setText(loveNumHandler(praiseNum));
         //预约按钮和发起视频
         if (isReadMan == 0) {
@@ -265,8 +274,8 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
                 if (shortVideoResults.getIspraise() == 0) {
                     mShortVideoPraisePresenter.shortVideoPraise(videoId);
                     mDatas.get(i).setIspraise(1);
-                    mDatas.get(i).setPraise((praiseNum + 1));
-                    tvLoveNum.setText(loveNumHandler(praiseNum + 1));
+                    mDatas.get(i).setPraise(shortVideoResults.getPraise() + 1);
+                    tvLoveNum.setText(loveNumHandler(shortVideoResults.getPraise()));
                     Glide.with(mContext).load(R.drawable.icon_love_onclick).into(ivLove);
                 }
                 startDoubleLoveAnim(rlAnimLove, e);
@@ -439,6 +448,16 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
 
     @Override
     public void shortVideoPraiseFail(String msg) {
+
+    }
+
+    @Override
+    public void shortVideoCancelPraiseSuccess() {
+
+    }
+
+    @Override
+    public void shortVideoCanelPraiseFail(String msg) {
 
     }
 

@@ -14,4 +14,17 @@ public interface IShortVideoPraiseView extends BaseMVPView {
      * @param msg
      */
     void shortVideoPraiseFail(String msg);
+
+    /**
+     * 短视频取消点赞成功
+     */
+    void shortVideoCancelPraiseSuccess();
+
+    /**
+     * 短视频取消点赞失败
+     * @param msg
+     */
+    void shortVideoCanelPraiseFail(String msg);
+
+
 }

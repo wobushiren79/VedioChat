@@ -7,4 +7,11 @@ public interface IShortVideoPraisePresenter {
      * @param videoId
      */
     void shortVideoPraise(int videoId);
+
+
+    /**
+     * 短视频取消点赞
+     * @param videoId
+     */
+    void shortVideoCancelPraise(int videoId);
 }

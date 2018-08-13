@@ -33,8 +33,8 @@
     <color name="base_gray">#787e88</color>
     <color name="base_black">#2c2c32</color>
     <color name="base_blue">#38B6FF</color>
-    <color name="base_hint">#D1D6E3</color>
     <color name="base_green">#0FFF18</color>
+    <color name="base_hint">#D1D6E3</color>
 
     //基础颜色
     <color name="white">#ffffffff</color>

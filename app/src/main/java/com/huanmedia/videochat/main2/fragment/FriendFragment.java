@@ -39,6 +39,7 @@ public class FriendFragment extends BaseFragment {
     private List<Fragment> mFragments;
     private OnTabSelectListener mOnTabSelectListener;
     private int mCurrentMainTabSelect;
+    private int mAppointmentMsgNumber;//预约未读消息
 
     public FriendFragment() {
     }
@@ -72,6 +73,26 @@ public class FriendFragment extends BaseFragment {
         mHomeToolbarFl.getLayoutParams().height += DisplayUtil.getStatusBarHeight(getContext());
     }
 
+    public void showMsg(int position) {
+        if (position == 1)
+            mAppointmentMsgNumber = position;
+        if (mMainFriendSlidingTabLayout == null)
+            return;
+        try {
+            if (position > 0)
+                mMainFriendSlidingTabLayout.showDot(position);
+            else
+                mMainFriendSlidingTabLayout.hideMsg(position);
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    protected void onVisible() {
+        super.onVisible();
+        showMsg(mAppointmentMsgNumber);
+    }
 
     @Override
     protected void initView(View view) {
@@ -115,6 +136,8 @@ public class FriendFragment extends BaseFragment {
 
             }
         };
+
+
     }
 
     @Override
