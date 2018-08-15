@@ -23,6 +23,7 @@ import com.huanmedia.hmalbumlib.HM_StartAlbum;
 import com.huanmedia.hmalbumlib.HM_StartSeePhoto;
 import com.huanmedia.hmalbumlib.extar.HM_PhotoEntity;
 import com.huanmedia.ilibray.utils.DisplayUtil;
+import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.recycledecoration.RecyclerViewItemDecoration;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPActivity;
@@ -30,12 +31,17 @@ import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.utils.DoubleClickUtils;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
+import com.huanmedia.videochat.mvp.presenter.photo.IPhotoListPresenter;
+import com.huanmedia.videochat.mvp.presenter.photo.PhotoListPresenterImpl;
+import com.huanmedia.videochat.mvp.view.photo.IPhotoListView;
 import com.huanmedia.videochat.my.adapter.PhotosAdapter;
 import com.huanmedia.videochat.my.adapter.PhotosItemDragAndSwipeCallback;
 import com.huanmedia.videochat.repository.entity.PhotosEntity;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +53,10 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 @SuppressWarnings("ButterKnifeInjectNotCalled")
-public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements PhotosView, EasyPermissions.PermissionCallbacks {
+public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements PhotosView, EasyPermissions.PermissionCallbacks, IPhotoListView {
     private static final int REQUEST_CAMERA_WRITE_READ_PERM = 1;//权限标识符
     private final int REQUEST_CODE_IMAGES = 2;//相册请求码
+    private final int REQUEST_CODE_SECRET_IMAGES = 3;//相册请求码
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.photos_rv)
@@ -61,10 +68,23 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
 
     private PhotosAdapter mAdapter;
     private ItemTouchHelper mItemTouchHelper;
+    private IPhotoListPresenter mPhotoListPresenter;
 
-    public static Intent getCallingIntent(Context context, ArrayList<PhotosEntity> data) {
+    private @UpLoadType
+    int mUploadType;
+
+
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface UpLoadType {
+        int ALL = 0;
+        int NORMAL = 1;
+        int SECRET = 2;
+    }
+
+    public static Intent getCallingIntent(Context context, @UpLoadType int uploadType, ArrayList<PhotosEntity> data) {
         Intent intent = new Intent(context, PhotosActivity.class);
         intent.putParcelableArrayListExtra("data", data);
+        intent.putExtra("uploadType", uploadType);
         return intent;
     }
 
@@ -72,6 +92,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
     protected View getTitlebarView() {
         return mToolbar;
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_photos;
@@ -79,7 +100,9 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
 
     @Override
     protected void initView() {
-        ArrayList<HM_PhotoEntity> mData = getIntent().getParcelableArrayListExtra("data");
+        mUploadType = getIntent().getIntExtra("uploadType", 1);
+        mPhotoListPresenter = new PhotoListPresenterImpl(this);
+        ArrayList<PhotosEntity> mData = getIntent().getParcelableArrayListExtra("data");
         initToolbar();
         //照片墙
         RecyclerViewItemDecoration mCurrentItemDecoration = new RecyclerViewItemDecoration.Builder(context())
@@ -94,33 +117,25 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
                 .create();
         int count = ((GridLayoutManager) mPhotosRv.getLayoutManager()).getSpanCount();
         mPhotosRv.addItemDecoration(mCurrentItemDecoration);
-        mAdapter = new PhotosAdapter(R.layout.item_photos, mData,count);
-
-        PhotosItemDragAndSwipeCallback itemDragAndSwipeCallback = new PhotosItemDragAndSwipeCallback(mAdapter);
-        mItemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
-        mItemTouchHelper.attachToRecyclerView(mPhotosRv);
-
-// 开启拖拽
-        mAdapter.enableDragItem(mItemTouchHelper, R.id.item_photos_iv, true);
-        OnItemDragListener onItemDragListener=new OnItemDragListener() {
+        OnItemDragListener onItemDragListener = new OnItemDragListener() {
             @Override
             public void onItemDragStart(RecyclerView.ViewHolder viewHolder, int pos) {
 
             }
 
             @Override
-            public void onItemDragMoving(RecyclerView.ViewHolder source, int from, RecyclerView.ViewHolder target, int to) {}
+            public void onItemDragMoving(RecyclerView.ViewHolder source, int from, RecyclerView.ViewHolder target, int to) {
+            }
 
             @Override
             public void onItemDragEnd(RecyclerView.ViewHolder viewHolder, int pos) {
-                if (pos==0){//移动到第一张图片更换封面标识
-                    mAdapter.notifyItemRangeChanged(0,2);
+                if (pos == 0) {//移动到第一张图片更换封面标识
+                    mAdapter.notifyItemRangeChanged(0, 2);
                 }
                 getBasePresenter().updateUserPhotosOrder(mAdapter.getData());
             }
         };
-        mAdapter.setOnItemDragListener(onItemDragListener);
-        mAdapter.bindToRecyclerView(mPhotosRv);
+
         mPhotosRv.addOnItemTouchListener(new OnItemClickListener() {
             @SuppressWarnings("unchecked")
             @Override
@@ -134,10 +149,10 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
                         mAdapter.getCheckMap().remove(position);
                         adapter.notifyItemChanged(position);
                     }
-                }else {
-                    if (position==adapter.getItemCount()-1){//打开相册
+                } else {
+                    if (position == adapter.getItemCount() - 1) {//打开相册
                         openAlbum();
-                    }else {//查看大图
+                    } else {//查看大图
                         new HM_StartSeePhoto.Bulide(context(), new HM_GlideEngine())
                                 .setList(adapter.getData())
                                 .setCurrentSelect(position)
@@ -146,7 +161,19 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
                 }
             }
         });
-
+        if (mUploadType == UpLoadType.SECRET) {
+            mToolbar.setTitle("私照墙");
+            mPhotoListPresenter.getSecretPhoto();
+        } else {
+            mAdapter = new PhotosAdapter(R.layout.item_photos, mData, count, mUploadType);
+            mAdapter.bindToRecyclerView(mPhotosRv);
+            PhotosItemDragAndSwipeCallback itemDragAndSwipeCallback = new PhotosItemDragAndSwipeCallback(mAdapter);
+            mItemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
+            mItemTouchHelper.attachToRecyclerView(mPhotosRv);
+            // 开启拖拽
+            mAdapter.setOnItemDragListener(onItemDragListener);
+            mAdapter.enableDragItem(mItemTouchHelper, R.id.item_photos_iv, true);
+        }
     }
 
     private void initToolbar() {
@@ -154,10 +181,12 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
+
     @Override
     protected ImmersionBar defaultBarConfig() {
         return super.defaultBarConfig().statusBarDarkFont(true);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.photos_menu, menu);
@@ -178,7 +207,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
 //                    mPhotosBtnOk.setBackground(ContextCompat.getDrawable(context(), R.drawable.base_btn_solid_disable));
                     mPhotosRv.getAdapter().notifyDataSetChanged();
                 } else {
-                   mAdapter.setEdit(false);
+                    mAdapter.setEdit(false);
                     mAdapter.getCheckMap().clear();
                     item.setTitle("编辑");
                     mAdapter.enableDragItem(mItemTouchHelper, R.id.item_photos_iv, true);
@@ -264,24 +293,29 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
 
     @AfterPermissionGranted(REQUEST_CAMERA_WRITE_READ_PERM)
     private void openAlbum() {
-        if (DoubleClickUtils.isFastDoubleClick())return;
+        if (DoubleClickUtils.isFastDoubleClick()) return;
         String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(context(), perms)) {
-            int choosSize = 8 - mAdapter.getData().size();
-            if (choosSize == 0) {
-                showHint(HintDialog.HintType.WARN, "最多上传8张照片");
-                return;
+//            int choosSize = 8 - mAdapter.getData().size();
+//            if (choosSize == 0) {
+//                showHint(HintDialog.HintType.WARN, "最多上传8张照片");
+//                return;
+//            }
+            int choosSize = 5;
+            if (mUploadType == UpLoadType.SECRET) {
+                choosSize = 1;
             }
-                new HM_StartAlbum
-                        .Bulide(context(), new HM_GlideEngine())
-                        .setMaxChoose(choosSize)
-                        .setCrop(false)
-                        .setShowCamera(true)
-                        .setRequestCode(REQUEST_CODE_IMAGES)
-                        .setTargetPath(FilePathManager.getUpImage(context()))
-                        .bulide();
+            new HM_StartAlbum
+                    .Bulide(context(), new HM_GlideEngine())
+                    .setMaxChoose(choosSize)
+                    .setCrop(false)
+                    .setShowCamera(true)
+                    .setRequestCode(REQUEST_CODE_IMAGES)
+                    .setTargetPath(FilePathManager.getUpImage(context()))
+                    .bulide();
         } else {
-            EasyPermissions.requestPermissions(this, getString(R.string.rationale_camera_write_read),
+            EasyPermissions.requestPermissions(this,
+                    getString(R.string.rationale_camera_write_read),
                     REQUEST_CAMERA_WRITE_READ_PERM, perms);
         }
     }
@@ -319,12 +353,18 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
             if ((requestCode == REQUEST_CODE_IMAGES) && data != null) {//头像设置
                 ArrayList<HM_PhotoEntity> chooseImages = data.getParcelableArrayListExtra("chooseImages");
                 if (chooseImages != null && chooseImages.size() > 0) {
-                    List<String> upDatas = new ArrayList<>();
-                    for (int i = 0; i < chooseImages.size(); i++) {
-                        upDatas.add(chooseImages.get(i).getImage());
+                    if (mUploadType == UpLoadType.SECRET) {
+                        getNavigator().navtoFileInfoEdit(this, 1, chooseImages.get(0).getImage(), REQUEST_CODE_SECRET_IMAGES);
+                    } else {
+                        List<String> upDatas = new ArrayList<>();
+                        for (int i = 0; i < chooseImages.size(); i++) {
+                            upDatas.add(chooseImages.get(i).getImage());
+                        }
+                        getBasePresenter().upImages("/index/userext/addphotos", upDatas);
                     }
-                    getBasePresenter().upImages("/index/userext/addphotos", upDatas);
                 }
+            } else if (requestCode == REQUEST_CODE_SECRET_IMAGES && data != null) {
+
             }
         }
     }
@@ -337,7 +377,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
         }
         mAdapter.getCheckMap().clear();
         Intent intent = new Intent(EventBusAction.ACTION_USER_PHOTOS_CHANGE);
-        List<HM_PhotoEntity> oldData = mAdapter.getData();
+        List<PhotosEntity> oldData = mAdapter.getData();
         intent.putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) oldData);
         EventBus.getDefault().post(intent);
     }
@@ -348,7 +388,7 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
 
         mAdapter.notifyDataSetChanged();
         Intent intent = new Intent(EventBusAction.ACTION_USER_PHOTOS_CHANGE);
-        List<HM_PhotoEntity> oldData = mAdapter.getData();
+        List<PhotosEntity> oldData = mAdapter.getData();
         intent.putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) oldData);
         EventBus.getDefault().post(intent);
     }
@@ -356,8 +396,47 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
     @Override
     public void updateUserPhotosOrderSuccess() {
         Intent intent = new Intent(EventBusAction.ACTION_USER_PHOTOS_CHANGE);
-        List<HM_PhotoEntity> oldData = mAdapter.getData();
+        List<PhotosEntity> oldData = mAdapter.getData();
         intent.putParcelableArrayListExtra("data", (ArrayList<? extends Parcelable>) oldData);
         EventBus.getDefault().post(intent);
+    }
+
+
+    //----------------照片列表获取---------------------
+    @Override
+    public void getPhotoListSuccess(List<PhotosEntity> listData) {
+        int count = ((GridLayoutManager) mPhotosRv.getLayoutManager()).getSpanCount();
+        mAdapter = new PhotosAdapter(R.layout.item_photos, listData, count, mUploadType);
+        mAdapter.bindToRecyclerView(mPhotosRv);
+    }
+
+    @Override
+    public void getPhotoListFail(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void setAllPhotoList(List<PhotosEntity> listData) {
+
+    }
+
+    @Override
+    public void setOpenPhotoList(List<PhotosEntity> listData) {
+
+    }
+
+    @Override
+    public void setSecretList(List<PhotosEntity> listData) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void showToast(String toast) {
+        ToastUtils.showToastShortInCenter(getContext(), toast);
     }
 }

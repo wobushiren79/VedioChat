@@ -37,6 +37,7 @@ import com.huanmedia.videochat.media.MediaUpLoadActivity;
 import com.huanmedia.videochat.my.AboutActivity;
 import com.huanmedia.videochat.my.BoundIDCardActivity;
 import com.huanmedia.videochat.my.FeedBackActivity;
+import com.huanmedia.videochat.my.FileInfoEditActivity;
 import com.huanmedia.videochat.my.HelpActivity;
 import com.huanmedia.videochat.my.LevelActivity;
 import com.huanmedia.videochat.my.MonitorActivity;
@@ -197,8 +198,8 @@ public class Navigator {
      * @param activity
      * @param data
      */
-    public void navtoPhotos(Activity activity, ArrayList<PhotosEntity> data) {
-        activity.startActivity(PhotosActivity.getCallingIntent(activity, data));
+    public void navtoPhotos(Activity activity, @PhotosActivity.UpLoadType int uploadType, ArrayList<PhotosEntity> data) {
+        activity.startActivity(PhotosActivity.getCallingIntent(activity, uploadType, data));
     }
 
     /**
@@ -321,8 +322,8 @@ public class Navigator {
      *
      * @param context
      */
-    public void navtoMediaUpLoad(Activity context, ArrayList<VideoEntity> videos, boolean isOpenUserEdit) {
-        context.startActivity(MediaUpLoadActivity.getCallingIntent(context, videos, isOpenUserEdit));
+    public void navtoMediaUpLoad(Activity context, @MediaUpLoadActivity.UpLoadType int uploadType, ArrayList<VideoEntity> videos, boolean isOpenUserEdit) {
+        context.startActivity(MediaUpLoadActivity.getCallingIntent(context, uploadType, videos, isOpenUserEdit));
     }
 
     /**
@@ -354,6 +355,15 @@ public class Navigator {
      */
     public void navtoChat(Activity context, ChatIntentBean intentBean) {
         context.startActivity(ChatActivity.getCallingIntent(context, intentBean));
+    }
+
+    /**
+     * 跳转到视频或图片编辑//1照片 2视频
+     *
+     * @param context
+     */
+    public void navtoFileInfoEdit(Activity context, int fileType, String fileUrl, int requestCode) {
+        context.startActivityForResult(FileInfoEditActivity.getCallingIntent(context, fileType, fileUrl), requestCode);
     }
 
 

@@ -49,10 +49,6 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
     Toolbar mToolbar;
     @BindView(R.id.frm_tv_icon)
     TextView mFrmTvIcon;
-    @BindView(R.id.frm_tv_callingUnit_enter)
-    TextView mFrmTvCallingUnitEnter;
-    @BindView(R.id.frm_cl_callingUnit)
-    ConstraintLayout mFrmClCallingUnit;
     @BindView(R.id.frm_tv_otherAccount_enter)
     TextView mFrmTvOtherAccountEnter;
     @BindView(R.id.frm_cl_otherAccountUnit)
@@ -199,7 +195,9 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
         return getActivity();
     }
 
-    @OnClick({R.id.frm_cl_callingUnit, R.id.frm_cl_WXAccount, R.id.frm_cl_QQAccount, R.id.frm_cl_otherAccountUnit, R.id.appointment_online_layout, R.id.appointment_online_time_layout})
+    @OnClick({R.id.frm_cl_callingUnit, R.id.frm_cl_WXAccount, R.id.frm_cl_QQAccount,
+            R.id.frm_cl_otherAccountUnit, R.id.appointment_online_layout, R.id.appointment_online_time_layout,
+            R.id.frm_cl_secret_photo, R.id.frm_cl_secret_video})
     public void onClickView(View view) {
         switch (view.getId()) {
             case R.id.frm_cl_callingUnit://聊天价格
@@ -237,6 +235,12 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
                 break;
             case R.id.appointment_online_time_layout:
                 showOnlineTimeDialog();
+                break;
+            case R.id.frm_cl_secret_photo:
+                 getNavigator().navtoPhotos(getActivity(), PhotosActivity.UpLoadType.SECRET,null);
+                break;
+            case R.id.frm_cl_secret_video:
+
                 break;
         }
     }

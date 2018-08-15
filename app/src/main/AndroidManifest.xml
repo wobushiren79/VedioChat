@@ -87,9 +87,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme.Launch">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
 
@@ -108,12 +108,13 @@
             android:name=".test.TestActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/AppBaseTheme.Default">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <!-- 相册 -->
         <activity
@@ -381,7 +382,8 @@
         <activity
             android:name=".appointment.AppointmentHistoryListActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".my.FileInfoEditActivity"></activity>
     </application>
 
 </manifest>

@@ -32,6 +32,7 @@
                 app:titleTextColor="@color/white" />
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/frm_cl_callingUnit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_356dp">
 
@@ -79,236 +80,265 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
                 <android.support.constraint.ConstraintLayout
-                    android:id="@+id/frm_cl_callingUnit"
+                    android:id="@+id/frm_cl_otherAccountUnit"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_104dp"
                     android:background="@drawable/base_item_select"
                     android:paddingEnd="@dimen/dimen_44dp"
-                    android:paddingStart="@dimen/dimen_44dp">
+                    android:paddingStart="@dimen/dimen_44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
 
                     <TextView
-                        android:id="@+id/frm_tv_callingUnit_desc"
+                        android:id="@+id/frm_tv_otherAccount_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="设置发现聊天单价"
+                        android:text="私人账号价格"
                         android:textColor="@color/base_black"
                         android:textSize="@dimen/dimen_32dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/frm_tv_callingUnit_enter"
+                        android:id="@+id/frm_tv_otherAccount_enter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/icon_enter_nor"
                         android:gravity="center_vertical"
+                        android:hint="设置"
                         android:textColor="@color/base_gray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
 
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/frm_cl_QQAccount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dimen_104dp"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+
+                    <TextView
+                        android:id="@+id/frm_tv_QQAccount_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QQ账号"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/frm_tv_QQAccount_enter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/icon_enter_nor"
+                        android:gravity="center_vertical"
+                        android:hint="设置"
+                        android:textColor="@color/base_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/frm_cl_WXAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_104dp"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+
+                    <TextView
+                        android:id="@+id/frm_tv_WXAccount_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="微信"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/frm_tv_WXAccount_enter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/icon_enter_nor"
+                        android:gravity="center_vertical"
+                        android:hint="设置"
+                        android:textColor="@color/base_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/frm_cl_secret_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_104dp"
                     android:layout_marginTop="@dimen/dimen_32dp"
-                    android:orientation="vertical">
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/appointment_type_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_104dp"
-                        android:background="@drawable/base_item_select"
-                        android:paddingEnd="@dimen/dimen_44dp"
-                        android:paddingStart="@dimen/dimen_44dp"
-                        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+                    <TextView
+                        android:id="@+id/frm_tv_secret_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="私密照片"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/appointment_type_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="预约模式"
-                            android:textColor="@color/base_black"
-                            android:textSize="@dimen/dimen_32dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/icon_enter_nor"
+                        android:gravity="center_vertical"
+                        android:hint="设置"
+                        android:textColor="@color/base_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
 
-                        <Switch
-                            android:id="@+id/appointment_type_content"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:theme="@style/switch_style_1"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/frm_cl_secret_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_104dp"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/appointment_online_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_104dp"
-                        android:background="@drawable/base_item_select"
-                        android:paddingEnd="@dimen/dimen_44dp"
-                        android:paddingStart="@dimen/dimen_44dp"
-                        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+                    <TextView
+                        android:id="@+id/frm_tv_secret_video"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="私密视频"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/appointment_online_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="设置常在时段"
-                            android:textColor="@color/base_black"
-                            android:textSize="@dimen/dimen_32dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/icon_enter_nor"
+                        android:gravity="center_vertical"
+                        android:hint="设置"
+                        android:textColor="@color/base_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/appointment_online_content"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableRight="@drawable/icon_enter_nor"
-                            android:gravity="center_vertical"
-                            android:hint="设置"
-                            android:textColor="@color/base_gray"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/appointment_online_time_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_104dp"
-                        android:background="@drawable/base_item_select"
-                        android:paddingEnd="@dimen/dimen_44dp"
-                        android:paddingStart="@dimen/dimen_44dp"
-                        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/appointment_type_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_104dp"
+                    android:layout_marginTop="@dimen/dimen_32dp"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
 
-                        <TextView
-                            android:id="@+id/appointment_online_time_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="在线时间"
-                            android:textColor="@color/base_black"
-                            android:textSize="@dimen/dimen_32dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/appointment_type_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="预约模式"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/appointment_online_time_content"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableRight="@drawable/icon_enter_nor"
-                            android:gravity="center_vertical"
-                            android:hint="设置"
-                            android:textColor="@color/base_gray"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
+                    <Switch
+                        android:id="@+id/appointment_type_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/switch_style_1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/frm_cl_otherAccountUnit"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_104dp"
-                        android:layout_marginTop="@dimen/dimen_32dp"
-                        android:background="@drawable/base_item_select"
-                        android:paddingEnd="@dimen/dimen_44dp"
-                        android:paddingStart="@dimen/dimen_44dp"
-                        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/appointment_online_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_104dp"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
 
-                        <TextView
-                            android:id="@+id/frm_tv_otherAccount_desc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="私人账号价格"
-                            android:textColor="@color/base_black"
-                            android:textSize="@dimen/dimen_32dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/appointment_online_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="设置常在时段"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/frm_tv_otherAccount_enter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableRight="@drawable/icon_enter_nor"
-                            android:gravity="center_vertical"
-                            android:hint="设置"
-                            android:textColor="@color/base_gray"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/appointment_online_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/icon_enter_nor"
+                        android:gravity="center_vertical"
+                        android:hint="设置"
+                        android:textColor="@color/base_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/frm_cl_QQAccount"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_104dp"
-                        android:background="@drawable/base_item_select"
-                        android:paddingEnd="@dimen/dimen_44dp"
-                        android:paddingStart="@dimen/dimen_44dp"
-                        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/appointment_online_time_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_104dp"
+                    android:background="@drawable/base_item_select"
+                    android:paddingEnd="@dimen/dimen_44dp"
+                    android:paddingStart="@dimen/dimen_44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
 
-                        <TextView
-                            android:id="@+id/frm_tv_QQAccount_desc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="QQ账号"
-                            android:textColor="@color/base_black"
-                            android:textSize="@dimen/dimen_32dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/appointment_online_time_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="在线时间"
+                        android:textColor="@color/base_black"
+                        android:textSize="@dimen/dimen_32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/frm_tv_QQAccount_enter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableRight="@drawable/icon_enter_nor"
-                            android:gravity="center_vertical"
-                            android:hint="设置"
-                            android:textColor="@color/base_gray"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/appointment_online_time_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/icon_enter_nor"
+                        android:gravity="center_vertical"
+                        android:hint="设置"
+                        android:textColor="@color/base_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/frm_cl_WXAccount"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_104dp"
-                        android:background="@drawable/base_item_select"
-                        android:paddingEnd="@dimen/dimen_44dp"
-                        android:paddingStart="@dimen/dimen_44dp"
-                        app:layout_constraintTop_toBottomOf="@+id/appBar_layout">
 
-                        <TextView
-                            android:id="@+id/frm_tv_WXAccount_desc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="微信"
-                            android:textColor="@color/base_black"
-                            android:textSize="@dimen/dimen_32dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/frm_tv_WXAccount_enter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableRight="@drawable/icon_enter_nor"
-                            android:gravity="center_vertical"
-                            android:hint="设置"
-                            android:textColor="@color/base_gray"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </android.support.constraint.ConstraintLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_44dp" />
-                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_44dp" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

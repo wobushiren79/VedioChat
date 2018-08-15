@@ -13,6 +13,8 @@ import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.MainActivity;
+import com.huanmedia.videochat.media.MediaUpLoadActivity;
+import com.huanmedia.videochat.my.PhotosActivity;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
@@ -89,12 +91,12 @@ public class WebJsObjFunction extends Object {
                 case "VideoUpdate":
                     //视频上传
                     UMengUtils.JumpActivity(mContext, 3, 0);
-                    navigator.navtoMediaUpLoad((Activity) mContext, null, false);
+                    navigator.navtoMediaUpLoad((Activity) mContext, MediaUpLoadActivity.UpLoadType.NORMAL, null, false);
                     break;
                 case "PhotoUpdate":
                     //照片上传
                     UMengUtils.JumpActivity(mContext, 4, 0);
-                    navigator.navtoPhotos((Activity) mContext, new ArrayList<>());
+                    navigator.navtoPhotos((Activity) mContext, PhotosActivity.UpLoadType.NORMAL, new ArrayList<>());
                     break;
                 case "AppointmentList":
                     //预约列表

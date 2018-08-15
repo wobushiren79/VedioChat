@@ -37,6 +37,7 @@ import com.huanmedia.videochat.repository.entity.MyLevelEntity;
 import com.huanmedia.videochat.repository.entity.OccupationsEntity;
 import com.huanmedia.videochat.repository.entity.PayCoinTypeMode;
 import com.huanmedia.videochat.repository.entity.PayOlderEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.entity.TrustValueEntity;
 import com.huanmedia.videochat.repository.entity.UserAccountBoundEntity;
 import com.huanmedia.videochat.repository.entity.UserEntity;
@@ -466,6 +467,11 @@ public interface RemoteApiService {
     @POST("/index/appointmentv2/complaint")
     @FormUrlEncoded
     Observable<DataResponse<Object>> appointmentComplain(@Field("aid") int aid);
+
+    //照片列表
+    @POST("/index/userext/userphotoslist")
+    @FormUrlEncoded
+    Observable<DataResponse<List<PhotosEntity>>> userPhotosList(@FieldMap Map<String, Object> params);
 
     @Multipart
     @POST

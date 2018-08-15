@@ -35,6 +35,7 @@ import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.main2.MainActivity;
+import com.huanmedia.videochat.media.MediaUpLoadActivity;
 import com.huanmedia.videochat.repository.entity.ItemMenuEntity;
 import com.huanmedia.videochat.repository.entity.OccupationsEntity;
 import com.huanmedia.videochat.repository.entity.PhotosEntity;
@@ -422,14 +423,14 @@ public class UserInfoEditActivity extends BaseMVPActivity<UserInfoEditPresenter>
                 break;
             case R.id.user_info_edit_rl_photos:
                 if (getBasePresenter().isCanNavToPhotos()) {
-                    getNavigator().navtoPhotos(this, (ArrayList<PhotosEntity>) mPhotosAdapter.getData());
+                    getNavigator().navtoPhotos(this, PhotosActivity.UpLoadType.NORMAL, (ArrayList<PhotosEntity>) mPhotosAdapter.getData());
                 }
                 break;
             case R.id.user_info_edit_rl_head:
                 openAlbum();
                 break;
             case R.id.user_info_edit_ll_video:
-                getNavigator().navtoMediaUpLoad(this, (ArrayList<VideoEntity>) mVideosAdapter.getData(), true);
+                getNavigator().navtoMediaUpLoad(this, MediaUpLoadActivity.UpLoadType.NORMAL, (ArrayList<VideoEntity>) mVideosAdapter.getData(), true);
                 break;
         }
     }

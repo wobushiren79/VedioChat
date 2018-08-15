@@ -15,6 +15,7 @@ import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
+import com.huanmedia.videochat.mvp.entity.request.PhotoListRequest;
 import com.huanmedia.videochat.mvp.entity.request.RewardRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShortVideoListRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
@@ -37,6 +38,7 @@ import com.huanmedia.videochat.mvp.entity.results.RewardResults;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.entity.GiftEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
 import java.util.ArrayList;
@@ -241,6 +243,12 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     @Override
     public void appointmentComplain(Context context, int aid, HttpResponseHandler handler) {
         requestPost(context, mApiService.appointmentComplain(aid), handler);
+    }
+
+    @Override
+    public void getPhotoList(Context context, PhotoListRequest params, HttpResponseHandler<List<PhotosEntity>> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.userPhotosList(paramsMap), handler);
     }
 
 

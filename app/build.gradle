@@ -264,7 +264,7 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
     implementation 'com.github.wobushiren79:DevTools:version_0.293'
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
-
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.shuyu:gsyVideoPlayer-java:5.0.0-beta'
     implementation 'com.shuyu:gsyVideoPlayer-ex_so:5.0.0-beta'
 }

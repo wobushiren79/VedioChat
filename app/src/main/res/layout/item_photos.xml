@@ -1,56 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dimen_260dp"
     android:layout_gravity="center"
     tools:context="com.huanmedia.videochat.my.PhotosActivity">
+
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/item_photos_iv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="centerInside"
-        android:background="@drawable/item_photos_bg_solid"
-        android:minWidth="@dimen/dimen_260dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/item_photos_bg_solid"
+        android:minWidth="@dimen/dimen_260dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/bg_photo_plus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:riv_corner_radius="@dimen/dimen_8dp"
-        android:src="@drawable/bg_photo_plus"/>
+        app:riv_corner_radius="@dimen/dimen_8dp" />
+
+
+    <TextView
+        android:id="@+id/tv_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/base_bg_round_theme_9"
+        android:gravity="center"
+        android:text="照片审核中"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_32dp" />
+
     <com.huanmedia.videochat.common.widget.SlantedTextView
         android:id="@+id/item_photos_stv_cover"
-        android:layout_gravity="end"
         android:layout_width="@dimen/dimen_80dp"
-        app:slantedText="封面"
-        app:slantedTextColor="@color/white"
-        app:slantedTextSize="@dimen/dimen_24dp"
+        android:layout_height="@dimen/dimen_80dp"
+        android:layout_gravity="end"
+        app:slantedBackgroundColor="#F75AA1"
         app:slantedLength="@dimen/dimen_52dp"
         app:slantedMode="left"
-        app:slantedBackgroundColor="#F75AA1"
-        android:layout_height="@dimen/dimen_80dp"/>
-    <RadioButton
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
-        android:text=" "
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:buttonTint="@color/color_f64d99"
-        app:layout_constraintTop_toTopOf="@+id/item_photos_iv"
-        app:layout_constraintEnd_toEndOf="@+id/item_photos_iv"
-        android:id="@+id/item_photos_rb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:slantedText="封面"
+        app:slantedTextColor="@color/white"
+        app:slantedTextSize="@dimen/dimen_24dp" />
+
     <TextView
         android:id="@+id/item_photos_tv_hint"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/dimen_16dp"
-        android:textSize="@dimen/dimen_28dp"
-        android:textColor="@color/base_gray"
-        android:text="上传照片"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:text="上传照片"
+        android:textColor="@color/base_gray"
+        android:textSize="@dimen/dimen_28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <RadioButton
+        android:id="@+id/item_photos_rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:buttonTint="@color/color_f64d99"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text=" "
+        app:layout_constraintEnd_toEndOf="@+id/item_photos_iv"
+        app:layout_constraintTop_toTopOf="@+id/item_photos_iv" />
+
+
 </android.support.constraint.ConstraintLayout>

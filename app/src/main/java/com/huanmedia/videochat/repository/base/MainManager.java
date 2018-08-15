@@ -15,6 +15,7 @@ import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
+import com.huanmedia.videochat.mvp.entity.request.PhotoListRequest;
 import com.huanmedia.videochat.mvp.entity.request.RewardRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShortVideoListRequest;
 import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
@@ -37,6 +38,7 @@ import com.huanmedia.videochat.mvp.entity.results.RewardResults;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.entity.GiftEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -311,9 +313,20 @@ public interface MainManager {
 
     /**
      * 预约投诉
+     *
      * @param context
      * @param aid
      * @param handler
      */
     void appointmentComplain(Context context, int aid, HttpResponseHandler handler);
+
+
+    /**
+     * 获取照片列表
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void getPhotoList(Context context, PhotoListRequest params, HttpResponseHandler<List<PhotosEntity>> handler);
 }

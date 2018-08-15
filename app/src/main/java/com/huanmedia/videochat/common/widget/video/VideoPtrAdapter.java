@@ -35,6 +35,7 @@ import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.common.widget.dialog.GiftDialog;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
+import com.huanmedia.videochat.media.MediaUpLoadActivity;
 import com.huanmedia.videochat.mvp.entity.results.ShortVideoResults;
 import com.huanmedia.videochat.mvp.presenter.video.IShortVideoPraisePresenter;
 import com.huanmedia.videochat.mvp.presenter.video.ShortVideoPraisePresenterImpl;
@@ -112,7 +113,7 @@ public class VideoPtrAdapter extends BaseRCAdapter<ShortVideoResults> implements
 
         //添加视频
         addVideo.setOnClickListener(view -> {
-            ((BaseActivity) mContext).getNavigator().navtoMediaUpLoad((Activity) mContext, null, false);
+            ((BaseActivity) mContext).getNavigator().navtoMediaUpLoad((Activity) mContext, MediaUpLoadActivity.UpLoadType.NORMAL, null, false);
         });
 
         if (shortVideoResults.getAccount_id() == 0) {

@@ -76,14 +76,14 @@ public class PhotosPrestener extends Presenter<PhotosView> {
         ));
     }
 
-    public void updateUserPhotosOrder(List<HM_PhotoEntity> datas) {
+    public void updateUserPhotosOrder(List<PhotosEntity> datas) {
         if (datas != null && datas.size() == 0) {
             return;
         }
         getView().showLoading(null);
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < datas.size(); i++) {
-            HM_PhotoEntity item = datas.get(i);
+            PhotosEntity item = datas.get(i);
             if (item instanceof PhotosEntity) {
                 int id = ((PhotosEntity) item).getId();
                 buffer.append(id).append("-").append(i+1).append(",");

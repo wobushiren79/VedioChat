@@ -24,6 +24,8 @@ import com.huanmedia.videochat.mvp.view.file.IFileHandlerView;
 import com.huanmedia.videochat.my.UserInfoEditActivity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +48,20 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
 
     private IFileHandlerPresenter mFileHandlerPresenter;
 
+    @UpLoadType
+    private int mUpLoadType;
 
-    public static Intent getCallingIntent(Context context, ArrayList<VideoEntity> videos, boolean isOpenUserEdit) {
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface UpLoadType {
+        int ALL = 0;
+        int NORMAL = 1;
+        int SECRET = 2;
+    }
+
+    public static Intent getCallingIntent(Context context, @UpLoadType int uploadType, ArrayList<VideoEntity> videos, boolean isOpenUserEdit) {
         Intent intent = new Intent(context, MediaUpLoadActivity.class);
         intent.putParcelableArrayListExtra("videos", videos);
+        intent.putExtra("uploadType", uploadType);
         intent.putExtra("isOpenUserEdit", isOpenUserEdit);
         intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         return intent;
@@ -86,7 +98,7 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
             } else {
                 finish();
             }
-        }else{
+        } else {
             finish();
         }
 
