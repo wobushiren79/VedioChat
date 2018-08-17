@@ -35,7 +35,7 @@ public class PhotoListPresenterImpl extends BaseMVPPresenter<IPhotoListView, Pho
             return;
         PhotoListRequest params = new PhotoListRequest();
         params.setLimit(limit);
-        params.setStatus(photoStatus);
+//        params.setStatus(photoStatus);
         params.setType(photoType);
         mMvpModel.getPhotoList(mMvpView.getContext(), params, new DataCallBack<List<PhotosEntity>>() {
 

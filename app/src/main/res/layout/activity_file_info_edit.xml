@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".my.FileInfoEditActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar_layout"
-        app:elevation="@dimen/dimen_0dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dimen_0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_appbar_background_light"
             app:navigationIcon="@drawable/nav_btn_back_black"
             app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
             app:title="返回"
-            app:titleTextColor="@color/base_black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/base_appbar_background_light" />
+            app:titleTextColor="@color/base_black" />
 
         <View
             android:layout_width="match_parent"
@@ -29,8 +29,21 @@
             android:background="@drawable/divider_ll" />
     </android.support.design.widget.AppBarLayout>
 
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/view_photo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0dp"
+        android:layout_weight="1" />
+
+    <com.huanmedia.videochat.common.widget.video.EmptyVideoPlayer
+        android:id="@+id/view_video"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0dp"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"></com.huanmedia.videochat.common.widget.video.EmptyVideoPlayer>
+
     <FrameLayout
         android:id="@+id/fl_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

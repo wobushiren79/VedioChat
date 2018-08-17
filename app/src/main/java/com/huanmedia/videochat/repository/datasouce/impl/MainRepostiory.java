@@ -180,8 +180,8 @@ public class MainRepostiory implements DataSource, MainSource {
     }
 
     @Override
-    public Observable<BusinessCardEntity> getUserBusinessCard(int uid) {
-        return mRemoteDataSource.getUserBusinessCard(uid).compose(ThreadExecutorHandler.toMain(mThreadProvider));
+    public Observable<BusinessCardEntity> getUserBusinessCard(int uid,int plevel) {
+        return mRemoteDataSource.getUserBusinessCard(uid,plevel).compose(ThreadExecutorHandler.toMain(mThreadProvider));
     }
 
     @Override

@@ -5,7 +5,33 @@ import java.util.List;
 public class UserVideoDataRequest {
     private String bindfilename;//从接口得到的文件名
     private String fullname;//名含扩展名的文件名
-    private List<String> img;//图片
+    private int plevel;//隐私级别 1公开 [默认]2 付费查看
+    private String tag;//默认为空
+    private int vcoin;//隐私图片查看所需金币数量默认为0
+
+    public int getPlevel() {
+        return plevel;
+    }
+
+    public void setPlevel(int plevel) {
+        this.plevel = plevel;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public int getVcoin() {
+        return vcoin;
+    }
+
+    public void setVcoin(int vcoin) {
+        this.vcoin = vcoin;
+    }
 
     private String ids;//需要删除的视频ID
 
@@ -33,11 +59,4 @@ public class UserVideoDataRequest {
         this.fullname = fullname;
     }
 
-    public List<String> getImg() {
-        return img;
-    }
-
-    public void setImg(List<String> img) {
-        this.img = img;
-    }
 }

@@ -363,7 +363,7 @@ public class Navigator {
      * @param context
      */
     public void navtoFileInfoEdit(Activity context, int fileType, String fileUrl, int requestCode) {
-        context.startActivityForResult(FileInfoEditActivity.getCallingIntent(context, fileType, fileUrl), requestCode);
+        context.startActivityForResult(FileInfoEditActivity.getCallingIntent(context, fileType, fileUrl,requestCode), requestCode);
     }
 
 

@@ -245,7 +245,7 @@ public interface MainSource extends DataSource {
      * @param uid
      * @return BusinessCardEntity
      */
-    Observable<BusinessCardEntity> getUserBusinessCard(int uid);
+    Observable<BusinessCardEntity> getUserBusinessCard(int uid, int plevel);
 
     /**
      * 用户账户绑定信息

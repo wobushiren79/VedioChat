@@ -383,7 +383,11 @@
             android:name=".appointment.AppointmentHistoryListActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".my.FileInfoEditActivity"></activity>
+        <activity
+            android:name=".my.FileInfoEditActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan"></activity>
     </application>
 
 </manifest>

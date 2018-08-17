@@ -5,6 +5,8 @@ import android.content.Context;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
+import com.huanmedia.videochat.mvp.entity.request.FileInfoChangeRequest;
+import com.huanmedia.videochat.mvp.entity.request.UploadImagesRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
 import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -24,6 +26,7 @@ public interface FileManager {
 
     /**
      * 上传文件
+     *
      * @param context
      * @param upLoadResults
      * @param handler
@@ -32,19 +35,22 @@ public interface FileManager {
 
     /**
      * 上传图片
+     *
      * @param context
      * @param images
      * @param handler
      */
-    public void upLoadImage(Context context,List<String> images, HttpResponseHandler<ArrayList<PhotosEntity>> handler);
+    public void upLoadImage(Context context, UploadImagesRequest params, List<String> images, HttpResponseHandler<ArrayList<PhotosEntity>> handler);
 
     /**
      * 用户上传视频信息
+     *
      * @param context
      * @param params
      * @param handler
      */
-    void userVideoUpLoad(Context context, UserVideoDataRequest params, HttpResponseHandler<UserVideoDataResults> handler);
+    void userVideoUpLoad(Context context, UserVideoDataRequest params, List<String> videoImages, HttpResponseHandler<UserVideoDataResults> handler);
+
     /**
      * 发送聊天信息
      *
@@ -53,4 +59,24 @@ public interface FileManager {
      * @param handler
      */
     void chatSend(Context context, ChatSendRequest params, HttpResponseHandler<ChatSendResults> handler);
+
+
+    /**
+     * 改变图片信息
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void changeImageInfo(Context context, FileInfoChangeRequest params, String image, HttpResponseHandler handler);
+
+
+    /**
+     * 改变视频信息
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void changeVideoInfo(Context context, FileInfoChangeRequest params, String videoImage, HttpResponseHandler handler);
 }

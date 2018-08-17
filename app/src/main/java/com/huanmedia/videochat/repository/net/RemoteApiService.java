@@ -18,6 +18,7 @@ import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
 import com.huanmedia.videochat.mvp.entity.results.RewardResults;
@@ -44,6 +45,7 @@ import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.huanmedia.videochat.repository.entity.UserEvaluateEntity;
 import com.huanmedia.videochat.repository.entity.UserInformationEntity;
 import com.huanmedia.videochat.repository.entity.VideoChatEntity;
+import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.huanmedia.videochat.video.CallingActivity;
 
 import java.util.ArrayList;
@@ -199,7 +201,7 @@ public interface RemoteApiService {
     //获取用户名片
     @POST("/index/userext/userinfoall")
     @FormUrlEncoded
-    Observable<DataResponse<BusinessCardInfoResults>> userinfoall(@Field("uid") int id);
+    Observable<DataResponse<BusinessCardInfoResults>> userinfoall(@Field("uid") int id, @Field("plevel") int plevel);
 
     //用户账户提现绑定信息
     @POST("/index/Userconsumption/userbindCacheInfo")
@@ -482,10 +484,43 @@ public interface RemoteApiService {
     );
 
     @Multipart
+    @POST("/index/userext/addphotos")
+    Observable<DataResponse<ArrayList<PhotosEntity>>> uploadImages(
+            @QueryMap Map<String, Object> parms,
+            @PartMap() Map<String, RequestBody> partMap
+    );
+
+    @Multipart
+    @POST("/index/userext/updateuserphoto")
+    Observable<DataResponse<ArrayList<PhotosEntity>>> updateImages(
+            @QueryMap Map<String, Object> parms,
+            @PartMap() Map<String, RequestBody> partMap
+    );
+
+    @FormUrlEncoded
+    @POST("/index/userext/updateuserphoto")
+    Observable<DataResponse<ArrayList<PhotosEntity>>> updateImages(
+            @FieldMap Map<String, Object> parms
+    );
+
+    @Multipart
     @POST("/index/userextv2/ossvoidupload")
     Observable<DataResponse<UserVideoDataResults>> uploadViedoData(
-            @QueryMap Map<String, String> parms,
+            @QueryMap Map<String, Object> parms,
             @PartMap() Map<String, RequestBody> partMap
+    );
+
+    @Multipart
+    @POST("/index/userextv2/ossvoidupload")
+    Observable<DataResponse<UserVideoDataResults>> updateViedoData(
+            @QueryMap Map<String, Object> parms,
+            @PartMap() Map<String, RequestBody> partMap
+    );
+
+    @FormUrlEncoded
+    @POST("/index/userextv2/ossvoidupload")
+    Observable<DataResponse<UserVideoDataResults>> updateViedoData(
+            @FieldMap Map<String, Object> parms
     );
 
     @Multipart
@@ -498,6 +533,16 @@ public interface RemoteApiService {
     @POST("/index/userext/submitmessage")
     @FormUrlEncoded
     Observable<DataResponse<ChatSendResults>> chatSend(@FieldMap Map<String, Object> parms);
+
+    //获取热门标签
+    @POST("/index/userextv2/imgvoidhottag")
+    Observable<DataResponse<List<FileHotTagResults>>> fileHotTagList();
+
+
+    //视频列表
+    @POST("/index/userextv2/selfossvoidlist")
+    @FormUrlEncoded
+    Observable<DataResponse<List<VideoEntity>>> userVideoList(@FieldMap Map<String, Object> params);
 
     /**
      * 创建一个API服务

@@ -19,9 +19,17 @@ public class UserVideoDataPresenterImpl extends BaseMVPPresenter<IUserVideoDataV
 
     @Override
     public void uploadUserVideoInfo() {
-//        if (mMvpView.getContext() == null)
-////            return;
+        uploadUserVideoInfoBase(0, null, 1);
+    }
 
+    @Override
+    public void uploadUserVideoInfoBySercet(int price, String tag) {
+        uploadUserVideoInfoBase(price, tag, 2);
+    }
+
+    private void uploadUserVideoInfoBase(int price, String tag, int type) {
+        //        if (mMvpView.getContext() == null)
+////            return;
         String videoName = mMvpView.getUpLoadVideoName();
         String videoIcon = mMvpView.getUpLoadVideoIcon();
         if (videoName == null) {
@@ -35,10 +43,15 @@ public class UserVideoDataPresenterImpl extends BaseMVPPresenter<IUserVideoDataV
         UserVideoDataRequest params = new UserVideoDataRequest();
         params.setBindfilename(videoName);
         params.setFullname(videoName);
+        params.setPlevel(type);
+        if (price != 0)
+            params.setVcoin(price);
+        if (tag != null)
+            params.setTag(tag);
+
         List<String> images = new ArrayList<>();
         images.add(videoIcon);
-        params.setImg(images);
-        mMvpModel.uploadUserVideo(mMvpView.getContext(), params, new DataCallBack<UserVideoDataResults>() {
+        mMvpModel.uploadUserVideo(mMvpView.getContext(), params, images, new DataCallBack<UserVideoDataResults>() {
             @Override
             public void getDataSuccess(UserVideoDataResults data) {
                 mMvpView.uploadUserVideoSuccess(data);

@@ -9,10 +9,12 @@ import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
 
+import java.util.List;
+
 public class UserVideoDataModelImpl extends BaseMVPModel implements IUserVideoDataModel {
     @Override
-    public void uploadUserVideo(Context context, UserVideoDataRequest params, DataCallBack callBack) {
-        MHttpManagerFactory.getFileManager().userVideoUpLoad(context, params, new HttpResponseHandler<UserVideoDataResults>() {
+    public void uploadUserVideo(Context context, UserVideoDataRequest params, List<String> videoImages, DataCallBack callBack) {
+        MHttpManagerFactory.getFileManager().userVideoUpLoad(context, params, videoImages, new HttpResponseHandler<UserVideoDataResults>() {
             @Override
             public void onSuccess(UserVideoDataResults result) {
                 callBack.getDataSuccess(result);

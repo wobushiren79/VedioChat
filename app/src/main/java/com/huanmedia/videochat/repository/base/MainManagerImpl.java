@@ -22,6 +22,7 @@ import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
 import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
 import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
 import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.request.UserVideoListRequest;
 import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentDetailResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentListOpResults;
@@ -32,6 +33,7 @@ import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
+import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
 import com.huanmedia.videochat.mvp.entity.results.RewardResults;
@@ -39,6 +41,7 @@ import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
 import com.huanmedia.videochat.repository.entity.GiftEntity;
 import com.huanmedia.videochat.repository.entity.PhotosEntity;
+import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.huanmedia.videochat.repository.net.RemoteApiService;
 
 import java.util.ArrayList;
@@ -114,7 +117,7 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
 
     @Override
     public void getBusinessCardInfo(Context context, BusinessCardInfoRequest params, HttpResponseHandler<BusinessCardInfoResults> handler) {
-        requestPost(context, mApiService.userinfoall(params.getUid()), handler, true);
+        requestPost(context, mApiService.userinfoall(params.getUid(), params.getPlevel()), handler, true);
     }
 
     @Override
@@ -249,6 +252,17 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void getPhotoList(Context context, PhotoListRequest params, HttpResponseHandler<List<PhotosEntity>> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.userPhotosList(paramsMap), handler);
+    }
+
+    @Override
+    public void getFileHotTagList(Context context, HttpResponseHandler<List<FileHotTagResults>> handler) {
+        requestPost(context, mApiService.fileHotTagList(), handler);
+    }
+
+    @Override
+    public void getUserVideoList(Context context, UserVideoListRequest params, HttpResponseHandler<List<VideoEntity>> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.userVideoList(paramsMap), handler);
     }
 
 

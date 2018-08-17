@@ -71,6 +71,20 @@ public class BaseManagerImpl {
     }
 
 
+//    public static Map<String, String> mapObjectToString(Map<String, Object> map) {
+//        Map<String, String> newMap = new HashMap<>();
+//        for (Map.Entry<String, Object> itemData : map.entrySet()) {
+//            Object itemObj = itemData.getValue();
+//            try {
+//                String itemStr = (String) itemObj;
+//                newMap.put(itemData.getKey(), itemStr);
+//            } catch (Exception e) {
+//                continue;
+//            }
+//        }
+//        return newMap;
+//    }
+
     /**
      * 获取利用反射获取类里面的值和名称
      *

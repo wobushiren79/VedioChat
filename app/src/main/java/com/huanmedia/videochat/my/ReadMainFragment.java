@@ -26,6 +26,7 @@ import com.huanmedia.videochat.common.widget.NoviceGuidanceView;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
 import com.huanmedia.videochat.common.widget.dialog.EditTextDialog;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
+import com.huanmedia.videochat.media.MediaUpLoadActivity;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.presenter.appointment.AppointmentSettingPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.appointment.IAppointmentSettingPresenter;
@@ -237,10 +238,10 @@ public class ReadMainFragment extends BaseMVPFragment<ReadMainPresenter> impleme
                 showOnlineTimeDialog();
                 break;
             case R.id.frm_cl_secret_photo:
-                 getNavigator().navtoPhotos(getActivity(), PhotosActivity.UpLoadType.SECRET,null);
+                getNavigator().navtoPhotos(getActivity(), PhotosActivity.UpLoadType.SECRET, null);
                 break;
             case R.id.frm_cl_secret_video:
-
+                getNavigator().navtoMediaUpLoad(getActivity(), MediaUpLoadActivity.UpLoadType.SECRET, null, false);
                 break;
         }
     }

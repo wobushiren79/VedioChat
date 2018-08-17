@@ -240,7 +240,7 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
 
     @Override
     public void show() {
-        mBussinessCardInfoPresenter.getBusinessCardInfo(mUid);
+        mBussinessCardInfoPresenter.getBusinessCardInfo(mUid, 1);
     }
 
     @Override

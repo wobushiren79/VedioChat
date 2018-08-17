@@ -1,5 +1,5 @@
 package com.huanmedia.videochat.mvp.presenter.user;
 
 public interface IBusinessCardInfoPresenter {
-    void getBusinessCardInfo(int uid);
+    void getBusinessCardInfo(int uid, int plevel);
 }

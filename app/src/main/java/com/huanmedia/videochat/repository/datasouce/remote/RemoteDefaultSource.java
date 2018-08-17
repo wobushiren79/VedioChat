@@ -197,8 +197,8 @@ public class RemoteDefaultSource implements MainSource {
     }
 
     @Override
-    public Observable<BusinessCardEntity> getUserBusinessCard(int uid) {
-        return mRemoteApiService.userinfoall(uid).map(businessCard -> businessCard.getResult() == null ? new BusinessCardEntity() : businessCard.getResult());
+    public Observable<BusinessCardEntity> getUserBusinessCard(int uid, int plevel) {
+        return mRemoteApiService.userinfoall(uid, plevel).map(businessCard -> businessCard.getResult() == null ? new BusinessCardEntity() : businessCard.getResult());
     }
 
     @Override

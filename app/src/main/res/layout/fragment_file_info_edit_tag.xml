@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/view_photo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0dp"
+        android:layout_weight="1" />
+
+    <com.huanmedia.videochat.common.widget.video.EmptyVideoPlayer
+        android:id="@+id/view_video"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0dp"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"></com.huanmedia.videochat.common.widget.video.EmptyVideoPlayer>
+
+
+    <EditText
+        android:id="@+id/et_tag"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_80dp"
+        android:layout_marginBottom="@dimen/dimen_40dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_40dp"
+        android:background="@drawable/base_bg_round_theme_10"
+        android:hint="请您输入该照片的标签..."
+        android:lines="1"
+        android:maxLength="7"
+        android:paddingLeft="@dimen/dimen_44dp"
+        android:paddingRight="@dimen/dimen_44dp"
+        android:textSize="@dimen/dimen_30dp" />
+
+    <com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout
+        android:id="@+id/view_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="@dimen/dimen_240dp"
+        android:paddingBottom="@dimen/dimen_80dp"
+        android:paddingLeft="@dimen/dimen_44dp"
+        android:paddingRight="@dimen/dimen_44dp"
+        app:container_background_color="@color/white"
+        app:container_border_color="@color/transparent"
+        app:container_border_width="0dp"
+        app:horizontal_interval="@dimen/dimen_22dp"
+        app:tag_background_color="@color/white"
+        app:tag_border_color="@color/color_e8ebf1"
+        app:tag_corner_radius="@dimen/dimen_30dp"
+        app:tag_horizontal_padding="@dimen/dimen_22dp"
+        app:tag_text_color="@color/base_gray"
+        app:tag_text_size="@dimen/dimen_28dp"
+        app:tag_theme="none"
+        app:tag_vertical_padding="@dimen/dimen_15dp"
+        app:vertical_interval="@dimen/dimen_20dp" />
+
+</LinearLayout>

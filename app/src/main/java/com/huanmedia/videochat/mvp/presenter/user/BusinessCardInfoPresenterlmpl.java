@@ -15,7 +15,7 @@ public class BusinessCardInfoPresenterlmpl extends BaseMVPPresenter<IBusinessCar
     }
 
     @Override
-    public void getBusinessCardInfo(int uid) {
+    public void getBusinessCardInfo(int uid, int plevel) {
         if (uid == 0) {
             mMvpView.showToast("没有用户ID");
             return;
@@ -26,6 +26,7 @@ public class BusinessCardInfoPresenterlmpl extends BaseMVPPresenter<IBusinessCar
         }
         BusinessCardInfoRequest params = new BusinessCardInfoRequest();
         params.setUid(uid);
+        params.setPlevel(plevel);
         mMvpModel.getContactUnLockInfo(mMvpView.getContext(), params, new DataCallBack<BusinessCardInfoResults>() {
 
             @Override

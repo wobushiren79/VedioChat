@@ -56,6 +56,12 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
 
     private @ItemType
     int mItemType = ItemType.NORMAL;
+    private int mUploadType;
+
+    public void setUploadType(int uploadType) {
+        this.mUploadType = uploadType;
+    }
+
 
     @Retention(RetentionPolicy.SOURCE)
     public @interface ItemType {
@@ -117,6 +123,10 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
                 ivPlay.setVisibility(View.VISIBLE);
                 if (videoEntity.getStatus() == -1) {
                     tvContent.setText("审核未通过");
+                    tvContent.setVisibility(View.VISIBLE);
+                    ivPlay.setVisibility(View.GONE);
+                } else if (videoEntity.getStatus() == 0) {
+                    tvContent.setText("未审核");
                     tvContent.setVisibility(View.VISIBLE);
                     ivPlay.setVisibility(View.GONE);
                 } else {
@@ -215,7 +225,12 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
         if (DoubleClickUtils.isFastDoubleClick()) return;
         String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(mContext, perms)) {
-            IntentHelpUtils.IntentToVideoSelect(((Activity) mContext), 1);
+            if (mUploadType == MediaUpLoadActivity.UpLoadType.SECRET) {
+                IntentHelpUtils.IntentToVideoSelect(((Activity) mContext), 2);
+            } else {
+                IntentHelpUtils.IntentToVideoSelect(((Activity) mContext), 1);
+            }
+
         } else {
             EasyPermissions.requestPermissions(((Activity) mContext), mContext.getString(R.string.rationale_camera_write_read), REQUEST_WRITE_READ_PERM, perms);
         }
@@ -261,6 +276,14 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
     }
     //------------------------阿里云文件上传--------------------------------------------
 
+    private int tempPice;
+    private String tempTag;
+
+    public void setSercetData(int price, String tag) {
+        this.tempPice = price;
+        this.tempTag = tag;
+    }
+
     @Override
     public void uploadFileByAliyunSuccess() {
         ((Activity) getContext()).runOnUiThread(new Runnable() {
@@ -268,10 +291,16 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
             public void run() {
 //                List<String> images = new ArrayList<>();
 //                images.add(mUpLoadVideoInfo.getImagePath());
-                mUserVideoDataPresenter.uploadUserVideoInfo();
+                if (mUploadType == MediaUpLoadActivity.UpLoadType.SECRET) {
+                    mUserVideoDataPresenter.uploadUserVideoInfoBySercet(tempPice, tempTag);
+                } else {
+                    mUserVideoDataPresenter.uploadUserVideoInfo();
+                }
+
             }
         });
     }
+
 
     @Override
     public void uploadFileByAliyunFail(String msg) {

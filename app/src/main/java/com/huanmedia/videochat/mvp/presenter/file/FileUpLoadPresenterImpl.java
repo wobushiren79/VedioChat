@@ -22,6 +22,8 @@ public class FileUpLoadPresenterImpl extends BaseMVPPresenter<IFileUpLoadView, F
         super(mMvpView, FileUpLoadModelImpl.class);
     }
 
+    
+
     @Override
     public void getAliyunUpLoadInfo() {
         if (mMvpView.getContext() == null)

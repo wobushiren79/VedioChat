@@ -7,10 +7,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseFragment;
 import com.huanmedia.videochat.common.widget.dialog.DialogPick;
+import com.huanmedia.videochat.common.widget.video.EmptyVideoPlayer;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,8 +33,7 @@ public class FileInfoEditPirceFragment extends BaseFragment {
     TextView mTVPriceTitle;
     @BindView(R.id.ll_price)
     LinearLayout mLLPrice;
-    @BindView(R.id.view_photo)
-    PhotoView mPhotoView;
+
 
     private String[] mPirceList;
     private String mFilePath;
@@ -51,12 +55,6 @@ public class FileInfoEditPirceFragment extends BaseFragment {
         mPirceList = new String[9];
         for (int i = 0; i < mPirceList.length; i++) {
             mPirceList[i] = (100 + 100 * i) + "";
-        }
-        if (mFileType == 1) {
-            mPhotoView.setVisibility(View.VISIBLE);
-            mPhotoView.setImageURI(Uri.parse(mFilePath));
-        } else if (mFileType == 2) {
-            mPhotoView.setVisibility(View.GONE);
         }
     }
 
@@ -93,4 +91,5 @@ public class FileInfoEditPirceFragment extends BaseFragment {
     public interface CallBack {
         void changePirce(String showStr, int money);
     }
+
 }

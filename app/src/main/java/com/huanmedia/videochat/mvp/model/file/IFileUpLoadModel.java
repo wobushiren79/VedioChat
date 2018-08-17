@@ -6,6 +6,7 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.base.DataFileCallBack;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
+import com.huanmedia.videochat.mvp.entity.request.UploadImagesRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 
 import java.util.List;
@@ -20,6 +21,14 @@ public interface IFileUpLoadModel {
      */
     void fileUpLoad(Context context, FileUpLoadResults params, DataFileCallBack callBack);
 
+    /**
+     * 文件上传 by 阿里云
+     *
+     * @param context
+     * @param params
+     * @param callBack
+     */
+    void imageUpLoad(Context context, UploadImagesRequest params, List<String> images, DataCallBack callBack);
 
     /**
      * 文件上传 by 阿里云

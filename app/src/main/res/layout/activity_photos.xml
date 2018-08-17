@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.huanmedia.videochat.my.PhotosActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -35,31 +36,69 @@
         android:id="@+id/photos_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginRight="@dimen/dimen_12dp"
-        android:background="@color/white"
         android:layout_marginLeft="@dimen/dimen_12dp"
+        android:layout_marginRight="@dimen/dimen_12dp"
         android:layout_marginTop="@dimen/dimen_12dp"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/photos_btn_ok"
+        app:layout_constraintBottom_toTopOf="@+id/ll_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar_layout"
         app:spanCount="3"
         tools:listitem="@layout/item_photos" />
 
-    <Button
-        android:id="@+id/photos_btn_ok"
+
+    <LinearLayout
+        android:id="@+id/ll_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
-        android:layout_marginRight="@dimen/dimen_44dp"
-        android:layout_marginLeft="@dimen/dimen_44dp"
-        android:background="@drawable/base_btn_solid"
-        android:text="删除"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dimen_36dp"
-        android:visibility="gone"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.527" />
+        app:layout_constraintVertical_bias="0.527">
+
+
+        <TextView
+            android:id="@+id/tv_change"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_110dp"
+            android:layout_marginLeft="@dimen/dimen_22dp"
+            android:layout_marginRight="@dimen/dimen_11dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_submit_style_4"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dimen_35dp"
+            android:text="转为免费"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_36dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_110dp"
+            android:layout_marginLeft="@dimen/dimen_11dp"
+            android:layout_marginRight="@dimen/dimen_22dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_submit_style_4"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dimen_35dp"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_36dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/photos_btn_ok"
+            android:layout_width="@dimen/dimen_96dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/base_btn_solid"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_36dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

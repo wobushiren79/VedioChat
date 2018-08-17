@@ -8,6 +8,7 @@ import com.huanmedia.videochat.mvp.base.BaseMVPModel;
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.base.DataFileCallBack;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
+import com.huanmedia.videochat.mvp.entity.request.UploadImagesRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.repository.base.HttpFileResponseHandler;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
@@ -25,8 +26,23 @@ public class FileUpLoadModelImpl extends BaseMVPModel implements IFileUpLoadMode
     }
 
     @Override
+    public void imageUpLoad(Context context, UploadImagesRequest params, List<String> images, DataCallBack callBack) {
+        MHttpManagerFactory.getFileManager().upLoadImage(context, params, images, new HttpResponseHandler<ArrayList<PhotosEntity>>() {
+            @Override
+            public void onSuccess(ArrayList<PhotosEntity> result) {
+                callBack.getDataSuccess(result);
+            }
+
+            @Override
+            public void onError(String message) {
+                callBack.getDataFail(message);
+            }
+        });
+    }
+
+    @Override
     public OSSAsyncTask fileUpLoadByAliyun(Context context, FileUpLoadResults params, DataFileCallBack callBack) {
-      return   MHttpManagerFactory.getFileManager().upLoadFileToAliyun(context, params, new HttpFileResponseHandler<PutObjectResult>() {
+        return MHttpManagerFactory.getFileManager().upLoadFileToAliyun(context, params, new HttpFileResponseHandler<PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectResult result) {
                 callBack.getDataSuccess(result);

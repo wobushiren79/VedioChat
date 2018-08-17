@@ -30,47 +30,49 @@ public class BusinessCardPresenter extends Presenter<BusinessCardView> {
     public BusinessCardPresenter() {
         this.mRepository = new MainRepostiory();
     }
-    public void getBusinessCard(int uid){
+
+    public void getBusinessCard(int uid) {
         getView().showLoading(null);
         getPageBean().nextpage();
-        addDisposable(mRepository.getUserBusinessCard(uid).subscribe(
+        addDisposable(mRepository.getUserBusinessCard(uid, 0).subscribe(
                 businessCard -> getView().showHeadData(businessCard),
                 throwable -> {
-                    if (!isNullView()){
+                    if (!isNullView()) {
                         getPageBean().reset();
                         getView().showError(0, getGeneralErrorStr(throwable));
                         getView().hideLoading();
                         getView().showRetry();
                     }
                 }
-                ,() -> {
+                , () -> {
                     getView().hideLoading();
                 }
         ));
     }
-    public  void loadMoreData(String uid){
-        addDisposable(mRepository.usertagslist(getPageBean().nextpage()+"",uid).subscribe(
-                userEvaluateEntity  -> getView().showMore(userEvaluateEntity),
+
+    public void loadMoreData(String uid) {
+        addDisposable(mRepository.usertagslist(getPageBean().nextpage() + "", uid).subscribe(
+                userEvaluateEntity -> getView().showMore(userEvaluateEntity),
                 throwable -> {
-                    if (!isNullView()){
-                        getPageBean().setCurrentPage(getPageBean().getCurrentPage()-1);
+                    if (!isNullView()) {
+                        getPageBean().setCurrentPage(getPageBean().getCurrentPage() - 1);
                         getView().showError(0, getGeneralErrorStr(throwable));
                         getView().loadMoreFail();
                     }
                 }
         ));
     }
+
     /**
-     *
      * @param id
      * @param flag 1 收藏  0取消收藏
      */
     void favorite(String id, int flag) {
-     getView().showLoading(null);
+        getView().showLoading(null);
         addDisposable(mRepository.favorite(id, flag)
-                .subscribe(response ->{
+                .subscribe(response -> {
                             getView().hideLoading();
-                            isNeedCallChatPeopleAttentionUpData=true;
+                            isNeedCallChatPeopleAttentionUpData = true;
                             getView().resultFavoriteSuccess(flag);
                         },
                         throwable -> {
@@ -93,4 +95,4 @@ public class BusinessCardPresenter extends Presenter<BusinessCardView> {
     }
 
 
-    }
+}

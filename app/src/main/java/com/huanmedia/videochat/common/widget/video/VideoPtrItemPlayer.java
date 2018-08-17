@@ -43,7 +43,6 @@ public class VideoPtrItemPlayer extends EmptyVideoPlayer  {
             @Override
             public void onPlayError(String url, Object... objects) {
                 super.onPlayError(url, objects);
-                Log.v("this", "onPlayError:" + url);
                 if (mCallBack != null)
                     mCallBack.onPlayError(url);
             }

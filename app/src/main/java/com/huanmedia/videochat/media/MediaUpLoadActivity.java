@@ -20,7 +20,10 @@ import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.presenter.file.FileHandlerPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.file.IFileHandlerPresenter;
+import com.huanmedia.videochat.mvp.presenter.video.IUserVideoListPresenter;
+import com.huanmedia.videochat.mvp.presenter.video.UserVideoListPresenterImpl;
 import com.huanmedia.videochat.mvp.view.file.IFileHandlerView;
+import com.huanmedia.videochat.mvp.view.video.IUserVideoListView;
 import com.huanmedia.videochat.my.UserInfoEditActivity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 
@@ -34,7 +37,7 @@ import butterknife.OnClick;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
-public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerView {
+public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerView, IUserVideoListView {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -47,9 +50,11 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     private List<VideoEntity> mListVideoData;
 
     private IFileHandlerPresenter mFileHandlerPresenter;
+    private IUserVideoListPresenter mVideoListPresenter;
 
     @UpLoadType
     private int mUpLoadType;
+
 
     @Retention(RetentionPolicy.SOURCE)
     public @interface UpLoadType {
@@ -108,6 +113,7 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     protected void initView() {
         super.initView();
         initToolbar();
+        mUpLoadType = getIntent().getIntExtra("uploadType", 0);
         mMediaUpLoadRV.setLayoutManager(new GridLayoutManager(this, 3));
         mMediaUpLoadRV.setItemAnimator(null);
     }
@@ -116,19 +122,25 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     protected void initData() {
         super.initData();
         mFileHandlerPresenter = new FileHandlerPresenterImpl(this);
+        mVideoListPresenter = new UserVideoListPresenterImpl(this);
         mUpLoadAdapter = new MediaUpLoadAdapter(this);
+        mUpLoadAdapter.setUploadType(mUpLoadType);
         mMediaUpLoadRV.setAdapter(mUpLoadAdapter);
 
-        mListVideoData = getIntent().getParcelableArrayListExtra("videos");
-        if (mListVideoData == null)
-            mListVideoData = new ArrayList<>();
+        if (mUpLoadType == UpLoadType.SECRET) {
+            mToolbar.setTitle("私密视频");
+            mVideoListPresenter.getSecretVideo();
+        } else {
+            mListVideoData = getIntent().getParcelableArrayListExtra("videos");
+            if (mListVideoData == null)
+                mListVideoData = new ArrayList<>();
 
-        VideoEntity addItem = new VideoEntity();
-        addItem.setUploadStatus(-1);
+            VideoEntity addItem = new VideoEntity();
+            addItem.setUploadStatus(-1);
 
-        mListVideoData.add(addItem);
-
-        mUpLoadAdapter.setData(mListVideoData);
+            mListVideoData.add(addItem);
+            mUpLoadAdapter.setData(mListVideoData);
+        }
     }
 
     @Override
@@ -175,18 +187,31 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
         return true;
     }
 
+    private VideoInfoRequest tempVideoInfo;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
-            Uri uri = data.getData();
-            VideoInfoRequest videoInfoRequest = mFileHandlerPresenter.getVideoInfoByUri(uri, this.getContentResolver());
-            if (videoInfoRequest.getImagePath() == null) {
-                ToastUtils.showToastLong(this, "请选择视频文件！");
-                return;
+        if (resultCode == RESULT_OK && null != data) {
+            if (requestCode == 1 || requestCode == 2) {
+                Uri uri = data.getData();
+                tempVideoInfo = mFileHandlerPresenter.getVideoInfoByUri(uri, this.getContentResolver());
+                if (tempVideoInfo.getImagePath() == null) {
+                    ToastUtils.showToastLong(this, "请选择视频文件！");
+                    return;
+                }
+                if (requestCode == 1)
+                    mUpLoadAdapter.setUpLoadVideoFile(tempVideoInfo);
+                else if (requestCode == 2)
+                    getNavigator().navtoFileInfoEdit(this, 2, tempVideoInfo.getVideoPath(), 3);
+            } else if (requestCode == 3) {
+                String fileTag = data.getStringExtra("FileTag");
+                String filePath = data.getStringExtra("FilePath");
+                int price = data.getIntExtra("FilePrice", 0);
+                mUpLoadAdapter.setSercetData(price, fileTag);
+                mUpLoadAdapter.setUpLoadVideoFile(tempVideoInfo);
             }
-            mUpLoadAdapter.setUpLoadVideoFile(videoInfoRequest);
-            super.onActivityResult(requestCode, resultCode, data);
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -206,5 +231,24 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
                 mUpLoadAdapter.deleteUserVideo();
                 break;
         }
+    }
+
+    //---------------------用户视频列表----------------------
+    @Override
+    public void getUserVideoListSuccess(List<VideoEntity> listData) {
+        mListVideoData = listData;
+        if (mListVideoData == null)
+            mListVideoData = new ArrayList<>();
+
+        VideoEntity addItem = new VideoEntity();
+        addItem.setUploadStatus(-1);
+
+        mListVideoData.add(addItem);
+        mUpLoadAdapter.setData(mListVideoData);
+    }
+
+    @Override
+    public void getUserVideoListFail(String msg) {
+
     }
 }

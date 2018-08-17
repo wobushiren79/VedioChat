@@ -14,15 +14,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.hmalbumlib.HM_StartAlbum;
 import com.huanmedia.hmalbumlib.HM_StartSeePhoto;
 import com.huanmedia.hmalbumlib.extar.HM_PhotoEntity;
 import com.huanmedia.ilibray.utils.DisplayUtil;
+import com.huanmedia.ilibray.utils.GsonUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.recycledecoration.RecyclerViewItemDecoration;
 import com.huanmedia.videochat.R;
@@ -31,8 +35,15 @@ import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.utils.DoubleClickUtils;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.common.widget.dialog.HintDialog;
+import com.huanmedia.videochat.mvp.entity.request.UploadImagesRequest;
+import com.huanmedia.videochat.mvp.presenter.file.FileUpLoadImagePresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.file.IFileUpLoadImagePresenter;
+import com.huanmedia.videochat.mvp.presenter.photo.IPhotoInfoChangePresenter;
 import com.huanmedia.videochat.mvp.presenter.photo.IPhotoListPresenter;
+import com.huanmedia.videochat.mvp.presenter.photo.PhotoInfoChangePresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.photo.PhotoListPresenterImpl;
+import com.huanmedia.videochat.mvp.view.file.IFileUpLoadImageView;
+import com.huanmedia.videochat.mvp.view.photo.IPhotoInfoChangeView;
 import com.huanmedia.videochat.mvp.view.photo.IPhotoListView;
 import com.huanmedia.videochat.my.adapter.PhotosAdapter;
 import com.huanmedia.videochat.my.adapter.PhotosItemDragAndSwipeCallback;
@@ -53,7 +64,8 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 @SuppressWarnings("ButterKnifeInjectNotCalled")
-public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements PhotosView, EasyPermissions.PermissionCallbacks, IPhotoListView {
+public class PhotosActivity extends BaseMVPActivity<PhotosPrestener>
+        implements PhotosView, EasyPermissions.PermissionCallbacks, IPhotoListView, IFileUpLoadImageView, IPhotoInfoChangeView {
     private static final int REQUEST_CAMERA_WRITE_READ_PERM = 1;//权限标识符
     private final int REQUEST_CODE_IMAGES = 2;//相册请求码
     private final int REQUEST_CODE_SECRET_IMAGES = 3;//相册请求码
@@ -63,12 +75,19 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
     RecyclerView mPhotosRv;
     @BindView(R.id.photos_btn_ok)
     Button mPhotosBtnOk;
+    @BindView(R.id.tv_delete)
+    TextView mTVDelete;
+    @BindView(R.id.tv_change)
+    TextView mTVChange;
+
     private HintDialog mLoadingDialog;
     private HintDialog mHintDialog;
 
     private PhotosAdapter mAdapter;
     private ItemTouchHelper mItemTouchHelper;
     private IPhotoListPresenter mPhotoListPresenter;
+    private IFileUpLoadImagePresenter mPhotoUploadPresenter;
+    private IPhotoInfoChangePresenter mPhotoInfoChangePresenter;
 
     private @UpLoadType
     int mUploadType;
@@ -102,6 +121,8 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
     protected void initView() {
         mUploadType = getIntent().getIntExtra("uploadType", 1);
         mPhotoListPresenter = new PhotoListPresenterImpl(this);
+        mPhotoUploadPresenter = new FileUpLoadImagePresenterImpl(this);
+        mPhotoInfoChangePresenter = new PhotoInfoChangePresenterImpl(this);
         ArrayList<PhotosEntity> mData = getIntent().getParcelableArrayListExtra("data");
         initToolbar();
         //照片墙
@@ -201,19 +222,25 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
                     if (mAdapter.getData().size() == 0) return true;
                     item.setTitle("取消");
                     mAdapter.setEdit(true);
-                    mPhotosBtnOk.setText("删除");
                     mAdapter.enableDragItem(null);
-                    mPhotosBtnOk.setVisibility(View.VISIBLE);
-//                    mPhotosBtnOk.setBackground(ContextCompat.getDrawable(context(), R.drawable.base_btn_solid_disable));
                     mPhotosRv.getAdapter().notifyDataSetChanged();
+                    if (mUploadType == UpLoadType.SECRET) {
+                        mPhotosBtnOk.setVisibility(View.GONE);
+                        mTVChange.setVisibility(View.VISIBLE);
+                        mTVDelete.setVisibility(View.VISIBLE);
+                    } else {
+                        mPhotosBtnOk.setVisibility(View.VISIBLE);
+                        mTVChange.setVisibility(View.GONE);
+                        mTVDelete.setVisibility(View.GONE);
+                    }
                 } else {
                     mAdapter.setEdit(false);
                     mAdapter.getCheckMap().clear();
                     item.setTitle("编辑");
                     mAdapter.enableDragItem(mItemTouchHelper, R.id.item_photos_iv, true);
-//                    mPhotosBtnOk.setText("上传照片");
                     mPhotosBtnOk.setVisibility(View.GONE);
-//                    mPhotosBtnOk.setBackground(ContextCompat.getDrawable(context(), R.drawable.base_btn_solid));
+                    mTVChange.setVisibility(View.GONE);
+                    mTVDelete.setVisibility(View.GONE);
                     mPhotosRv.getAdapter().notifyDataSetChanged();
                 }
                 break;
@@ -274,10 +301,11 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
     }
 
 
-    @OnClick({R.id.photos_btn_ok})
+    @OnClick({R.id.photos_btn_ok, R.id.tv_delete, R.id.tv_change})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.photos_btn_ok:
+            case R.id.tv_delete:
                 StringBuffer buffer = new StringBuffer();
                 for (int i = 0; i < mAdapter.getCheckMap().size(); i++) {
                     HM_PhotoEntity photo = mAdapter.getCheckMap().valueAt(i);
@@ -287,6 +315,13 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
                     }
                 }
                 getBasePresenter().deletePhotos(buffer.toString());
+                break;
+            case R.id.tv_change:
+                for (int i = 0; i < mAdapter.getCheckMap().size(); i++) {
+                    HM_PhotoEntity photo = mAdapter.getCheckMap().valueAt(i);
+                    int photoId = ((PhotosEntity) photo).getId();
+                    mPhotoInfoChangePresenter.changeType(photoId, 1);
+                }
                 break;
         }
     }
@@ -360,11 +395,21 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
                         for (int i = 0; i < chooseImages.size(); i++) {
                             upDatas.add(chooseImages.get(i).getImage());
                         }
-                        getBasePresenter().upImages("/index/userext/addphotos", upDatas);
+                        mPhotoUploadPresenter.uploadImage(null, upDatas);
+                        //getBasePresenter().upImages("/index/userext/addphotos", upDatas);
                     }
                 }
             } else if (requestCode == REQUEST_CODE_SECRET_IMAGES && data != null) {
-
+                String fileTag = data.getStringExtra("FileTag");
+                String filePath = data.getStringExtra("FilePath");
+                int price = data.getIntExtra("FilePrice", 0);
+                UploadImagesRequest params = new UploadImagesRequest();
+                params.setPlevel(2);
+                params.setTag(fileTag);
+                params.setVcoin(price);
+                List<String> listPhotos = new ArrayList<>();
+                listPhotos.add(filePath);
+                mPhotoUploadPresenter.uploadImage(params, listPhotos);
             }
         }
     }
@@ -438,5 +483,32 @@ public class PhotosActivity extends BaseMVPActivity<PhotosPrestener> implements 
     @Override
     public void showToast(String toast) {
         ToastUtils.showToastShortInCenter(getContext(), toast);
+    }
+
+    //-----------------上传图片处理------------------
+    @Override
+    public void uploadImageSuccess(ArrayList<PhotosEntity> listData) {
+        upPhotoSuccess(listData);
+        showToast("照片已更新");
+    }
+
+    @Override
+    public void uploadImageFail(String msg) {
+
+    }
+
+    //------------修改图片数据-------------------
+    @Override
+    public void changePhotoInfoSuccess(int photoId) {
+        for (int i = 0; i < mAdapter.getCheckMap().size(); i++) {
+            HM_PhotoEntity photo = mAdapter.getCheckMap().valueAt(i);
+            mAdapter.remove(mAdapter.getData().indexOf(photo));
+        }
+        mAdapter.getCheckMap().clear();
+    }
+
+    @Override
+    public void changePhotoInfoFail(String msg) {
+
     }
 }

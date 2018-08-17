@@ -10,6 +10,11 @@ public interface IUserVideoDataPresenter {
     void uploadUserVideoInfo();
 
     /**
+     * 上传隐私视频
+     */
+    void uploadUserVideoInfoBySercet(int price, String tag);
+
+    /**
      * 删除用户数据
      */
     void deleteUserVideoInfo();

@@ -154,7 +154,7 @@ public class ArtistActivity extends BaseActivity
         mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setOnTabSelectListener(this);
         mBusinessCardInfoPresenter = new BusinessCardInfoPresenterlmpl(this);
-        mBusinessCardInfoPresenter.getBusinessCardInfo(mUserId);
+        mBusinessCardInfoPresenter.getBusinessCardInfo(mUserId, 0);
     }
 
     private void startMoreAnim(View view) {
