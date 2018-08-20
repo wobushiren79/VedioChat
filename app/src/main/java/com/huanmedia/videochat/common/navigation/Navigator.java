@@ -29,6 +29,7 @@ import com.huanmedia.videochat.common.LocalHtmlWebActivity;
 import com.huanmedia.videochat.discover.ArtistActivity;
 import com.huanmedia.videochat.discover.BusinessCardAcitivty;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
+import com.huanmedia.videochat.discover.PhotoShowActivity;
 import com.huanmedia.videochat.main.NotificationMessageActivity;
 import com.huanmedia.videochat.main2.MainActivity;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
@@ -62,6 +63,7 @@ import com.huanmedia.videochat.video.MonitorVideoActivity;
 import com.huanmedia.videochat.wxapi.WXPayEntryActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class used to navigate through the application.
@@ -313,8 +315,17 @@ public class Navigator {
      *
      * @param context
      */
-    public void navtoMediaPlay(Activity context, ArrayList<VideoEntity> vedios, int position) {
+    public void navtoMediaPlay(Activity context, List<VideoEntity> vedios, int position) {
         context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios, position));
+    }
+
+    /**
+     * 图片展示
+     *
+     * @param context
+     */
+    public void navtoPhotoShow(Activity context, List<PhotosEntity> photos, int position, boolean isShowMask) {
+        context.startActivity(PhotoShowActivity.getCallingIntent(context, photos, position,isShowMask));
     }
 
     /**
@@ -363,7 +374,7 @@ public class Navigator {
      * @param context
      */
     public void navtoFileInfoEdit(Activity context, int fileType, String fileUrl, int requestCode) {
-        context.startActivityForResult(FileInfoEditActivity.getCallingIntent(context, fileType, fileUrl,requestCode), requestCode);
+        context.startActivityForResult(FileInfoEditActivity.getCallingIntent(context, fileType, fileUrl, requestCode), requestCode);
     }
 
 

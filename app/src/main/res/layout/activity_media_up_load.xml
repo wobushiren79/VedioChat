@@ -42,19 +42,61 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/tv_delete"
-            android:layout_width="@dimen/dimen_600dp"
-            android:layout_height="@dimen/dimen_92dp"
+        <LinearLayout
+            android:id="@+id/ll_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/dimen_108dp"
-            android:background="@drawable/base_btn_solid"
-            android:gravity="center"
-            android:text="删除视频"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dimen_36dp"
-            android:visibility="gone" />
+            android:layout_marginBottom="22dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.527">
+
+
+            <TextView
+                android:id="@+id/tv_change"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dimen_110dp"
+                android:layout_marginLeft="@dimen/dimen_22dp"
+                android:layout_marginRight="@dimen/dimen_11dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_submit_style_4"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dimen_35dp"
+                android:text="转为免费"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_36dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_delete_2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dimen_110dp"
+                android:layout_marginLeft="@dimen/dimen_11dp"
+                android:layout_marginRight="@dimen/dimen_22dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_submit_style_4"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dimen_35dp"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_36dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="@dimen/dimen_600dp"
+                android:layout_height="@dimen/dimen_92dp"
+                android:layout_marginBottom="@dimen/dimen_108dp"
+                android:layout_weight="1"
+                android:background="@drawable/base_btn_solid"
+                android:gravity="center"
+                android:text="删除视频"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_36dp"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </RelativeLayout>
 

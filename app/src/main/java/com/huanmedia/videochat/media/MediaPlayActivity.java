@@ -40,9 +40,9 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
 
     private List<VideoEntity> mListVedioData;
 
-    public static Intent getCallingIntent(Context context, ArrayList<VideoEntity> vedios, int position) {
+    public static Intent getCallingIntent(Context context, List<VideoEntity> vedios, int position) {
         Intent intent = new Intent(context, MediaPlayActivity.class);
-        intent.putExtra("vedios", vedios);
+        intent.putExtra("vedios", (ArrayList) vedios);
         intent.putExtra("position", position);
         return intent;
     }

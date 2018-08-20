@@ -8,16 +8,34 @@ public class VideoEntity implements Parcelable {
     private int id;
     private String voideurl;
     private String imgurl;
+    private int status;//状态 1为审核通过 0为审核未通过 -1为未审核 -9为非法 ',
+    private int plevel;//隐私类型 1公开 2隐私
+    private String tag;//标签文字
+    private int vcoin;//查看钻石数
 
-    /**
-     * 视频审核状态
-     *
-     * 查看自己时有数据，  0未审  -1审核不过  1审核通过
-     *
-     * 查看别人时无此数据项
-     */
-    private int status;
+    public int getPlevel() {
+        return plevel;
+    }
 
+    public void setPlevel(int plevel) {
+        this.plevel = plevel;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public int getVcoin() {
+        return vcoin;
+    }
+
+    public void setVcoin(int vcoin) {
+        this.vcoin = vcoin;
+    }
 
     private int uploadStatus;
     private int loadPB = 0;//上传进度

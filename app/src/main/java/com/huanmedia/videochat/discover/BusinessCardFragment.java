@@ -29,6 +29,9 @@ import com.huanmedia.videochat.discover.adapter.BusinessCardAdapter;
 import com.huanmedia.videochat.discover.adapter.BusinessMultiItem;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.MaskDialog;
+import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
+import com.huanmedia.videochat.mvp.view.file.IFileManageCheckView;
+import com.huanmedia.videochat.mvp.view.file.IFileManagePayView;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.UserEvaluateEntity;
 
@@ -43,11 +46,13 @@ import butterknife.OnClick;
 /**
  * 个人名片
  */
-public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter> implements BusinessCardView {
+public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
+        implements BusinessCardView{
     private static final String ARG_DATA = "mUid";
     private static final String ARG_DISTANCE = "distance";
     private static final String ARG_SHOWTYPE = "showtype";
     public static String TAG = "/BusinessCardFragment";
+
 
     @Retention(RetentionPolicy.SOURCE)
     public @interface ShowType {
@@ -65,6 +70,7 @@ public class BusinessCardFragment extends BaseMVPFragment<BusinessCardPresenter>
     ImageView mBusinessCardIvAppointmentVideo;
     @BindView(R.id.business_card_iv_appointment)
     ImageView mBusinessCardIvAppointment;
+
     private BusinessCardAdapter mAdapter;
     private int mUid;
 

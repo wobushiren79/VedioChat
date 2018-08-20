@@ -54,8 +54,8 @@ public class HM_PhotoSeePagerActivity extends BaseActivity implements ViewPager.
     @Override
     protected void initView() {
         photoViewPager = (HM_HackyViewPager) findViewById(R.id.photo_view_pager);
-        photoViewTvIndicator = (TextView)findViewById(R.id.photo_view_tv_indicator);
-        photoViewRlBottomContent= (RelativeLayout) findViewById(R.id.photo_view_rl_bottom_content);
+        photoViewTvIndicator = (TextView) findViewById(R.id.photo_view_tv_indicator);
+        photoViewRlBottomContent = (RelativeLayout) findViewById(R.id.photo_view_rl_bottom_content);
         photoViewRlBottomContent.setOnClickListener(this);
         setToolbar();
         currentSelect = getIntent().getIntExtra(HM_StartSeePhoto.EXTRA_PHOTOSEE_CURRENTSELECT, 0);
@@ -76,6 +76,7 @@ public class HM_PhotoSeePagerActivity extends BaseActivity implements ViewPager.
     protected int getLayoutId() {
         return R.layout.hm_album_photosee;
     }
+
     @Override
     protected View getTitlebarView() {
         return findViewById(R.id.toolbar);
@@ -111,7 +112,7 @@ public class HM_PhotoSeePagerActivity extends BaseActivity implements ViewPager.
 
     @Override
     public void photoClick(View v) {
-            finish();
+        finish();
     }
 
     @SuppressLint("RestrictedApi")

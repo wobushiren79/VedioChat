@@ -394,6 +394,10 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
 
     @Override
     public List<String> getDeleteVideoIds() {
+        return getSelectVideoIds();
+    }
+
+    public List<String> getSelectVideoIds() {
         deleteUserVideoData = new ArrayList<>();
         List<String> stringData = new ArrayList<>();
         for (VideoEntity itemData : getData()) {

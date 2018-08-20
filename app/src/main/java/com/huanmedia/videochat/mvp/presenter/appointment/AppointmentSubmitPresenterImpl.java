@@ -2,6 +2,7 @@ package com.huanmedia.videochat.mvp.presenter.appointment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 
 import com.huanmedia.videochat.appointment.AppointmentActivity;
 import com.huanmedia.videochat.common.BaseActivity;
@@ -13,6 +14,8 @@ import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.model.appointment.AppointmentSubmitModelImpl;
 import com.huanmedia.videochat.mvp.view.appointment.IAppointmentSubmitView;
+
+import static com.huanmedia.videochat.common.utils.VideoChatUtils.NoMoreMoneyDialog;
 
 public class AppointmentSubmitPresenterImpl extends BaseMVPPresenter<IAppointmentSubmitView, AppointmentSubmitModelImpl> implements IAppointmentSubmitPresenter {
 
@@ -98,7 +101,7 @@ public class AppointmentSubmitPresenterImpl extends BaseMVPPresenter<IAppointmen
 
             @Override
             public void getDataFail(String msg) {
-                if(msg==null)
+                if (msg == null)
                     return;
                 if (msg.contains("砖石不足"))
                     errorNoMoney();
@@ -112,24 +115,6 @@ public class AppointmentSubmitPresenterImpl extends BaseMVPPresenter<IAppointmen
      * 用户金币不足处理
      */
     private void errorNoMoney() {
-        GeneralDialog dialog = new GeneralDialog(mMvpView.getContext());
-        dialog
-                .setContent("抱歉，无法完成预约，没有更多钻石了。")
-                .setCallBack(new GeneralDialog.CallBack() {
-                    @Override
-                    public void submitClick(Dialog dialog) {
-                        ((BaseActivity) mMvpView.getContext())
-                                .getNavigator()
-                                .navtoCoinPay((Activity) mMvpView.getContext(), null);
-                    }
-
-                    @Override
-                    public void cancelClick(Dialog dialog) {
-
-                    }
-                })
-                .setCancelText("我没钱")
-                .setSubmitText("我要充值")
-                .show();
+        NoMoreMoneyDialog(mMvpView.getContext(), "抱歉，无法完成预约，没有更多钻石了。");
     }
 }

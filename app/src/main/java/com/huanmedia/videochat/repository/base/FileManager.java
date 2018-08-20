@@ -68,15 +68,7 @@ public interface FileManager {
      * @param params
      * @param handler
      */
-    void changeImageInfo(Context context, FileInfoChangeRequest params, String image, HttpResponseHandler handler);
+    void changeFileInfo(Context context, FileInfoChangeRequest params, String image, HttpResponseHandler handler);
 
 
-    /**
-     * 改变视频信息
-     *
-     * @param context
-     * @param params
-     * @param handler
-     */
-    void changeVideoInfo(Context context, FileInfoChangeRequest params, String videoImage, HttpResponseHandler handler);
 }

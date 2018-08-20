@@ -95,27 +95,17 @@ public class FileManagerImpl extends BaseManagerImpl implements FileManager {
     }
 
     @Override
-    public void changeImageInfo(Context context, FileInfoChangeRequest params, String image, HttpResponseHandler handler) {
+    public void changeFileInfo(Context context, FileInfoChangeRequest params, String image, HttpResponseHandler handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         if (image == null || image.length() == 0) {
-            requestPost(context, mApiService.updateImages(paramsMap), handler);
+            requestPost(context, mApiService.updateFileData(paramsMap), handler);
         } else {
             HashMap<String, RequestBody> fileMap = upImages(image);
-            requestPost(context, mApiService.updateImages(paramsMap, fileMap), handler);
+            requestPost(context, mApiService.updateFileData(paramsMap, fileMap), handler);
         }
 
     }
 
-    @Override
-    public void changeVideoInfo(Context context, FileInfoChangeRequest params, String videoImage, HttpResponseHandler handler) {
-        Map<String, Object> paramsMap = objectToMap(params);
-        if (videoImage == null || videoImage.length() == 0) {
-            requestPost(context, mApiService.updateViedoData(paramsMap), handler);
-        } else {
-            HashMap<String, RequestBody> fileMap = upImages(videoImage);
-            requestPost(context, mApiService.updateViedoData(paramsMap, fileMap), handler);
-        }
-    }
 
     /**
      * 上传图片

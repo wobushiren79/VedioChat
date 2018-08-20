@@ -19,6 +19,7 @@ import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
+import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
 import com.huanmedia.videochat.mvp.entity.results.RewardResults;
@@ -491,19 +492,6 @@ public interface RemoteApiService {
     );
 
     @Multipart
-    @POST("/index/userext/updateuserphoto")
-    Observable<DataResponse<ArrayList<PhotosEntity>>> updateImages(
-            @QueryMap Map<String, Object> parms,
-            @PartMap() Map<String, RequestBody> partMap
-    );
-
-    @FormUrlEncoded
-    @POST("/index/userext/updateuserphoto")
-    Observable<DataResponse<ArrayList<PhotosEntity>>> updateImages(
-            @FieldMap Map<String, Object> parms
-    );
-
-    @Multipart
     @POST("/index/userextv2/ossvoidupload")
     Observable<DataResponse<UserVideoDataResults>> uploadViedoData(
             @QueryMap Map<String, Object> parms,
@@ -511,15 +499,15 @@ public interface RemoteApiService {
     );
 
     @Multipart
-    @POST("/index/userextv2/ossvoidupload")
-    Observable<DataResponse<UserVideoDataResults>> updateViedoData(
+    @POST("/index/userext/chagephotovoiddata")
+    Observable<DataResponse<UserVideoDataResults>> updateFileData(
             @QueryMap Map<String, Object> parms,
             @PartMap() Map<String, RequestBody> partMap
     );
 
     @FormUrlEncoded
-    @POST("/index/userextv2/ossvoidupload")
-    Observable<DataResponse<UserVideoDataResults>> updateViedoData(
+    @POST("/index/userext/chagephotovoiddata")
+    Observable<DataResponse<UserVideoDataResults>> updateFileData(
             @FieldMap Map<String, Object> parms
     );
 
@@ -543,6 +531,16 @@ public interface RemoteApiService {
     @POST("/index/userextv2/selfossvoidlist")
     @FormUrlEncoded
     Observable<DataResponse<List<VideoEntity>>> userVideoList(@FieldMap Map<String, Object> params);
+
+    //检测是否拥有此文件
+    @POST("/index/userextv2/userhasviewimgvoid")
+    @FormUrlEncoded
+    Observable<DataResponse<FileManageResults>> checkHasFile(@FieldMap Map<String, Object> params);
+
+    //支付此视频
+    @POST("/index/chatpage/coinforviewimgvoide")
+    @FormUrlEncoded
+    Observable<DataResponse<FileManageResults>> payFile(@FieldMap Map<String, Object> params);
 
     /**
      * 创建一个API服务

@@ -18,4 +18,19 @@
         android:src="@drawable/icon_headportrait"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="@dimen/dimen_8dp" />
+
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/base_bg_round_theme_8"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen_6dp"
+        android:paddingLeft="@dimen/dimen_22dp"
+        android:paddingRight="@dimen/dimen_22dp"
+        android:paddingTop="@dimen/dimen_6dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_24dp" />
 </FrameLayout>

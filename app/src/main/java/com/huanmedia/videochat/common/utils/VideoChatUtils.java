@@ -2,6 +2,7 @@ package com.huanmedia.videochat.common.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.common.BaseActivity;
@@ -107,5 +108,33 @@ public class VideoChatUtils {
         videoChatEntity.setFromuid(fromuid);
         condition.getAppointmentConfig().setVideoChatConfig(videoChatEntity);
         activity.getNavigator().navtoCalling(activity, condition, "连接中...; ");
+    }
+
+
+    /**
+     * 没有更多砖石提示
+     * @param context
+     * @param msg
+     */
+    public static void NoMoreMoneyDialog(Context context, String msg) {
+        GeneralDialog dialog = new GeneralDialog(context);
+        dialog
+                .setContent(msg)
+                .setCallBack(new GeneralDialog.CallBack() {
+                    @Override
+                    public void submitClick(Dialog dialog) {
+                        ((BaseActivity) context)
+                                .getNavigator()
+                                .navtoCoinPay((Activity) context, null);
+                    }
+
+                    @Override
+                    public void cancelClick(Dialog dialog) {
+
+                    }
+                })
+                .setCancelText("我没钱")
+                .setSubmitText("我要充值")
+                .show();
     }
 }

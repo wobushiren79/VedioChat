@@ -7,7 +7,9 @@ public interface IFileInfoChangePresenter {
      * @param fileId
      * @param changePrice
      */
-    void changePrice(int fileId, int changePrice);
+    void changePhotoPrice(int fileId, int changePrice);
+
+    void changeVideoPrice(int fileId, int changePrice);
 
     /**
      * 修改共有私有
@@ -15,7 +17,9 @@ public interface IFileInfoChangePresenter {
      * @param fileId
      * @param changeType 1共有 2私有
      */
-    void changeType(int fileId, int changeType);
+    void changePhotoType(int fileId, int changeType);
+
+    void changeVideoType(int fileId, int changeType);
 
     /**
      * 修改标签
@@ -23,5 +27,7 @@ public interface IFileInfoChangePresenter {
      * @param fileId
      * @param changeTag
      */
-    void changeTag(int fileId, String changeTag);
+    void changePhotoTag(int fileId, String changeTag);
+
+    void changeVideoTag(int fileId, String changeTag);
 }

@@ -12,6 +12,7 @@ import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatListRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatReadRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
+import com.huanmedia.videochat.mvp.entity.request.FileManageRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
 import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
@@ -34,6 +35,7 @@ import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
+import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
 import com.huanmedia.videochat.mvp.entity.results.RewardResults;
@@ -263,6 +265,18 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void getUserVideoList(Context context, UserVideoListRequest params, HttpResponseHandler<List<VideoEntity>> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.userVideoList(paramsMap), handler);
+    }
+
+    @Override
+    public void checkHasFile(Context context, FileManageRequest params, HttpResponseHandler<FileManageResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.checkHasFile(paramsMap), handler, true);
+    }
+
+    @Override
+    public void payFile(Context context, FileManageRequest params, HttpResponseHandler<FileManageResults> handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.payFile(paramsMap), handler, true);
     }
 
 

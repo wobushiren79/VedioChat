@@ -7,22 +7,13 @@ import com.huanmedia.videochat.mvp.entity.request.FileInfoChangeRequest;
 
 public interface IFileInfoChangeModel {
     /**
-     * 图片文件信息修改
+     * 文件信息修改
      *
      * @param context
      * @param params
      * @param image
      * @param callBack
      */
-    void changeImageInfo(Context context, FileInfoChangeRequest params, String image, DataCallBack callBack);
+    void changeFileInfo(Context context, FileInfoChangeRequest params, String image, DataCallBack callBack);
 
-    /**
-     * 视频文件信息修改
-     *
-     * @param context
-     * @param params
-     * @param videoImage
-     * @param callBack
-     */
-    void changeVideoInfo(Context context, FileInfoChangeRequest params, String videoImage, DataCallBack callBack);
 }

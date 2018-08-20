@@ -19,11 +19,15 @@ import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.presenter.file.FileHandlerPresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.file.FileInfoChangePresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.file.IFileHandlerPresenter;
+import com.huanmedia.videochat.mvp.presenter.file.IFileInfoChangePresenter;
 import com.huanmedia.videochat.mvp.presenter.video.IUserVideoListPresenter;
 import com.huanmedia.videochat.mvp.presenter.video.UserVideoListPresenterImpl;
 import com.huanmedia.videochat.mvp.view.file.IFileHandlerView;
+import com.huanmedia.videochat.mvp.view.file.IFileInfoChangeView;
 import com.huanmedia.videochat.mvp.view.video.IUserVideoListView;
+import com.huanmedia.videochat.my.PhotosActivity;
 import com.huanmedia.videochat.my.UserInfoEditActivity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 
@@ -37,7 +41,7 @@ import butterknife.OnClick;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
-public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerView, IUserVideoListView {
+public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerView, IUserVideoListView, IFileInfoChangeView {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -45,12 +49,17 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     RecyclerView mMediaUpLoadRV;
     @BindView(R.id.tv_delete)
     TextView mTVDelete;
+    @BindView(R.id.tv_delete_2)
+    TextView mTVDelete2;
+    @BindView(R.id.tv_change)
+    TextView mTVChange;
 
     private MediaUpLoadAdapter mUpLoadAdapter;
     private List<VideoEntity> mListVideoData;
 
     private IFileHandlerPresenter mFileHandlerPresenter;
     private IUserVideoListPresenter mVideoListPresenter;
+    private IFileInfoChangePresenter mFileInfoChangePresenter;
 
     @UpLoadType
     private int mUpLoadType;
@@ -123,6 +132,7 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
         super.initData();
         mFileHandlerPresenter = new FileHandlerPresenterImpl(this);
         mVideoListPresenter = new UserVideoListPresenterImpl(this);
+        mFileInfoChangePresenter = new FileInfoChangePresenterImpl(this);
         mUpLoadAdapter = new MediaUpLoadAdapter(this);
         mUpLoadAdapter.setUploadType(mUpLoadType);
         mMediaUpLoadRV.setAdapter(mUpLoadAdapter);
@@ -174,12 +184,23 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.video_menu_edit:
+
                 if (item.getTitle().toString().equals("编辑")) {
                     item.setTitle("取消");
-                    mTVDelete.setVisibility(View.VISIBLE);
+                    if (mUpLoadType == PhotosActivity.UpLoadType.SECRET) {
+                        mTVDelete.setVisibility(View.GONE);
+                        mTVChange.setVisibility(View.VISIBLE);
+                        mTVDelete2.setVisibility(View.VISIBLE);
+                    } else {
+                        mTVDelete.setVisibility(View.VISIBLE);
+                        mTVChange.setVisibility(View.GONE);
+                        mTVDelete2.setVisibility(View.GONE);
+                    }
                 } else {
                     item.setTitle("编辑");
                     mTVDelete.setVisibility(View.GONE);
+                    mTVChange.setVisibility(View.GONE);
+                    mTVDelete2.setVisibility(View.GONE);
                 }
                 mUpLoadAdapter.changeItemMode();
                 break;
@@ -224,11 +245,17 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
         ToastUtils.showToastLong(this, toast);
     }
 
-    @OnClick({R.id.tv_delete})
+    @OnClick({R.id.tv_delete, R.id.tv_delete_2, R.id.tv_change})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_delete:
+            case R.id.tv_delete_2:
                 mUpLoadAdapter.deleteUserVideo();
+                break;
+            case R.id.tv_change:
+                for (String item : mUpLoadAdapter.getSelectVideoIds()) {
+                    mFileInfoChangePresenter.changeVideoType(Integer.valueOf(item), 1);
+                }
                 break;
         }
     }
@@ -251,4 +278,26 @@ public class MediaUpLoadActivity extends BaseActivity implements IFileHandlerVie
     public void getUserVideoListFail(String msg) {
 
     }
+
+    //-----------------文件信息修改---------------
+    @Override
+    public void changeFileInfoSuccess(int fileId) {
+        List<VideoEntity> listData = mUpLoadAdapter.getData();
+        VideoEntity removeItem = null;
+        for (VideoEntity item : listData) {
+            if (item.getId() == fileId) {
+                removeItem = item;
+            }
+        }
+        if (removeItem != null) {
+            VideoEntity[] reomveData = new VideoEntity[]{removeItem};
+            mUpLoadAdapter.removeData(reomveData);
+        }
+    }
+
+    @Override
+    public void changeFileInfoFail(String msg) {
+
+    }
+
 }

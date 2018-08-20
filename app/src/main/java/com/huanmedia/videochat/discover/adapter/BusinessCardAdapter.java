@@ -2,6 +2,7 @@ package com.huanmedia.videochat.discover.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
@@ -13,22 +14,32 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huanmedia.hmalbumlib.HM_StartSeePhoto;
 import com.huanmedia.ilibray.utils.DisplayUtil;
+import com.huanmedia.ilibray.utils.ImageUtils;
 import com.huanmedia.ilibray.utils.Spanny;
 import com.huanmedia.ilibray.utils.TextViewDrawableUtils;
+import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.ilibray.utils.recycledecoration.RecyclerViewItemDecoration;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
-import com.huanmedia.videochat.common.navigation.Navigator;
+import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout;
 import com.huanmedia.videochat.main2.weight.GoodProgressView;
+import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
+import com.huanmedia.videochat.mvp.presenter.file.FileManagePresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.file.IFileManagePresenter;
+import com.huanmedia.videochat.mvp.view.file.IFileManageCheckView;
+import com.huanmedia.videochat.mvp.view.file.IFileManagePayView;
 import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
 import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
 import com.huanmedia.videochat.repository.entity.PhotosEntity;
@@ -40,6 +51,9 @@ import java.util.List;
 
 import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.GlideUtils;
+import mvp.data.store.glide.transform.BlurTransformation;
+
+import static com.huanmedia.videochat.common.utils.VideoChatUtils.NoMoreMoneyDialog;
 
 /**
  * Create by Administrator
@@ -48,7 +62,7 @@ import mvp.data.store.glide.GlideUtils;
  * version: ${VERSION}
  */
 
-public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMultiItem, BaseViewHolder> {
+public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMultiItem, BaseViewHolder> implements IFileManagePayView, IFileManageCheckView {
 
     private String mDistance;
     private BaseQuickAdapter<PhotosEntity, BaseViewHolder> mHeaderPhotosAdapter;
@@ -58,6 +72,10 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
     private @BusinessCardFragment.ShowType
     int mShowType;
     private BusinessAdapterListener mBusinessAdapterListener;
+    private List<VideoEntity> listAllVideo;
+    private List<PhotosEntity> listAllPhoto;
+
+    private IFileManagePresenter mFileManagePresenter;
 
     public void setBusinessAdapterListener(BusinessAdapterListener businessAdapterListener) {
         mBusinessAdapterListener = businessAdapterListener;
@@ -71,6 +89,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
         addItemType(BusinessMultiItem.BusinessType.HEADER, R.layout.item_business_card_baseinfo);
         addItemType(BusinessMultiItem.BusinessType.TAG, R.layout.item_business_card_user_tag);
         addItemType(BusinessMultiItem.BusinessType.EVALUATE, R.layout.item_business_card_evaluate);
+        mFileManagePresenter = new FileManagePresenterImpl(this, this);
     }
 
     @Override
@@ -183,23 +202,45 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                 @Override
                 protected void convert(BaseViewHolder helper, PhotosEntity item) {
                     ImageView iv = helper.getView(R.id.item_discoverinfo_iv);
-                    GlideApp.with(mContext)
-                            .asBitmap()
-                            .load(item.getPhoto_thumb())
-                            .override(mItemSize, mItemSize)
-                            .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot)
-                            .error(com.huanmedia.ilibray.R.drawable.bg_logot)
-                            .into(iv);
+                    TextView tvTag = helper.getView(R.id.tv_tag);
+                    if (item.getPlevel() == 1) {
+                        tvTag.setVisibility(View.GONE);
+                        GlideApp.with(mContext)
+                                .asBitmap()
+                                .load(item.getPhoto_thumb())
+                                .override(mItemSize, mItemSize)
+                                .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot)
+                                .error(com.huanmedia.ilibray.R.drawable.bg_logot)
+                                .into(iv);
+
+                    } else {
+                        if (item.getTag() != null && !item.getTag().equals("")) {
+                            tvTag.setVisibility(View.VISIBLE);
+                            tvTag.setText(item.getTag());
+                        } else {
+                            tvTag.setVisibility(View.GONE);
+                        }
+
+                        GlideApp.with(context)
+                                .asBitmap()
+                                .override(100, 100)
+                                .load(item.getPhoto_thumb())
+                                .transform(new BlurTransformation(context, 25))
+                                .into(iv);
+                    }
+
                 }
             };
             photoRv.addItemDecoration(mCurrentItemDecoration);
             photoRv.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    new HM_StartSeePhoto.Bulide(mContext, new HM_GlideEngine())
-                            .setList(adapter.getData())
-                            .setCurrentSelect(position)
-                            .bulide();
+                    PhotosEntity item = mHeaderPhotosAdapter.getData().get(position);
+                    if (item.getPlevel() == 2) {
+                        mFileManagePresenter.checkHasPhotoFile(item.getId());
+                    } else {
+                        seePublicPhoto(listAllPhoto, position);
+                    }
                 }
             });
             photoRv.setAdapter(mHeaderPhotosAdapter);
@@ -216,18 +257,42 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                 @Override
                 protected void convert(BaseViewHolder helper, VideoEntity item) {
                     ImageView iv = helper.getView(R.id.iv_icon);
-                    GlideApp.with(mContext)
-                            .asBitmap()
-                            .load(item.getImgurl())
+                    TextView tvTag = helper.getView(R.id.tv_tag);
+                    if (item.getPlevel() == 1) {
+                        tvTag.setVisibility(View.GONE);
+                        GlideApp.with(mContext)
+                                .asBitmap()
+                                .load(item.getImgurl())
 //                            .override(mItemSize, mItemSize)
-                            .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot).error(com.huanmedia.ilibray.R.drawable.bg_logot)
-                            .into(iv);
+                                .placeholder(com.huanmedia.ilibray.R.drawable.bg_logot).error(com.huanmedia.ilibray.R.drawable.bg_logot)
+                                .into(iv);
+                    } else {
+                        if (item.getTag() != null && !item.getTag().equals("")) {
+                            tvTag.setVisibility(View.VISIBLE);
+                            tvTag.setText(item.getTag());
+                        } else {
+                            tvTag.setVisibility(View.GONE);
+                        }
+
+                        GlideApp.with(context)
+                                .asBitmap()
+                                .override(100, 100)
+                                .load(item.getImgurl())
+                                .transform(new BlurTransformation(context, 25))
+                                .into(iv);
+                    }
+
                 }
             };
             videoRv.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    ((BaseActivity) context).getNavigator().navtoMediaPlay((Activity) context, (ArrayList<VideoEntity>) mHeaderVideoAdapter.getData(), position);
+                    VideoEntity item = mHeaderVideoAdapter.getData().get(position);
+                    if (item.getPlevel() == 2) {
+                        mFileManagePresenter.checkHasVideoFile(item.getId());
+                    } else {
+                        seePublicVideo(listAllVideo, position);
+                    }
                 }
             });
             videoRv.addItemDecoration(mCurrentItemDecoration);
@@ -247,8 +312,8 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
         headerHolder
                 .setVisible(R.id.business_card_tv_distance, businessCard.getIsstarauth() == 1)//非红人隐藏距离信息
                 .setVisible(R.id.business_card_tv_charge, businessCard.getIsstarauth() == 1)//非红人隐藏价格信息
-                .setVisible(R.id.business_card_cb_attention,businessCard.getIsstarauth() == 1)//非红人隐藏关注
-                .setVisible(R.id.business_card_tv_cl_trustValue,businessCard.getIsstarauth() == 1)//非红人隐藏信任值
+                .setVisible(R.id.business_card_cb_attention, businessCard.getIsstarauth() == 1)//非红人隐藏关注
+                .setVisible(R.id.business_card_tv_cl_trustValue, businessCard.getIsstarauth() == 1)//非红人隐藏信任值
                 //用户基础信息
                 .setText(R.id.business_card_tv_nickName, Check.checkReplace(businessCard.getNickname()))
                 .setText(R.id.business_card_tv_level, String.format("LV.%d", businessCard.getLevel()))
@@ -278,15 +343,213 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
                 businessCard.getIsstarauth() == 1 ? ContextCompat.getDrawable(mContext, R.drawable.icon_hot)
                         : null, null, null, null);
 
-        configAdapter(headerHolder.getView(R.id.business_card_rv_photos), headerHolder.getView(R.id.business_card_rv_video));
-        mHeaderPhotosAdapter.setNewData(businessCard.getPhpots());
-        mHeaderVideoAdapter.setNewData(businessCard.getVoides());
+        RecyclerView rvPhotos = headerHolder.getView(R.id.business_card_rv_photos);
+        RecyclerView rvVideo = headerHolder.getView(R.id.business_card_rv_video);
+
+        listAllVideo = businessCard.getVoides();
+        listAllPhoto = businessCard.getPhpots();
+
+        configAdapter(rvPhotos, rvVideo);
+
+        TextView tvVideoMore = headerHolder.getView(R.id.business_card_video_more);
+        TextView tvPhotoMore = headerHolder.getView(R.id.business_card_photo_more);
+        setVideoList(tvVideoMore, listAllVideo);
+        setPhotoList(tvPhotoMore, listAllPhoto);
+//        mHeaderPhotosAdapter.setNewData(businessCard.getPhpots());
+//        mHeaderVideoAdapter.setNewData(businessCard.getVoides());
         if (businessCard.getVoides() == null || businessCard.getVoides().size() == 0) {
             headerHolder.setGone(R.id.business_card_ll_video, false);
         } else {
             headerHolder.setGone(R.id.business_card_ll_video, true);
         }
 
+        if (businessCard.getVoides().size() <= 6)
+            tvVideoMore.setVisibility(View.GONE);
+        if (businessCard.getPhpots().size() <= 6)
+            tvPhotoMore.setVisibility(View.GONE);
+        tvVideoMore.setOnClickListener(view -> {
+            setVideoList(tvVideoMore, businessCard.getVoides());
+        });
+        tvPhotoMore.setOnClickListener(view -> {
+            setPhotoList(tvPhotoMore, businessCard.getPhpots());
+        });
+    }
+
+
+    private void setVideoList(TextView title, List<VideoEntity> videoList) {
+        if (isVideoListShow) {
+            isVideoListShow = false;
+            title.setText("更多");
+            if (videoList.size() <= 6) {
+                mHeaderVideoAdapter.setNewData(videoList);
+            } else {
+                List newList = videoList.subList(0, 6);
+                mHeaderVideoAdapter.setNewData(newList);
+            }
+        } else {
+            isVideoListShow = true;
+            title.setText("回收");
+            mHeaderVideoAdapter.setNewData(videoList);
+        }
+    }
+
+    private void setPhotoList(TextView title, List<PhotosEntity> photoList) {
+        if (isPhotoListShow) {
+            isPhotoListShow = false;
+            title.setText("更多");
+            if (photoList.size() <= 6) {
+                mHeaderPhotosAdapter.setNewData(photoList);
+            } else {
+                List newList = photoList.subList(0, 6);
+                mHeaderPhotosAdapter.setNewData(newList);
+            }
+        } else {
+            isPhotoListShow = true;
+            title.setText("回收");
+            mHeaderPhotosAdapter.setNewData(photoList);
+        }
+    }
+
+    boolean isPhotoListShow = true;
+    boolean isVideoListShow = true;
+
+    /**
+     * 查看公开照片
+     *
+     * @param listPhoto
+     * @param position
+     */
+    private void seePublicPhoto(List<PhotosEntity> listPhoto, int position) {
+//        List<PhotosEntity> publicPhotoList = new ArrayList<>();
+//        int removePosition = 0;
+//        for (int i = 0; i < listPhoto.size(); i++) {
+//            PhotosEntity item = listPhoto.get(i);
+//            if (item.getPlevel() == 1) {
+//                publicPhotoList.add(item);
+//            } else {
+//                if (position > i)
+//                    removePosition++;
+//            }
+//        }
+//        position -= removePosition;
+//        new HM_StartSeePhoto.Bulide(mContext, new HM_GlideEngine())
+//                .setList(listPhoto)
+//                .setCurrentSelect(position)
+//                .bulide();
+        ((BaseActivity) mContext)
+                .getNavigator()
+                .navtoPhotoShow((Activity) mContext, listPhoto, position, true);
+    }
+
+
+    /**
+     * 查看公开视频
+     *
+     * @param listVideo
+     * @param position
+     */
+    private void seePublicVideo(List<VideoEntity> listVideo, int position) {
+//        ArrayList<VideoEntity> publicVideoList = new ArrayList<>();
+//        int removePosition = 0;
+//        for (int i = 0; i < listVideo.size(); i++) {
+//            VideoEntity item = listVideo.get(i);
+//            if (item.getPlevel() == 1) {
+//                publicVideoList.add(item);
+//            } else {
+//                if (position > i)
+//                    removePosition++;
+//            }
+//        }
+//        position -= removePosition;
+        ((BaseActivity) mContext)
+                .getNavigator()
+                .navtoMediaPlay((Activity) mContext, listVideo, position);
+    }
+
+
+    //-----------文件处理------------------------
+    @Override
+    public void checkHasFileSuccess(int fileID, int fileType, FileManageResults results) {
+        if (results.getHasread() == 1) {
+            payFileSuccess(fileID, fileType, results);
+        } else {
+            String dialogTitle = "";
+            if (fileType == 1) {
+                dialogTitle = "您确定要查看私照吗？";
+            } else if (fileType == 2) {
+                dialogTitle = "您确定要查看视频吗？";
+            }
+            GeneralDialog dialog = new GeneralDialog(mContext);
+            dialog
+                    .setContent("将消耗您" + results.getVcoin() + "钻石")
+                    .setTitle(dialogTitle)
+                    .setCallBack(new GeneralDialog.CallBack() {
+                        @Override
+                        public void submitClick(Dialog dialog) {
+                            if (UserManager.getInstance().getCurrentUser().getUserinfo().getCoin() < results.getVcoin()) {
+                                NoMoreMoneyDialog(mContext, "抱歉，无法查看，没有更多钻石了。");
+                            } else {
+                                if (fileType == 1) {
+                                    mFileManagePresenter.payPhotoFile(fileID);
+                                } else if (fileType == 2) {
+                                    mFileManagePresenter.payVideoFile(fileID);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void cancelClick(Dialog dialog) {
+
+                        }
+                    })
+                    .show();
+        }
+
+    }
+
+    @Override
+    public void checkHasFileFail(String msg) {
+
+    }
+
+    @Override
+    public void payFileSuccess(int fileID, int fileType, FileManageResults results) {
+        if (fileType == 1) {
+            for (int i = 0; i < listAllPhoto.size(); i++) {
+                PhotosEntity item = listAllPhoto.get(i);
+                if (item.getId() == fileID) {
+                    item.setPlevel(1);
+                    mHeaderPhotosAdapter.notifyItemChanged(i);
+                    seePublicPhoto(listAllPhoto, i);
+                    break;
+                }
+            }
+        } else if (fileType == 2) {
+            for (int i = 0; i < listAllVideo.size(); i++) {
+                VideoEntity item = listAllVideo.get(i);
+                if (item.getId() == fileID) {
+                    item.setPlevel(1);
+                    mHeaderVideoAdapter.notifyItemChanged(i);
+                    seePublicVideo(listAllVideo, i);
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void payFileFail(String msg) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return mContext;
+    }
+
+    @Override
+    public void showToast(String toast) {
+        ToastUtils.showToastShortInCenter(getContext(), toast);
     }
 
     public static interface BusinessAdapterListener {

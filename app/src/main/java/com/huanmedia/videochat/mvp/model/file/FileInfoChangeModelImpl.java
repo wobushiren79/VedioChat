@@ -12,8 +12,8 @@ import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
 public class FileInfoChangeModelImpl extends BaseMVPModel implements IFileInfoChangeModel {
 
     @Override
-    public void changeImageInfo(Context context, FileInfoChangeRequest params, String image, DataCallBack callBack) {
-        MHttpManagerFactory.getFileManager().changeImageInfo(context, params, image, new HttpResponseHandler() {
+    public void changeFileInfo(Context context, FileInfoChangeRequest params, String image, DataCallBack callBack) {
+        MHttpManagerFactory.getFileManager().changeFileInfo(context, params, image, new HttpResponseHandler() {
             @Override
             public void onSuccess(Object result) {
                 callBack.getDataSuccess(result);
@@ -26,18 +26,4 @@ public class FileInfoChangeModelImpl extends BaseMVPModel implements IFileInfoCh
         });
     }
 
-    @Override
-    public void changeVideoInfo(Context context, FileInfoChangeRequest params, String videoImage, DataCallBack callBack) {
-        MHttpManagerFactory.getFileManager().changeVideoInfo(context, params, videoImage, new HttpResponseHandler() {
-            @Override
-            public void onSuccess(Object result) {
-                callBack.getDataSuccess(result);
-            }
-
-            @Override
-            public void onError(String message) {
-                callBack.getDataFail(message);
-            }
-        });
-    }
 }

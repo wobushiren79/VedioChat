@@ -14,4 +14,14 @@ public class BaseMVPPresenter<T extends BaseMVPView, V extends BaseMVPModel> {
             e.printStackTrace();
         }
     }
+
+    public BaseMVPPresenter(Class<V> cls) {
+        try {
+            this.mMvpModel = cls.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 }

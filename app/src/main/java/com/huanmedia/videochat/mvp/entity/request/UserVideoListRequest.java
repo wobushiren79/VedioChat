@@ -2,7 +2,7 @@ package com.huanmedia.videochat.mvp.entity.request;
 
 public class UserVideoListRequest {
     private int type;
-    private int status;
+    private Integer status;
     private int limit;
 
     public int getType() {

@@ -8,15 +8,14 @@
     tools:context=".media.MediaPlayActivity">
 
 
-    <com.huanmedia.videochat.media.view.MediaPlayListLayout
-        android:id="@+id/media_vp"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"></com.huanmedia.videochat.media.view.MediaPlayListLayout>
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
 
     <TextView
-        android:id="@+id/media_tv_page"
+        android:id="@+id/photo_tv_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
