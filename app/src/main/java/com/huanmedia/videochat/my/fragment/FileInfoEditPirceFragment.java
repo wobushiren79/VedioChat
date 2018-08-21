@@ -20,6 +20,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+
 @SuppressLint("ValidFragment")
 public class FileInfoEditPirceFragment extends BaseFragment {
     public final String TAG = "FileInfoEditPirceFragment";
@@ -55,6 +56,11 @@ public class FileInfoEditPirceFragment extends BaseFragment {
         mPirceList = new String[9];
         for (int i = 0; i < mPirceList.length; i++) {
             mPirceList[i] = (100 + 100 * i) + "";
+        }
+        if (mFileType == 1) {
+            mTVPriceTitle.setText("私照价格");
+        } else if (mFileType == 2) {
+            mTVPriceTitle.setText("视频价格");
         }
     }
 

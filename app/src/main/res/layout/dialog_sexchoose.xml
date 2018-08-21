@@ -16,48 +16,81 @@
         android:textColor="@color/base_black"
         android:textSize="@dimen/dimen_36dp" />
 
-    <RadioGroup
-        android:id="@+id/dialog_sex_radioGroup"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_96dp"
-        android:gravity="center"
+        android:layout_height="@dimen/dimen_250dp"
         android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/dialog_radioMan"
-            android:layout_width="@dimen/dimen_42dp"
-            android:layout_height="@dimen/dimen_42dp"
-            android:layout_gravity="center"
-            android:background="@drawable/rb_style_1"
-            android:button="@null"
-            android:tag="1" />
+        <LinearLayout
+            android:id="@+id/ll_man"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_140dp"
+                android:layout_height="@dimen/dimen_52dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_sex_man" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:text="男"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_32dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:text="MALE"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/dimen_20dp" />
+        </LinearLayout>
 
         <TextView
+            android:layout_width="@dimen/dimen_1dp"
+            android:layout_height="match_parent"
+            android:background="@color/divide_gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_woman"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dimen_8dp"
-            android:layout_marginRight="@dimen/dimen_32dp"
-            android:text="男"
-            android:textColor="@color/base_gray"
-            android:textSize="@dimen/dimen_36dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/dialog_radioWMan"
-            android:layout_width="@dimen/dimen_42dp"
-            android:layout_height="@dimen/dimen_42dp"
-            android:layout_marginLeft="@dimen/dimen_32dp"
-            android:layout_marginRight="@dimen/dimen_8dp"
-            android:background="@drawable/rb_style_1"
-            android:button="@null"
-            android:tag="2" />
+            <ImageView
+                android:layout_width="@dimen/dimen_140dp"
+                android:layout_height="@dimen/dimen_52dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_sex_woman" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="女"
-            android:textColor="@color/base_gray"
-            android:textSize="@dimen/dimen_36dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:text="女"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_32dp" />
 
-    </RadioGroup>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:text="WOMAN"
+                android:textColor="@color/base_gray"
+                android:textSize="@dimen/dimen_20dp" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

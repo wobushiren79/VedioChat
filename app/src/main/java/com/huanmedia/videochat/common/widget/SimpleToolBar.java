@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -200,8 +201,11 @@ public class SimpleToolBar implements View.OnClickListener {
      */
     public SimpleToolBar centerBtn(String title, @DrawableRes int icon, @ColorInt int color) {
         showView(actionCenterBtn);
-        if (title!=null)
-        actionCenterBtn.setText(title);
+        if (title!=null){
+            actionCenterBtn.setText(title);
+            TextPaint paint = actionCenterBtn.getPaint();
+            paint.setFakeBoldText(true);
+        }
         if (icon!=0)
         setActionBarIcon(icon,actionCenterBtn.getId());
         if (color!=0)

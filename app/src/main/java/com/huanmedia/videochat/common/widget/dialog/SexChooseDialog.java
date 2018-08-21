@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,15 +25,15 @@ import butterknife.Unbinder;
  * version: ${VERSION}
  */
 
-public class SexChooseDialog extends Dialog {
+public class SexChooseDialog extends Dialog implements View.OnClickListener {
     private View mRootView;
     private Unbinder mBind;
     private TextView mTitle;
-    private RadioGroup mRaidoGroup;
     private CheckedSexListener mCheckedSexListener;
     private Integer mDefault;
-    private RadioButton radioMan;
-    private RadioButton radioWMan;
+    private LinearLayout mLLMan;
+    private LinearLayout mLLWoman;
+
 
     public SexChooseDialog(@NonNull Context context) {
         super(context, R.style.customDialog_upward);
@@ -57,38 +58,25 @@ public class SexChooseDialog extends Dialog {
         initView();
     }
 
-    @Override
-    public void dismiss() {
-        if (mCheckedSexListener != null) {
-            RadioButton radioButton = mRaidoGroup.findViewById(mRaidoGroup.getCheckedRadioButtonId());
-            if (radioButton != null)
-                if (radioButton == radioMan) {
-                    mCheckedSexListener.checked("男", Integer.parseInt(radioButton.getTag().toString()));
-                } else {
-                    mCheckedSexListener.checked("女", Integer.parseInt(radioButton.getTag().toString()));
-                }
-        }
-        super.dismiss();
-
-    }
 
     @SuppressLint("ResourceType")
     private void initView() {
         mTitle = findViewById(R.id.dialog_sex_title);
-        mRaidoGroup = findViewById(R.id.dialog_sex_radioGroup);
-        if (mDefault != null) {
-            if (mDefault == 1) {
-                mRaidoGroup.check(R.id.dialog_radioMan);
-            }
-            if (mDefault == 2) {
-                mRaidoGroup.check(R.id.dialog_radioWMan);
-            }
+        mLLMan = findViewById(R.id.ll_man);
+        mLLWoman = findViewById(R.id.ll_woman);
+
+        mLLMan.setOnClickListener(this);
+        mLLWoman.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == mLLMan) {
+            mCheckedSexListener.checked("男", 1);
+        } else if (view == mLLWoman) {
+            mCheckedSexListener.checked("女", 2);
         }
-        radioMan = findViewById(R.id.dialog_radioMan);
-        radioWMan = findViewById(R.id.dialog_radioWMan);
-        mRaidoGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            dismiss();
-        });
+        this.cancel();
     }
 
     public interface CheckedSexListener {

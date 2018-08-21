@@ -23,21 +23,21 @@
 
     <FrameLayout
         android:id="@+id/complete_info_fl_header"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="@dimen/dimen_170dp"
+        android:layout_height="@dimen/dimen_170dp"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp">
 
         <ImageView
             android:id="@+id/complete_info_iv_header"
-            android:layout_width="88dp"
-            android:layout_height="88dp"
+            android:layout_width="@dimen/dimen_170dp"
+            android:layout_height="@dimen/dimen_170dp"
             android:src="@drawable/icon_headportrait" />
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_50dp"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="-10dp"
             android:layout_marginRight="-10dp"
@@ -49,13 +49,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/complete_info_fl_header"
-        android:layout_marginRight="22dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_60dp"
         android:background="@null"
         android:hint="请输入昵称"
         android:maxLines="1"
-        android:paddingTop="8dp" />
+        android:paddingTop="8dp"
+        android:textSize="@dimen/dimen_32dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -75,19 +76,21 @@
         android:layout_below="@+id/complete_info_et_nickName"
         android:divider="@drawable/divider_ll"
         android:orientation="vertical"
-        android:paddingEnd="22dp"
-        android:paddingLeft="22dp"
-        android:paddingRight="22dp"
+        android:paddingLeft="@dimen/dimen_44dp"
+        android:paddingRight="@dimen/dimen_44dp"
         android:showDividers="middle">
 
         <RelativeLayout
             android:id="@+id/complete_info_rl_sex"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_44dp"
+            android:paddingBottom="@dimen/dimen_16dp">
 
             <TextView
+
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="性别"
                 android:textColor="@color/base_black"
@@ -96,7 +99,7 @@
             <TextView
                 android:id="@+id/complete_info_tv_sex"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:drawablePadding="4dp"
                 android:drawableRight="@drawable/icon_arrows"
@@ -109,11 +112,13 @@
         <RelativeLayout
             android:id="@+id/complete_info_rl_age"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_44dp"
+            android:paddingBottom="@dimen/dimen_16dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="年龄"
                 android:textColor="@color/base_black"
@@ -122,7 +127,7 @@
             <TextView
                 android:id="@+id/complete_info_tv_age"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:drawablePadding="4dp"
                 android:drawableRight="@drawable/icon_arrows"
@@ -163,14 +168,39 @@
             android:textSize="@dimen/dimen_32dp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/complete_info_ll_warring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/complete_info_ll_hint"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_44dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注："
+            android:textColor="@color/color_f65aa0"
+            android:textSize="@dimen/dimen_28dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请务必填写真实有效的信息"
+            android:textColor="@color/base_gray"
+            android:textSize="@dimen/dimen_28dp" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/complete_info_btn_complete"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_below="@+id/complete_info_ll_hint"
-        android:layout_marginRight="22dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="26dp"
+        android:layout_height="@dimen/dimen_94dp"
+        android:layout_below="@+id/complete_info_ll_warring"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_44dp"
         android:background="@drawable/base_btn_solid"
         android:text="完成"
         android:textColor="@color/white"
