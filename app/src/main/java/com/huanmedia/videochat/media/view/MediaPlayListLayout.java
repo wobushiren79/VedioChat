@@ -18,6 +18,7 @@ public class MediaPlayListLayout extends RecyclerView implements ViewPagerLayout
     private CallBack mCallBack;
 
     private int mCurrentPosition = 0;
+    private boolean mIsShowMask = false;
 
     public MediaPlayListLayout(Context context) {
         this(context, null);
@@ -38,6 +39,12 @@ public class MediaPlayListLayout extends RecyclerView implements ViewPagerLayout
     public void setCallBack(CallBack callBack) {
         mCallBack = callBack;
     }
+
+    public void setIsShowMask(boolean isShowMask) {
+        this.mIsShowMask = isShowMask;
+        mPtrAdapter.setIsShowMask(isShowMask);
+    }
+
 
     public void playVideo(int position) {
         mCurrentPosition = position;

@@ -39,11 +39,13 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     ImageView mIVExit;
 
     private List<VideoEntity> mListVedioData;
+    private boolean mIsShowMask;
 
-    public static Intent getCallingIntent(Context context, List<VideoEntity> vedios, int position) {
+    public static Intent getCallingIntent(Context context, List<VideoEntity> vedios, int position, boolean isShowMask) {
         Intent intent = new Intent(context, MediaPlayActivity.class);
         intent.putExtra("vedios", (ArrayList) vedios);
         intent.putExtra("position", position);
+        intent.putExtra("isShowMask", isShowMask);
         return intent;
     }
 
@@ -70,12 +72,14 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     protected void initData() {
         super.initData();
         mListVedioData = getIntent().getParcelableArrayListExtra("vedios");
+        int position = getIntent().getIntExtra("position", 0);
+        mIsShowMask = getIntent().getBooleanExtra("isShowMask", false);
         if (mListVedioData == null || mListVedioData.size() <= 0)
             return;
-        int position = getIntent().getIntExtra("position", 0);
         mMediaoVP.setListData(mListVedioData);
         mMediaoVP.scrollToPosition(position);
         mMediaoVP.playVideo(position);
+        mMediaoVP.setIsShowMask(mIsShowMask);
         mTVPage.setText((position + 1) + "/" + mListVedioData.size());
     }
 

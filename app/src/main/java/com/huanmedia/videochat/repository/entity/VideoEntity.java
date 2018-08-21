@@ -117,9 +117,13 @@ public class VideoEntity implements Parcelable {
         sb.append(", voideurl='").append(voideurl).append('\'');
         sb.append(", imgurl='").append(imgurl).append('\'');
         sb.append(", status='").append(status).append('\'');
+        sb.append(", plevel='").append(status).append('\'');
+        sb.append(", tag='").append(status).append('\'');
+        sb.append(", vcoin='").append(status).append('\'');
         sb.append('}');
         return sb.toString();
     }
+
 
     @Override
     public int describeContents() {
@@ -131,6 +135,9 @@ public class VideoEntity implements Parcelable {
         this.voideurl = in.readString();
         this.imgurl = in.readString();
         this.status = in.readInt();
+        this.plevel = in.readInt();
+        this.tag = in.readString();
+        this.vcoin = in.readInt();
     }
 
     public VideoEntity() {
@@ -142,5 +149,8 @@ public class VideoEntity implements Parcelable {
         dest.writeString(this.voideurl);
         dest.writeString(this.imgurl);
         dest.writeInt(this.status);
+        dest.writeInt(this.plevel);
+        dest.writeString(this.tag);
+        dest.writeInt(this.vcoin);
     }
 }

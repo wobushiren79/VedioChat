@@ -37,8 +37,10 @@ public class ShortVideoListPresenterImpl extends BaseMVPPresenter<IShortVideoLis
             public void getDataFail(String msg) {
                 if(mMvpView==null)
                     return;
-                mMvpView.getPtrLayoutForShortVideo().setRefreshComplete();
-                mMvpView.getShortVideoListFail(msg);
+                if(mMvpView.getPtrLayoutForShortVideo()!=null){
+                    mMvpView.getPtrLayoutForShortVideo().setRefreshComplete();
+                    mMvpView.getShortVideoListFail(msg);
+                }
             }
         });
     }

@@ -316,7 +316,16 @@ public class Navigator {
      * @param context
      */
     public void navtoMediaPlay(Activity context, List<VideoEntity> vedios, int position) {
-        context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios, position));
+        context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios, position, false));
+    }
+
+    /**
+     * 视频播放
+     *
+     * @param context
+     */
+    public void navtoMediaPlay(Activity context, List<VideoEntity> vedios, int position, boolean isShowMask) {
+        context.startActivity(MediaPlayActivity.getCallingIntent(context, vedios, position, isShowMask));
     }
 
     /**
@@ -325,7 +334,7 @@ public class Navigator {
      * @param context
      */
     public void navtoPhotoShow(Activity context, List<PhotosEntity> photos, int position, boolean isShowMask) {
-        context.startActivity(PhotoShowActivity.getCallingIntent(context, photos, position,isShowMask));
+        context.startActivity(PhotoShowActivity.getCallingIntent(context, photos, position, isShowMask));
     }
 
     /**

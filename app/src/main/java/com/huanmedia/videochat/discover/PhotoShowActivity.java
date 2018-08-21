@@ -209,7 +209,7 @@ public class PhotoShowActivity extends BaseActivity implements ViewPager.OnPageC
 
     @Override
     public void checkHasFileFail(String msg) {
-
+        showToast(msg);
     }
 
     @Override
@@ -219,7 +219,7 @@ public class PhotoShowActivity extends BaseActivity implements ViewPager.OnPageC
 
     @Override
     public void payFileFail(String msg) {
-
+        showToast(msg);
     }
 
     @Override

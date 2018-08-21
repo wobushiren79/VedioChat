@@ -463,7 +463,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
 //        position -= removePosition;
         ((BaseActivity) mContext)
                 .getNavigator()
-                .navtoMediaPlay((Activity) mContext, listVideo, position);
+                .navtoMediaPlay((Activity) mContext, listVideo, position,true);
     }
 
 
@@ -509,7 +509,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
 
     @Override
     public void checkHasFileFail(String msg) {
-
+        showToast(msg);
     }
 
     @Override
@@ -539,7 +539,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
 
     @Override
     public void payFileFail(String msg) {
-
+        showToast(msg);
     }
 
     @Override
