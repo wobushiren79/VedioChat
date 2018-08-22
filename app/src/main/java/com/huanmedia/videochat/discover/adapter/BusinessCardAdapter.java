@@ -353,8 +353,8 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
 
         TextView tvVideoMore = headerHolder.getView(R.id.business_card_video_more);
         TextView tvPhotoMore = headerHolder.getView(R.id.business_card_photo_more);
-        setVideoList(tvVideoMore, listAllVideo);
-        setPhotoList(tvPhotoMore, listAllPhoto);
+        setVideoList(false, tvVideoMore, listAllVideo);
+        setPhotoList(false, tvPhotoMore, listAllPhoto);
 //        mHeaderPhotosAdapter.setNewData(businessCard.getPhpots());
 //        mHeaderVideoAdapter.setNewData(businessCard.getVoides());
         if (businessCard.getVoides() == null || businessCard.getVoides().size() == 0) {
@@ -368,50 +368,82 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
         if (businessCard.getPhpots().size() <= 6)
             tvPhotoMore.setVisibility(View.GONE);
         tvVideoMore.setOnClickListener(view -> {
-            setVideoList(tvVideoMore, businessCard.getVoides());
+            setVideoList(true, tvVideoMore, businessCard.getVoides());
         });
         tvPhotoMore.setOnClickListener(view -> {
-            setPhotoList(tvPhotoMore, businessCard.getPhpots());
+            setPhotoList(true, tvPhotoMore, businessCard.getPhpots());
         });
     }
 
 
-    private void setVideoList(TextView title, List<VideoEntity> videoList) {
-        if (isVideoListShow) {
-            isVideoListShow = false;
-            title.setText("更多");
-            if (videoList.size() <= 6) {
+    private void setVideoList(boolean isChange, TextView title, List<VideoEntity> videoList) {
+        if (isChange) {
+            if (isVideoListShow) {
+                isVideoListShow = false;
+                title.setText("更多");
+                if (videoList.size() <= 6) {
+                    mHeaderVideoAdapter.setNewData(videoList);
+                } else {
+                    List newList = videoList.subList(0, 6);
+                    mHeaderVideoAdapter.setNewData(newList);
+                }
+            } else {
+                isVideoListShow = true;
+                title.setText("收起");
+                mHeaderVideoAdapter.setNewData(videoList);
+            }
+        } else {
+            if (isVideoListShow) {
+                title.setText("收起");
                 mHeaderVideoAdapter.setNewData(videoList);
             } else {
-                List newList = videoList.subList(0, 6);
-                mHeaderVideoAdapter.setNewData(newList);
+                title.setText("更多");
+                if (videoList.size() <= 6) {
+                    mHeaderVideoAdapter.setNewData(videoList);
+                } else {
+                    List newList = videoList.subList(0, 6);
+                    mHeaderVideoAdapter.setNewData(newList);
+                }
             }
-        } else {
-            isVideoListShow = true;
-            title.setText("回收");
-            mHeaderVideoAdapter.setNewData(videoList);
         }
+
     }
 
-    private void setPhotoList(TextView title, List<PhotosEntity> photoList) {
-        if (isPhotoListShow) {
-            isPhotoListShow = false;
-            title.setText("更多");
-            if (photoList.size() <= 6) {
+    private void setPhotoList(boolean isChange, TextView title, List<PhotosEntity> photoList) {
+        if (isChange) {
+            if (isPhotoListShow) {
+                isPhotoListShow = false;
+                title.setText("更多");
+                if (photoList.size() <= 6) {
+                    mHeaderPhotosAdapter.setNewData(photoList);
+                } else {
+                    List newList = photoList.subList(0, 6);
+                    mHeaderPhotosAdapter.setNewData(newList);
+                }
+            } else {
+                isPhotoListShow = true;
+                title.setText("收起");
+                mHeaderPhotosAdapter.setNewData(photoList);
+            }
+        } else {
+            if (isPhotoListShow) {
+                title.setText("收起");
                 mHeaderPhotosAdapter.setNewData(photoList);
             } else {
-                List newList = photoList.subList(0, 6);
-                mHeaderPhotosAdapter.setNewData(newList);
+                title.setText("更多");
+                if (photoList.size() <= 6) {
+                    mHeaderPhotosAdapter.setNewData(photoList);
+                } else {
+                    List newList = photoList.subList(0, 6);
+                    mHeaderPhotosAdapter.setNewData(newList);
+                }
             }
-        } else {
-            isPhotoListShow = true;
-            title.setText("回收");
-            mHeaderPhotosAdapter.setNewData(photoList);
         }
+
     }
 
-    boolean isPhotoListShow = true;
-    boolean isVideoListShow = true;
+    boolean isPhotoListShow = false;
+    boolean isVideoListShow = false;
 
     /**
      * 查看公开照片
@@ -463,7 +495,7 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
 //        position -= removePosition;
         ((BaseActivity) mContext)
                 .getNavigator()
-                .navtoMediaPlay((Activity) mContext, listVideo, position,true);
+                .navtoMediaPlay((Activity) mContext, listVideo, position, true);
     }
 
 

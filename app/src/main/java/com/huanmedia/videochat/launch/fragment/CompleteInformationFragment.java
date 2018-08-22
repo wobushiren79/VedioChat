@@ -58,7 +58,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 /**
  * 登录后完善用户资料
  *
- * @author Eric<br                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               />
+ * @author Eric<br                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               />
  * @version <br/>
  * @description <br/>
  * @email yb498869020@hotmail.com<br/>
@@ -79,7 +79,7 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
     @BindView(R.id.complete_info_ll_hint)
     LinearLayout mCompleteInfoLlHint;
     @BindView(R.id.complete_info_btn_complete)
-    Button mCompleteInfoBtnComplete;
+    TextView mCompleteInfoBtnComplete;
     @BindView(R.id.complete_info_et_nickName)
     EditText mCompleteInfoEtNickName;
     @BindView(R.id.complete_info_tv_sex)
@@ -251,26 +251,36 @@ public class CompleteInformationFragment extends BaseMVPFragment<CompleteInforma
 
     @Override
     public void confirmUpdate(UserEntity.UserinfoEntity userinfo) {
-        new MaterialDialog.Builder(context())
-                .title("信息确认")
-                .content("信息填写后不可修改，您想好了吗？")
-                .negativeColorRes(R.color.base_gray)
-                .positiveColorRes(R.color.base_yellow)
-                .negativeText("我再想想")
-                .positiveText("我想好了")
-                .onPositive((dialog1, which) -> {
-                    if (progressDialog == null)
-                        progressDialog = new MaterialDialog.Builder(getContext())
-                                .title("")
-                                .content(R.string.login_submit_infomation)
-                                .progress(true, 0)
-                                .cancelable(false)
-                                .canceledOnTouchOutside(false)
-                                .build();
-                    progressDialog.show();
-                    getBasePresenter().uploadUserInfo(userinfo);
-                })
-                .show();
+        if (progressDialog == null)
+            progressDialog = new MaterialDialog.Builder(getContext())
+                    .title("")
+                    .content(R.string.login_submit_infomation)
+                    .progress(true, 0)
+                    .cancelable(false)
+                    .canceledOnTouchOutside(false)
+                    .build();
+        progressDialog.show();
+        getBasePresenter().uploadUserInfo(userinfo);
+//        new MaterialDialog.Builder(context())
+//                .title("信息确认")
+//                .content("信息填写后不可修改，您想好了吗？")
+//                .negativeColorRes(R.color.base_gray)
+//                .positiveColorRes(R.color.base_yellow)
+//                .negativeText("我再想想")
+//                .positiveText("我想好了")
+//                .onPositive((dialog1, which) -> {
+//                    if (progressDialog == null)
+//                        progressDialog = new MaterialDialog.Builder(getContext())
+//                                .title("")
+//                                .content(R.string.login_submit_infomation)
+//                                .progress(true, 0)
+//                                .cancelable(false)
+//                                .canceledOnTouchOutside(false)
+//                                .build();
+//                    progressDialog.show();
+//                    getBasePresenter().uploadUserInfo(userinfo);
+//                })
+//                .show();
     }
 
 

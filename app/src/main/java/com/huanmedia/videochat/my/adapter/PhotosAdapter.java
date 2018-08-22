@@ -99,7 +99,7 @@ public class PhotosAdapter extends BaseItemDraggableAdapter<PhotosEntity, BaseVi
             if (mUpLoadType == PhotosActivity.UpLoadType.SECRET) {
                 tvMask.setVisibility(View.VISIBLE);
                 if (item.getStatus() == -1) {
-                    tvMask.setText("未审核");
+                    tvMask.setText("审核中");
                 } else if (item.getStatus() == -9) {
                     tvMask.setText("非法");
                 } else if (item.getStatus() == 0) {

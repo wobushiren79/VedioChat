@@ -126,7 +126,7 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
                     tvContent.setVisibility(View.VISIBLE);
                     ivPlay.setVisibility(View.GONE);
                 } else if (videoEntity.getStatus() == 0) {
-                    tvContent.setText("未审核");
+                    tvContent.setText("审核中");
                     tvContent.setVisibility(View.VISIBLE);
                     ivPlay.setVisibility(View.GONE);
                 } else {

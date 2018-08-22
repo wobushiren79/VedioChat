@@ -53,7 +53,7 @@
         android:layout_marginRight="@dimen/dimen_44dp"
         android:layout_marginTop="@dimen/dimen_60dp"
         android:background="@null"
-        android:hint="请输入昵称"
+        android:hint="输入昵称"
         android:maxLines="1"
         android:paddingTop="8dp"
         android:textSize="@dimen/dimen_32dp" />
@@ -188,12 +188,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请务必填写真实有效的信息"
+            android:text="信息填写后不可更改，您要想好哦~"
             android:textColor="@color/base_gray"
             android:textSize="@dimen/dimen_28dp" />
     </LinearLayout>
 
-    <Button
+    <TextView
         android:id="@+id/complete_info_btn_complete"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_94dp"
@@ -202,6 +202,7 @@
         android:layout_marginRight="@dimen/dimen_44dp"
         android:layout_marginTop="@dimen/dimen_44dp"
         android:background="@drawable/base_btn_solid"
+        android:gravity="center"
         android:text="完成"
         android:textColor="@color/white"
         android:textSize="@dimen/dimen_40dp" />
