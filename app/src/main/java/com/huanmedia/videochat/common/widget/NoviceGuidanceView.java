@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
@@ -19,11 +20,12 @@ import mvp.data.store.DataKeeper;
 import mvp.data.store.glide.GlideApp;
 import mvp.data.store.glide.GlideUtils;
 
-public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClickListener {
+public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClickListener, NoviceGuidanceItemView.CallBack {
 
     private FrameLayout mFLLayout;
     private FrameLayout mFLCancel;
-    private ImageView mIVContent;
+    private NoviceGuidanceItemView mViewContent;
+    private TextView mTVCancel;
 
     int[] mResList;
     int mImgPosition = 0;
@@ -35,8 +37,10 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
      * 发现 引导
      */
     int[] findTypeData = {
-            R.drawable.icon_novice_guidance_find_1,
-            R.drawable.icon_novice_guidance_find_2
+//            R.drawable.icon_novice_guidance_find_1,
+//            R.drawable.icon_novice_guidance_find_2
+            R.drawable.icon_novice_guidance_find_1_new,
+            R.drawable.icon_novice_guidance_find_2_new
     };
     /**
      * 视频 引导
@@ -80,6 +84,11 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
             R.drawable.icon_novice_guidance_redman_4
     };
 
+    @Override
+    public void Next() {
+        contentDeal();
+    }
+
     @Retention(RetentionPolicy.SOURCE)
     public @interface GuidanceType {
         int FIND = 1, FRIEND = 2, MY = 3, MATCH = 4, READMAN = 5, VIDEO = 6;
@@ -102,11 +111,13 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
     @Override
     protected void initView(View baseView) {
         mFLCancel = getView(R.id.fl_cancel);
-        mIVContent = getView(R.id.iv_content);
         mFLLayout = getView(R.id.fl_layout);
+        mTVCancel = getView(R.id.tv_cancel);
+        mViewContent = getView(R.id.view_content);
 
         mFLCancel.setOnClickListener(this);
-        mIVContent.setOnClickListener(this);
+        mViewContent.setCallBack(this);
+        mTVCancel.setOnClickListener(this);
 
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mFLLayout.setLayoutParams(layoutParams);
@@ -120,10 +131,8 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if (v == mFLCancel) {
+        if (v == mFLCancel || v == mTVCancel) {
             setNoFirst(guidanceType);
-        } else if (v == mIVContent) {
-            contentDeal();
         }
     }
 
@@ -170,11 +179,16 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
 
         if (this.mResList.length > 0) {
             if (this.mResList.length == 1) {
-                mFLCancel.setVisibility(GONE);
+                mTVCancel.setVisibility(GONE);
+//                mFLCancel.setVisibility(GONE);
             } else {
-                mFLCancel.setVisibility(VISIBLE);
+                mTVCancel.setVisibility(VISIBLE);
+//                mFLCancel.setVisibility(VISIBLE);
             }
-            GlideApp.with(getContext()).asBitmap().load(mResList[0]).into(mIVContent);
+            if (guidanceType == GuidanceType.FIND)
+                mViewContent.setData(mResList[0], NoviceGuidanceItemView.GuidanceType.Read);
+            else
+                mViewContent.setData(mResList[0], NoviceGuidanceItemView.GuidanceType.Normal);
             mImgPosition = 0;
         }
     }
@@ -218,7 +232,11 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
         }
         mImgPosition++;
         if (mImgPosition < mResList.length)
-            GlideApp.with(getContext()).asBitmap().load(mResList[mImgPosition]).into(mIVContent);
+            if (mResList[mImgPosition] == R.drawable.icon_novice_guidance_find_2_new) {
+                mViewContent.setData(mResList[mImgPosition], NoviceGuidanceItemView.GuidanceType.Appointment);
+            } else {
+                mViewContent.setData(mResList[mImgPosition], NoviceGuidanceItemView.GuidanceType.Normal);
+            }
 //            GlideUtils.getInstance().loadBitmapNoAnim(getContext(), mResList[mImgPosition], mIVContent);
         else
             setNoFirst(guidanceType);

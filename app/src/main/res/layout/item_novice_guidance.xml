@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <View
+        android:id="@+id/view_read"
+        android:layout_width="@dimen/dimen_350dp"
+        android:layout_height="@dimen/dimen_400dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dimen_300dp"
+        android:visibility="gone"></View>
+
+    <TextView
+        android:id="@+id/view_appointment"
+        android:layout_width="@dimen/dimen_300dp"
+        android:layout_height="@dimen/dimen_107dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dimen_60dp"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:background="@drawable/btn_information_video"
+        android:visibility="gone" />
+</RelativeLayout>

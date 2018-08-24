@@ -60,6 +60,7 @@ import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.huanmedia.videochat.video.CallingActivity;
 import com.huanmedia.videochat.video.MonitorVideoActivity;
+import com.huanmedia.videochat.video.SimulationCallingActivity;
 import com.huanmedia.videochat.wxapi.WXPayEntryActivity;
 
 import java.util.ArrayList;
@@ -394,4 +395,10 @@ public class Navigator {
         context.startActivity(ArtistActivity.getCallingIntent(context, uid));
     }
 
+    /**
+     * 模拟视频界面
+     */
+    public void navtoSimulationCalling(Activity context, String simulationCalling) {
+        context.startActivity(SimulationCallingActivity.getCallingIntent(context, simulationCalling));
+    }
 }

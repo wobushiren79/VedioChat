@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.main2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import com.huanmedia.ilibray.utils.RxCountDown;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BaseMVPActivity;
 import com.huanmedia.videochat.common.Constants;
 import com.huanmedia.videochat.common.FApplication;
@@ -108,7 +110,6 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-
 //        getNavigator().navtoArtist(this,1);
     }
 

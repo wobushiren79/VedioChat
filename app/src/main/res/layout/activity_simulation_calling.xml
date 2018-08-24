@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".video.SimulationCallingActivity">
+
+
+    <com.huanmedia.videochat.common.widget.video.EmptyVideoPlayer
+        android:id="@+id/view_simulation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.huanmedia.videochat.common.widget.video.EmptyVideoPlayer>
+
+    <ImageView
+        android:id="@+id/iv_exit"
+        android:layout_width="@dimen/dimen_30dp"
+        android:layout_height="@dimen/dimen_50dp"
+        android:layout_marginLeft="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_80dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_exit_2" />
+
+    <FrameLayout
+        android:id="@+id/view_self"
+        android:layout_width="@dimen/dimen_220dp"
+        android:layout_height="@dimen/dimen_320dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_80dp" />
+</RelativeLayout>

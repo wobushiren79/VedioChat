@@ -391,7 +391,8 @@
         <activity
             android:name=".discover.PhotoShowActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".video.SimulationCallingActivity"></activity>
     </application>
 
 </manifest>

@@ -26,6 +26,7 @@ public class EmptyVideoPlayer extends StandardGSYVideoPlayer {
     private ImageView mStartBT;
     private RelativeLayout mFullLayout;
     private OnVideoClickListener mVideoClickListener;
+    private boolean mIsCanTouch = true;
 
     public EmptyVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
@@ -42,6 +43,13 @@ public class EmptyVideoPlayer extends StandardGSYVideoPlayer {
         initView();
     }
 
+    /**
+     * 设置是否能点击
+     * @param canTouch
+     */
+    public void setCanClick(boolean canTouch){
+        mIsCanTouch=canTouch;
+    }
 //
 //    @Override
 //    public void startPlayLogic() {
@@ -161,6 +169,8 @@ public class EmptyVideoPlayer extends StandardGSYVideoPlayer {
         public boolean onSingleTapConfirmed(MotionEvent e) {//单击事件
             if (mVideoClickListener != null)
                 mVideoClickListener.onSingleTap(e);
+            if(!mIsCanTouch)
+                return super.onSingleTapConfirmed(e);
             if (System.currentTimeMillis() - mClickTime < 800) {
                 //此处做双击具体业务逻辑
             } else {

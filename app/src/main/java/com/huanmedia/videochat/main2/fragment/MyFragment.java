@@ -257,7 +257,7 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
             R.id.my_fm_tv_btn_data_editor, R.id.my_fm_iv_header,
             R.id.my_fm_rl_account, R.id.my_fm_rl_trust,
             R.id.my_fm_rl_generalize, R.id.my_fm_rl_setting,
-            R.id.my_fm_rl_help, R.id.my_fm_rl_appointment})
+            R.id.my_fm_rl_help, R.id.my_fm_rl_appointment,R.id.home_toolbar_fl})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -271,7 +271,7 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
             case R.id.my_fm_rl_account://我的账户
                 getNavigator().navtoMyWallet(getActivity());
                 break;
-            case R.id.my_fm_rl_readman://红人模式
+            case R.id.my_fm_rl_readman://红人模式K
                 UMengUtils.ButtonClick(getContext(), 2);
                 getNavigator().navtoReadMainCertificate(getActivity());
                 break;
@@ -291,8 +291,8 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
                 getNavigator().navtoHelp(getActivity());
                 break;
             case R.id.my_fm_iv_header://头像大图
-                break;
             case R.id.my_fm_tv_btn_data_editor:
+            case R.id.home_toolbar_fl:
                 UMengUtils.ButtonClick(getContext(), 1);
                 getNavigator().navtoUserInfoEdit(getActivity(), false, null);
                 break;
