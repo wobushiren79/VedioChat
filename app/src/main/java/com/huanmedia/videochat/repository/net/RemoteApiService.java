@@ -476,6 +476,16 @@ public interface RemoteApiService {
     @FormUrlEncoded
     Observable<DataResponse<List<PhotosEntity>>> userPhotosList(@FieldMap Map<String, Object> params);
 
+    //上传用户音频
+    @POST("/index/userextv2/addaudio")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> addUserAudio(@FieldMap Map<String, Object> params);
+
+    //删除用户音频
+    @POST("/index/userextv2/delaudio")
+    @FormUrlEncoded
+    Observable<DataResponse<Object>> deleteUserAudio(@FieldMap Map<String, Object> params);
+
     @Multipart
     @POST
     Observable<DataResponse> uploadFileWithPartMap(

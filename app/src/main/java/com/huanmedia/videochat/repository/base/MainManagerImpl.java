@@ -8,6 +8,7 @@ import com.huanmedia.videochat.mvp.entity.request.AppointmentListOpRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
+import com.huanmedia.videochat.mvp.entity.request.AudioFileRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatListRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatReadRequest;
@@ -95,9 +96,9 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     }
 
     @Override
-    public void ossInfo(Context context, FileUpLoadRequest params, HttpResponseHandler<FileUpLoadResults> handler) {
+    public void ossInfo(Context context, FileUpLoadRequest params, HttpResponseHandler<FileUpLoadResults> handler, boolean isShowDialog) {
         Map<String, Object> paramsMap = objectToMap(params);
-        requestPost(context, mApiService.ossinfo(paramsMap), handler);
+        requestPost(context, mApiService.ossinfo(paramsMap), handler, isShowDialog);
     }
 
     @Override
@@ -277,6 +278,18 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
     public void payFile(Context context, FileManageRequest params, HttpResponseHandler<FileManageResults> handler) {
         Map<String, Object> paramsMap = objectToMap(params);
         requestPost(context, mApiService.payFile(paramsMap), handler, true);
+    }
+
+    @Override
+    public void addUserAudio(Context context, AudioFileRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.addUserAudio(paramsMap), handler, true);
+    }
+
+    @Override
+    public void deleteUserAudio(Context context, AudioFileRequest params, HttpResponseHandler handler) {
+        Map<String, Object> paramsMap = objectToMap(params);
+        requestPost(context, mApiService.deleteUserAudio(paramsMap), handler, true);
     }
 
 

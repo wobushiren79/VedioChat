@@ -8,10 +8,13 @@ import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.navigation.Navigator;
+import com.huanmedia.videochat.common.widget.dialog.BusinessCardDialog;
 import com.huanmedia.videochat.common.widget.dialog.CommDialogUtils;
 import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
+import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.main2.weight.ConditionEntity;
 import com.huanmedia.videochat.main2.weight.MaskDialog;
+import com.huanmedia.videochat.repository.entity.ChatPeopleEntity;
 import com.huanmedia.videochat.repository.entity.VideoChatEntity;
 
 public class VideoChatUtils {
@@ -136,5 +139,23 @@ public class VideoChatUtils {
                 .setCancelText("我没钱")
                 .setSubmitText("我要充值")
                 .show();
+    }
+
+
+    /**
+     * 展示用户信息
+     * @param activity
+     * @param isRadmain
+     * @param uid
+     */
+    public static  void showInfoCard(BaseActivity activity,boolean isRadmain,int uid){
+        if (isRadmain) {
+            activity.getNavigator().navDiscoverInfo(activity, uid, "", BusinessCardFragment.ShowType.ReadMan);
+        } else {
+            BusinessCardDialog dialog = new BusinessCardDialog(activity);
+            dialog.setUid(uid);
+            dialog.setDistance("");
+            dialog.show();
+        }
     }
 }

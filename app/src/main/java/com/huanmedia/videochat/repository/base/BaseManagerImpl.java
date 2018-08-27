@@ -100,6 +100,7 @@ public class BaseManagerImpl {
         } catch (Exception e) {
 
         } finally {
+            Log.v("Post_Params", "");
             Log.v("Post_Params", "--------------------Post  Params--------------------");
             Log.v("Post_Params", "paramsJson:" + paramsJson);
             Log.v("Post_Params", "----------------------------------------------------");

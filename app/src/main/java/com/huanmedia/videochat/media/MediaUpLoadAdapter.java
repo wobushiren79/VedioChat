@@ -20,6 +20,7 @@ import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.utils.DoubleClickUtils;
+import com.huanmedia.videochat.mvp.entity.request.AudioInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.mvp.entity.results.UserVideoDataResults;
@@ -216,7 +217,7 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
         this.mUpLoadVideoInfo = request;
         if (mFileUpLoadPresenter != null) {
             mHasUpLoadTask = true;
-            mFileUpLoadPresenter.getAliyunUpLoadInfo();
+            mFileUpLoadPresenter.getAliyunUpLoadInfo(1);
         }
     }
 
@@ -266,7 +267,7 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
     //------获取阿里云数据------------------------
     @Override
     public void getAliyunUpLoadInfoSuccess(FileUpLoadResults results) {
-        mUpLoadTask = mFileUpLoadPresenter.startUpLoadByAliyun(results);
+        mUpLoadTask = mFileUpLoadPresenter.startUpLoadByAliyunForVideo(results);
     }
 
     @Override
@@ -285,7 +286,7 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
     }
 
     @Override
-    public void uploadFileByAliyunSuccess() {
+    public void uploadFileByAliyunSuccess(FileUpLoadResults results) {
         ((Activity) getContext()).runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -336,6 +337,11 @@ public class MediaUpLoadAdapter extends BaseRCAdapter<VideoEntity> implements Ea
     @Override
     public VideoInfoRequest getVideoInfo() {
         return mUpLoadVideoInfo;
+    }
+
+    @Override
+    public AudioInfoRequest getAudioInfo() {
+        return null;
     }
 
     @Override

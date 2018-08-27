@@ -64,6 +64,7 @@
                     android:id="@+id/my_fm_tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_48dp"
+                    android:layout_marginBottom="@dimen/dimen_44dp"
                     android:layout_marginLeft="@dimen/dimen_32dp"
                     android:ellipsize="end"
                     android:gravity="center"
@@ -96,12 +97,50 @@
                     android:drawablePadding="@dimen/dimen_16dp"
                     android:drawableRight="@drawable/btn_return_gray"
                     android:gravity="center_vertical|end"
-                    android:text="资料编辑"
+                    android:text="查看主页"
                     android:textColor="@color/base_gray"
                     android:textSize="@dimen/dimen_28dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/my_fm_tv_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/my_fm_iv_header"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/my_fm_tv_name" />
+                    app:layout_constraintTop_toTopOf="@+id/my_fm_iv_header" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_marginLeft="@dimen/dimen_26dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/my_fm_iv_header"
+                    app:layout_constraintStart_toEndOf="@+id/my_fm_iv_header">
+
+                    <LinearLayout
+                        android:id="@+id/ll_audio_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/base_bg_round_theme"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/dimen_4dp"
+                        android:paddingLeft="@dimen/dimen_16dp"
+                        android:paddingRight="@dimen/dimen_16dp"
+                        android:paddingTop="@dimen/dimen_4dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_22dp"
+                            android:layout_height="@dimen/dimen_22dp"
+                            android:layout_marginRight="@dimen/dimen_9dp"
+                            android:src="@drawable/icon_audio_add" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="添加语音介绍"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dimen_18dp" />
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -116,6 +155,47 @@
             android:layout_height="match_parent"
             android:divider="@drawable/divider_ll"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/my_fm_rl_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_120dp"
+                android:layout_marginBottom="@dimen/dimen_24dp"
+                android:background="@drawable/base_item_select"
+                android:paddingLeft="@dimen/dimen_44dp"
+                android:paddingRight="@dimen/dimen_44dp">
+
+                <ImageView
+                    android:id="@+id/my_fm_iv_edit"
+                    android:layout_width="@dimen/dimen_48dp"
+                    android:layout_height="@dimen/dimen_48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dimen_44dp"
+                    android:layout_marginTop="@dimen/dimen_44dp"
+                    android:src="@drawable/icon_edit" />
+
+                <TextView
+                    android:id="@+id/my_fm_tv_lable_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/my_fm_iv_edit"
+                    android:layout_toRightOf="@+id/my_fm_iv_edit"
+                    android:text="编辑资料"
+                    android:textColor="@color/base_black"
+                    android:textSize="@dimen/dimen_32dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/my_fm_tv_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/my_fm_tv_lable_edit"
+                    android:drawableRight="@drawable/btn_return_gray"
+                    android:textColor="@color/base_gray"
+                    android:textSize="@dimen/dimen_32dp" />
+
+            </RelativeLayout>
             <!--我的钱包-->
             <RelativeLayout
                 android:id="@+id/my_fm_rl_account"
@@ -189,18 +269,18 @@
 
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/my_fm_tv_readman_hint"
-                    android:gravity="center_vertical"
-                    android:textSize="@dimen/dimen_24dp"
-                    android:text="完成认证来赚钱"
-                    android:layout_marginRight="@dimen/dimen_22dp"
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_32dp"
-                    android:layout_alignTop="@+id/my_fm_tv_readman"
                     android:layout_alignBottom="@+id/my_fm_tv_readman"
-                    android:layout_toLeftOf="@+id/my_fm_tv_readman" />
+                    android:layout_alignTop="@+id/my_fm_tv_readman"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dimen_22dp"
+                    android:layout_toLeftOf="@+id/my_fm_tv_readman"
+                    android:gravity="center_vertical"
+                    android:text="完成认证来赚钱"
+                    android:textSize="@dimen/dimen_24dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/my_fm_tv_readman"

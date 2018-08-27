@@ -9,8 +9,8 @@ public class FileUpLoadResults implements Serializable {
     private String Bucket;
     private String token;
     private String filename;//文件名称
-
     private String filePath;//文件路径
+
 
     public String getFilePath() {
         return filePath;

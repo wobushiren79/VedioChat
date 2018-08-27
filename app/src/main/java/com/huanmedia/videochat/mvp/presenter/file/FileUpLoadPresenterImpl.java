@@ -5,6 +5,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.huanmedia.videochat.mvp.base.BaseMVPPresenter;
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.base.DataFileCallBack;
+import com.huanmedia.videochat.mvp.entity.request.AudioInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -22,13 +23,15 @@ public class FileUpLoadPresenterImpl extends BaseMVPPresenter<IFileUpLoadView, F
         super(mMvpView, FileUpLoadModelImpl.class);
     }
 
-    
-
     @Override
-    public void getAliyunUpLoadInfo() {
+    public void getAliyunUpLoadInfo(int type) {
         if (mMvpView.getContext() == null)
             return;
         FileUpLoadRequest params = new FileUpLoadRequest();
+        params.setType(type);
+        boolean isShowDialog = false;
+        if (type == 2)
+            isShowDialog = true;
         mMvpModel.getAliyunUploadInfo(mMvpView.getContext(), params, new DataCallBack<FileUpLoadResults>() {
 
             @Override
@@ -40,11 +43,11 @@ public class FileUpLoadPresenterImpl extends BaseMVPPresenter<IFileUpLoadView, F
             public void getDataFail(String msg) {
                 mMvpView.getAliyunUpLoadInfoFail("上传文件失败：" + msg);
             }
-        });
+        }, isShowDialog);
     }
 
     @Override
-    public OSSAsyncTask startUpLoadByAliyun(FileUpLoadResults results) {
+    public OSSAsyncTask startUpLoadByAliyunForVideo(FileUpLoadResults results) {
         if (mMvpView.getContext() == null) {
             mMvpView.showToast("没有上下文对象");
             return null;
@@ -101,7 +104,7 @@ public class FileUpLoadPresenterImpl extends BaseMVPPresenter<IFileUpLoadView, F
 
             @Override
             public void getDataSuccess(PutObjectResult data) {
-                mMvpView.uploadFileByAliyunSuccess();
+                mMvpView.uploadFileByAliyunSuccess(results);
             }
 
             @Override
@@ -113,8 +116,63 @@ public class FileUpLoadPresenterImpl extends BaseMVPPresenter<IFileUpLoadView, F
             public void getDataOnProgress(long currentSize, long totalSize) {
                 mMvpView.uploadFileOnProgress(currentSize, totalSize);
             }
-        });
+        }, false);
 
+    }
+
+    @Override
+    public OSSAsyncTask startUpLoadByAliyunForAudio(FileUpLoadResults results) {
+        if (mMvpView.getContext() == null) {
+            mMvpView.showToast("没有上下文对象");
+            return null;
+        }
+        if (mMvpView.getAudioInfo() == null) {
+            mMvpView.showToast("没有需要上传的音频对象");
+            return null;
+        }
+        if (results.getAccessKeyID() == null) {
+            mMvpView.showToast("没有文件上传AK");
+            return null;
+        }
+        if (results.getAccessKeySecret() == null) {
+            mMvpView.showToast("没有文件上传SK");
+            return null;
+        }
+        if (results.getBucket() == null) {
+            mMvpView.showToast("没有文件上传Bucket");
+            return null;
+        }
+        if (results.getFilename() == null) {
+            mMvpView.showToast("没有文件上传FileName");
+            return null;
+        }
+        if (results.getToken() == null) {
+            mMvpView.showToast("没有文件上传Token");
+            return null;
+        }
+        AudioInfoRequest audioData = mMvpView.getAudioInfo();
+        if (audioData.getAudioPath() == null || audioData.getAudioPath().length() == 0){
+            mMvpView.showToast("没有音频文件路径");
+            return null;
+        }
+        results.setFilePath(audioData.getAudioPath());
+        return mMvpModel.fileUpLoadByAliyun(mMvpView.getContext(), results, new DataFileCallBack<PutObjectResult>() {
+
+            @Override
+            public void getDataSuccess(PutObjectResult data) {
+                mMvpView.uploadFileByAliyunSuccess(results);
+            }
+
+            @Override
+            public void getDataFail(String msg) {
+                mMvpView.uploadFileByAliyunFail("上传文件失败：" + msg);
+            }
+
+            @Override
+            public void getDataOnProgress(long currentSize, long totalSize) {
+                mMvpView.uploadFileOnProgress(currentSize, totalSize);
+            }
+        }, true);
     }
 
 

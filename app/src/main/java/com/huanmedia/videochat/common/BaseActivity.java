@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
 import com.gyf.barlibrary.OSUtils;
+import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.manager.ActivitManager;
@@ -28,16 +30,19 @@ import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.widget.SimpleToolBar;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
  * Base {@link android.app.Activity} class for every Activity in this application.
  */
-public abstract class BaseActivity extends AppCompatActivity implements SimpleToolBar.OnToolbarClick {
+public abstract class BaseActivity extends AppCompatActivity implements SimpleToolBar.OnToolbarClick, EasyPermissions.PermissionCallbacks {
     Navigator navigator = ResourceManager.getInstance().getNavigator();
     //    private boolean mFirstLoad = true;
     private SimpleToolBar mSimpleToolBar;
@@ -300,5 +305,56 @@ public abstract class BaseActivity extends AppCompatActivity implements SimpleTo
 
     public boolean isShowFouceDialog() {
         return true;
+    }
+
+    /**
+     * 检测权限
+     *
+     * @param perms
+     */
+    public boolean checkPermission(String[] perms) {
+        if (!EasyPermissions.hasPermissions(this, perms)) {
+            EasyPermissions.requestPermissions(this, "使用该功能需要相应权限", 0, perms);
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //将请求结果传递EasyPermission库处理
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    /**
+     * 请求权限成功。
+     * 可以弹窗显示结果，也可执行具体需要的逻辑操作
+     *
+     * @param requestCode
+     * @param perms
+     */
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        //ToastUtils.showToastShortInCenter(this,"请求权限成功");
+    }
+
+    /**
+     * 请求权限失败
+     *
+     * @param requestCode
+     * @param perms
+     */
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        /**
+         * 若是在权限弹窗中，用户勾选了'NEVER ASK AGAIN.'或者'不在提示'，且拒绝权限。
+         * 这时候，需要跳转到设置界面去，让用户手动开启。
+         */
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
     }
 }

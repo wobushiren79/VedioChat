@@ -1,53 +1,54 @@
 package com.huanmedia.videochat.repository.base;
 
 
-        import android.content.Context;
+import android.content.Context;
 
-        import com.huanmedia.videochat.mvp.entity.request.AdsLuanchRequest;
-        import com.huanmedia.videochat.mvp.entity.request.AppointmentListOpRequest;
-        import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
-        import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
-        import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
-        import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
-        import com.huanmedia.videochat.mvp.entity.request.ChatListRequest;
-        import com.huanmedia.videochat.mvp.entity.request.ChatReadRequest;
-        import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
-        import com.huanmedia.videochat.mvp.entity.request.FileManageRequest;
-        import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
-        import com.huanmedia.videochat.mvp.entity.request.PageRequest;
-        import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
-        import com.huanmedia.videochat.mvp.entity.request.PhotoListRequest;
-        import com.huanmedia.videochat.mvp.entity.request.RewardRequest;
-        import com.huanmedia.videochat.mvp.entity.request.ShortVideoListRequest;
-        import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
-        import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
-        import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
-        import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
-        import com.huanmedia.videochat.mvp.entity.request.UserVideoListRequest;
-        import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
-        import com.huanmedia.videochat.mvp.entity.results.AppointmentDetailResults;
-        import com.huanmedia.videochat.mvp.entity.results.AppointmentListOpResults;
-        import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
-        import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
-        import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
-        import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
-        import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
-        import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
-        import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
-        import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
-        import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
-        import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
-        import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
-        import com.huanmedia.videochat.mvp.entity.results.RewardResults;
-        import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
-        import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
-        import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
-        import com.huanmedia.videochat.repository.entity.GiftEntity;
-        import com.huanmedia.videochat.repository.entity.PhotosEntity;
-        import com.huanmedia.videochat.repository.entity.VideoEntity;
+import com.huanmedia.videochat.mvp.entity.request.AdsLuanchRequest;
+import com.huanmedia.videochat.mvp.entity.request.AppointmentListOpRequest;
+import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
+import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
+import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
+import com.huanmedia.videochat.mvp.entity.request.AudioFileRequest;
+import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
+import com.huanmedia.videochat.mvp.entity.request.ChatListRequest;
+import com.huanmedia.videochat.mvp.entity.request.ChatReadRequest;
+import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
+import com.huanmedia.videochat.mvp.entity.request.FileManageRequest;
+import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
+import com.huanmedia.videochat.mvp.entity.request.PageRequest;
+import com.huanmedia.videochat.mvp.entity.request.AdsShufflingRequest;
+import com.huanmedia.videochat.mvp.entity.request.PhotoListRequest;
+import com.huanmedia.videochat.mvp.entity.request.RewardRequest;
+import com.huanmedia.videochat.mvp.entity.request.ShortVideoListRequest;
+import com.huanmedia.videochat.mvp.entity.request.ShortVideoPraiseRequest;
+import com.huanmedia.videochat.mvp.entity.request.TalkRoomListRequest;
+import com.huanmedia.videochat.mvp.entity.request.UploadUserDataRequest;
+import com.huanmedia.videochat.mvp.entity.request.UserVideoDataRequest;
+import com.huanmedia.videochat.mvp.entity.request.UserVideoListRequest;
+import com.huanmedia.videochat.mvp.entity.results.AdsLuanchResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentDetailResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentListOpResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentListResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
+import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
+import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
+import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
+import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
+import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
+import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
+import com.huanmedia.videochat.mvp.entity.results.AdsShufflingResults;
+import com.huanmedia.videochat.mvp.entity.results.RewardResults;
+import com.huanmedia.videochat.mvp.entity.results.ShortVideoListResults;
+import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
+import com.huanmedia.videochat.repository.entity.BusinessCardUserTags;
+import com.huanmedia.videochat.repository.entity.GiftEntity;
+import com.huanmedia.videochat.repository.entity.PhotosEntity;
+import com.huanmedia.videochat.repository.entity.VideoEntity;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface MainManager {
 
@@ -87,7 +88,7 @@ public interface MainManager {
      * @param params
      * @param handler
      */
-    void ossInfo(Context context, FileUpLoadRequest params, HttpResponseHandler<FileUpLoadResults> handler);
+    void ossInfo(Context context, FileUpLoadRequest params, HttpResponseHandler<FileUpLoadResults> handler, boolean isShowDialog);
 
 
     /**
@@ -357,6 +358,7 @@ public interface MainManager {
 
     /**
      * 检测是否拥有此文件
+     *
      * @param context
      * @param params
      * @param handler
@@ -366,9 +368,28 @@ public interface MainManager {
 
     /**
      * 支付此文件
+     *
      * @param context
      * @param params
      * @param handler
      */
-    void payFile(Context context,FileManageRequest params, HttpResponseHandler<FileManageResults> handler);
+    void payFile(Context context, FileManageRequest params, HttpResponseHandler<FileManageResults> handler);
+
+    /**
+     * 增加用户音频
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void addUserAudio(Context context, AudioFileRequest params, HttpResponseHandler handler);
+
+    /**
+     * 删除用户音频
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void deleteUserAudio(Context context, AudioFileRequest params, HttpResponseHandler handler);
 }

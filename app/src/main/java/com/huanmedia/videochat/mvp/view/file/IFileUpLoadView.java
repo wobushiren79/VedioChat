@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.mvp.view.file;
 
 import com.huanmedia.videochat.mvp.base.BaseMVPView;
+import com.huanmedia.videochat.mvp.entity.request.AudioInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
 import com.huanmedia.videochat.repository.entity.PhotosEntity;
@@ -12,13 +13,12 @@ public interface IFileUpLoadView extends BaseMVPView {
     /**
      * 上传文件成功 阿里云
      */
-    void uploadFileByAliyunSuccess();
+    void uploadFileByAliyunSuccess(FileUpLoadResults results);
 
     /**
      * 上传文件失败 阿里云
      */
     void uploadFileByAliyunFail(String msg);
-
 
     /***
      * 获取阿里云上传信息成功
@@ -32,7 +32,6 @@ public interface IFileUpLoadView extends BaseMVPView {
      */
     void getAliyunUpLoadInfoFail(String msg);
 
-
     /**
      * 上传文件进度
      *
@@ -42,17 +41,23 @@ public interface IFileUpLoadView extends BaseMVPView {
     void uploadFileOnProgress(long currentSize, long totalSize);
 
     /**
+     * 开始上传阿里云
+     *
+     * @param results
+     */
+    void startUploadAliyun(FileUpLoadResults results);
+
+    /**
      * 获取上传的视频数据
      *
      * @return
      */
     VideoInfoRequest getVideoInfo();
 
-
     /**
-     * 开始上传阿里云
+     * 获取上传的音频数据
      *
-     * @param results
+     * @return
      */
-    void startUploadAliyun(FileUpLoadResults results);
+    AudioInfoRequest getAudioInfo();
 }

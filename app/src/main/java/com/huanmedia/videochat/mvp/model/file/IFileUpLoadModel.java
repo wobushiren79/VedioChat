@@ -37,7 +37,7 @@ public interface IFileUpLoadModel {
      * @param params
      * @param callBack
      */
-    OSSAsyncTask fileUpLoadByAliyun(Context context, FileUpLoadResults params, DataFileCallBack callBack);
+    OSSAsyncTask fileUpLoadByAliyun(Context context, FileUpLoadResults params, DataFileCallBack callBack, boolean isShowDialog);
 
 
     /**
@@ -47,5 +47,5 @@ public interface IFileUpLoadModel {
      * @param params
      * @param callBack
      */
-    void getAliyunUploadInfo(Context context, FileUpLoadRequest params, DataCallBack callBack);
+    void getAliyunUploadInfo(Context context, FileUpLoadRequest params, DataCallBack callBack, boolean isShowDialog);
 }

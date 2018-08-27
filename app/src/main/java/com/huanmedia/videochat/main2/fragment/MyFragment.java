@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.main2.fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,10 +23,13 @@ import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.BuildConfig;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BaseMVPFragment;
 import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.utils.UMengUtils;
+import com.huanmedia.videochat.common.utils.VideoChatUtils;
+import com.huanmedia.videochat.common.widget.dialog.AudioRecordDialog;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.orhanobut.logger.Logger;
@@ -104,6 +109,10 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     RelativeLayout mMyFmRlHelp;
     @BindView(R.id.my_fm_rl_appointment)
     RelativeLayout mAppointmentLayout;
+    @BindView(R.id.my_fm_rl_edit)
+    RelativeLayout mMyFmRLEdit;
+    @BindView(R.id.ll_audio_add)
+    LinearLayout mLLAudioAdd;
     private MainInteractionListener mListener;
     private Badge mMsgBadeg;
 //    private Badge mMyBadeg;
@@ -255,9 +264,9 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
 
     @OnClick({R.id.my_fm_iv_mail, R.id.my_fm_rl_readman,
             R.id.my_fm_tv_btn_data_editor, R.id.my_fm_iv_header,
-            R.id.my_fm_rl_account, R.id.my_fm_rl_trust,
-            R.id.my_fm_rl_generalize, R.id.my_fm_rl_setting,
-            R.id.my_fm_rl_help, R.id.my_fm_rl_appointment,R.id.home_toolbar_fl})
+            R.id.my_fm_rl_account, R.id.my_fm_rl_trust, R.id.my_fm_rl_edit,
+            R.id.my_fm_rl_generalize, R.id.my_fm_rl_setting, R.id.ll_audio_add,
+            R.id.my_fm_rl_help, R.id.my_fm_rl_appointment, R.id.home_toolbar_fl})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -292,12 +301,25 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
                 break;
             case R.id.my_fm_iv_header://头像大图
             case R.id.my_fm_tv_btn_data_editor:
-            case R.id.home_toolbar_fl:
+                //   case R.id.home_toolbar_fl:
+                boolean isReadman = false;
+                if (UserManager.getInstance().getCurrentUser().getUserinfo().getIsstarauth() == 1 && UserManager.getInstance().getCurrentUser().getUserinfo().getStarbutton() == 1)
+                    isReadman = true;
+                long uid = UserManager.getInstance().getCurrentUser().getId();
+                VideoChatUtils.showInfoCard((BaseActivity) getContext(), isReadman, (int) uid);
+                break;
+            case R.id.my_fm_rl_edit:
                 UMengUtils.ButtonClick(getContext(), 1);
                 getNavigator().navtoUserInfoEdit(getActivity(), false, null);
                 break;
             case R.id.my_fm_rl_appointment:
                 getNavigator().navtoAppointmentHistoryList(getActivity());
+                break;
+            case R.id.ll_audio_add:
+                if (((BaseActivity) getContext()).checkPermission(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+                    AudioRecordDialog dialog = new AudioRecordDialog(getContext());
+                    dialog.show();
+                }
                 break;
         }
     }

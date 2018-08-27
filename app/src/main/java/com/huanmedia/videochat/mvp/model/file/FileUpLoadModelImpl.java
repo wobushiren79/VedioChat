@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.huanmedia.videochat.common.widget.dialog.HintDialog;
 import com.huanmedia.videochat.mvp.base.BaseMVPModel;
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.base.DataFileCallBack;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileUpLoadModelImpl extends BaseMVPModel implements IFileUpLoadModel {
+
+    private HintDialog mHintDialog;
 
     @Override
     public void fileUpLoad(Context context, FileUpLoadResults params, DataFileCallBack callBack) {
@@ -41,15 +44,25 @@ public class FileUpLoadModelImpl extends BaseMVPModel implements IFileUpLoadMode
     }
 
     @Override
-    public OSSAsyncTask fileUpLoadByAliyun(Context context, FileUpLoadResults params, DataFileCallBack callBack) {
+    public OSSAsyncTask fileUpLoadByAliyun(Context context, FileUpLoadResults params, DataFileCallBack callBack, boolean isShowDialog) {
+        if (isShowDialog) {
+            if (mHintDialog == null || !mHintDialog.isShowing()) {
+                mHintDialog = new HintDialog(context, HintDialog.HintType.LOADING);
+                mHintDialog.show();
+                mHintDialog.setCanceledOnTouchOutside(false);
+                mHintDialog.setTitleText("上传中...");
+            }
+        }
         return MHttpManagerFactory.getFileManager().upLoadFileToAliyun(context, params, new HttpFileResponseHandler<PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectResult result) {
+                mHintDialog.cancel();
                 callBack.getDataSuccess(result);
             }
 
             @Override
             public void onError(String message) {
+                mHintDialog.cancel();
                 callBack.getDataFail(message);
             }
 
@@ -61,7 +74,7 @@ public class FileUpLoadModelImpl extends BaseMVPModel implements IFileUpLoadMode
     }
 
     @Override
-    public void getAliyunUploadInfo(Context context, FileUpLoadRequest params, DataCallBack callBack) {
+    public void getAliyunUploadInfo(Context context, FileUpLoadRequest params, DataCallBack callBack, boolean isShowDialog) {
         MHttpManagerFactory.getMainManager().ossInfo(context, params, new HttpResponseHandler<FileUpLoadResults>() {
             @Override
             public void onSuccess(FileUpLoadResults result) {
@@ -72,6 +85,6 @@ public class FileUpLoadModelImpl extends BaseMVPModel implements IFileUpLoadMode
             public void onError(String message) {
                 callBack.getDataFail(message);
             }
-        });
+        }, isShowDialog);
     }
 }

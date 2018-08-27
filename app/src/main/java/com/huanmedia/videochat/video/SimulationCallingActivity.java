@@ -58,12 +58,13 @@ public class SimulationCallingActivity extends BaseVideoActivity implements View
                 finish();
             }
         });
-        mSimulationView.startPlayLogic();
+
     }
 
     @Override
     protected void initUIandEvent() {
-        //创建视频渲染视图, 设置远端视频视图
+        mSimulationView.startPlayLogic();
+
         String encryptionKey = NetConstants.S;
         String encryptionMode = "aes-128-xts";
         int vProfile = io.agora.rtc.Constants.VIDEO_PROFILE_360P_8;

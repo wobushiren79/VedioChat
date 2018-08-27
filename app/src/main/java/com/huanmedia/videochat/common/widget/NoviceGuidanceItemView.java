@@ -30,7 +30,8 @@ public class NoviceGuidanceItemView extends BaseFrameLayout implements View.OnCl
     @Override
     public void onClick(View view) {
         if (view == mViewAppointment) {
-            ((BaseActivity)getContext()).getNavigator().navtoSimulationCalling((Activity)getContext(),"http://mmianvideo.oss-cn-beijing.aliyuncs.com/prod_voides_20180522_151128_73677");
+            ((BaseActivity)getContext()).getNavigator().navtoSimulationCalling((Activity)getContext(),
+                    "http://116.211.155.77/65724C6CA983D8331EDABD4652/03000A01005B831BD85C81145665C75CAF5AFB-BBA2-47FE-9317-071EF78FE045.mp4?ccode=0519&duration=51&expire=18000&psid=e35f97e33b5eeb60a81ab9e2419022f5&sp=&ups_client_netip=b6941f97&ups_ts=1535334811&ups_userid=&utid=LDJTE36tDz0CAX1FNfW%2Fkj9q&vid=XMzc5OTEwNjg2MA%3D%3D&vkey=B768c541278ab8d507409afb1b15ed073");
         }
         if (mCallBack != null)
             mCallBack.Next();
@@ -77,7 +78,9 @@ public class NoviceGuidanceItemView extends BaseFrameLayout implements View.OnCl
     public void setData(int imageRes, @GuidanceType int guidanceType) {
         GlideApp.with(getContext()).asBitmap().load(imageRes).into(mIVContent);
         mViewRead.setVisibility(GONE);
+        mViewAppointment.clearAnimation();
         mViewAppointment.setVisibility(GONE);
+
         if (guidanceType == GuidanceType.Normal) {
             mIVContent.setOnClickListener(this);
             mViewRead.setOnClickListener(null);
