@@ -14,6 +14,7 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
+import com.huanmedia.videochat.mvp.entity.results.AudioFileResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
@@ -483,8 +484,11 @@ public interface RemoteApiService {
 
     //删除用户音频
     @POST("/index/userextv2/delaudio")
-    @FormUrlEncoded
-    Observable<DataResponse<Object>> deleteUserAudio(@FieldMap Map<String, Object> params);
+    Observable<DataResponse<Object>> deleteUserAudio();
+
+    //获取用户音频
+    @POST("/index/userextv2/getuseraudio")
+    Observable<DataResponse<AudioFileResults>> getUserAudio();
 
     @Multipart
     @POST

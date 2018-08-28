@@ -22,4 +22,12 @@ public interface IAudioFileModel {
      * @param callBack
      */
     void deleteAudio(Context context, AudioFileRequest params, DataCallBack callBack);
+
+    /**
+     * 获取
+     * @param context
+     * @param params
+     * @param callBack
+     */
+    void getAudio(Context context, AudioFileRequest params, DataCallBack callBack);
 }

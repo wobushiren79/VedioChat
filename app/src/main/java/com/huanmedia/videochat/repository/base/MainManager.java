@@ -33,6 +33,7 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
+import com.huanmedia.videochat.mvp.entity.results.AudioFileResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
@@ -392,4 +393,13 @@ public interface MainManager {
      * @param handler
      */
     void deleteUserAudio(Context context, AudioFileRequest params, HttpResponseHandler handler);
+
+    /**
+     * 获取用户音频
+     *
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void getUserAudio(Context context, AudioFileRequest params, HttpResponseHandler<AudioFileResults> handler);
 }

@@ -38,4 +38,19 @@ public class AudioFileModelImpl extends BaseMVPModel implements IAudioFileModel 
             }
         });
     }
+
+    @Override
+    public void getAudio(Context context, AudioFileRequest params, DataCallBack callBack) {
+        MHttpManagerFactory.getMainManager().getUserAudio(context, params, new HttpResponseHandler() {
+            @Override
+            public void onSuccess(Object result) {
+                callBack.getDataSuccess(result);
+            }
+
+            @Override
+            public void onError(String message) {
+                callBack.getDataFail(message);
+            }
+        });
+    }
 }

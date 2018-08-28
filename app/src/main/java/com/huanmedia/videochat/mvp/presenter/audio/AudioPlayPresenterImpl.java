@@ -14,28 +14,40 @@ import java.io.IOException;
 
 import io.reactivex.disposables.Disposable;
 
-public class AudioPlayPresenterImpl extends BaseMVPPresenter<IAudioPlayView, BaseMVPModel> implements IAudioPlayPresenter, MediaPlayer.OnCompletionListener {
+public class AudioPlayPresenterImpl extends BaseMVPPresenter<IAudioPlayView, BaseMVPModel>
+        implements IAudioPlayPresenter, MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
     private MediaPlayer mediaPlayer;
     private Disposable mCountDown;
+    private int mTotalDuration;
+    private boolean mHasPre = false;
 
     public AudioPlayPresenterImpl(IAudioPlayView mMvpView) {
         super(mMvpView, BaseMVPModel.class);
     }
 
+    /**
+     * 获取总时长
+     *
+     * @return
+     */
     @Override
-    public MediaPlayer startPlay(String resPath) {
+    public int getPlayTotalTime() {
+        return mTotalDuration;
+    }
+
+
+    @Override
+    public MediaPlayer prePlay(String resPath) {
+        mHasPre = false;
+        if (mediaPlayer != null)
+            releasePlay();
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(resPath);
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setOnCompletionListener(this);
-            mediaPlayer.prepare(); //准备播放
-            mediaPlayer.start();//开始播放
-            int totalDuration = mediaPlayer.getDuration() / 1000;
-            mCountDown = RxCountDown.countdown(totalDuration).subscribe(
-                    integer -> {
-                        mMvpView.audioPlayDuration(totalDuration - integer);
-                    });
+            mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,9 +55,24 @@ public class AudioPlayPresenterImpl extends BaseMVPPresenter<IAudioPlayView, Bas
     }
 
     @Override
+    public MediaPlayer startPlay() {
+        if (!mHasPre)
+            return mediaPlayer;
+        if (mCountDown != null && !mCountDown.isDisposed())
+            mCountDown.dispose();
+        mCountDown = RxCountDown.countdown(mTotalDuration).subscribe(
+                integer -> {
+                    mMvpView.audioPlayDuration(mediaPlayer.getCurrentPosition() / 1000);
+                });
+        mediaPlayer.start();//开始播放
+        return mediaPlayer;
+    }
+
+    @Override
     public void pausePlay() {
-        if (mediaPlayer != null)
-            mediaPlayer.pause();
+        if (!mHasPre)
+            return;
+        mediaPlayer.pause();
     }
 
     @Override
@@ -64,8 +91,15 @@ public class AudioPlayPresenterImpl extends BaseMVPPresenter<IAudioPlayView, Bas
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        releasePlay();
+        //  releasePlay();
         mMvpView.audioPlayComplete();
+    }
+
+
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        mTotalDuration = mediaPlayer.getDuration() / 1000;
+        mHasPre = true;
     }
 
 

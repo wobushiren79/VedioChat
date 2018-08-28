@@ -33,6 +33,7 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
+import com.huanmedia.videochat.mvp.entity.results.AudioFileResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
@@ -288,8 +289,12 @@ public class MainManagerImpl extends BaseManagerImpl implements MainManager {
 
     @Override
     public void deleteUserAudio(Context context, AudioFileRequest params, HttpResponseHandler handler) {
-        Map<String, Object> paramsMap = objectToMap(params);
-        requestPost(context, mApiService.deleteUserAudio(paramsMap), handler, true);
+        requestPost(context, mApiService.deleteUserAudio(), handler, true);
+    }
+
+    @Override
+    public void getUserAudio(Context context, AudioFileRequest params, HttpResponseHandler<AudioFileResults> handler) {
+        requestPost(context, mApiService.getUserAudio(), handler);
     }
 
 

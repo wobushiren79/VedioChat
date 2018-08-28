@@ -30,11 +30,13 @@ import com.huanmedia.ilibray.utils.recycledecoration.RecyclerViewItemDecoration;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.manager.UserManager;
+import com.huanmedia.videochat.common.widget.AudioPlayView;
 import com.huanmedia.videochat.common.widget.album.HM_GlideEngine;
 import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
 import com.huanmedia.videochat.discover.BusinessCardFragment;
 import com.huanmedia.videochat.discover.weight.androidtagview.TagContainerLayout;
 import com.huanmedia.videochat.main2.weight.GoodProgressView;
+import com.huanmedia.videochat.mvp.entity.results.AudioFileResults;
 import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
 import com.huanmedia.videochat.mvp.presenter.file.FileManagePresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.file.IFileManagePresenter;
@@ -373,6 +375,14 @@ public class BusinessCardAdapter extends BaseMultiItemQuickAdapter<BusinessMulti
         tvPhotoMore.setOnClickListener(view -> {
             setPhotoList(true, tvPhotoMore, businessCard.getPhpots());
         });
+        if (businessCard.getAudiourl() != null && businessCard.getAudiourl().length() != 0) {
+            AudioPlayView audioView = headerHolder.getView(R.id.audio_play);
+            audioView.setVisibility(View.VISIBLE);
+            AudioFileResults audioData = new AudioFileResults();
+            audioData.setAudiotimes(businessCard.getAudiotimes());
+            audioData.setAudiourl(businessCard.getAudiourl());
+            audioView.setData(audioData);
+        }
     }
 
 

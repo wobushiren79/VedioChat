@@ -32,10 +32,6 @@ public class BaseManagerImpl {
     private HintDialog mHintDialog;
 
 
-    protected <T> void requestPost(Context context, Observable<DataResponse<T>> observable, HttpResponseHandler handler) {
-        requestPost(context, observable, handler, false);
-    }
-
     protected <T> void requestPost(Context context, Observable<DataResponse<T>> observable, HttpResponseHandler handler, boolean isShowDialog) {
         if (isShowDialog) {
             if (mHintDialog == null || !mHintDialog.isShowing()) {
@@ -68,6 +64,10 @@ public class BaseManagerImpl {
                             if (mHintDialog != null && mHintDialog.isShowing())
                                 mHintDialog.cancel();
                         });
+    }
+
+    protected <T> void requestPost(Context context, Observable<DataResponse<T>> observable, HttpResponseHandler handler) {
+        requestPost(context, observable, handler, false);
     }
 
 

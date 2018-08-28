@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.main2.fragment;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,7 +30,17 @@ import com.huanmedia.videochat.common.event.EventBusAction;
 import com.huanmedia.videochat.common.manager.UserManager;
 import com.huanmedia.videochat.common.utils.UMengUtils;
 import com.huanmedia.videochat.common.utils.VideoChatUtils;
+import com.huanmedia.videochat.common.widget.AudioPlayView;
 import com.huanmedia.videochat.common.widget.dialog.AudioRecordDialog;
+import com.huanmedia.videochat.common.widget.dialog.GeneralDialog;
+import com.huanmedia.videochat.mvp.entity.results.AudioFileResults;
+import com.huanmedia.videochat.mvp.presenter.audio.AudioFilePresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.audio.AudioPlayPresenterImpl;
+import com.huanmedia.videochat.mvp.presenter.audio.IAudioFilePresenter;
+import com.huanmedia.videochat.mvp.presenter.audio.IAudioPlayPresenter;
+import com.huanmedia.videochat.mvp.view.audio.IAudioDeleteView;
+import com.huanmedia.videochat.mvp.view.audio.IAudioInfoView;
+import com.huanmedia.videochat.mvp.view.audio.IAudioPlayView;
 import com.huanmedia.videochat.repository.entity.UserEntity;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.orhanobut.logger.Logger;
@@ -40,11 +51,12 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import mvp.data.store.glide.GlideUtils;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
-public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
+public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView, IAudioInfoView, IAudioDeleteView {
     @BindView(R.id.my_fm_iv_mail)
     ImageView mMyFmIvMail;
     @BindView(R.id.my_fm_iv_header)
@@ -113,7 +125,11 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     RelativeLayout mMyFmRLEdit;
     @BindView(R.id.ll_audio_add)
     LinearLayout mLLAudioAdd;
+    @BindView(R.id.audio_play)
+    AudioPlayView mAudioPlay;
     private MainInteractionListener mListener;
+    private IAudioFilePresenter mAudioFilePresenter;
+    private AudioFileResults mAudioFile;
     private Badge mMsgBadeg;
 //    private Badge mMyBadeg;
 
@@ -129,6 +145,8 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+        mAudioFilePresenter = new AudioFilePresenterImpl(this, this);
+        mAudioFilePresenter.getAudioInfo();
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
@@ -261,6 +279,29 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
 
     }
 
+    @OnLongClick({R.id.audio_play})
+    public boolean onViewLongClicked(View view) {
+        switch (view.getId()) {
+            case R.id.audio_play:
+                GeneralDialog generalDialog = new GeneralDialog(getContext());
+                generalDialog
+                        .setContent("确认删除语音介绍吗？")
+                        .setCallBack(new GeneralDialog.CallBack() {
+                            @Override
+                            public void submitClick(Dialog dialog) {
+                                mAudioFilePresenter.deleteAudioFile();
+                            }
+
+                            @Override
+                            public void cancelClick(Dialog dialog) {
+
+                            }
+                        })
+                        .show();
+                break;
+        }
+        return false;
+    }
 
     @OnClick({R.id.my_fm_iv_mail, R.id.my_fm_rl_readman,
             R.id.my_fm_tv_btn_data_editor, R.id.my_fm_iv_header,
@@ -318,6 +359,12 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
             case R.id.ll_audio_add:
                 if (((BaseActivity) getContext()).checkPermission(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
                     AudioRecordDialog dialog = new AudioRecordDialog(getContext());
+                    dialog.setCallBack(new AudioRecordDialog.CallBack() {
+                        @Override
+                        public void addAudioSuccess() {
+                            mAudioFilePresenter.getAudioInfo();
+                        }
+                    });
                     dialog.show();
                 }
                 break;
@@ -329,4 +376,40 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView {
         return getContext();
     }
 
+    //----------------获取音频数据---------------
+    @Override
+    public void getAudioInfoSuccess(AudioFileResults results) {
+        this.mAudioFile = results;
+        if (results != null && results.getAudiourl() != null && results.getAudiourl().length() != 0) {
+            mAudioPlay.setVisibility(View.VISIBLE);
+            mLLAudioAdd.setVisibility(View.GONE);
+            mAudioPlay.setData(results);
+        } else {
+            mAudioPlay.setVisibility(View.GONE);
+            mLLAudioAdd.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void getAudioInfoFail(String msg) {
+
+    }
+
+    @Override
+    public void showToast(String toast) {
+        ToastUtils.showToastShortInCenter(getContext(), toast);
+    }
+
+
+    //-------------音频文件删除----------------------
+    @Override
+    public void deleteAudioSuccess() {
+        mAudioPlay.setVisibility(View.GONE);
+        mLLAudioAdd.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void deleteAudioFail(String msg) {
+
+    }
 }

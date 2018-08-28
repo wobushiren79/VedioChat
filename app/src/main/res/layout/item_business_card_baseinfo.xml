@@ -92,6 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@+id/business_card_tv_nickName"
             app:layout_constraintTop_toBottomOf="@+id/business_card_tv_nickName">
@@ -151,6 +152,22 @@
                 android:textColor="@color/base_gray"
                 android:textSize="@dimen/dimen_24dp"
                 tools:text="Lv.10" />
+
+            <View
+                android:layout_width="@dimen/dimen_1dp"
+                android:layout_height="@dimen/dimen_24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dimen_8dp"
+                android:layout_marginRight="@dimen/dimen_8dp"
+                android:background="@drawable/divider_ll" />
+
+            <com.huanmedia.videochat.common.widget.AudioPlayView
+                android:id="@+id/audio_play"
+                android:layout_width="@dimen/dimen_140dp"
+                android:layout_height="@dimen/dimen_38dp"
+                android:layout_marginLeft="@dimen/dimen_18dp"
+                android:visibility="gone"></com.huanmedia.videochat.common.widget.AudioPlayView>
+
         </LinearLayout>
 
         <CheckBox

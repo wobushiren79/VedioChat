@@ -4,9 +4,14 @@ import android.media.MediaPlayer;
 
 public interface IAudioPlayPresenter {
     /**
+     * 准备播放
+     */
+    MediaPlayer prePlay(String resPath);
+
+    /**
      * 开始播放
      */
-    MediaPlayer startPlay(String resPath);
+    MediaPlayer startPlay();
 
     /**
      * 暂停播放
@@ -17,4 +22,11 @@ public interface IAudioPlayPresenter {
      * 释放播放
      */
     void releasePlay();
+
+    /**
+     * 获取总播放时长
+     *
+     * @return
+     */
+    int getPlayTotalTime();
 }

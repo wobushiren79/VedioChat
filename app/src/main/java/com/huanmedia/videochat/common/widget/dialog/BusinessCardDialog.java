@@ -20,6 +20,8 @@ import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.ilibray.utils.data.assist.Check;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.navigation.Navigator;
+import com.huanmedia.videochat.common.widget.AudioPlayView;
+import com.huanmedia.videochat.mvp.entity.results.AudioFileResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.presenter.user.BusinessCardInfoPresenterlmpl;
 import com.huanmedia.videochat.mvp.presenter.user.IBusinessCardInfoPresenter;
@@ -44,6 +46,7 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
     private TextView mTVAge;
     private TextView mTVDistance;
     private TextView mTVLevel;
+    private AudioPlayView mAudioView;
     private RoundedImageView mIVVideo;
     private ViewPager mVPImage;
     private RadioGroup mRGContent;
@@ -80,6 +83,7 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
         mIVVideo = mView.findViewById(R.id.iv_video);
         mVPImage = mView.findViewById(R.id.buiness_vp);
         mRGContent = mView.findViewById(R.id.rg_content);
+        mAudioView = mView.findViewById(R.id.audio_play);
 
         mIVCancel.setOnClickListener(this);
         initViewPagerImage();
@@ -128,6 +132,13 @@ public class BusinessCardDialog extends Dialog implements IBusinessCardInfoView,
                 null,
                 sexDrawable,
                 null);
+        if (mUserInfoData.getBase().getAudiourl() != null && mUserInfoData.getBase().getAudiourl().length() != 0) {
+            mAudioView.setVisibility(View.VISIBLE);
+            AudioFileResults audioData = new AudioFileResults();
+            audioData.setAudiourl(mUserInfoData.getBase().getAudiourl());
+            audioData.setAudiotimes(mUserInfoData.getBase().getAudiotimes());
+            mAudioView.setData(audioData);
+        }
     }
 
     /**

@@ -141,6 +141,24 @@ public class BusinessCardEntity implements Serializable {
         private int trustvalue;//好评数量
         private int onlinestatus;//0不在线 1在线 2忙碌
         private int appointmentFlag;//是否开启了预约功能
+        private String audiourl;
+        private int audiotimes;
+
+        public String getAudiourl() {
+            return audiourl;
+        }
+
+        public void setAudiourl(String audiourl) {
+            this.audiourl = audiourl;
+        }
+
+        public int getAudiotimes() {
+            return audiotimes;
+        }
+
+        public void setAudiotimes(int audiotimes) {
+            this.audiotimes = audiotimes;
+        }
 
         public int getAppointmentFlag() {
             return appointmentFlag;
@@ -384,6 +402,8 @@ public class BusinessCardEntity implements Serializable {
             sb.append(", trustvalue=").append(trustvalue);
             sb.append(", onlinestatus=").append(onlinestatus);
             sb.append(", appointmentFlag=").append(appointmentFlag);
+            sb.append(", audiourl=").append(audiourl);
+            sb.append(", audiotimes=").append(audiotimes);
             sb.append('}');
             return sb.toString();
         }

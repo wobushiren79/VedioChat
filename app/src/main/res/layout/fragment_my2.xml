@@ -124,7 +124,8 @@
                         android:paddingBottom="@dimen/dimen_4dp"
                         android:paddingLeft="@dimen/dimen_16dp"
                         android:paddingRight="@dimen/dimen_16dp"
-                        android:paddingTop="@dimen/dimen_4dp">
+                        android:paddingTop="@dimen/dimen_4dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="@dimen/dimen_22dp"
@@ -139,6 +140,13 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/dimen_18dp" />
                     </LinearLayout>
+
+                    <com.huanmedia.videochat.common.widget.AudioPlayView
+                        android:id="@+id/audio_play"
+                        android:layout_width="@dimen/dimen_140dp"
+                        android:layout_height="@dimen/dimen_38dp"
+                        android:visibility="gone"></com.huanmedia.videochat.common.widget.AudioPlayView>
+
 
                 </RelativeLayout>
 

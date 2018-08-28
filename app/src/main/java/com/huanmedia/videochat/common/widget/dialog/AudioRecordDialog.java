@@ -1,5 +1,6 @@
 package com.huanmedia.videochat.common.widget.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.media.Image;
@@ -16,9 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.huanmedia.ilibray.utils.DevUtils;
 import com.huanmedia.ilibray.utils.TimeUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.media.MediaUpLoadActivity;
 import com.huanmedia.videochat.mvp.entity.request.AudioInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -123,11 +126,11 @@ public class AudioRecordDialog extends Dialog
         } else if (view == mIVPlay) {
             if (isPlaying) {
                 mIVPlay.setImageResource(R.drawable.icon_audio_play);
-                mPlayPresenter.releasePlay();
+                mPlayPresenter.pausePlay();
                 isPlaying = false;
             } else {
                 mIVPlay.setImageResource(R.drawable.icon_audio_stop);
-                mPlayPresenter.startPlay(mRecordPresenter.getAudioInfo().getAudioPath());
+                mPlayPresenter.startPlay();
                 isPlaying = true;
             }
 
@@ -161,6 +164,7 @@ public class AudioRecordDialog extends Dialog
         mIVRecord.setVisibility(View.GONE);
         mIVPlay.setVisibility(View.VISIBLE);
         mLLButton.setVisibility(View.VISIBLE);
+        mPlayPresenter.prePlay(mRecordPresenter.getAudioInfo().getAudioPath());
     }
 
     @Override
@@ -191,7 +195,9 @@ public class AudioRecordDialog extends Dialog
     //-----------文件上传处理---------------
     @Override
     public void uploadFileByAliyunSuccess(FileUpLoadResults results) {
-        mAudioFilePresenter.addAudioFile(results.getFilename());
+        DevUtils.scanForActivity(getContext()).runOnUiThread(() -> {
+            mAudioFilePresenter.addAudioFile(results.getFilename(), mPlayPresenter.getPlayTotalTime());
+        });
     }
 
     @Override
