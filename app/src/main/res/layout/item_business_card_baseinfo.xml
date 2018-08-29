@@ -165,7 +165,6 @@
                 android:id="@+id/audio_play"
                 android:layout_width="@dimen/dimen_140dp"
                 android:layout_height="@dimen/dimen_38dp"
-                android:layout_marginLeft="@dimen/dimen_18dp"
                 android:visibility="gone"></com.huanmedia.videochat.common.widget.AudioPlayView>
 
         </LinearLayout>

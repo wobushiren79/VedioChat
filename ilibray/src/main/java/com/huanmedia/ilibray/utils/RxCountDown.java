@@ -17,6 +17,7 @@ public class RxCountDown {
                 .map(aLong -> countTime - aLong.intValue())
                 .take(countTime + 1);
     }
+
     public static Observable<Integer> delay(int time) {
         if (time < 0) time = 0;
         final int countTime = time;
@@ -26,6 +27,7 @@ public class RxCountDown {
                 .map(aLong -> countTime - aLong.intValue())
                 .take(countTime + 1);
     }
+
     public static Observable<Integer> delay2(int milliseconds) {
         if (milliseconds < 0) milliseconds = 0;
         final int countTime = milliseconds;
@@ -37,12 +39,19 @@ public class RxCountDown {
     }
 
     public static Observable<Long> interval(long time) {
-        return Observable.interval(time,time, TimeUnit.SECONDS)
+        return Observable.interval(time, time, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-    public static Observable<Long> interval(long start,long time) {
-        return Observable.interval(start,time, TimeUnit.SECONDS)
+
+    public static Observable<Long> interval(long start, long time) {
+        return Observable.interval(start, time, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<Long> intervalMilliseconds(long start, long time) {
+        return Observable.interval(start, time, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

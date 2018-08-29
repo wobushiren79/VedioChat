@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.mvp.presenter.audio;
 
 import android.media.MediaRecorder;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.huanmedia.ilibray.utils.RxCountDown;
@@ -71,9 +72,26 @@ public class AudioRecordPresenterImpl extends BaseMVPPresenter<IAudioRecordView,
             mediaRecorder.start();
             isRecording = true;
             mMvpView.audioRecordStart();
-            mRecordCountDown = RxCountDown.interval(0,1).subscribe(integer -> {
-                int time = integer.intValue();
-                mMvpView.audioRecordDuration(time);
+            mRecordCountDown = RxCountDown.intervalMilliseconds(0, 100).subscribe(integer -> {
+                int time = integer.intValue() / 10;
+                byte[] dbList = new byte[10];
+                if (mediaRecorder != null) {
+                    double ratio = (double) mediaRecorder.getMaxAmplitude();
+                    double db = 0;// 分贝
+                    if (ratio > 1)
+                        db = 20 * Math.log10(ratio);
+                    for (int i = 0; i < dbList.length; i++) {
+                        int dbint = (new Double(db)).intValue();
+                        int dbSize = dbint / (i + 1);
+                        if (dbSize > 127)
+                            dbSize = 127;
+                        dbList[i] = (byte) dbSize;
+                    }
+                }
+                mMvpView.audioRecordDuration(time, dbList);
+                if (time == 20) {
+                    stopRecord();
+                }
             });
         } catch (Exception e) {
             e.printStackTrace();

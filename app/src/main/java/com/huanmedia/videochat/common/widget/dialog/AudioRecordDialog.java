@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +23,8 @@ import com.huanmedia.ilibray.utils.DevUtils;
 import com.huanmedia.ilibray.utils.TimeUtils;
 import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.widget.WaveformView;
+import com.huanmedia.videochat.common.widget.WaveformVisualizer;
 import com.huanmedia.videochat.media.MediaUpLoadActivity;
 import com.huanmedia.videochat.mvp.entity.request.AudioInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.VideoInfoRequest;
@@ -53,17 +57,23 @@ public class AudioRecordDialog extends Dialog
     private View mView;
     private ImageView mIVRecord;
     private ImageView mIVPlay;
+    private ImageView mIVLine;
+    private ImageView mIVDelete;
     private LinearLayout mLLButton;
     private TextView mTVCancel;
     private TextView mTVSumbit;
     private TextView mTVTime;
+    private WaveformView mWaveformLeftView;
+    private WaveformView mWaveformRightView;
 
     private CallBack mCallBack;
+    private WaveformVisualizer mVisualizer;
 
     private IAudioRecordPresenter mRecordPresenter;
     private IFileUpLoadPresenter mFileUplaodPresenter;
     private IAudioPlayPresenter mPlayPresenter;
     private IAudioFilePresenter mAudioFilePresenter;
+
 
     public AudioRecordDialog(@NonNull Context context) {
         super(context, R.style.customDialog);
@@ -93,10 +103,14 @@ public class AudioRecordDialog extends Dialog
     private void initView() {
         mIVRecord = mView.findViewById(R.id.iv_audio_record);
         mLLButton = mView.findViewById(R.id.ll_audio_bt);
+        mIVLine = mView.findViewById(R.id.iv_line);
+        mIVDelete = mView.findViewById(R.id.iv_delete);
         mIVPlay = mView.findViewById(R.id.iv_audio_play);
         mTVCancel = mView.findViewById(R.id.tv_cancel);
         mTVSumbit = mView.findViewById(R.id.tv_submit);
         mTVTime = mView.findViewById(R.id.tv_audio_time);
+        mWaveformLeftView = mView.findViewById(R.id.view_waveform_left);
+        mWaveformRightView = mView.findViewById(R.id.view_waveform_right);
 
         mLLButton.setVisibility(View.GONE);
 
@@ -105,6 +119,9 @@ public class AudioRecordDialog extends Dialog
         mIVPlay.setOnClickListener(this);
         mTVCancel.setOnClickListener(this);
         mTVSumbit.setOnClickListener(this);
+
+        mWaveformLeftView.setDirection(1);
+        mWaveformRightView.setDirection(0);
     }
 
     private void initData() {
@@ -127,10 +144,15 @@ public class AudioRecordDialog extends Dialog
             if (isPlaying) {
                 mIVPlay.setImageResource(R.drawable.icon_audio_play);
                 mPlayPresenter.pausePlay();
+                if (mVisualizer != null)
+                    mVisualizer.setEnabled(false);
                 isPlaying = false;
             } else {
                 mIVPlay.setImageResource(R.drawable.icon_audio_stop);
                 mPlayPresenter.startPlay();
+
+                if (mVisualizer != null)
+                    mVisualizer.setEnabled(true);
                 isPlaying = true;
             }
 
@@ -139,8 +161,53 @@ public class AudioRecordDialog extends Dialog
 
     @Override
     public void cancel() {
+        if (mVisualizer != null)
+            mVisualizer.setEnabled(false);
         mPlayPresenter.releasePlay();
         super.cancel();
+    }
+
+    private boolean isDelete = false;
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (view == mIVRecord) {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mIVLine.setVisibility(View.VISIBLE);
+                    mIVDelete.setVisibility(View.VISIBLE);
+                    mRecordPresenter.startRecord();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if (motionEvent.getX() > getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_320dp)
+                            && motionEvent.getX() < getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_400dp)
+                            && motionEvent.getY() > getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_40dp)
+                            && motionEvent.getY() < getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_120dp)) {
+                        mIVDelete.setImageResource(R.drawable.icon_audio_delete_style_1);
+                        mIVDelete.setScaleX(1.3f);
+                        mIVDelete.setScaleY(1.3f);
+                    } else {
+                        mIVDelete.setImageResource(R.drawable.icon_audio_delete_style_2);
+                        mIVDelete.setScaleX(1f);
+                        mIVDelete.setScaleY(1f);
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (motionEvent.getX() > getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_320dp)
+                            && motionEvent.getX() < getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_400dp)
+                            && motionEvent.getY() > getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_40dp)
+                            && motionEvent.getY() < getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_120dp)) {
+                        isDelete = true;
+                    } else {
+                        isDelete = false;
+                    }
+                    mIVLine.setVisibility(View.GONE);
+                    mIVDelete.setVisibility(View.GONE);
+                    mRecordPresenter.stopRecord();
+                    break;
+            }
+        }
+        return true;
     }
 
     //--------------录音处理---------------
@@ -150,21 +217,37 @@ public class AudioRecordDialog extends Dialog
     }
 
     @Override
-    public void audioRecordDuration(int duration) {
+    public void audioRecordDuration(int duration, byte[] db) {
         setAuditTime(duration);
+        mWaveformLeftView.updateWaveform(db);
+        mWaveformRightView.updateWaveform(db);
     }
 
     @Override
     public void audioRecordStop() {
-        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.gravity = Gravity.BOTTOM;
-        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        layoutParams.height = getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_453dp);
-        getWindow().setAttributes(layoutParams);
-        mIVRecord.setVisibility(View.GONE);
-        mIVPlay.setVisibility(View.VISIBLE);
-        mLLButton.setVisibility(View.VISIBLE);
-        mPlayPresenter.prePlay(mRecordPresenter.getAudioInfo().getAudioPath());
+        if (isDelete) {
+            mTVTime.setText("00:00");
+            mWaveformRightView.updateWaveform(null);
+            mWaveformLeftView.updateWaveform(null);
+        } else {
+            WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+            layoutParams.gravity = Gravity.BOTTOM;
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = getContext().getResources().getDimensionPixelOffset(R.dimen.dimen_453dp);
+            getWindow().setAttributes(layoutParams);
+            mIVRecord.setVisibility(View.GONE);
+            mIVPlay.setVisibility(View.VISIBLE);
+            mLLButton.setVisibility(View.VISIBLE);
+
+            MediaPlayer mediaPlayer = mPlayPresenter.prePlay(mRecordPresenter.getAudioInfo().getAudioPath());
+            mVisualizer = new WaveformVisualizer(mediaPlayer.getAudioSessionId()) {
+                @Override
+                public void updateVisualizer(byte[] bytes) {
+                    mWaveformLeftView.updateWaveform(bytes);
+                    mWaveformRightView.updateWaveform(bytes);
+                }
+            };
+        }
     }
 
     @Override
@@ -177,20 +260,6 @@ public class AudioRecordDialog extends Dialog
         ToastUtils.showToastShortInCenter(getContext(), toast);
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (view == mIVRecord) {
-            switch (motionEvent.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    mRecordPresenter.startRecord();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    mRecordPresenter.stopRecord();
-                    break;
-            }
-        }
-        return true;
-    }
 
     //-----------文件上传处理---------------
     @Override
@@ -253,6 +322,8 @@ public class AudioRecordDialog extends Dialog
     //------------音频播放监听--------------
     @Override
     public void audioPlayComplete() {
+        if (mVisualizer != null)
+            mVisualizer.setEnabled(false);
         mIVPlay.setImageResource(R.drawable.icon_audio_play);
         isPlaying = false;
     }
