@@ -256,7 +256,12 @@ public class MainActivity extends BaseMVPActivity<MainPresenter> implements Main
                 HomeFragment.newInstance(),
                 VideoListFragment.newInstance(),
                 FriendFragment.newInstance(),
-                MyFragment.newInstance()};
+                MyFragment.newInstance().setCallBack(new MyFragment.CallBack() {
+                    @Override
+                    public void addAudioSuccess() {
+                        mGuidanceView.setShowData(NoviceGuidanceView.GuidanceType.AUDIO);
+                    }
+                })};
         mAdapter = new MainPageFragmentAdapter(getSupportFragmentManager(), mFragments);
         mMainVpPage.setAdapter(mAdapter);
         mMainVpPage.setOffscreenPageLimit(4);

@@ -131,6 +131,7 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView, 
     private IAudioFilePresenter mAudioFilePresenter;
     private AudioFileResults mAudioFile;
     private Badge mMsgBadeg;
+    private CallBack mCallBack;
 //    private Badge mMyBadeg;
 
     public MyFragment() {
@@ -150,6 +151,12 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView, 
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
+
+    public MyFragment setCallBack(CallBack callBack) {
+        this.mCallBack = callBack;
+        return this;
+    }
+
 
     @Override
     public void onResume() {
@@ -363,6 +370,8 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView, 
                         @Override
                         public void addAudioSuccess() {
                             mAudioFilePresenter.getAudioInfo();
+                            if (mCallBack != null)
+                                mCallBack.addAudioSuccess();
                         }
                     });
                     dialog.show();
@@ -411,5 +420,9 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView, 
     @Override
     public void deleteAudioFail(String msg) {
 
+    }
+
+    public interface CallBack {
+        void addAudioSuccess();
     }
 }

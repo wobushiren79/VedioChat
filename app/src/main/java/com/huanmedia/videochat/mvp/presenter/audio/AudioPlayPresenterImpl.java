@@ -20,6 +20,7 @@ public class AudioPlayPresenterImpl extends BaseMVPPresenter<IAudioPlayView, Bas
     private Disposable mCountDown;
     private int mTotalDuration;
     private boolean mHasPre = false;
+    private String mResPath;
 
     public AudioPlayPresenterImpl(IAudioPlayView mMvpView) {
         super(mMvpView, BaseMVPModel.class);
@@ -39,6 +40,7 @@ public class AudioPlayPresenterImpl extends BaseMVPPresenter<IAudioPlayView, Bas
     @Override
     public MediaPlayer prePlay(String resPath) {
         mHasPre = false;
+        mResPath=resPath;
         if (mediaPlayer != null)
             releasePlay();
         mediaPlayer = new MediaPlayer();
@@ -60,6 +62,7 @@ public class AudioPlayPresenterImpl extends BaseMVPPresenter<IAudioPlayView, Bas
             return mediaPlayer;
         if (mCountDown != null && !mCountDown.isDisposed())
             mCountDown.dispose();
+        mediaPlayer.seekTo(0);
         mCountDown = RxCountDown.countdown(mTotalDuration).subscribe(
                 integer -> {
                     mMvpView.audioPlayDuration(mediaPlayer.getCurrentPosition() / 1000);
@@ -73,7 +76,11 @@ public class AudioPlayPresenterImpl extends BaseMVPPresenter<IAudioPlayView, Bas
         if (!mHasPre)
             return;
         mediaPlayer.pause();
+        if(mCountDown!=null)
+            mCountDown.dispose();
     }
+
+
 
     @Override
     public void releasePlay() {

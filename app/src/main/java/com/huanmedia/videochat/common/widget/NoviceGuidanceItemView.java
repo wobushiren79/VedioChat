@@ -76,7 +76,7 @@ public class NoviceGuidanceItemView extends BaseFrameLayout implements View.OnCl
     }
 
     public void setData(int imageRes, @GuidanceType int guidanceType) {
-        GlideApp.with(getContext()).asBitmap().load(imageRes).into(mIVContent);
+        GlideApp.with(getContext()).load(imageRes).into(mIVContent);
         mViewRead.setVisibility(GONE);
         mViewAppointment.clearAnimation();
         mViewAppointment.setVisibility(GONE);

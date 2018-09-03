@@ -83,7 +83,12 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
             R.drawable.icon_novice_guidance_redman_3,
             R.drawable.icon_novice_guidance_redman_4
     };
-
+    /**
+     * 音频类型 引导
+     */
+    int[] audioTypeData = {
+            R.drawable.icon_novice_guidance_audio_1
+    };
     @Override
     public void Next() {
         contentDeal();
@@ -91,7 +96,7 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
 
     @Retention(RetentionPolicy.SOURCE)
     public @interface GuidanceType {
-        int FIND = 1, FRIEND = 2, MY = 3, MATCH = 4, READMAN = 5, VIDEO = 6;
+        int FIND = 1, FRIEND = 2, MY = 3, MATCH = 4, READMAN = 5, VIDEO = 6,AUDIO=7;
     }
 
     public NoviceGuidanceView(Context context) {
@@ -121,6 +126,7 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
 
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mFLLayout.setLayoutParams(layoutParams);
+        mFLLayout.setBackgroundResource(R.color.transparent);
     }
 
     @Override
@@ -169,6 +175,10 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
                 keyData = "NoviceGuidanceVideo";
                 this.mResList = videoTypeData;
                 break;
+            case GuidanceType.AUDIO:
+                keyData = "NoviceGuidanceAudio";
+                this.mResList = audioTypeData;
+                break;
         }
         boolean isFirst = new DataKeeper(getContext(), DataKeeper.DEFULTFILE).get(keyData, true);
         if (isFirst) {
@@ -216,6 +226,9 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
                 break;
             case GuidanceType.VIDEO:
                 keyData = "NoviceGuidanceVideo";
+                break;
+            case GuidanceType.AUDIO:
+                keyData = "NoviceGuidanceAudio";
                 break;
         }
         new DataKeeper(getContext(), DataKeeper.DEFULTFILE).put(keyData, false);
