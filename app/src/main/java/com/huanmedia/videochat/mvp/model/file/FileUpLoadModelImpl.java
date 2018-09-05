@@ -56,12 +56,14 @@ public class FileUpLoadModelImpl extends BaseMVPModel implements IFileUpLoadMode
         return MHttpManagerFactory.getFileManager().upLoadFileToAliyun(context, params, new HttpFileResponseHandler<PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectResult result) {
+                if(mHintDialog!=null)
                 mHintDialog.cancel();
                 callBack.getDataSuccess(result);
             }
 
             @Override
             public void onError(String message) {
+                if(mHintDialog!=null)
                 mHintDialog.cancel();
                 callBack.getDataFail(message);
             }

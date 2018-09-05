@@ -5,13 +5,16 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.applecoffee.devtools.base.layout.BaseFrameLayout;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BasePopupWindow;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mvp.data.store.glide.GlideApp;
@@ -21,8 +24,11 @@ public class ArtistsGroupShowLayout extends BaseFrameLayout {
 
     private RelativeLayout mRLLayout;
     private ImageView mIVBackGround;
+    private TextView mTVMask;
 
     private ArtistsGroupShowResults mBaseData;
+
+    private List<ImageView> mListArtistsImage;
 
     public ArtistsGroupShowLayout(Context context) {
         this(context, null);
@@ -36,11 +42,11 @@ public class ArtistsGroupShowLayout extends BaseFrameLayout {
     protected void initView() {
         mRLLayout = findViewById(R.id.rl_layout);
         mIVBackGround = findViewById(R.id.iv_background);
+        mTVMask = findViewById(R.id.tv_mask);
     }
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -72,6 +78,14 @@ public class ArtistsGroupShowLayout extends BaseFrameLayout {
      * @param listArtists
      */
     public void setArtistsList(List<ArtistsGroupShowResults.Items> listArtists) {
+        if (mListArtistsImage != null) {
+            for (ImageView itemView : mListArtistsImage) {
+                mRLLayout.removeView(itemView);
+            }
+            mListArtistsImage.clear();
+        } else
+            mListArtistsImage = new ArrayList<>();
+
         for (int i = 0; i < listArtists.size(); i++) {
             addArtistsItem(listArtists.get(i));
         }
@@ -91,7 +105,16 @@ public class ArtistsGroupShowLayout extends BaseFrameLayout {
             GlideUtils.getInstance().loadBitmapNoAnim(getContext(), itemData.getImgurl(), itemArtists);
         //设置图片点击
         itemArtists.setOnClickListener(view -> {
+            mTVMask.setVisibility(VISIBLE);
+            for (ImageView itemView : mListArtistsImage) {
+                if (itemView == itemArtists) {
+                    itemView.setVisibility(VISIBLE);
+                } else {
+                    itemView.setVisibility(GONE);
+                }
+            }
             ArtistsItemPopupWindow popupWindow = new ArtistsItemPopupWindow(getContext());
+            popupWindow.setData(itemData);
             BasePopupWindow.LayoutGravity layoutParams = new BasePopupWindow.LayoutGravity(BasePopupWindow.LayoutGravity.CENTER_VERT);
             if ((itemArtists.getX() + (itemArtists.getWidth() / 2f)) < mIVBackGround.getWidth() / 2f) {
                 layoutParams.setHoriGravity(BasePopupWindow.LayoutGravity.TO_RIGHT);
@@ -100,8 +123,15 @@ public class ArtistsGroupShowLayout extends BaseFrameLayout {
             }
             layoutParams.setVertGravity(BasePopupWindow.LayoutGravity.CENTER_VERT);
             popupWindow.show(itemArtists, layoutParams, 0, 0);
+            popupWindow.getPopupWindow().setOnDismissListener(() -> {
+                mTVMask.setVisibility(GONE);
+                for (ImageView itemView : mListArtistsImage) {
+                    itemView.setVisibility(VISIBLE);
+                }
+            });
         });
         mRLLayout.addView(itemArtists);
+        mListArtistsImage.add(itemArtists);
     }
 
     /**

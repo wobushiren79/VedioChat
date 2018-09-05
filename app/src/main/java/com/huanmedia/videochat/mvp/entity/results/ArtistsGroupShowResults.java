@@ -91,6 +91,15 @@ public class ArtistsGroupShowResults {
         private int imgy;
         private int imgz;
         private int status;
+        private String faceimgurl;
+
+        public String getFaceimgurl() {
+            return faceimgurl;
+        }
+
+        public void setFaceimgurl(String faceimgurl) {
+            this.faceimgurl = faceimgurl;
+        }
 
         public int getId() {
             return id;

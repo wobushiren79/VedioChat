@@ -37,10 +37,10 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
      * 发现 引导
      */
     int[] findTypeData = {
-//            R.drawable.icon_novice_guidance_find_1,
-//            R.drawable.icon_novice_guidance_find_2
-            R.drawable.icon_novice_guidance_find_1_new,
-            R.drawable.icon_novice_guidance_find_2_new
+            R.drawable.icon_novice_guidance_find_1,
+            R.drawable.icon_novice_guidance_find_2
+//            R.drawable.icon_novice_guidance_find_1_new,
+//            R.drawable.icon_novice_guidance_find_2_new
     };
     /**
      * 视频 引导
@@ -195,9 +195,9 @@ public class NoviceGuidanceView extends BaseLinearLayout implements View.OnClick
                 mTVCancel.setVisibility(VISIBLE);
 //                mFLCancel.setVisibility(VISIBLE);
             }
-            if (guidanceType == GuidanceType.FIND)
-                mViewContent.setData(mResList[0], NoviceGuidanceItemView.GuidanceType.Read);
-            else
+//            if (guidanceType == GuidanceType.FIND)
+//                mViewContent.setData(mResList[0], NoviceGuidanceItemView.GuidanceType.Read);
+//            else
                 mViewContent.setData(mResList[0], NoviceGuidanceItemView.GuidanceType.Normal);
             mImgPosition = 0;
         }

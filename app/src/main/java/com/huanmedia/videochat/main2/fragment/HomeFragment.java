@@ -141,7 +141,7 @@ public class HomeFragment extends BaseFragment implements MatchFragment.MatchInt
         };
         mMainHomeSlidingTableLayout.setCurrentTab(1);
         mArtistsGroupListPresenter = new ArtistsGroupListPresenterImpl(this);
-//        mArtistsGroupListPresenter.getArtistsGroupList();
+        mArtistsGroupListPresenter.getArtistsGroupList();
     }
 
 
