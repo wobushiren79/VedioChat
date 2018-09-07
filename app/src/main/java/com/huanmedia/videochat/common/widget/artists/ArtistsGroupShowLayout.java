@@ -13,6 +13,7 @@ import com.applecoffee.devtools.base.layout.BaseFrameLayout;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BasePopupWindow;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,21 +1,25 @@
 package com.huanmedia.videochat.common.widget.artists;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huanmedia.videochat.R;
+import com.huanmedia.videochat.common.BaseActivity;
 import com.huanmedia.videochat.common.BasePopupWindow;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
 
 import mvp.data.store.glide.GlideUtils;
 
-public class ArtistsItemPopupWindow extends BasePopupWindow {
+public class ArtistsItemPopupWindow extends BasePopupWindow implements View.OnClickListener {
     private ImageView mIVHeard;
     private TextView mTVName;
+    private TextView mTVMore;
 
     private ArtistsGroupShowResults.Items mData;
 
@@ -30,12 +34,14 @@ public class ArtistsItemPopupWindow extends BasePopupWindow {
     protected void initView() {
         mIVHeard = findViewById(R.id.iv_heard);
         mTVName = findViewById(R.id.tv_name);
+        mTVMore = findViewById(R.id.tv_more);
 
         LinearGradient mLinearGradient = new LinearGradient
                 (0, 0, 0, mTVName.getPaint().getTextSize(),
                         Color.parseColor("#ff1659"), getContext().getResources().getColor(R.color.color_ff7eaa),
                         Shader.TileMode.CLAMP);
         mTVName.getPaint().setShader(mLinearGradient);
+        mTVMore.setOnClickListener(this);
     }
 
     @Override
@@ -49,4 +55,10 @@ public class ArtistsItemPopupWindow extends BasePopupWindow {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        if (view == mTVMore) {
+            ((BaseActivity)getContext()).getNavigator().navtoArtist((Activity) getContext(),1);
+        }
+    }
 }

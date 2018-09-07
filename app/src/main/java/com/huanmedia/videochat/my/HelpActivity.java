@@ -10,6 +10,8 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.huanmedia.videochat.R;
 import com.huanmedia.videochat.common.BaseMVPActivity;
 import com.huanmedia.videochat.repository.net.HostManager;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,7 +24,8 @@ public class HelpActivity extends BaseMVPActivity {
     LinearLayout mLLCallLayout;
     @BindView(R.id.ll_new_layout)
     LinearLayout mLLNewLayout;
-
+    @BindView(R.id.ll_wx_layout)
+    LinearLayout mLLWXLayout;
 
     public static Intent getCallingIntent(Context context) {
         Intent intent = new Intent(context, HelpActivity.class);
@@ -69,6 +72,8 @@ public class HelpActivity extends BaseMVPActivity {
                 break;
             case R.id.ll_call_layout:
                 getNavigator().navtoWebActivity(this, HostManager.getHtmlUrl() + "wordh5/helpnotice/call.html", getString(R.string.activity_help_title_2));
+                break;
+            case R.id.ll_wx_layout:
                 break;
         }
     }

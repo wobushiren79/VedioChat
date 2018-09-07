@@ -9,6 +9,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,11 @@ public class ArtistActivity extends BaseActivity
     ViewPager mViewPager;
     @BindView(R.id.ll_bt_layout)
     LinearLayout mLLBTLayout;
+
+    @BindView(R.id.iv_attention)
+    AppCompatImageView mIVAttention;
+    @BindView(R.id.iv_appointment)
+    AppCompatImageView mIVAppointment;
 
     private int mUserId;
     private ArrayList<CustomTabEntity> mTabs;
@@ -319,7 +325,6 @@ public class ArtistActivity extends BaseActivity
 
     }
 
-
     @Override
     public void onExpanded(AppBarLayout appBarLayout) {
         mLLBTLayout.setVisibility(View.GONE);
@@ -333,5 +338,16 @@ public class ArtistActivity extends BaseActivity
     @Override
     public void onIdle(AppBarLayout appBarLayout) {
         mLLBTLayout.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick({R.id.iv_attention, R.id.iv_appointment})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_attention:
+                break;
+            case R.id.iv_appointment:
+                getNavigator().navtoAppointment(this,mUserId);
+                break;
+        }
     }
 }

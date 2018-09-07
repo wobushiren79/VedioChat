@@ -8,27 +8,28 @@
     tools:context=".my.HelpActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/dimen_0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/appBar_layout"
-        app:elevation="@dimen/dimen_0dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toTopOf="parent">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/nav_btn_back_black"
-            app:title="帮助"
             android:background="@color/base_appbar_background_light"
-            app:titleTextColor="@color/base_black"
+            app:navigationIcon="@drawable/nav_btn_back_black"
             app:theme="@style/AppBaseTheme.Toolbar.ActionMenu.Light"
-            />
+            app:title="帮助"
+            app:titleTextColor="@color/base_black" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@drawable/divider_ll"/>
+            android:background="@drawable/divider_ll" />
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
@@ -76,6 +77,36 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/activity_help_title_2"
+            android:textColor="@color/base_black"
+            android:textSize="@dimen/dimen_28dp" />
+
+        <ImageView
+
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_40dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/btn_return_gray" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_22dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_wx_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_104dp"
+        android:background="@drawable/base_bg_white_round"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_44dp"
+        android:paddingRight="@dimen/dimen_44dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/activity_help_title_3"
             android:textColor="@color/base_black"
             android:textSize="@dimen/dimen_28dp" />
 

@@ -212,6 +212,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_more"
             android:layout_width="@dimen/dimen_200dp"
             android:layout_height="@dimen/dimen_50dp"
             android:layout_alignParentBottom="true"

@@ -8,6 +8,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.google.gson.Gson;
+import com.huanmedia.ilibray.utils.ToastUtils;
 import com.huanmedia.videochat.BuildConfig;
 import com.huanmedia.videochat.common.navigation.Navigator;
 import com.huanmedia.videochat.common.utils.UMengUtils;
@@ -18,6 +19,10 @@ import com.huanmedia.videochat.my.PhotosActivity;
 import com.huanmedia.videochat.repository.base.HttpResponseHandler;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
 import com.huanmedia.videochat.repository.net.MHttpManagerFactory;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.litepal.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +52,16 @@ public class WebJsObjFunction extends Object {
             if (mWebView != null)
                 mWebView.loadUrl("javascript:" + methodName + "('" + data + "')");
         });
+    }
+
+    /**
+     * 跳转微信APP
+     */
+    @JavascriptInterface
+    public void jumpWX(String appid) {
+       IWXAPI wxApi= WXAPIFactory.createWXAPI(mContext,null);
+       wxApi.registerApp(appid);
+       wxApi.openWXApp();
     }
 
     /**
@@ -138,8 +153,7 @@ public class WebJsObjFunction extends Object {
                     break;
             }
         } catch (Exception e) {
-
-
+            ToastUtils.showToastShortInCenter(mContext,e.getMessage());
         }
 
     }
@@ -215,8 +229,6 @@ public class WebJsObjFunction extends Object {
                 submitCommonInfoFail(message, callBackFailName);
             }
         });
-
-
     }
 
     /**
