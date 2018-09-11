@@ -3,8 +3,161 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="@dimen/dimen_200dp"
-        android:layout_height="@dimen/dimen_200dp"
-        android:text="资料" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_22dp"
+        android:layout_marginLeft="@dimen/dimen_22dp"
+        android:layout_marginRight="@dimen/dimen_22dp"
+        android:layout_marginTop="@dimen/dimen_22dp"
+        android:background="@drawable/base_bg_white_round"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_30dp"
+        android:paddingLeft="@dimen/dimen_22dp"
+        android:paddingRight="@dimen/dimen_22dp"
+        android:paddingTop="@dimen/dimen_30dp">
+
+        <TextView
+            android:id="@+id/tv_userinfo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个人信息"
+            android:textColor="@color/color_7e7e88"
+            android:textSize="@dimen/dimen_28dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_userinfo_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_userinfo_title"
+            android:layout_marginTop="@dimen/dimen_22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_userinfo_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textColor="@color/color_7e7e88"
+                android:textSize="@dimen/dimen_28dp" />
+
+            <TextView
+                android:id="@+id/tv_userinfo_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_28dp"
+                android:text="小包子"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_28dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_userinfo_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_userinfo_title"
+            android:layout_marginLeft="@dimen/dimen_44dp"
+            android:layout_marginTop="@dimen/dimen_22dp"
+            android:layout_toRightOf="@+id/ll_userinfo_name"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_userinfo_birth_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="生日"
+                android:textColor="@color/color_7e7e88"
+                android:textSize="@dimen/dimen_28dp" />
+
+            <TextView
+                android:id="@+id/tv_userinfo_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_28dp"
+                android:text="08-25"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_28dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_userinfo_blood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_userinfo_name"
+            android:layout_marginTop="@dimen/dimen_22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_userinfo_blood_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="血型"
+                android:textColor="@color/color_7e7e88"
+                android:textSize="@dimen/dimen_28dp" />
+
+            <TextView
+                android:id="@+id/tv_userinfo_blood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_28dp"
+                android:text="0型"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_28dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_userinfo_high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_userinfo_birth"
+            android:layout_marginLeft="@dimen/dimen_44dp"
+            android:layout_marginTop="@dimen/dimen_22dp"
+            android:layout_toRightOf="@+id/ll_userinfo_blood"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_userinfo_high_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="身高"
+                android:textColor="@color/color_7e7e88"
+                android:textSize="@dimen/dimen_28dp" />
+
+            <TextView
+                android:id="@+id/tv_userinfo_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_28dp"
+                android:text="163cm"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_28dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_userinfo_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_userinfo_blood"
+            android:layout_marginTop="@dimen/dimen_22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_userinfo_like_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="兴趣"
+                android:textColor="@color/color_7e7e88"
+                android:textSize="@dimen/dimen_28dp" />
+
+            <TextView
+                android:id="@+id/tv_userinfo_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_28dp"
+                android:text="宅舞，汉服，COSPLAY"
+                android:textColor="@color/base_black"
+                android:textSize="@dimen/dimen_28dp" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

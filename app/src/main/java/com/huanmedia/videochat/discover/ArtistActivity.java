@@ -151,7 +151,7 @@ public class ArtistActivity extends BaseActivity
 
         mFragments = new Fragment[]{
                 ArtistUserInfoFragment.newInstance(),
-                ArtistDynamicFragment.newInstance(),
+                ArtistDynamicFragment.newInstance(mUserId),
                 ArtistPhotosFragment.newInstance(),
                 ArtistVideoFragment.newInstance()};
         mAdapter = new MainPageFragmentAdapter(getSupportFragmentManager(), mFragments);

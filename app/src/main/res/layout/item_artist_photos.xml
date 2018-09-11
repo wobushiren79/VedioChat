@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:scaleType="centerCrop"
         android:id="@+id/iv_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_252dp"
         android:layout_margin="@dimen/dimen_4dp"
         android:background="@color/black"
+        android:scaleType="centerCrop"
         android:src="@drawable/bg_logot" />
-</LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/base_bg_round_theme_8"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen_6dp"
+        android:paddingLeft="@dimen/dimen_22dp"
+        android:paddingRight="@dimen/dimen_22dp"
+        android:paddingTop="@dimen/dimen_6dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_24dp" />
+</FrameLayout>
