@@ -18,6 +18,7 @@
         android:layout_width="@dimen/dimen_84dp"
         android:layout_height="@dimen/dimen_84dp"
         android:layout_marginRight="@dimen/dimen_16dp"
+        android:scaleType="fitXY"
         android:src="@drawable/icon_headportrait"
         app:riv_oval="true" />
 
@@ -40,6 +41,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/tv_group_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_name"
@@ -61,8 +63,11 @@
         android:textSize="@dimen/dimen_28dp" />
 
     <ImageView
+        android:id="@+id/iv_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_220dp"
         android:layout_below="@+id/tv_content"
         android:src="@color/base_black" />
+
+
 </RelativeLayout>

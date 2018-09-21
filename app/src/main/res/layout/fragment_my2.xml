@@ -505,6 +505,31 @@
                     android:textSize="@dimen/dimen_32dp"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    android:id="@+id/ll_help_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/my_fm_tv_help"
+                    android:layout_alignTop="@+id/my_fm_tv_help"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dimen_12dp"
+                    android:layout_toLeftOf="@+id/my_fm_tv_help"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_10dp"
+                        android:layout_height="@dimen/dimen_10dp"
+                        android:src="@drawable/base_bg_round_theme_7" />
+
+                    <TextView
+                        android:id="@+id/tv_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="及时收到预约提醒" />
+                </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/my_fm_tv_help"
                     android:layout_width="wrap_content"

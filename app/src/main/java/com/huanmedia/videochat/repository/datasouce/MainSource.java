@@ -1,6 +1,7 @@
 package com.huanmedia.videochat.repository.datasouce;
 
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
+import com.huanmedia.videochat.mvp.entity.results.AttentionResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
@@ -93,7 +94,7 @@ public interface MainSource extends DataSource {
      * @param flag
      * @return
      */
-    Observable<DataResponse> favorite(String id, int flag);//收藏
+    Observable<DataResponse<Object>> favorite(String id, int flag);//收藏
 
     /**
      * 搜索匹配

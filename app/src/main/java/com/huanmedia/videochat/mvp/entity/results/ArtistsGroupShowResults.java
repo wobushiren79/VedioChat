@@ -1,5 +1,7 @@
 package com.huanmedia.videochat.mvp.entity.results;
 
+import com.huanmedia.videochat.repository.entity.BusinessCardEntity;
+
 import java.util.List;
 
 public class ArtistsGroupShowResults {
@@ -29,6 +31,24 @@ public class ArtistsGroupShowResults {
         private String imgurl;
         private int imgwidth;
         private int imgheight;
+        private String titleimgurla;
+        private String titleimgurlb;
+
+        public String getTitleimgurla() {
+            return titleimgurla;
+        }
+
+        public void setTitleimgurla(String titleimgurla) {
+            this.titleimgurla = titleimgurla;
+        }
+
+        public String getTitleimgurlb() {
+            return titleimgurlb;
+        }
+
+        public void setTitleimgurlb(String titleimgurlb) {
+            this.titleimgurlb = titleimgurlb;
+        }
 
         public int getId() {
             return id;
@@ -92,6 +112,15 @@ public class ArtistsGroupShowResults {
         private int imgz;
         private int status;
         private String faceimgurl;
+        private BusinessCardEntity.BaseInfo info;
+
+        public BusinessCardEntity.BaseInfo getInfo() {
+            return info;
+        }
+
+        public void setInfo(BusinessCardEntity.BaseInfo info) {
+            this.info = info;
+        }
 
         public String getFaceimgurl() {
             return faceimgurl;

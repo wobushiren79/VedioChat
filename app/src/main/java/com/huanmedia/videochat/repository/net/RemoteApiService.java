@@ -14,11 +14,13 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
+import com.huanmedia.videochat.mvp.entity.results.AttentionResults;
 import com.huanmedia.videochat.mvp.entity.results.AudioFileResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatSendResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
+import com.huanmedia.videochat.mvp.entity.results.DynamicListResults;
 import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
 import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -119,7 +121,7 @@ public interface RemoteApiService {
     //收藏
     @POST("index/userext/favorite")
     @FormUrlEncoded
-    Observable<DataResponse> favorite(@Field("favouid") String id, @Field("flag") int flag);
+    Observable<DataResponse<Object>> favorite(@Field("favouid") String id, @Field("flag") int flag);
 
     //搜索
     @POST("index/chatpage/beginSearch")
@@ -555,6 +557,12 @@ public interface RemoteApiService {
     @POST("/index/chatpage/coinforviewimgvoide")
     @FormUrlEncoded
     Observable<DataResponse<FileManageResults>> payFile(@FieldMap Map<String, Object> params);
+
+
+    //动态列表
+    @POST("/index/userextv2/artnewslist")
+    @FormUrlEncoded
+    Observable<DataResponse<DynamicListResults>> dynamicList(@FieldMap Map<String, Object> params);
 
     /**
      * 创建一个API服务

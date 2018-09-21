@@ -144,6 +144,61 @@ public class BusinessCardEntity implements Serializable {
         private String audiourl;
         private int audiotimes;
 
+        private String bloodtype;
+        private int height;
+        private List<String> hobby;
+        private String starsign;
+        private String weight;
+        private String groupName;
+
+        public String getBloodtype() {
+            return bloodtype;
+        }
+
+        public void setBloodtype(String bloodtype) {
+            this.bloodtype = bloodtype;
+        }
+
+        public int getHeight() {
+            return height;
+        }
+
+        public void setHeight(int height) {
+            this.height = height;
+        }
+
+        public List<String> getHobby() {
+            return hobby;
+        }
+
+        public void setHobby(List<String> hobby) {
+            this.hobby = hobby;
+        }
+
+        public String getStarsign() {
+            return starsign;
+        }
+
+        public void setStarsign(String starsign) {
+            this.starsign = starsign;
+        }
+
+        public String getWeight() {
+            return weight;
+        }
+
+        public void setWeight(String weight) {
+            this.weight = weight;
+        }
+
+        public String getGroupName() {
+            return groupName;
+        }
+
+        public void setGroupName(String groupName) {
+            this.groupName = groupName;
+        }
+
         public String getAudiourl() {
             return audiourl;
         }
@@ -404,7 +459,14 @@ public class BusinessCardEntity implements Serializable {
             sb.append(", appointmentFlag=").append(appointmentFlag);
             sb.append(", audiourl=").append(audiourl);
             sb.append(", audiotimes=").append(audiotimes);
+            sb.append(", bloodtype=").append(bloodtype);
+            sb.append(", height=").append(height);
+            sb.append(", hobby=").append(hobby);
+            sb.append(", starsign=").append(starsign);
+            sb.append(", weight=").append(weight);
+            sb.append(", groupName=").append(groupName);
             sb.append('}');
+
             return sb.toString();
         }
     }

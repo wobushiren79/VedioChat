@@ -9,6 +9,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
@@ -45,8 +46,11 @@ import com.huanmedia.videochat.main2.fragment.HomeFragment;
 import com.huanmedia.videochat.main2.fragment.MyFragment;
 import com.huanmedia.videochat.main2.fragment.VideoListFragment;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
+import com.huanmedia.videochat.mvp.presenter.user.AttentionPresenterImpl;
 import com.huanmedia.videochat.mvp.presenter.user.BusinessCardInfoPresenterlmpl;
+import com.huanmedia.videochat.mvp.presenter.user.IAttentionPresenter;
 import com.huanmedia.videochat.mvp.presenter.user.IBusinessCardInfoPresenter;
+import com.huanmedia.videochat.mvp.view.user.IAttentionView;
 import com.huanmedia.videochat.mvp.view.user.IBusinessCardInfoView;
 import com.huanmedia.videochat.repository.entity.PhotosEntity;
 import com.huanmedia.videochat.repository.entity.VideoEntity;
@@ -66,6 +70,7 @@ import mvp.data.store.glide.GlideUtils;
 public class ArtistActivity extends BaseActivity
         implements
         IBusinessCardInfoView,
+        IAttentionView,
         OnTabSelectListener,
         ViewPager.OnPageChangeListener,
         CustomAppBarLayout.CallBack {
@@ -93,6 +98,10 @@ public class ArtistActivity extends BaseActivity
     ViewPager mViewPager;
     @BindView(R.id.ll_bt_layout)
     LinearLayout mLLBTLayout;
+    @BindView(R.id.view_content)
+    NestedScrollView mViewContent;
+    @BindView(R.id.rl_head)
+    RelativeLayout mRLHead;
 
     @BindView(R.id.iv_attention)
     AppCompatImageView mIVAttention;
@@ -103,6 +112,7 @@ public class ArtistActivity extends BaseActivity
     private ArrayList<CustomTabEntity> mTabs;
     private BusinessCardInfoResults mUserData;
     private IBusinessCardInfoPresenter mBusinessCardInfoPresenter;
+    private IAttentionPresenter mAttentionPresenter;
     private Fragment[] mFragments;
     private MainPageFragmentAdapter mAdapter;
 
@@ -160,6 +170,7 @@ public class ArtistActivity extends BaseActivity
         mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setOnTabSelectListener(this);
         mBusinessCardInfoPresenter = new BusinessCardInfoPresenterlmpl(this);
+        mAttentionPresenter = new AttentionPresenterImpl(this);
         mBusinessCardInfoPresenter.getBusinessCardInfo(mUserId, 0);
     }
 
@@ -192,6 +203,10 @@ public class ArtistActivity extends BaseActivity
         setUserIcon(results.getBase().getUserphoto_thumb());
         setUserPic(results.getBase().getPhpots());
         setUserVideo(results.getBase().getVoides());
+        setTeamName(results.getBase().getGroupName());
+        if (mFragments[0] instanceof ArtistUserInfoFragment) {
+            ((ArtistUserInfoFragment) mFragments[0]).setUserData(results);
+        }
     }
 
     @Override
@@ -344,10 +359,22 @@ public class ArtistActivity extends BaseActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_attention:
+                mAttentionPresenter.attentionUser(mUserId, 1);
                 break;
             case R.id.iv_appointment:
-                getNavigator().navtoAppointment(this,mUserId);
+                getNavigator().navtoAppointment(this, mUserId);
                 break;
         }
+    }
+
+    //-------------关注处理-----------
+    @Override
+    public void attentionUserSuccess() {
+        showToast("关注成功");
+    }
+
+    @Override
+    public void attentionUserFail(String msg) {
+        showToast(msg);
     }
 }

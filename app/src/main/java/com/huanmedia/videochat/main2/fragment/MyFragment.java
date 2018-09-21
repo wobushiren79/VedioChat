@@ -52,6 +52,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import mvp.data.store.DataKeeper;
 import mvp.data.store.glide.GlideUtils;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
@@ -127,11 +128,15 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView, 
     LinearLayout mLLAudioAdd;
     @BindView(R.id.audio_play)
     AudioPlayView mAudioPlay;
+    @BindView(R.id.ll_help_hint)
+    LinearLayout mLLHelpHint;
+
     private MainInteractionListener mListener;
     private IAudioFilePresenter mAudioFilePresenter;
     private AudioFileResults mAudioFile;
     private Badge mMsgBadeg;
     private CallBack mCallBack;
+    private DataKeeper mDataKeeper;
 //    private Badge mMyBadeg;
 
     public MyFragment() {
@@ -250,6 +255,17 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView, 
 
     }
 
+    @Override
+    protected void initView(View view) {
+        super.initView(view);
+        mDataKeeper = new DataKeeper(getContext(), "myfragment_hint");
+        if (mDataKeeper.get("isshow_help_hint", false)) {
+            mLLHelpHint.setVisibility(View.GONE);
+        } else {
+            mLLHelpHint.setVisibility(View.VISIBLE);
+        }
+
+    }
 
     @Override
     protected void initData() {
@@ -345,6 +361,8 @@ public class MyFragment extends BaseMVPFragment<MyPresenter> implements MyView, 
                 getNavigator().navtoSetting(getActivity());
                 break;
             case R.id.my_fm_rl_help://帮助
+                mDataKeeper.put("isshow_help_hint", true);
+                mLLHelpHint.setVisibility(View.GONE);
                 getNavigator().navtoHelp(getActivity());
                 break;
             case R.id.my_fm_iv_header://头像大图

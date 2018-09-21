@@ -32,8 +32,14 @@ public class ArtistsGroupShowPresenterImpl extends BaseMVPPresenter<IArtistsGrou
                     return;
                 if (data.getBase() != null && data.getBase().getImgurl() != null)
                     mMvpView.setArtistsGroupBackGround(data.getBase().getImgurl());
-                if (data.getItems() != null)
+                if (data.getBase() != null && data.getBase().getTitleimgurla() != null)
+                    mMvpView.setArtistsGroupTitle(data.getBase().getTitleimgurla());
+                if (data.getItems() != null) {
+                    for (ArtistsGroupShowResults.Items item : data.getItems()) {
+                        item.getInfo().setGroupName(data.getBase().getName());
+                    }
                     mMvpView.setArtistsList(data.getItems());
+                }
             }
 
             @Override

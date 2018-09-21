@@ -17,7 +17,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dimen_120dp"
             android:lines="1"
-            android:text="魏一萌"
+            android:text="未知"
             android:textSize="@dimen/dimen_40dp"
             android:textStyle="bold" />
 
@@ -29,7 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dimen_4dp"
             android:lines="1"
-            android:text="你好少女"
+            android:text="未知"
             android:textColor="@color/color_ff7eaa"
             android:textSize="@dimen/dimen_24dp" />
 
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tv_age_title"
                 android:lines="1"
-                android:text="22"
+                android:text="未知"
                 android:textColor="@color/color_ff4f85"
                 android:textSize="@dimen/dimen_24dp" />
 
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tv_high_title"
                 android:lines="1"
-                android:text="165"
+                android:text="未知"
                 android:textColor="@color/color_ff4f85"
                 android:textSize="@dimen/dimen_24dp" />
 
@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tv_like_title"
                 android:lines="1"
-                android:text="唱歌跳舞"
+                android:text="未知"
                 android:textColor="@color/color_ff4f85"
                 android:textSize="@dimen/dimen_24dp" />
 

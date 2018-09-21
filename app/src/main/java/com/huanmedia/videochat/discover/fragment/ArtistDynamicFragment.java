@@ -64,6 +64,9 @@ public class ArtistDynamicFragment extends BaseFragment implements IDynamicListV
     @Override
     public void getDynamicListSuccess(DynamicListResults results) {
         mListData = results.getList();
+        mListAdapter.setUserInfo(results.getUinfo());
+        mListAdapter.setGroupInfo(results.getStuinfo());
+        mListAdapter.setData(mListData);
     }
 
     @Override

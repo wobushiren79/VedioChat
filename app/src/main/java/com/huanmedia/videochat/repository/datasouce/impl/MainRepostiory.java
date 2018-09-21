@@ -2,6 +2,7 @@ package com.huanmedia.videochat.repository.datasouce.impl;
 
 import com.huanmedia.videochat.common.manager.ResourceManager;
 import com.huanmedia.videochat.main2.datamodel.SkinMode;
+import com.huanmedia.videochat.mvp.entity.results.AttentionResults;
 import com.huanmedia.videochat.mvp.entity.results.ContactUnLockInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.SystemTagsResults;
 import com.huanmedia.videochat.mvp.entity.results.TalkRoomListResults;
@@ -94,7 +95,7 @@ public class MainRepostiory implements DataSource, MainSource {
     }
 
     @Override
-    public Observable<DataResponse> favorite(String id, int flag) {
+    public Observable<DataResponse<Object>> favorite(String id, int flag) {
         return mRemoteDataSource.favorite(id, flag).compose(ThreadExecutorHandler.toMain(mThreadProvider));
     }
 

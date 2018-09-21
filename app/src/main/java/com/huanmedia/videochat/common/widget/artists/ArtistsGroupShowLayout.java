@@ -25,6 +25,7 @@ public class ArtistsGroupShowLayout extends BaseFrameLayout {
 
     private RelativeLayout mRLLayout;
     private ImageView mIVBackGround;
+    private ImageView mIVTitle;
     private TextView mTVMask;
 
     private ArtistsGroupShowResults mBaseData;
@@ -44,6 +45,7 @@ public class ArtistsGroupShowLayout extends BaseFrameLayout {
         mRLLayout = findViewById(R.id.rl_layout);
         mIVBackGround = findViewById(R.id.iv_background);
         mTVMask = findViewById(R.id.tv_mask);
+        mIVTitle = findViewById(R.id.iv_title);
     }
 
     @Override
@@ -71,6 +73,14 @@ public class ArtistsGroupShowLayout extends BaseFrameLayout {
      */
     public void setBackGround(String url) {
         GlideApp.with(getContext()).load(url).into(mIVBackGround);
+    }
+
+    /**
+     * 设置标题图片
+     * @param url
+     */
+    public void setTitleImage(String url) {
+        GlideApp.with(getContext()).load(url).into(mIVTitle);
     }
 
     /**

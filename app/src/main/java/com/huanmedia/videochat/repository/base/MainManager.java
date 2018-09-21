@@ -8,11 +8,13 @@ import com.huanmedia.videochat.mvp.entity.request.AppointmentListOpRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentRequest;
 import com.huanmedia.videochat.mvp.entity.request.AppointmentSettingRequest;
 import com.huanmedia.videochat.mvp.entity.request.ArtistsGroupShowRequest;
+import com.huanmedia.videochat.mvp.entity.request.AttentionRequest;
 import com.huanmedia.videochat.mvp.entity.request.AudioFileRequest;
 import com.huanmedia.videochat.mvp.entity.request.BusinessCardInfoRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatListRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatReadRequest;
 import com.huanmedia.videochat.mvp.entity.request.ChatSendRequest;
+import com.huanmedia.videochat.mvp.entity.request.DynamicListRequset;
 import com.huanmedia.videochat.mvp.entity.request.FileManageRequest;
 import com.huanmedia.videochat.mvp.entity.request.FileUpLoadRequest;
 import com.huanmedia.videochat.mvp.entity.request.PageRequest;
@@ -33,9 +35,11 @@ import com.huanmedia.videochat.mvp.entity.results.AppointmentSettingResults;
 import com.huanmedia.videochat.mvp.entity.results.AppointmentUserInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupResults;
 import com.huanmedia.videochat.mvp.entity.results.ArtistsGroupShowResults;
+import com.huanmedia.videochat.mvp.entity.results.AttentionResults;
 import com.huanmedia.videochat.mvp.entity.results.AudioFileResults;
 import com.huanmedia.videochat.mvp.entity.results.BusinessCardInfoResults;
 import com.huanmedia.videochat.mvp.entity.results.ChatListResults;
+import com.huanmedia.videochat.mvp.entity.results.DynamicListResults;
 import com.huanmedia.videochat.mvp.entity.results.FileHotTagResults;
 import com.huanmedia.videochat.mvp.entity.results.FileManageResults;
 import com.huanmedia.videochat.mvp.entity.results.FileUpLoadResults;
@@ -402,4 +406,22 @@ public interface MainManager {
      * @param handler
      */
     void getUserAudio(Context context, AudioFileRequest params, HttpResponseHandler<AudioFileResults> handler);
+
+    /**
+     * 动态列表
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void getDynamicList(Context context, DynamicListRequset params, HttpResponseHandler<DynamicListResults> handler);
+
+
+    /**
+     * 关注用户
+     * @param context
+     * @param params
+     * @param handler
+     */
+    void attentionUser(Context context, AttentionRequest params, HttpResponseHandler handler);
+
 }

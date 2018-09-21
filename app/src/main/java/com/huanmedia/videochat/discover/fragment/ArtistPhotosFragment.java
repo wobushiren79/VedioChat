@@ -58,4 +58,5 @@ public class ArtistPhotosFragment extends BaseFragment {
     public void setPhotosData(List<PhotosEntity> listPhotosData) {
         mListPhotosData = listPhotosData;
     }
+
 }

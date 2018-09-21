@@ -17,7 +17,9 @@ public class DynamicListPresenterImpl extends BaseMVPPresenter<IDynamicListView,
         if (mMvpView.getContext() == null)
             return;
         DynamicListRequset params = new DynamicListRequset();
-        mMvpModel.getDynamicList(params, new DataCallBack<DynamicListResults>() {
+        params.setPage(1);
+        params.setUid(userId);
+        mMvpModel.getDynamicList(mMvpView.getContext(), params, new DataCallBack<DynamicListResults>() {
             @Override
             public void getDataSuccess(DynamicListResults data) {
                 mMvpView.getDynamicListSuccess(data);

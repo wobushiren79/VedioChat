@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_28dp"
-                android:text="小包子"
+                android:text="未知"
                 android:textColor="@color/base_black"
                 android:textSize="@dimen/dimen_28dp" />
         </LinearLayout>
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_28dp"
-                android:text="08-25"
+                android:text="未知"
                 android:textColor="@color/base_black"
                 android:textSize="@dimen/dimen_28dp" />
         </LinearLayout>
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_28dp"
-                android:text="0型"
+                android:text="未知"
                 android:textColor="@color/base_black"
                 android:textSize="@dimen/dimen_28dp" />
         </LinearLayout>
@@ -129,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_28dp"
-                android:text="163cm"
+                android:text="未知"
                 android:textColor="@color/base_black"
                 android:textSize="@dimen/dimen_28dp" />
         </LinearLayout>
@@ -155,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_28dp"
-                android:text="宅舞，汉服，COSPLAY"
+                android:text="未知"
                 android:textColor="@color/base_black"
                 android:textSize="@dimen/dimen_28dp" />
         </LinearLayout>

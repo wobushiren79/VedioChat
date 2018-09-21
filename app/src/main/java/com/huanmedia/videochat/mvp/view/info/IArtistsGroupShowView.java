@@ -32,6 +32,11 @@ public interface IArtistsGroupShowView extends BaseMVPView {
      */
     void setArtistsGroupBackGround(String backGroundUrl);
 
+    /**
+     * 设置组合标题
+     * @param url
+     */
+    void setArtistsGroupTitle(String url);
 
     /**
      * 设置艺人列表

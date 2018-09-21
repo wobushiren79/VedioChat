@@ -1,5 +1,7 @@
 package com.huanmedia.videochat.mvp.model.user;
 
+import android.content.Context;
+
 import com.huanmedia.videochat.mvp.base.DataCallBack;
 import com.huanmedia.videochat.mvp.entity.request.DynamicListRequset;
 
@@ -10,5 +12,5 @@ public interface IDynamicModel {
      * @param params
      * @param callBack
      */
-    void getDynamicList(DynamicListRequset params, DataCallBack callBack);
+    void getDynamicList(Context context,DynamicListRequset params, DataCallBack callBack);
 }

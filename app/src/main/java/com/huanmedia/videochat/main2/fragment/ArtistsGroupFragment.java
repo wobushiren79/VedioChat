@@ -69,6 +69,11 @@ public class ArtistsGroupFragment extends BaseFragment implements IArtistsGroupS
     }
 
     @Override
+    public void setArtistsGroupTitle(String url) {
+        mShowLayout.setTitleImage(url);
+    }
+
+    @Override
     public void setArtistsList(List<ArtistsGroupShowResults.Items> listData) {
         mShowLayout.setArtistsList(listData);
     }
